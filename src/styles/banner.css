@@ -1,0 +1,50 @@
+.offers-banner {
+  padding: var(--space-10) 0;
+  background: linear-gradient(135deg, var(--petrol-800) 0%, var(--petrol-900) 100%);
+  color: white;
+}
+.banner-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
+}
+.banner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+.banner-item {
+  text-align: center;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+}
+.banner-item:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+.banner-icon {
+  width: 48px; height: 48px;
+  margin: 0 auto var(--space-4);
+  color: var(--amber-400);
+}
+.banner-item h3 {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+.banner-item p {
+  font-size: 13px;
+  color: var(--petrol-200);
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .offers-banner { padding: var(--space-8) 0; }
+  .banner-inner { padding: 0 var(--space-5); }
+  .banner-grid { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+}
+@media (max-width: 540px) {
+  .banner-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,58 @@
+const testimonials = [
+  {
+    id: 1,
+    name: 'Rajesh Sharma',
+    role: 'Wedding Photographer',
+    city: 'Mumbai',
+    type: 'photographer',
+    quote: 'Canvera has transformed my business. The album quality is unmatched, and my clients are always amazed. The free design service saves me hours every week.',
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: 'Priya Mehta',
+    role: 'Portrait Photographer',
+    city: 'Bangalore',
+    type: 'photographer',
+    quote: 'I have been using Canvera for over 5 years. The consistency in print quality and the fast delivery keeps me coming back. Truly a photographer\'s partner.',
+    rating: 5,
+  },
+  {
+    id: 3,
+    name: 'Arun Kapoor',
+    role: 'Commercial Photographer',
+    city: 'Delhi',
+    type: 'photographer',
+    quote: 'The range of products is incredible. From premium flushmount albums to canvas prints, everything is top-notch. My clients always get the wow factor.',
+    rating: 5,
+  },
+  {
+    id: 4,
+    name: 'Sneha & Vikram',
+    role: 'Wedding Couple',
+    city: 'Hyderabad',
+    type: 'client',
+    quote: 'Our wedding album from Canvera is absolutely gorgeous. The leather cover and thick pages make it feel so premium. We treasure it every day.',
+    rating: 5,
+  },
+  {
+    id: 5,
+    name: 'Meera Joshi',
+    role: 'New Mother',
+    city: 'Pune',
+    type: 'client',
+    quote: 'Created a beautiful photobook for my baby\'s first year. The print quality is stunning, and the layflat binding makes every spread look perfect.',
+    rating: 5,
+  },
+  {
+    id: 6,
+    name: 'Karthik Raman',
+    role: 'Anniversary Gift',
+    city: 'Chennai',
+    type: 'client',
+    quote: 'Ordered a canvas print for our anniversary. The colors are vibrant, the quality is excellent, and it was delivered ahead of schedule. Highly recommend!',
+    rating: 5,
+  },
+];
+
+export default testimonials;

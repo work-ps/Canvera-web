@@ -1,0 +1,82 @@
+.categories-section {
+  padding: var(--space-11) 0 var(--space-12);
+  background: var(--neutral-25);
+}
+.categories-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
+}
+.categories-section .section-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--amber-500); font-weight: 600; margin-bottom: var(--space-2);
+  text-align: center;
+}
+.categories-section .section-title {
+  font-family: var(--font-display); font-size: 32px; color: var(--petrol-800);
+  line-height: 1.2; margin-bottom: var(--space-3); text-align: center;
+}
+.categories-section .section-subtitle {
+  font-family: var(--font-body); font-size: 15px; color: var(--neutral-500);
+  line-height: 1.6; text-align: center; margin-bottom: var(--space-9);
+}
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+.category-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  height: 220px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+.category-card-bg {
+  position: absolute; inset: 0;
+  transition: transform 0.4s ease;
+}
+.category-card:hover .category-card-bg {
+  transform: scale(1.05);
+}
+.category-card-content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: var(--space-6);
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+  color: white;
+}
+.category-card-content h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin-bottom: var(--space-1);
+}
+.category-card-content p {
+  font-size: 13px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+.category-card-count {
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  color: white;
+}
+
+@media (max-width: 900px) {
+  .categories-section { padding: var(--space-9) 0 var(--space-10); }
+  .categories-inner { padding: 0 var(--space-5); }
+  .categories-grid { grid-template-columns: 1fr 1fr; }
+  .categories-section .section-title { font-size: 26px; }
+}
+@media (max-width: 540px) {
+  .categories-grid { grid-template-columns: 1fr; }
+  .category-card { height: 180px; }
+}

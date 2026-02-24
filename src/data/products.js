@@ -1,0 +1,25 @@
+const products = [
+  { id: 1, name: 'Neo-Flushmount Luxury', slug: 'neo-flushmount-luxury', category: 'Premium Albums', tag: 'Premium Album', rating: 4.9, reviewCount: 230, badge: 'bestseller', imageVariant: 'petrol', specs: '12×18 · Matte/Glossy · Leather cover' },
+  { id: 2, name: 'Neo-Flushmount Mesmera', slug: 'neo-flushmount-mesmera', category: 'Premium Albums', tag: 'Premium Album', rating: 4.7, reviewCount: 85, badge: 'new', imageVariant: 'amber', specs: '12×18 · Matte · Velvet cover' },
+  { id: 3, name: 'Ornato Photobooks', slug: 'ornato', category: 'Photobooks', tag: 'Wedding Collection', rating: 4.8, reviewCount: 190, badge: 'popular', imageVariant: 'warm', specs: '10×14 · Glossy · Hardbound' },
+  { id: 4, name: 'Neo-Flushmount Regal', slug: 'neo-flushmount-regal', category: 'Premium Albums', tag: 'Premium Album', rating: 4.8, reviewCount: 150, badge: null, imageVariant: 'dark', specs: '12×18 · Lustre · Leather cover' },
+  { id: 5, name: 'Standard Plus', slug: 'standard-plus', category: 'Standard Albums', tag: 'Professional Album', rating: 4.6, reviewCount: 310, badge: null, imageVariant: 'neutral', specs: '10×14 · Matte · Hardbound' },
+  { id: 6, name: 'Magazine Photobook', slug: 'magazine-photobook', category: 'Photobooks', tag: 'Photobook', rating: 4.5, reviewCount: 200, badge: null, imageVariant: 'mixed', specs: '8×10 · Matte · Softbound' },
+  { id: 7, name: 'Premium Eco Leather', slug: 'premium-eco-leather', category: 'Premium Albums', tag: 'Specialty Collection', rating: 4.7, reviewCount: 95, badge: 'eco', imageVariant: 'leaf', specs: '12×18 · Matte · Eco Leather cover' },
+  { id: 8, name: 'Flushmount Ultra', slug: 'flushmount-ultra', category: 'Premium Albums', tag: 'Premium Album', rating: 4.6, reviewCount: 175, badge: null, imageVariant: 'deep', specs: '12×18 · Glossy · Padded cover' },
+  { id: 9, name: 'Neo-Classic Flush', slug: 'neo-classic-flush', category: 'Premium Albums', tag: 'Premium Album', rating: 4.7, reviewCount: 120, badge: null, imageVariant: 'petrol', specs: '12×18 · Matte · Classic Leather' },
+  { id: 10, name: 'Digi Photobook', slug: 'digi-photobook', category: 'Photobooks', tag: 'Photobook', rating: 4.4, reviewCount: 260, badge: null, imageVariant: 'amber', specs: '8×12 · Glossy · Hardbound' },
+  { id: 11, name: 'Standard Economy', slug: 'standard-economy', category: 'Standard Albums', tag: 'Professional Album', rating: 4.3, reviewCount: 420, badge: 'popular', imageVariant: 'neutral', specs: '10×14 · Matte · Standard cover' },
+  { id: 12, name: 'Canvas Wrap Print', slug: 'canvas-wrap', category: 'Canvas & Frames', tag: 'Wall Decor', rating: 4.8, reviewCount: 65, badge: 'new', imageVariant: 'warm', specs: 'Multiple sizes · Gallery wrap · 1.5" depth' },
+  { id: 13, name: 'Framed Gallery Print', slug: 'framed-gallery', category: 'Canvas & Frames', tag: 'Wall Decor', rating: 4.7, reviewCount: 45, badge: null, imageVariant: 'dark', specs: 'Multiple sizes · Wood frame · Glass front' },
+  { id: 14, name: 'Photo Calendar', slug: 'photo-calendar', category: 'Calendars', tag: 'Calendar', rating: 4.5, reviewCount: 180, badge: null, imageVariant: 'mixed', specs: 'Wall/Desk · 12 months · Custom photos' },
+  { id: 15, name: 'Photo Mug', slug: 'photo-mug', category: 'Decor & Gifts', tag: 'Gift Item', rating: 4.6, reviewCount: 340, badge: 'popular', imageVariant: 'amber', specs: '11oz/15oz · Ceramic · Dishwasher safe' },
+  { id: 16, name: 'Acrylic Print', slug: 'acrylic-print', category: 'Canvas & Frames', tag: 'Wall Decor', rating: 4.9, reviewCount: 35, badge: 'new', imageVariant: 'petrol', specs: 'Multiple sizes · 3mm acrylic · HD print' },
+  { id: 17, name: 'Metal Print', slug: 'metal-print', category: 'Canvas & Frames', tag: 'Wall Decor', rating: 4.8, reviewCount: 28, badge: null, imageVariant: 'deep', specs: 'Multiple sizes · Aluminium · Float mount' },
+  { id: 18, name: 'Photo Cushion', slug: 'photo-cushion', category: 'Decor & Gifts', tag: 'Gift Item', rating: 4.4, reviewCount: 155, badge: null, imageVariant: 'warm', specs: '16×16 · Polyester · Custom print' },
+  { id: 19, name: 'Premium Table Calendar', slug: 'premium-table-calendar', category: 'Calendars', tag: 'Calendar', rating: 4.6, reviewCount: 90, badge: null, imageVariant: 'leaf', specs: 'Desktop · 12 months · Premium card stock' },
+  { id: 20, name: 'Photo Magnet Set', slug: 'photo-magnet-set', category: 'Decor & Gifts', tag: 'Gift Item', rating: 4.3, reviewCount: 210, badge: null, imageVariant: 'neutral', specs: 'Set of 9 · 3×3 · Fridge magnets' },
+  { id: 21, name: 'Layflat Photobook', slug: 'layflat-photobook', category: 'Photobooks', tag: 'Photobook', rating: 4.7, reviewCount: 140, badge: 'bestseller', imageVariant: 'dark', specs: '10×14 · Matte · 180° layflat binding' },
+];
+
+export default products;

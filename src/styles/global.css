@@ -1,0 +1,284 @@
+/* ==========================================================================
+   Global Styles
+   Reset + Design System component classes for the Canvera application.
+   ========================================================================== */
+
+@import './tokens.css';
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--neutral-25);
+    color: var(--neutral-800);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ==========================================================================
+   Button Component
+   ========================================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.btn-primary {
+    background: var(--petrol-600);
+    color: white;
+}
+.btn-primary:hover {
+    background: var(--petrol-700);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-accent {
+    background: var(--amber-500);
+    color: white;
+}
+.btn-accent:hover {
+    background: var(--amber-600);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--petrol-600);
+    border: 1.5px solid var(--petrol-300);
+}
+.btn-outline:hover {
+    background: var(--petrol-50);
+    border-color: var(--petrol-500);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--petrol-600);
+    border: none;
+}
+.btn-ghost:hover {
+    background: var(--petrol-50);
+}
+
+.btn-success {
+    background: var(--leaf-500);
+    color: white;
+}
+.btn-success:hover {
+    background: var(--leaf-600);
+}
+
+.btn-danger {
+    background: var(--error);
+    color: white;
+}
+.btn-danger:hover {
+    background: #B91C1C;
+}
+
+.btn-lg {
+    font-size: 15px;
+    padding: 14px 28px;
+}
+
+.btn-md {
+    font-size: 13px;
+    padding: 10px 20px;
+}
+
+.btn-sm {
+    font-size: 12px;
+    padding: 6px 14px;
+}
+
+/* ==========================================================================
+   Input Component
+   ========================================================================== */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--neutral-700);
+}
+
+.input-field {
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--neutral-200);
+    border-radius: var(--radius-md);
+    background: white;
+    color: var(--neutral-800);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+}
+.input-field:focus {
+    border-color: var(--petrol-400);
+    box-shadow: 0 0 0 3px rgba(0,87,128,0.1);
+}
+
+.input-field.error {
+    border-color: var(--error);
+}
+.input-field.error:focus {
+    box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+}
+
+.input-hint {
+    font-size: 12px;
+    color: var(--neutral-500);
+}
+.input-hint.error-text {
+    color: var(--error);
+}
+
+/* ==========================================================================
+   Badge Component
+   ========================================================================== */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-petrol {
+    background: var(--petrol-50);
+    color: var(--petrol-700);
+}
+.badge-amber {
+    background: var(--amber-50);
+    color: var(--amber-700);
+}
+.badge-leaf {
+    background: var(--leaf-50);
+    color: var(--leaf-700);
+}
+.badge-neutral {
+    background: var(--neutral-100);
+    color: var(--neutral-700);
+}
+.badge-error {
+    background: var(--error-bg);
+    color: var(--error);
+}
+
+/* ==========================================================================
+   Alert Component
+   ========================================================================== */
+
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.alert-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.alert-info {
+    background: var(--info-bg);
+    color: var(--petrol-800);
+    border: 1px solid var(--petrol-100);
+}
+.alert-success {
+    background: var(--success-bg);
+    color: var(--leaf-800);
+    border: 1px solid var(--leaf-100);
+}
+.alert-warning {
+    background: var(--warning-bg);
+    color: var(--amber-800);
+    border: 1px solid var(--amber-100);
+}
+.alert-error {
+    background: var(--error-bg);
+    color: #991B1B;
+    border: 1px solid #FEE2E2;
+}
+
+/* ==========================================================================
+   Card Component
+   ========================================================================== */
+
+.card {
+    background: white;
+    border: 1px solid var(--neutral-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: var(--space-5);
+}

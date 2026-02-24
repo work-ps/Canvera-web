@@ -1,0 +1,70 @@
+.testimonials-section {
+  padding: var(--space-11) 0 var(--space-12);
+  background: white;
+}
+.testimonials-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
+}
+.testimonials-section .section-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--amber-500); font-weight: 600; margin-bottom: var(--space-2);
+  text-align: center;
+}
+.testimonials-section .section-title {
+  font-family: var(--font-display); font-size: 32px; color: var(--petrol-800);
+  line-height: 1.2; margin-bottom: var(--space-3); text-align: center;
+}
+.testimonials-section .section-subtitle {
+  font-family: var(--font-body); font-size: 15px; color: var(--neutral-500);
+  line-height: 1.6; text-align: center; margin-bottom: var(--space-9);
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+.testimonial-card {
+  background: var(--neutral-25);
+  border: 1px solid var(--neutral-100);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.testimonial-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.testimonial-stars {
+  display: flex; gap: 2px; margin-bottom: var(--space-4);
+}
+.testimonial-stars svg {
+  width: 16px; height: 16px; color: var(--amber-400);
+}
+.testimonial-quote {
+  font-family: var(--font-body); font-size: 14px; line-height: 1.7;
+  color: var(--neutral-700); margin-bottom: var(--space-5);
+  font-style: italic;
+}
+.testimonial-author {
+  display: flex; align-items: center; gap: var(--space-3);
+}
+.testimonial-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; color: white;
+}
+.testimonial-avatar.photographer { background: var(--petrol-600); }
+.testimonial-avatar.client { background: var(--amber-500); }
+.testimonial-name {
+  font-family: var(--font-body); font-size: 14px; font-weight: 600; color: var(--petrol-800);
+}
+.testimonial-role {
+  font-size: 12px; color: var(--neutral-500);
+}
+
+@media (max-width: 900px) {
+  .testimonials-section { padding: var(--space-9) 0 var(--space-10); }
+  .testimonials-inner { padding: 0 var(--space-5); }
+  .testimonials-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+  .testimonials-section .section-title { font-size: 26px; }
+}
