@@ -8,15 +8,14 @@
 .testimonials-section .section-label {
   font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
   color: var(--amber-500); font-weight: 600; margin-bottom: var(--space-2);
-  text-align: center;
 }
 .testimonials-section .section-title {
   font-family: var(--font-display); font-size: 32px; color: var(--petrol-800);
-  line-height: 1.2; margin-bottom: var(--space-3); text-align: center;
+  line-height: 1.2; margin-bottom: var(--space-3);
 }
 .testimonials-section .section-subtitle {
   font-family: var(--font-body); font-size: 15px; color: var(--neutral-500);
-  line-height: 1.6; text-align: center; margin-bottom: var(--space-9);
+  line-height: 1.6; margin-bottom: var(--space-9);
 }
 .testimonials-grid {
   display: grid;

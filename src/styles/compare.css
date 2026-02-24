@@ -1,0 +1,525 @@
+/* ==========================================================================
+   Compare Feature Styles
+   Covers: toggle on card, detail btn, floating bar, comparison drawer
+   ========================================================================== */
+
+/* ---------- Compare Toggle on ProductCard ---------- */
+.pc-compare-toggle {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(4px);
+  color: var(--neutral-600);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.pc-compare-toggle:focus,
+.pc-compare-toggle:focus-visible,
+.pc-compare-toggle:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.pc-compare-toggle svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+/* Override the card-level image svg hover transform for this icon */
+.pc-compare-toggle svg {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.product-card:hover .pc-compare-toggle {
+  opacity: 1;
+  transform: scale(1);
+}
+.pc-compare-toggle:hover {
+  background: rgba(255,255,255,0.95);
+  color: var(--petrol-600);
+}
+
+/* ---------- Square Compare Checkbox (listing mode) ---------- */
+.pc-compare-square {
+  border-radius: var(--radius-sm);
+  width: 20px;
+  height: 20px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: rgba(255,255,255,0.7);
+  overflow: hidden;
+}
+.pc-compare-square:focus,
+.pc-compare-square:focus-visible,
+.pc-compare-square:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.pc-compare-square svg {
+  width: 16px !important;
+  height: 16px !important;
+  color: white !important;
+}
+.pc-compare-square:hover {
+  background: rgba(255,255,255,0.9);
+}
+.pc-compare-square.pc-compare-active {
+  background: var(--petrol-600) !important;
+  border-radius: var(--radius-sm) !important;
+}
+.pc-compare-square.pc-compare-active:hover {
+  background: var(--petrol-700) !important;
+}
+
+/* Reveal all checkboxes when any product is selected for compare */
+.pc-compare-mode .pc-compare-toggle {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Active state — always visible, petrol bg */
+.pc-compare-active {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  background: var(--petrol-600) !important;
+  color: white !important;
+}
+.pc-compare-active:hover {
+  background: var(--petrol-700) !important;
+  color: white !important;
+}
+
+/* Disabled state — muted */
+.pc-compare-disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed;
+  pointer-events: auto;
+}
+
+/* ---------- Compare Button on ProductDetail ---------- */
+.compare-detail-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.compare-detail-btn svg {
+  flex-shrink: 0;
+}
+.compare-detail-btn.compare-active {
+  border-color: var(--petrol-600);
+  background: var(--petrol-50);
+  color: var(--petrol-700);
+}
+
+/* ---------- Compare Bar (floating bottom bar) ---------- */
+.compare-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: white;
+  border-top: 1px solid var(--neutral-200);
+  box-shadow: 0 -4px 20px rgba(0,41,61,0.1);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.compare-bar.visible {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.compare-bar-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.compare-bar-items {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0;
+}
+
+.compare-bar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  min-width: 0;
+  max-width: 200px;
+}
+
+.compare-bar-item-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.compare-bar-item-thumb svg {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+}
+
+.compare-bar-item-name {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--neutral-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.compare-bar-item-remove {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--neutral-400);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.15s, background 0.15s;
+  padding: 0;
+}
+.compare-bar-item-remove:hover {
+  color: var(--error);
+  background: var(--error-bg);
+}
+.compare-bar-item-remove svg {
+  width: 10px;
+  height: 10px;
+}
+
+.compare-bar-slot-empty {
+  width: 120px;
+  height: 40px;
+  border: 1.5px dashed var(--neutral-200);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.compare-bar-slot-empty span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--neutral-300);
+  font-weight: 500;
+}
+
+.compare-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+/* ---------- Compare Drawer (full comparison overlay) ---------- */
+.compare-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(0,41,61,0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.compare-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.compare-drawer-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1101;
+  background: white;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.compare-drawer-panel.open {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.compare-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6) var(--space-8);
+  border-bottom: 1px solid var(--neutral-100);
+  flex-shrink: 0;
+}
+.compare-drawer-header h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--petrol-800);
+}
+.compare-drawer-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--neutral-200);
+  background: white;
+  color: var(--neutral-600);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.compare-drawer-close:hover {
+  background: var(--neutral-50);
+  color: var(--petrol-700);
+  border-color: var(--neutral-300);
+}
+.compare-drawer-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.compare-drawer-body {
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 0 var(--space-8) var(--space-8);
+  flex: 1;
+  min-height: 0;
+}
+
+/* Comparison Grid */
+.compare-grid {
+  display: grid;
+  min-width: fit-content;
+}
+
+/* Product header row */
+.compare-header-row {
+  display: contents;
+}
+.compare-header-label {
+  /* top-left empty cell */
+  padding: var(--space-6) var(--space-4) var(--space-6) 0;
+}
+.compare-header-cell {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  border-bottom: 1px solid var(--neutral-100);
+}
+.compare-header-img {
+  width: 80px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-3);
+}
+.compare-header-img svg {
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
+}
+.compare-header-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--petrol-800);
+  line-height: 1.3;
+  margin-bottom: var(--space-1);
+}
+.compare-header-tag {
+  font-family: var(--font-body);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--petrol-500);
+  font-weight: 600;
+}
+.compare-remove-btn {
+  margin-top: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--neutral-400);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+.compare-remove-btn:hover {
+  color: var(--error);
+  background: var(--error-bg);
+}
+
+/* Data rows */
+.compare-data-row {
+  display: contents;
+}
+.compare-row-label {
+  padding: var(--space-4) var(--space-4) var(--space-4) 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--neutral-50);
+}
+.compare-row-value {
+  padding: var(--space-4);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--neutral-700);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--neutral-50);
+  line-height: 1.4;
+}
+.compare-row-value .pc-stars {
+  justify-content: center;
+}
+.compare-row-value .pc-stars svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Rating specific styling */
+.compare-rating-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.compare-rating-num {
+  font-weight: 600;
+  color: var(--petrol-700);
+  font-size: 14px;
+}
+
+/* Availability badge */
+.compare-badge-instock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--leaf-700);
+  background: var(--leaf-50);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+.compare-badge-instock svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Empty state (less than 2 items somehow) */
+.compare-drawer-empty {
+  text-align: center;
+  padding: var(--space-10) 0;
+  color: var(--neutral-500);
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .compare-bar-inner {
+    padding: var(--space-3) var(--space-5);
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .compare-bar-items {
+    width: 100%;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .compare-bar-items::-webkit-scrollbar { display: none; }
+  .compare-bar-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .compare-bar-actions .btn { flex: 1; }
+  .compare-bar-slot-empty { width: 80px; }
+
+  .compare-drawer-header {
+    padding: var(--space-4) var(--space-5);
+  }
+  .compare-drawer-header h2 {
+    font-size: 20px;
+  }
+  .compare-drawer-body {
+    padding: 0 var(--space-5) var(--space-5);
+  }
+  .compare-header-img {
+    width: 56px;
+    height: 42px;
+  }
+  .compare-header-img svg {
+    width: 24px;
+    height: 24px;
+  }
+  .compare-header-name {
+    font-size: 13px;
+  }
+  .compare-row-label {
+    font-size: 11px;
+    min-width: 100px;
+  }
+  .compare-row-value {
+    font-size: 12px;
+    min-width: 120px;
+  }
+}

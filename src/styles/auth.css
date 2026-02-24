@@ -62,6 +62,42 @@
 }
 .terms-check a { color: var(--petrol-600); font-weight: 500; }
 
+/* Method tabs — pill-style toggle */
+.auth-method-tabs {
+  display: flex; gap: 0; background: var(--neutral-100);
+  border-radius: var(--radius-md); padding: 3px;
+}
+.auth-method-tab {
+  flex: 1; padding: 8px 16px; border: none; background: transparent;
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  color: var(--neutral-500); cursor: pointer; border-radius: calc(var(--radius-md) - 2px);
+  transition: all 0.2s ease;
+}
+.auth-method-tab:hover { color: var(--neutral-700); }
+.auth-method-tab.active {
+  background: white; color: var(--petrol-700); font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Send OTP button */
+.auth-send-otp { width: 100%; }
+
+/* OTP section */
+.auth-otp-section {
+  display: flex; flex-direction: column; gap: var(--space-1);
+}
+.auth-otp-resend {
+  display: flex; align-items: center; justify-content: flex-end;
+  margin-top: var(--space-1); font-size: 12px;
+}
+.auth-otp-timer { color: var(--neutral-400); }
+.auth-otp-resend-btn {
+  background: none; border: none; color: var(--petrol-600);
+  font-size: 12px; font-weight: 600; cursor: pointer; padding: 0;
+  font-family: var(--font-body);
+}
+.auth-otp-resend-btn:hover { color: var(--petrol-700); text-decoration: underline; }
+
 @media (max-width: 540px) {
   .auth-page { margin-top: 48px; padding: var(--space-6) var(--space-4); }
   .auth-card { padding: var(--space-7); }

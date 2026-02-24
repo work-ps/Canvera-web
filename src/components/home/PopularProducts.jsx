@@ -11,7 +11,12 @@ export default function PopularProducts() {
   const wrapRef = useRef(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [atEnd, setAtEnd] = useState(false)
-  const scrollStep = 364
+  const getScrollStep = () => {
+    const card = scrollRef.current?.querySelector('.product-card')
+    if (!card) return 340
+    const gap = parseFloat(getComputedStyle(scrollRef.current.querySelector('.products-scroll-track')).gap) || 24
+    return card.offsetWidth + gap
+  }
 
   const updateArrows = useCallback(() => {
     if (!scrollRef.current) return
@@ -32,8 +37,8 @@ export default function PopularProducts() {
     }
   }, [updateArrows])
 
-  const scrollLeft = () => scrollRef.current?.scrollBy({ left: -scrollStep, behavior: 'smooth' })
-  const scrollRight = () => scrollRef.current?.scrollBy({ left: scrollStep, behavior: 'smooth' })
+  const scrollLeft = () => scrollRef.current?.scrollBy({ left: -getScrollStep(), behavior: 'smooth' })
+  const scrollRight = () => scrollRef.current?.scrollBy({ left: getScrollStep(), behavior: 'smooth' })
 
   const popularProducts = popularIds.map(id => products.find(p => p.id === id)).filter(Boolean)
 
@@ -44,7 +49,7 @@ export default function PopularProducts() {
       <div className="popular-inner">
         <div className="section-header">
           <div>
-            <div className="section-label">Curated For You</div>
+            <div className="section-label">Crafted With Care</div>
             <h2 className="section-title">Popular Products</h2>
             <p className="section-subtitle">Loved by photographers across India</p>
           </div>

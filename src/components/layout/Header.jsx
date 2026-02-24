@@ -9,6 +9,7 @@ export default function Header() {
   const [activePanel, setActivePanel] = useState(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const hoverTimeoutRef = useRef(null)
+  const searchInputRef = useRef(null)
   const location = useLocation()
 
   // Close panels on route change
@@ -51,6 +52,13 @@ export default function Header() {
     if (activePanel === 'search') closePanel()
     else openPanel('search')
   }, [activePanel, openPanel, closePanel])
+
+  // Focus search input when search panel opens
+  useEffect(() => {
+    if (activePanel === 'search' && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current.focus(), 50)
+    }
+  }, [activePanel])
 
   // Close on escape
   useEffect(() => {
@@ -126,8 +134,14 @@ export default function Header() {
                 <path d="M10.5 10.5L15 15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
             </button>
-            <Link className="auth-contact" to="/contact">Contact Us</Link>
-            <Link className="auth-cta" to="/register">Join Free</Link>
+            <Link className="auth-contact" to="/login">
+              <svg viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
+                <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+              </svg>
+              Profile
+            </Link>
+            <Link className="auth-cta" to="/contact">Contact Us</Link>
           </div>
 
           <button className="mobile-toggle" aria-label="Menu">
@@ -168,7 +182,7 @@ export default function Header() {
               <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1.4"/>
               <path d="M10.5 10.5L15 15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
             </svg>
-            <input className="search-input" type="text" placeholder="Search canvera.com" autoFocus={activePanel === 'search'} />
+            <input ref={searchInputRef} className="search-input" type="text" placeholder="Search canvera.com" />
           </div>
           <div className="quick-links">
             <h4>Quick Links</h4>

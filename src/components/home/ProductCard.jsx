@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
-import StarRating from '../ui/StarRating'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useCompare } from '../../context/CompareContext'
+import productSlides from '../../data/productSlides'
 
 const badgeMap = {
   bestseller: { cls: 'pc-badge-bestseller', text: 'Best Seller' },
@@ -72,31 +74,158 @@ const productSvgs = {
   ),
 }
 
-export default function ProductCard({ product }) {
+export { productSvgs, badgeMap }
+
+export default function ProductCard({ product, showCompare = false, listingMode = false }) {
+  const { isInCompare, addToCompare, removeFromCompare, isCompareFull, compareList } = useCompare()
   const badge = product.badge ? badgeMap[product.badge] : null
+  const inCompare = showCompare && isInCompare(product.id)
+  const compareFull = showCompare && isCompareFull && !inCompare
+  const compareMode = listingMode && compareList.length > 0
+
+  /* ---- Carousel state (listing mode only) ---- */
+  const [slideIndex, setSlideIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const intervalRef = useRef(null)
+
+  useEffect(() => {
+    if (!listingMode) return
+    if (isHovered) {
+      intervalRef.current = setInterval(() => {
+        setSlideIndex(prev => (prev + 1) % productSlides.length)
+      }, 1500)
+    } else {
+      clearInterval(intervalRef.current)
+      setSlideIndex(0)
+    }
+    return () => clearInterval(intervalRef.current)
+  }, [isHovered, listingMode])
+
+  const handleMouseEnter = useCallback(() => setIsHovered(true), [])
+  const handleMouseLeave = useCallback(() => setIsHovered(false), [])
+
+  const navigate = useNavigate()
+
+  /* ---- Login CTA click (listing mode) ---- */
+  const handleLoginClick = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigate('/login')
+  }
+
+  /* ---- Compare click ---- */
+  const handleCompareClick = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (inCompare) {
+      removeFromCompare(product.id)
+    } else if (!compareFull) {
+      addToCompare(product)
+    }
+  }
+
+  /* ---- Resolve default SVG for this product ---- */
+  const defaultSvg = productSvgs[product.imageVariant] || productSvgs.petrol
 
   return (
-    <div className="product-card">
-      <div className={`pc-image pc-img-${product.imageVariant}`}>
-        {badge && <span className={`pc-badge ${badge.cls}`}>{badge.text}</span>}
-        {productSvgs[product.imageVariant] || productSvgs.petrol}
-      </div>
-      <div className="pc-body">
-        <div className="pc-tag">{product.tag}</div>
-        <div className="pc-name">{product.name}</div>
-        <div className="pc-rating">
-          <StarRating rating={product.rating} />
-          <span className="pc-rating-text">
-            <strong>{product.rating}</strong> ({product.reviewCount}+ reviews)
-          </span>
+    <Link to={`/products/${product.slug}`} className="product-card-link">
+      <div
+        className={`product-card${listingMode ? ' pc-listing-mode' : ''}${compareMode ? ' pc-compare-mode' : ''}`}
+        onMouseEnter={listingMode ? handleMouseEnter : undefined}
+        onMouseLeave={listingMode ? handleMouseLeave : undefined}
+      >
+        {/* ==================== IMAGE AREA ==================== */}
+        <div className={`pc-image pc-img-${product.imageVariant}`}>
+          {/* Badge (top-left) */}
+          {badge && <span className={`pc-badge ${badge.cls}`}>{badge.text}</span>}
+
+          {/* Compare toggle */}
+          {showCompare && (
+            <button
+              className={`pc-compare-toggle${listingMode ? ' pc-compare-square' : ''}${inCompare ? ' pc-compare-active' : ''}${compareFull ? ' pc-compare-disabled' : ''}`}
+              onClick={handleCompareClick}
+              aria-label={inCompare ? 'Remove from compare' : 'Add to compare'}
+              title={compareFull ? 'Maximum 4 products' : inCompare ? 'Remove from compare' : 'Compare'}
+            >
+              {inCompare ? (
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path d="M4.5 8L7 10.5L11.5 5.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.3"/>
+                </svg>
+              )}
+            </button>
+          )}
+
+          {/* Carousel slides (listing mode) OR static SVG (default) */}
+          {listingMode ? (
+            <div className="pc-carousel-wrap">
+              {productSlides.map((slide, i) => (
+                <div
+                  key={i}
+                  className={`pc-slide${i === slideIndex ? ' pc-slide-active' : ''}`}
+                >
+                  {slide === null ? defaultSvg : slide}
+                </div>
+              ))}
+            </div>
+          ) : (
+            defaultSvg
+          )}
+
+          {/* Dot indicators (listing mode, on hover) */}
+          {listingMode && isHovered && (
+            <div className="pc-dots">
+              {productSlides.map((_, i) => (
+                <span key={i} className={`pc-dot${i === slideIndex ? ' pc-dot-active' : ''}`} />
+              ))}
+            </div>
+          )}
+
+          {/* Rating pill (listing mode, bottom-left) */}
+          {listingMode && product.rating && (
+            <div className="pc-rating-pill">
+              <svg viewBox="0 0 12 12" fill="currentColor">
+                <path d="M6 .5l1.76 3.57 3.94.57-2.85 2.78.67 3.93L6 9.52 2.48 11.35l.67-3.93L.3 4.64l3.94-.57z"/>
+              </svg>
+              <span>{product.rating}</span>
+              <span className="pc-rating-count">({product.reviewCount})</span>
+            </div>
+          )}
         </div>
-        <Link to={`/products/${product.slug}`} className="pc-cta">
-          Learn More
-          <svg viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </Link>
+
+        {/* ==================== BODY AREA ==================== */}
+        {listingMode ? (
+          <div className="pc-body pc-body-listing">
+            {/* Default: tag + clamped name */}
+            <div className="pc-body-default">
+              <div className="pc-tag">{product.tag}</div>
+              <div className="pc-name pc-name-clamped">{product.name}</div>
+            </div>
+            {/* Hover: lock + CTA */}
+            <div className="pc-body-hover" onClick={handleLoginClick}>
+              <svg className="pc-lock-icon" viewBox="0 0 16 16" fill="none">
+                <rect x="3" y="7" width="10" height="8" rx="2" stroke="currentColor" strokeWidth="1.3"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+              </svg>
+              <span className="pc-login-cta">Login to add to cart</span>
+            </div>
+          </div>
+        ) : (
+          <div className="pc-body">
+            <div className="pc-tag">{product.tag}</div>
+            <div className="pc-name">{product.name}</div>
+            <div className="pc-specs">{product.specs}</div>
+            <span className="pc-arrow">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        )}
       </div>
-    </div>
+    </Link>
   )
 }

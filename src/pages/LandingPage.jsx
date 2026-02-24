@@ -1,7 +1,7 @@
 import Hero from '../components/home/Hero'
 import PopularProducts from '../components/home/PopularProducts'
 import OffersBanner from '../components/home/OffersBanner'
-import Categories from '../components/home/Categories'
+import ShopByOccasion from '../components/home/ShopByOccasion'
 import Testimonials from '../components/home/Testimonials'
 
 export default function LandingPage() {
@@ -10,7 +10,7 @@ export default function LandingPage() {
       <Hero />
       <PopularProducts />
       <OffersBanner />
-      <Categories />
+      <ShopByOccasion />
       <Testimonials />
     </>
   )

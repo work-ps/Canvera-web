@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { CompareProvider } from './context/CompareContext'
 import Layout from './components/layout/Layout'
 import LandingPage from './pages/LandingPage'
 import ProductsPage from './components/products/ProductsPage'
@@ -9,6 +10,7 @@ import SignUp from './components/auth/SignUp'
 
 function App() {
   return (
+    <CompareProvider>
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<LandingPage />} />
@@ -19,6 +21,7 @@ function App() {
         <Route path="/register" element={<SignUp />} />
       </Route>
     </Routes>
+    </CompareProvider>
   )
 }
 

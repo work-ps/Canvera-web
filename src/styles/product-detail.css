@@ -92,6 +92,13 @@
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-5);
 }
+.related-grid .product-card-link {
+  display: flex;
+  flex-direction: column;
+}
+.related-grid .product-card {
+  flex: 1;
+}
 
 @media (max-width: 900px) {
   .product-detail { margin-top: 48px; }

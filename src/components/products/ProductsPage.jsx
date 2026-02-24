@@ -92,7 +92,7 @@ export default function ProductsPage() {
 
             <div className="products-grid-list">
               {filtered.map(product => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} showCompare listingMode />
               ))}
             </div>
 

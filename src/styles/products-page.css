@@ -73,9 +73,25 @@
   font-size: 11px; color: var(--neutral-400); margin-left: auto;
 }
 
-/* Product card in grid */
+/* Product card in grid – consistent sizing */
+.products-grid-list .product-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .products-grid-list .product-card {
-  flex: unset;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.products-grid-list .pc-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+/* Listing mode body should not stretch */
+.products-grid-list .pc-body-listing {
+  flex: 0 0 auto;
 }
 
 @media (max-width: 900px) {

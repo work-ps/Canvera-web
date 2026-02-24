@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useMemo } from 'react'
 import StarRating from '../ui/StarRating'
 import ProductCard from '../home/ProductCard'
+import { useCompare } from '../../context/CompareContext'
 import products from '../../data/products'
 import '../../styles/product-detail.css'
 import '../../styles/popular-products.css'
@@ -19,6 +20,7 @@ const productSvgs = {
 
 export default function ProductDetail() {
   const { slug } = useParams()
+  const { isInCompare, addToCompare, removeFromCompare, isCompareFull } = useCompare()
 
   const product = useMemo(() => products.find(p => p.slug === slug), [slug])
 
@@ -39,6 +41,14 @@ export default function ProductDetail() {
         </div>
       </div>
     )
+  }
+
+  const inCompare = isInCompare(product.id)
+  const compareFull = isCompareFull && !inCompare
+
+  const handleCompare = () => {
+    if (inCompare) removeFromCompare(product.id)
+    else if (!compareFull) addToCompare(product)
   }
 
   const specsRows = [
@@ -89,6 +99,25 @@ export default function ProductDetail() {
               </div>
             </div>
 
+            <button
+              className={`btn btn-outline btn-md compare-detail-btn${inCompare ? ' compare-active' : ''}`}
+              onClick={handleCompare}
+              disabled={compareFull}
+              title={compareFull ? 'Maximum 4 products can be compared' : ''}
+            >
+              {inCompare ? (
+                <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
+                  <path d="M3.5 8.5L6.5 11.5L12.5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
+                  <rect x="1" y="4" width="7" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
+                  <rect x="8" y="3" width="7" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
+                </svg>
+              )}
+              {inCompare ? 'Remove from Compare' : 'Add to Compare'}
+            </button>
+
             <div className="product-specs">
               <h3>Specifications</h3>
               <table className="specs-table">
@@ -110,7 +139,7 @@ export default function ProductDetail() {
             <h2>Related Products</h2>
             <div className="related-grid">
               {related.map(p => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard key={p.id} product={p} showCompare />
               ))}
             </div>
           </div>

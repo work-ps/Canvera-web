@@ -10,24 +10,50 @@ export default function SignUp() {
     studioName: '', city: '', specialization: '', terms: false,
   })
   const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({})
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
     setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
-    setError('')
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({ ...prev, [name]: '' }))
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!form.fullName || !form.email || !form.password || !form.studioName) {
-      setError('Please fill in all required fields.')
-      return
+    const errors = {}
+
+    if (!form.fullName.trim()) {
+      errors.fullName = 'Full name is required'
     }
+
+    if (!form.email.trim()) {
+      errors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      errors.email = 'Please enter a valid email'
+    }
+
+    if (!form.password) {
+      errors.password = 'Password is required'
+    } else if (form.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters'
+    }
+
+    if (!form.studioName.trim()) {
+      errors.studioName = 'Studio name is required'
+    }
+
     if (!form.terms) {
-      setError('Please accept the Terms & Conditions.')
+      errors.terms = 'Please accept the Terms & Conditions'
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors)
       return
     }
+
+    setFieldErrors({})
     setSubmitted(true)
     setTimeout(() => setSubmitted(false), 4000)
   }
@@ -51,25 +77,17 @@ export default function SignUp() {
           </div>
         )}
 
-        {error && (
-          <div className="alert alert-error" style={{ marginBottom: 'var(--space-5)' }}>
-            <svg className="alert-icon" viewBox="0 0 18 18" fill="none">
-              <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="M9 6v4M9 12.5v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-            <span>{error}</span>
-          </div>
-        )}
-
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="auth-form-row">
             <div className="input-group">
               <label className="input-label">Full Name *</label>
-              <input className="input-field" type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder="Your full name" required />
+              <input className={`input-field${fieldErrors.fullName ? ' error' : ''}`} type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder="Your full name" />
+              {fieldErrors.fullName && <span className="input-hint error-text">{fieldErrors.fullName}</span>}
             </div>
             <div className="input-group">
               <label className="input-label">Email *</label>
-              <input className="input-field" type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
+              <input className={`input-field${fieldErrors.email ? ' error' : ''}`} type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@example.com" />
+              {fieldErrors.email && <span className="input-hint error-text">{fieldErrors.email}</span>}
             </div>
           </div>
 
@@ -80,14 +98,16 @@ export default function SignUp() {
             </div>
             <div className="input-group">
               <label className="input-label">Password *</label>
-              <input className="input-field" type="password" name="password" value={form.password} onChange={handleChange} placeholder="Min. 8 characters" required />
+              <input className={`input-field${fieldErrors.password ? ' error' : ''}`} type="password" name="password" value={form.password} onChange={handleChange} placeholder="Min. 8 characters" />
+              {fieldErrors.password && <span className="input-hint error-text">{fieldErrors.password}</span>}
             </div>
           </div>
 
           <div className="auth-form-row">
             <div className="input-group">
               <label className="input-label">Studio Name *</label>
-              <input className="input-field" type="text" name="studioName" value={form.studioName} onChange={handleChange} placeholder="Your studio name" required />
+              <input className={`input-field${fieldErrors.studioName ? ' error' : ''}`} type="text" name="studioName" value={form.studioName} onChange={handleChange} placeholder="Your studio name" />
+              {fieldErrors.studioName && <span className="input-hint error-text">{fieldErrors.studioName}</span>}
             </div>
             <div className="input-group">
               <label className="input-label">City</label>
@@ -106,11 +126,14 @@ export default function SignUp() {
             </select>
           </div>
 
-          <div className="terms-check">
-            <input type="checkbox" name="terms" checked={form.terms} onChange={handleChange} id="terms" />
-            <label htmlFor="terms">
-              I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
-            </label>
+          <div>
+            <div className="terms-check">
+              <input type="checkbox" name="terms" checked={form.terms} onChange={handleChange} id="terms" />
+              <label htmlFor="terms">
+                I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+              </label>
+            </div>
+            {fieldErrors.terms && <span className="input-hint error-text">{fieldErrors.terms}</span>}
           </div>
 
           <button type="submit" className="btn btn-primary btn-lg auth-submit">
