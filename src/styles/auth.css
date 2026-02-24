@@ -98,9 +98,503 @@
 }
 .auth-otp-resend-btn:hover { color: var(--petrol-700); text-decoration: underline; }
 
+/* ==========================================================================
+   Join Flow — Two-Column Layout
+   ========================================================================== */
+
+.auth-page.join-page {
+  padding: 0;
+  background: white;
+}
+.join-layout {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: var(--space-10);
+  align-items: start;
+  min-height: calc(100vh - 52px);
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-8) var(--space-8);
+}
+
+/* Left panel */
+.join-left {
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.join-left-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: var(--space-7);
+  gap: var(--space-6);
+}
+
+/* Right panel */
+.join-right {
+  display: flex;
+  align-items: stretch;
+}
+.join-right-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-7);
+}
+.join-bottom-area {
+  margin-top: var(--space-6);
+  width: 100%;
+}
+.join-terms-row {
+  margin-bottom: var(--space-3);
+}
+
+/* ==========================================================================
+   Join Flow — Stacked Card Visual (Left Panel)
+   ========================================================================== */
+
+.join-visual-card {
+  width: 100%;
+}
+.join-card-stack {
+  position: relative;
+  width: 100%;
+  height: 260px;
+}
+.join-stack-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-5) var(--space-6);
+  box-shadow: var(--shadow-md);
+  transform-origin: center bottom;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.join-stack-card:hover {
+  transform: rotate(0deg) translateX(0) translateY(-8px) scale(1.03) !important;
+  box-shadow: var(--shadow-xl);
+  z-index: 10 !important;
+}
+.join-stack-card-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  background: var(--petrol-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.join-stack-card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.join-stack-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.join-stack-card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--petrol-800);
+  margin: 0;
+}
+.join-stack-card-desc {
+  font-size: 12px;
+  color: var(--neutral-500);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Step number badge — top-left corner of each card */
+.join-stack-card-num {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--petrol-600);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Per-step icon colors */
+.join-stack-card-icon--1 { background: var(--amber-500); }
+.join-stack-card-icon--2 { background: var(--teal-500, #2a9d8f); }
+
+/* Fan positions — Step 3 at top, Step 1 at bottom (front) */
+.join-stack-card--2 {
+  top: 0;
+  z-index: 1;
+  opacity: 1;
+  transform: rotate(-3deg) translateX(-6px);
+}
+.join-stack-card--1 {
+  top: 70px;
+  z-index: 2;
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.join-stack-card--0 {
+  top: 140px;
+  z-index: 3;
+  opacity: 1;
+  transform: rotate(3deg) translateX(6px);
+}
+
+/* ==========================================================================
+   Join Flow — Contact Support (Left Panel)
+   ========================================================================== */
+
+.join-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: auto;
+}
+.join-contact-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--neutral-400);
+}
+.join-contact-links {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: nowrap;
+}
+.join-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: white;
+  border: 1.5px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  flex: 1;
+}
+.join-contact-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+/* WhatsApp — green */
+.join-contact-btn--whatsapp {
+  color: #128C7E;
+  border-color: #25D366;
+}
+.join-contact-btn--whatsapp:hover {
+  background: #E8FDF1;
+  border-color: #128C7E;
+  box-shadow: var(--shadow-xs);
+}
+/* Toll-free — amber */
+.join-contact-btn--phone {
+  color: var(--amber-700);
+  border-color: var(--amber-400);
+}
+.join-contact-btn--phone:hover {
+  background: var(--amber-50);
+  border-color: var(--amber-500);
+  box-shadow: var(--shadow-xs);
+}
+/* Email — petrol */
+.join-contact-btn--email {
+  color: var(--petrol-600);
+  border-color: var(--petrol-300);
+}
+.join-contact-btn--email:hover {
+  background: var(--petrol-50);
+  border-color: var(--petrol-500);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ==========================================================================
+   Join Flow — Form Header (Right Panel)
+   ========================================================================== */
+
+.join-form-header {
+  margin-bottom: var(--space-5);
+}
+.join-form-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--petrol-800);
+  margin: 0 0 var(--space-1);
+}
+.join-form-subtitle {
+  font-size: 14px;
+  color: var(--neutral-500);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Join Flow — Compact Form (Right Panel)
+   ========================================================================== */
+
+.join-form-compact {
+}
+.join-form-compact .auth-form {
+  gap: 8px;
+}
+.join-form-compact .input-group {
+  gap: 3px;
+}
+.join-form-compact .input-field {
+  padding: 7px 12px;
+  font-size: 13px;
+}
+.join-form-compact .input-label {
+  font-size: 12px;
+}
+.join-form-compact .input-hint {
+  font-size: 11px;
+}
+.join-form-compact .auth-submit {
+  margin-top: var(--space-1);
+  padding: 12px;
+}
+.join-form-compact .auth-footer {
+  margin-top: var(--space-3);
+}
+
+/* ==========================================================================
+   Join Flow — File Upload Zone
+   ========================================================================== */
+
+.file-upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  border: 1.5px dashed var(--neutral-300);
+  border-radius: var(--radius-md);
+  background: var(--neutral-25);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  min-height: 60px;
+}
+.file-upload-zone:hover {
+  border-color: var(--petrol-400);
+  background: var(--petrol-25, #f0fafb);
+}
+.file-upload-zone.error {
+  border-color: var(--error);
+}
+.file-upload-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--neutral-400);
+}
+.file-upload-text {
+  font-size: 13px;
+  color: var(--neutral-500);
+}
+.file-upload-text strong {
+  color: var(--petrol-600);
+  font-weight: 600;
+}
+.file-upload-hint {
+  font-size: 11px;
+  color: var(--neutral-400);
+}
+.file-upload-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+.file-upload-file-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--petrol-500);
+  flex-shrink: 0;
+}
+.file-upload-filename {
+  font-size: 13px;
+  color: var(--neutral-700);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.file-upload-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: var(--neutral-100);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.file-upload-remove:hover {
+  background: var(--neutral-200);
+}
+.file-upload-remove svg {
+  width: 12px;
+  height: 12px;
+  color: var(--neutral-500);
+}
+
+/* ==========================================================================
+   Join Flow — Pending / Confirmation State
+   ========================================================================== */
+
+@keyframes joinFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.join-pending-section {
+  animation: joinFadeIn 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Expanded confirmation card */
+.join-confirmation--expanded {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-8) var(--space-5);
+  background: var(--leaf-50, #EEFBF5);
+  border: 1px solid var(--leaf-100, #DCF7E6);
+  border-radius: var(--radius-lg);
+}
+.join-confirmation-hero {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--leaf-100, #DCF7E6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-5);
+}
+.join-confirmation-hero-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--leaf-600, #0F6B4F);
+}
+.join-confirmation-headline {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--leaf-800, #0A4D3A);
+  margin: 0 0 var(--space-3);
+}
+.join-confirmation-subtext {
+  font-size: 14px;
+  color: var(--neutral-600);
+  line-height: 1.6;
+  margin: 0 0 var(--space-7);
+  max-width: 320px;
+}
+.join-confirmation-steps {
+  width: 100%;
+  text-align: left;
+  background: white;
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+.join-confirmation-steps-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--neutral-800);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--space-4);
+}
+.join-confirmation-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.join-confirmation-steps-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 13px;
+  color: var(--neutral-700);
+  line-height: 1.5;
+}
+.join-confirmation-step-num {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 50%;
+  background: var(--leaf-100, #DCF7E6);
+  color: var(--leaf-700, #0B5A43);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Responsive — Auth + Join Flow
+   ========================================================================== */
+
 @media (max-width: 540px) {
   .auth-page { margin-top: 48px; padding: var(--space-6) var(--space-4); }
   .auth-card { padding: var(--space-7); }
   .auth-card h1 { font-size: 24px; }
   .auth-form-row { grid-template-columns: 1fr; }
+  .file-upload-zone { padding: var(--space-2); min-height: 60px; }
+}
+
+@media (max-width: 900px) {
+  .auth-page.join-page { margin-top: 48px; }
+  .join-layout {
+    grid-template-columns: 1fr;
+    min-height: calc(100vh - 48px);
+    padding: var(--space-5) var(--space-5) var(--space-8);
+    gap: var(--space-8);
+  }
+  .join-left { display: none; }
+  .join-right-inner {
+    max-width: 420px;
+    margin: 0 auto;
+  }
 }

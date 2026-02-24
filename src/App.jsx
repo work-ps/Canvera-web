@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
 import { CompareProvider } from './context/CompareContext'
 import Layout from './components/layout/Layout'
 import LandingPage from './pages/LandingPage'
@@ -10,18 +11,20 @@ import SignUp from './components/auth/SignUp'
 
 function App() {
   return (
-    <CompareProvider>
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:slug" element={<ProductDetail />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/register" element={<SignUp />} />
-      </Route>
-    </Routes>
-    </CompareProvider>
+    <AuthProvider>
+      <CompareProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<SignUp />} />
+          </Route>
+        </Routes>
+      </CompareProvider>
+    </AuthProvider>
   )
 }
 

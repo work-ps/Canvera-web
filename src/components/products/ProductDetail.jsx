@@ -139,7 +139,7 @@ export default function ProductDetail() {
             <h2>Related Products</h2>
             <div className="related-grid">
               {related.map(p => (
-                <ProductCard key={p.id} product={p} showCompare />
+                <ProductCard key={p.id} product={p} showCompare listingMode />
               ))}
             </div>
           </div>

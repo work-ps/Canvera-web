@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <!-- Mountain/leaf icon -->
+  <g transform="translate(0, 2)">
+    <!-- Back peak (lighter) -->
+    <path d="M8 32 L20 6 L32 32 Z" fill="#2a9d8f" opacity="0.6"/>
+    <!-- Front peak (darker) -->
+    <path d="M16 32 L28 8 L40 32 Z" fill="#005780"/>
+  </g>
+  <!-- Canvera wordmark -->
+  <text x="46" y="29" font-family="'DM Serif Display', Georgia, serif" font-size="24" font-weight="400" fill="#1a2a3a" letter-spacing="0.5">Canvera</text>
+</svg>

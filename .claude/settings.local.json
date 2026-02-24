@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(grep:*)",
+      "Bash(export PATH=\"/c/Program Files/nodejs:$PATH\")",
+      "Bash(npx kill-port 5173)",
+      "Bash(lsof:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill.exe:*)",
+      "Bash(node:*)",
+      "Bash(tasklist.exe:*)",
+      "Bash(findstr.exe:*)",
+      "Bash(/c/Windows/System32/tasklist.exe)",
+      "Bash(/c/Windows/System32/findstr.exe:*)",
+      "Bash(/c/Windows/System32/netstat.exe:*)",
+      "Bash(/c/Windows/System32/taskkill.exe /F /PID 34156)",
+      "Bash(/c/Windows/System32/taskkill.exe //F //PID 34156)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npx vite:*)"
+    ]
+  }
+}
