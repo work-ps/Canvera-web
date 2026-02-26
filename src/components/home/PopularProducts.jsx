@@ -4,7 +4,7 @@ import ProductCard from './ProductCard'
 import products from '../../data/products'
 import '../../styles/popular-products.css'
 
-const popularIds = [1, 2, 3, 4, 5, 6, 7, 8]
+const popularIds = [1, 2, 5, 4, 9, 3, 7, 8]
 
 export default function PopularProducts() {
   const scrollRef = useRef(null)

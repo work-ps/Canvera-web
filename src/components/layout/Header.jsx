@@ -2,12 +2,14 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { productsMenu, communityMenu, supportMenu } from '../../data/navigation'
 import CanveraLogo from '../common/CanveraLogo'
+import ProductFinder from '../finder/ProductFinder'
 import '../../styles/header.css'
 
 
 export default function Header() {
   const [activePanel, setActivePanel] = useState(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
+  const [showFinder, setShowFinder] = useState(false)
   const hoverTimeoutRef = useRef(null)
   const searchInputRef = useRef(null)
   const location = useLocation()
@@ -120,7 +122,15 @@ export default function Header() {
                 {chevSvg}
               </button>
             ))}
-            <Link className="nav-link" to="/products">Own Your Album</Link>
+            <button className="nav-link nav-finder" onClick={() => { closePanel(); setShowFinder(true) }}>
+              <svg viewBox="0 0 16 16" fill="none" style={{width:14,height:14}}>
+                <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.3"/>
+                <path d="M11 11l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                <path d="M7 5v4M5 7h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
+              Product Finder
+            </button>
+            <Link className="nav-link" to="/own-your-album">Own Your Album</Link>
           </nav>
 
           <div className="header-auth">
@@ -193,6 +203,9 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      {/* Product Finder Overlay */}
+      {showFinder && <ProductFinder onClose={() => setShowFinder(false)} />}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import ProductFilter from './ProductFilter'
 import ProductCard from '../home/ProductCard'
@@ -6,36 +6,67 @@ import products from '../../data/products'
 import '../../styles/products-page.css'
 import '../../styles/popular-products.css'
 
+const emptyFilters = {
+  categories: [],
+  materials: [],
+  sizes: [],
+  orientations: [],
+  bindings: [],
+  printTypes: [],
+}
+
 export default function ProductsPage() {
   const [searchParams] = useSearchParams()
   const categoryParam = searchParams.get('category')
   const badgeParam = searchParams.get('badge')
 
-  const [selectedCategories, setSelectedCategories] = useState(() => {
+  const [filters, setFilters] = useState(() => {
+    const init = { ...emptyFilters }
     if (categoryParam) {
       const match = products.find(p =>
         p.category.toLowerCase().replace(/[& ]+/g, '-') === categoryParam
       )
-      return match ? [match.category] : []
+      if (match) init.categories = [match.category]
     }
-    return []
+    return init
   })
 
   const [sortBy, setSortBy] = useState('popular')
 
-  const toggleCategory = (cat) => {
-    setSelectedCategories(prev =>
-      prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
-    )
-  }
+  const handleToggle = useCallback((dimension, value) => {
+    if (dimension === 'clear-all') {
+      setFilters({ ...emptyFilters })
+      return
+    }
+    setFilters(prev => ({
+      ...prev,
+      [dimension]: prev[dimension].includes(value)
+        ? prev[dimension].filter(v => v !== value)
+        : [...prev[dimension], value],
+    }))
+  }, [])
 
   const filtered = useMemo(() => {
     let result = [...products]
 
-    if (selectedCategories.length > 0) {
-      result = result.filter(p => selectedCategories.includes(p.category))
+    if (filters.categories.length > 0) {
+      result = result.filter(p => filters.categories.includes(p.category))
     }
-
+    if (filters.materials.length > 0) {
+      result = result.filter(p => filters.materials.includes(p.material))
+    }
+    if (filters.sizes.length > 0) {
+      result = result.filter(p => p.sizes?.some(s => filters.sizes.includes(s)))
+    }
+    if (filters.orientations.length > 0) {
+      result = result.filter(p => p.orientations?.some(o => filters.orientations.includes(o)))
+    }
+    if (filters.bindings.length > 0) {
+      result = result.filter(p => p.bindings?.some(b => filters.bindings.includes(b)))
+    }
+    if (filters.printTypes.length > 0) {
+      result = result.filter(p => p.printTypes?.some(pt => filters.printTypes.includes(pt)))
+    }
     if (badgeParam) {
       result = result.filter(p => p.badge === badgeParam)
     }
@@ -50,12 +81,14 @@ export default function ProductsPage() {
       case 'name':
         result.sort((a, b) => a.name.localeCompare(b.name))
         break
-      default: // popular - keep original order
+      default:
         break
     }
 
     return result
-  }, [selectedCategories, badgeParam, sortBy])
+  }, [filters, badgeParam, sortBy])
+
+  const activeCount = Object.values(filters).reduce((sum, arr) => sum + arr.length, 0)
 
   return (
     <div className="products-page">
@@ -68,8 +101,8 @@ export default function ProductsPage() {
 
         <div className="products-layout">
           <ProductFilter
-            selectedCategories={selectedCategories}
-            onToggleCategory={toggleCategory}
+            filters={filters}
+            onToggle={handleToggle}
           />
 
           <div>
@@ -97,11 +130,11 @@ export default function ProductsPage() {
             </div>
 
             {filtered.length === 0 && (
-              <div style={{ textAlign: 'center', padding: '64px 0', color: 'var(--neutral-400)' }}>
-                <p style={{ fontSize: 16, marginBottom: 8 }}>No products match your filters.</p>
+              <div className="products-empty">
+                <p>No products match your filters.</p>
                 <button
-                  className="btn btn-outline btn-md"
-                  onClick={() => setSelectedCategories([])}
+                  className="products-clear-btn"
+                  onClick={() => handleToggle('clear-all')}
                 >
                   Clear Filters
                 </button>

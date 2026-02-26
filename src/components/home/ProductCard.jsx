@@ -175,6 +175,16 @@ export default function ProductCard({ product, showCompare = false, listingMode 
             defaultSvg
           )}
 
+          {/* Hover overlay with product name (default mode only) */}
+          {!listingMode && (
+            <div className="pc-image-overlay">
+              <span className="pc-overlay-name">{product.name}</span>
+              <span className="pc-overlay-cta">View Details
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </span>
+            </div>
+          )}
+
           {/* Dot indicators (listing mode, on hover) */}
           {listingMode && isHovered && (
             <div className="pc-dots">

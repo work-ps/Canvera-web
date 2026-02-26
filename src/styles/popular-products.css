@@ -95,6 +95,47 @@
 .pc-badge-new { background: var(--leaf-500); color: white; }
 .pc-badge-popular { background: var(--petrol-600); color: white; }
 .pc-badge-eco { background: var(--leaf-600); color: white; }
+/* === Landing card hover: image expands, body slides away === */
+.pc-image-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,41,61,0.75) 0%, rgba(0,41,61,0.35) 60%, transparent 100%);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  display: flex; flex-direction: column; gap: var(--space-1);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 3; pointer-events: none;
+}
+.product-card:not(.pc-listing-mode):hover .pc-image-overlay {
+  opacity: 1; transform: translateY(0);
+}
+.pc-overlay-name {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: white; line-height: 1.3;
+}
+.pc-overlay-cta {
+  font-family: var(--font-body); font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  display: inline-flex; align-items: center; gap: var(--space-1);
+}
+.pc-overlay-cta svg {
+  width: 14px !important; height: 14px !important;
+  opacity: 1 !important; transform: none !important;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Default card: image expands on hover, body collapses */
+.product-card:not(.pc-listing-mode) .pc-image {
+  transition: height 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.product-card:not(.pc-listing-mode):hover .pc-image { height: 100%; }
+.product-card:not(.pc-listing-mode) .pc-body {
+  transition: opacity 0.3s ease, transform 0.3s ease, flex 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.product-card:not(.pc-listing-mode):hover .pc-body {
+  opacity: 0; transform: translateY(12px); flex: 0; padding-top: 0; padding-bottom: 0;
+  pointer-events: none; overflow: hidden;
+}
+
 .pc-body { padding: var(--space-4) var(--space-5) var(--space-5); display: flex; flex-direction: column; gap: var(--space-1); flex: 1; min-width: 0; }
 .pc-tag { font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; color: var(--petrol-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pc-name {

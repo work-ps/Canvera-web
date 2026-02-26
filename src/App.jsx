@@ -8,6 +8,7 @@ import ProductDetail from './components/products/ProductDetail'
 import ContactPage from './components/contact/ContactPage'
 import SignIn from './components/auth/SignIn'
 import SignUp from './components/auth/SignUp'
+import OwnYourAlbumPage from './pages/OwnYourAlbumPage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/own-your-album" element={<OwnYourAlbumPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />

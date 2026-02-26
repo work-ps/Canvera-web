@@ -23,6 +23,8 @@
   white-space: nowrap; background: none; border: none;
 }
 .nav-link:hover, .nav-link.active { color: var(--petrol-600); }
+.nav-finder { gap: 5px; color: var(--petrol-500); }
+.nav-finder:hover { color: var(--petrol-700); background: var(--petrol-25); }
 .nav-link .chev {
   width: 10px; height: 10px; opacity: 0.4;
   transition: transform 0.25s ease, opacity 0.2s;

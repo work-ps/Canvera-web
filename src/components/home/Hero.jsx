@@ -4,11 +4,11 @@ import VideoOverlay from './VideoOverlay'
 import '../../styles/hero.css'
 
 const carouselCards = [
-  { theme: '', visual: 'cc-visual-light', chip: { cls: 'cc-chip-new', text: 'New Launch' }, tag: 'Product', name: 'Flushmount Album', desc: '12 × 18 · Matte · Leather cover' },
-  { theme: 'cc-accent', visual: 'cc-visual-accent', chip: null, tag: 'Limited Offer', name: 'Monsoon Sale', desc: 'Up to 30% off on premium albums this season' },
-  { theme: '', visual: 'cc-visual-warm', chip: null, tag: 'Category', name: 'Wedding Albums', desc: 'Curated collection for every celebration' },
-  { theme: 'cc-dark', visual: 'cc-visual-dark', chip: { cls: 'cc-chip-premium', text: 'Premium' }, tag: 'Design Service', name: 'We Design For You', desc: 'Upload photos, our designers create your album' },
-  { theme: 'cc-leaf', visual: 'cc-visual-leaf', chip: null, tag: 'New Category', name: 'Calendars & Gifts', desc: 'Photo calendars, mugs, canvases & more' },
+  { theme: '', visual: 'cc-visual-light', chip: { cls: 'cc-chip-new', text: 'Best Seller' }, tag: 'Premium Album', name: 'Acroluxe', desc: 'Acrylic tab cover · 5 colours · Leather binding' },
+  { theme: 'cc-accent', visual: 'cc-visual-accent', chip: null, tag: 'New Launch', name: 'Dualuxe Set', desc: 'Dual photobooks with acrylic + engraved covers' },
+  { theme: '', visual: 'cc-visual-warm', chip: { cls: 'cc-chip-premium', text: 'Premium' }, tag: 'Signature Series', name: 'Royal Relics', desc: '13 colours · Acrylic window · Wood box' },
+  { theme: 'cc-dark', visual: 'cc-visual-dark', chip: null, tag: 'Foiling Finish', name: 'Amora', desc: '8 design styles · Velvet lamination box' },
+  { theme: 'cc-leaf', visual: 'cc-visual-leaf', chip: null, tag: 'Explore', name: 'Own Your Album', desc: 'Build your perfect album in 5 easy steps' },
 ]
 
 const carouselSvgs = [

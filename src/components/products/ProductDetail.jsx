@@ -2,9 +2,11 @@ import { useParams, Link } from 'react-router-dom'
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react'
 import StarRating from '../ui/StarRating'
 import ProductCard from '../home/ProductCard'
+import ProductShowcase from './ProductShowcase'
 import { useCompare } from '../../context/CompareContext'
 import products from '../../data/products'
 import '../../styles/product-detail.css'
+import '../../styles/product-showcase.css'
 import '../../styles/popular-products.css'
 
 const productSvgs = {
@@ -26,13 +28,11 @@ export default function ProductDetail() {
 
   const related = useMemo(() => {
     if (!product) return []
-    // Show all from same category first, then fill with others up to 10
     const sameCategory = products.filter(p => p.category === product.category && p.id !== product.id)
     const others = products.filter(p => p.category !== product.category && p.id !== product.id)
     return [...sameCategory, ...others].slice(0, 10)
   }, [product])
 
-  // Scroll state for related products
   const relScrollRef = useRef(null)
   const [relCanScrollLeft, setRelCanScrollLeft] = useState(false)
   const [relScrolledEnd, setRelScrolledEnd] = useState(false)
@@ -83,12 +83,18 @@ export default function ProductDetail() {
   const specsRows = [
     ['Category', product.category],
     ['Type', product.tag],
+    ['Material', product.material],
     ['Specifications', product.specs],
+    product.sizes?.length > 0 && ['Sizes Available', product.sizes.join(', ')],
+    product.orientations?.length > 0 && ['Orientations', product.orientations.join(', ')],
+    product.bindings?.length > 0 && ['Bindings', product.bindings.join(', ')],
     ['Rating', `${product.rating} / 5 (${product.reviewCount}+ reviews)`],
     ['Availability', 'In Stock'],
-    ['Delivery', '5-7 business days'],
+    ['Delivery', '5–7 business days'],
     ['Design Service', 'Free included'],
-  ]
+  ].filter(Boolean)
+
+  const features = product.features || []
 
   return (
     <div className="product-detail">
@@ -115,13 +121,23 @@ export default function ProductDetail() {
                 <strong>{product.rating}</strong> ({product.reviewCount}+ reviews)
               </span>
             </div>
-            <p className="product-desc">
-              Experience the exceptional quality of {product.name}. Crafted with premium materials and meticulous attention to detail, this product showcases your photographs in their best light. Perfect for professional photographers who demand the finest quality for their clients.
-            </p>
+
+            <p className="product-desc">{product.description}</p>
+
+            {features.length > 0 && (
+              <div className="product-features">
+                {features.map((f, i) => (
+                  <span key={i} className="feature-tag">
+                    <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    {f}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="product-price-box">
               <h3>Login to See Pricing</h3>
-              <p>Pricing is available exclusively for registered photographers. Sign in to your account or create a free account to view pricing and place orders.</p>
+              <p>Exclusive pricing for registered photographers. Sign in or create a free account to view prices and place orders.</p>
               <div className="price-ctas">
                 <Link to="/login" className="btn btn-primary btn-md">Sign In</Link>
                 <Link to="/register" className="btn btn-outline btn-md">Create Free Account</Link>
@@ -162,6 +178,9 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
+
+        {/* Interactive Product Showcase */}
+        <ProductShowcase product={product} />
 
         {related.length > 0 && (
           <div className="related-products">
