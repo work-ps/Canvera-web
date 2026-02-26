@@ -55,10 +55,40 @@
     --neutral-50: #F5F6F8;
     --neutral-25: #FAFBFC;
 
-    /* Typography */
-    --font-display: 'DM Serif Display', Georgia, serif;
-    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+    /* Typography — Font Families */
+    --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+
+    /* Typography — Type Scale (Display) */
+    --text-display-xl: 44px;
+    --text-display-lg: 36px;
+    --text-display-md: 32px;
+    --text-display-sm: 28px;
+    --text-display-xs: 24px;
+
+    /* Typography — Type Scale (Body) */
+    --text-body-xl: 17px;
+    --text-body-lg: 15px;
+    --text-body-md: 14px;
+    --text-body-base: 13px;
+    --text-body-sm: 12px;
+    --text-body-xs: 11px;
+
+    /* Typography — Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.15;
+    --leading-snug: 1.3;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.55;
+    --leading-loose: 1.7;
+
+    /* Typography — Font Weights */
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-extrabold: 800;
 
     /* Spacing */
     --space-1: 4px;

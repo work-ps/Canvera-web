@@ -23,7 +23,7 @@
   width: 120px; height: 120px; opacity: 0.5;
 }
 .product-info h1 {
-  font-family: var(--font-display); font-size: 32px; color: var(--petrol-800);
+  font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--petrol-800);
   margin-bottom: var(--space-2);
 }
 .product-info .product-tag {
@@ -84,32 +84,40 @@
   border-top: 1px solid var(--neutral-100);
 }
 .related-products h2 {
-  font-family: var(--font-display); font-size: 24px; color: var(--petrol-800);
+  font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--petrol-800);
   margin-bottom: var(--space-6);
 }
-.related-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-5);
+/* Related products — horizontal scroll (matches listing page cards) */
+.related-scroll-wrap { position: relative; }
+.related-scroll {
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  -ms-overflow-style: none; scrollbar-width: none;
 }
-.related-grid .product-card-link {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.related-scroll::-webkit-scrollbar { display: none; }
+.related-scroll-track {
+  display: flex; gap: var(--space-5);
+  padding: var(--space-2) 0 var(--space-4);
 }
-.related-grid .product-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.related-scroll-track .product-card-link {
+  text-decoration: none; color: inherit; display: block;
+  flex: 0 0 233px;
+  scroll-snap-align: start; min-width: 0;
 }
-.related-grid .pc-body-listing {
-  flex: 0 0 auto;
+/* Edge fade gradients */
+.related-scroll-wrap::before, .related-scroll-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 32px;
+  z-index: 2; pointer-events: none; transition: opacity 0.3s;
 }
+.related-scroll-wrap::before { left: 0; background: linear-gradient(to right, white, transparent); opacity: 0; }
+.related-scroll-wrap.can-scroll-left::before { opacity: 0.6; }
+.related-scroll-wrap::after { right: 0; background: linear-gradient(to left, white, transparent); opacity: 0.6; }
+.related-scroll-wrap.scrolled-end::after { opacity: 0; }
 
 @media (max-width: 900px) {
   .product-detail { margin-top: 48px; }
   .product-detail-inner { padding: 0 var(--space-5); }
   .product-detail-layout { grid-template-columns: 1fr; gap: var(--space-6); }
   .product-image-wrap { height: 320px; }
-  .related-grid { grid-template-columns: 1fr 1fr; }
+  .related-scroll-track .product-card-link { flex: 0 0 240px; }
+  .related-scroll-wrap .scroll-arrow { display: none; }
 }

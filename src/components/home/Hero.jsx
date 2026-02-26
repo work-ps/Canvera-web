@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import VideoOverlay from './VideoOverlay'
 import '../../styles/hero.css'
 
 const carouselCards = [
@@ -20,6 +21,7 @@ const carouselSvgs = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
+  const [videoOpen, setVideoOpen] = useState(false)
   const autoTimerRef = useRef(null)
   const total = carouselCards.length
 
@@ -79,10 +81,12 @@ export default function Hero() {
               Join for Free
               <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </Link>
-            <Link to="/products" className="hero-cta-secondary">
-              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.3"/><path d="M8 5.5v5M6 7.5l2-2 2 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <button className="hero-cta-secondary" onClick={() => setVideoOpen(true)}>
+              <span className="hero-cta-play-icon">
+                <svg viewBox="0 0 16 16" fill="none"><polygon points="6,3.5 6,12.5 13,8" fill="currentColor"/></svg>
+              </span>
               Explore Canvera Experience
-            </Link>
+            </button>
           </div>
           <div className="hero-proof">
             <div className="hero-stat">
@@ -142,6 +146,8 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      <VideoOverlay open={videoOpen} onClose={() => setVideoOpen(false)} />
     </section>
   )
 }

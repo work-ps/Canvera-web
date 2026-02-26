@@ -1,0 +1,102 @@
+/* ==========================================================================
+   Action Cards — Two horizontal strip cards (matches deals strip height)
+   ========================================================================== */
+
+.action-cards {
+  padding: var(--space-8) 0;
+}
+.action-cards-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);
+}
+
+/* Individual card — horizontal strip */
+.action-card {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+  height: 230px;
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-7);
+  text-decoration: none; color: inherit;
+  transition: all 0.3s ease;
+}
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Join Now — white to petrol (top-left → bottom-right) */
+.action-card--join {
+  background: linear-gradient(135deg, white 0%, var(--petrol-50) 50%, var(--petrol-100) 100%);
+  border: 1px solid var(--petrol-100);
+  color: var(--petrol-900);
+}
+
+/* Explore Products — white to amber (top-left → bottom-right) */
+.action-card--explore {
+  background: linear-gradient(135deg, white 0%, var(--amber-50) 50%, var(--amber-100) 100%);
+  border: 1px solid var(--amber-100);
+  color: var(--petrol-900);
+}
+
+/* Content area — fills available space */
+.action-card-content {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  flex: 1;
+}
+
+/* Microcopy */
+.action-card-desc {
+  font-family: var(--font-body); font-size: 15px;
+  line-height: 1.7; color: var(--neutral-600);
+}
+
+/* Emphasized text highlight */
+.action-card-desc strong {
+  font-weight: 700; color: var(--petrol-800);
+}
+
+/* CTA button — primary treatment */
+.action-card-cta {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  width: fit-content;
+  padding: 10px 22px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  border: none; border-radius: var(--radius-md);
+  text-decoration: none; transition: all 0.2s ease;
+}
+.action-card-cta svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.action-card:hover .action-card-cta svg { transform: translateX(3px); }
+
+/* Join Now — primary petrol button */
+.action-card-cta--primary {
+  background: var(--petrol-600); color: white;
+}
+.action-card-cta--primary:hover {
+  background: var(--petrol-700);
+  box-shadow: var(--shadow-md);
+}
+
+/* Explore Products — outline button */
+.action-card-cta--outline {
+  background: transparent; color: var(--petrol-600);
+  border: 1.5px solid var(--petrol-300);
+}
+.action-card-cta--outline:hover {
+  background: var(--petrol-50);
+  border-color: var(--petrol-500);
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 900px) {
+  .action-cards { padding: var(--space-6) 0; }
+  .action-cards-inner {
+    grid-template-columns: 1fr; padding: 0 var(--space-5);
+  }
+  .action-card {
+    height: 200px;
+    padding: var(--space-5) var(--space-6);
+    border-radius: var(--radius-lg);
+  }
+}

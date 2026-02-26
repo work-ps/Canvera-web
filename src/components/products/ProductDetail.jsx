@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { useMemo } from 'react'
+import { useMemo, useRef, useState, useCallback, useEffect } from 'react'
 import StarRating from '../ui/StarRating'
 import ProductCard from '../home/ProductCard'
 import { useCompare } from '../../context/CompareContext'
@@ -26,10 +26,39 @@ export default function ProductDetail() {
 
   const related = useMemo(() => {
     if (!product) return []
-    return products
-      .filter(p => p.category === product.category && p.id !== product.id)
-      .slice(0, 4)
+    // Show all from same category first, then fill with others up to 10
+    const sameCategory = products.filter(p => p.category === product.category && p.id !== product.id)
+    const others = products.filter(p => p.category !== product.category && p.id !== product.id)
+    return [...sameCategory, ...others].slice(0, 10)
   }, [product])
+
+  // Scroll state for related products
+  const relScrollRef = useRef(null)
+  const [relCanScrollLeft, setRelCanScrollLeft] = useState(false)
+  const [relScrolledEnd, setRelScrolledEnd] = useState(false)
+
+  const updateRelScroll = useCallback(() => {
+    const el = relScrollRef.current
+    if (!el) return
+    setRelCanScrollLeft(el.scrollLeft > 10)
+    setRelScrolledEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 10)
+  }, [])
+
+  useEffect(() => {
+    const el = relScrollRef.current
+    if (!el) return
+    updateRelScroll()
+    el.addEventListener('scroll', updateRelScroll, { passive: true })
+    return () => el.removeEventListener('scroll', updateRelScroll)
+  }, [updateRelScroll, related])
+
+  const scrollRelated = (dir) => {
+    const el = relScrollRef.current
+    if (!el) return
+    const card = el.querySelector('.product-card-link')
+    const cardW = card ? card.getBoundingClientRect().width + 20 : 300
+    el.scrollBy({ left: dir === 'left' ? -cardW : cardW, behavior: 'smooth' })
+  }
 
   if (!product) {
     return (
@@ -137,10 +166,32 @@ export default function ProductDetail() {
         {related.length > 0 && (
           <div className="related-products">
             <h2>Related Products</h2>
-            <div className="related-grid">
-              {related.map(p => (
-                <ProductCard key={p.id} product={p} showCompare listingMode />
-              ))}
+            <div className={`related-scroll-wrap${relCanScrollLeft ? ' can-scroll-left' : ''}${relScrolledEnd ? ' scrolled-end' : ''}`}>
+              <div className="related-scroll" ref={relScrollRef}>
+                <div className="related-scroll-track">
+                  {related.map(p => (
+                    <ProductCard key={p.id} product={p} showCompare listingMode />
+                  ))}
+                </div>
+              </div>
+              {related.length > 3 && (
+                <>
+                  <button
+                    className={`scroll-arrow scroll-left${!relCanScrollLeft ? ' hidden' : ''}`}
+                    onClick={() => scrollRelated('left')}
+                    aria-label="Scroll left"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                  <button
+                    className={`scroll-arrow scroll-right${relScrolledEnd ? ' hidden' : ''}`}
+                    onClick={() => scrollRelated('right')}
+                    aria-label="Scroll right"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}

@@ -1,4 +1,4 @@
-.popular-products { padding: var(--space-11) 0 var(--space-12); background: white; position: relative; }
+.popular-products { padding: var(--space-8) 0; position: relative; }
 .popular-inner { max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8); }
 .popular-products .section-header {
   display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: var(--space-9);
@@ -8,7 +8,7 @@
   color: var(--amber-500); font-weight: 600; margin-bottom: var(--space-2);
 }
 .popular-products .section-title {
-  font-family: var(--font-display); font-size: 32px; color: var(--petrol-800);
+  font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--petrol-800);
   line-height: 1.2; margin-bottom: var(--space-2);
 }
 .popular-products .section-subtitle { font-family: var(--font-body); font-size: 15px; color: var(--neutral-500); line-height: 1.6; }
@@ -58,15 +58,15 @@
   scroll-snap-align: start;
 }
 
-/* Product card */
+/* Product card — Landing page (bigger) */
 .product-card {
   background: white;
   border-radius: var(--radius-lg); border: 1px solid var(--neutral-100);
   overflow: hidden; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94); cursor: pointer;
-  height: 100%; display: flex; flex-direction: column;
+  height: 400px; display: flex; flex-direction: column;
 }
 .product-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: var(--neutral-200); }
-.pc-image { height: 240px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.pc-image { height: 260px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .pc-image svg { width: 56px; height: 56px; opacity: 0.6; transition: transform 0.3s ease, opacity 0.3s ease; }
 .product-card:hover .pc-image svg { transform: scale(1.08); opacity: 0.8; }
 .pc-img-petrol { background: linear-gradient(145deg, var(--petrol-50) 0%, var(--petrol-100) 60%, var(--petrol-200) 100%); }
@@ -95,10 +95,17 @@
 .pc-badge-new { background: var(--leaf-500); color: white; }
 .pc-badge-popular { background: var(--petrol-600); color: white; }
 .pc-badge-eco { background: var(--leaf-600); color: white; }
-.pc-body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
-.pc-tag { font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; color: var(--petrol-500); }
-.pc-name { font-family: var(--font-display); font-size: 18px; color: var(--petrol-800); line-height: 1.3; }
-.pc-specs { font-family: var(--font-body); font-size: 13px; color: var(--neutral-500); line-height: 1.5; }
+.pc-body { padding: var(--space-4) var(--space-5) var(--space-5); display: flex; flex-direction: column; gap: var(--space-1); flex: 1; min-width: 0; }
+.pc-tag { font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; color: var(--petrol-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-name {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--petrol-800);
+  line-height: 1.35; margin-top: var(--space-1);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pc-specs {
+  font-family: var(--font-body); font-size: 13px; color: var(--neutral-500); line-height: 1.5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 .pc-arrow {
   display: flex; justify-content: flex-end; margin-top: auto; padding-top: var(--space-3);
   opacity: 0; transform: translateX(-4px); transition: opacity 0.2s ease, transform 0.2s ease;
@@ -113,13 +120,13 @@
 
 /* --- Text clamping for consistent titles --- */
 .pc-name-clamped {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  white-space: nowrap;
   overflow: hidden;
-  font-size: 16px;
-  line-height: 1.3;
-  max-height: calc(16px * 1.3 * 2);
+  text-overflow: ellipsis;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 /* --- Carousel --- */
@@ -152,6 +159,9 @@
 }
 /* Hide the default static SVG when carousel is active */
 .pc-listing-mode .pc-image > svg { display: none; }
+/* Listing mode: smaller card for 3-per-row grids */
+.pc-listing-mode { height: 300px; }
+.pc-listing-mode .pc-image { height: 210px; }
 
 /* --- Dot indicators --- */
 .pc-dots {
@@ -214,9 +224,8 @@
 
 /* --- Compact body for listing mode --- */
 .pc-body-listing {
-  padding: var(--space-4) var(--space-5) !important;
-  flex: 0 0 auto !important;
-  min-height: 72px;
+  padding: var(--space-3) var(--space-4) var(--space-4) !important;
+  flex: 1 !important;
   position: relative;
   overflow: hidden;
 }
@@ -271,17 +280,22 @@
 /* ========================================================================== */
 
 @media (max-width: 900px) {
-  .popular-products { padding: var(--space-9) 0 var(--space-10); }
+  .popular-products { padding: var(--space-6) 0; }
   .popular-inner { padding: 0 var(--space-5); }
   .popular-products .section-header { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
-  .popular-products .section-title { font-size: 26px; }
+  .popular-products .section-title { font-size: 24px; }
   .product-card-link { flex: 0 0 280px; }
-  .pc-image { height: 200px; }
+  .product-card { height: 330px; }
+  .pc-image { height: 210px; }
+  .pc-name { font-size: 15px; }
+  .pc-specs { font-size: 12px; }
   .scroll-arrow { display: none; }
   .products-scroll-wrap::before, .products-scroll-wrap::after { width: 20px; }
 
   /* Listing mode responsive */
-  .pc-name-clamped { font-size: 15px; max-height: calc(15px * 1.3 * 2); }
-  .pc-body-listing { min-height: 64px; padding: var(--space-3) var(--space-4) !important; }
+  .pc-listing-mode { height: 260px; }
+  .pc-listing-mode .pc-image { height: 180px; }
+  .pc-name-clamped { font-size: 13px; }
+  .pc-body-listing { padding: var(--space-2) var(--space-3) var(--space-3) !important; }
   .pc-rating-pill { font-size: 10px; padding: 2px 6px; }
 }

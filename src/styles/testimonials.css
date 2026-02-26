@@ -1,6 +1,5 @@
 .testimonials-section {
-  padding: var(--space-11) 0 var(--space-12);
-  background: white;
+  padding: var(--space-8) 0;
 }
 .testimonials-inner {
   max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
@@ -10,7 +9,7 @@
   color: var(--amber-500); font-weight: 600; margin-bottom: var(--space-2);
 }
 .testimonials-section .section-title {
-  font-family: var(--font-display); font-size: 32px; color: var(--petrol-800);
+  font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--petrol-800);
   line-height: 1.2; margin-bottom: var(--space-3);
 }
 .testimonials-section .section-subtitle {
@@ -40,7 +39,7 @@
   width: 16px; height: 16px; color: var(--amber-400);
 }
 .testimonial-quote {
-  font-family: var(--font-body); font-size: 14px; line-height: 1.7;
+  font-family: var(--font-body); font-size: 14px; line-height: 1.65;
   color: var(--neutral-700); margin-bottom: var(--space-5);
   font-style: italic;
 }
@@ -62,8 +61,8 @@
 }
 
 @media (max-width: 900px) {
-  .testimonials-section { padding: var(--space-9) 0 var(--space-10); }
+  .testimonials-section { padding: var(--space-6) 0; }
   .testimonials-inner { padding: 0 var(--space-5); }
   .testimonials-grid { grid-template-columns: 1fr; gap: var(--space-4); }
-  .testimonials-section .section-title { font-size: 26px; }
+  .testimonials-section .section-title { font-size: 24px; }
 }
