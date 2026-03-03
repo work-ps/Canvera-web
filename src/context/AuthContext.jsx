@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useMemo, useCallback } from 'react'
+import dummyUsers from '../data/dummyUsers'
 
 const AuthContext = createContext(null)
 
@@ -30,17 +31,33 @@ export function AuthProvider({ children }) {
     setAuthState(data)
   }, [])
 
+  const login = useCallback((identity, password) => {
+    const user = dummyUsers.find(
+      u => (u.email === identity || u.phone === identity) && u.password === password
+    )
+    if (!user) return { success: false, error: 'Invalid email/phone or password' }
+
+    const { password: _, ...profile } = user
+    saveAuth(profile)
+    setAuthState(profile)
+    return { success: true, user: profile }
+  }, [])
+
   const logout = useCallback(() => {
     saveAuth(null)
     setAuthState(null)
   }, [])
 
+  const isVerified = authState?.status === 'verified'
+
   const value = useMemo(() => ({
     authState,
     register,
+    login,
     logout,
     isRegistered: authState !== null,
-  }), [authState, register, logout])
+    isVerified,
+  }), [authState, register, login, logout, isVerified])
 
   return (
     <AuthContext.Provider value={value}>

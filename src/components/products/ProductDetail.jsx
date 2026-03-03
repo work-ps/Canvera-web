@@ -4,6 +4,7 @@ import StarRating from '../ui/StarRating'
 import ProductCard from '../home/ProductCard'
 import ProductShowcase from './ProductShowcase'
 import { useCompare } from '../../context/CompareContext'
+import { useAuth } from '../../context/AuthContext'
 import products from '../../data/products'
 import '../../styles/product-detail.css'
 import '../../styles/product-showcase.css'
@@ -23,6 +24,7 @@ const productSvgs = {
 export default function ProductDetail() {
   const { slug } = useParams()
   const { isInCompare, addToCompare, removeFromCompare, isCompareFull } = useCompare()
+  const { isRegistered, isVerified } = useAuth()
 
   const product = useMemo(() => products.find(p => p.slug === slug), [slug])
 
@@ -136,12 +138,35 @@ export default function ProductDetail() {
             )}
 
             <div className="product-price-box">
-              <h3>Login to See Pricing</h3>
-              <p>Exclusive pricing for registered photographers. Sign in or create a free account to view prices and place orders.</p>
-              <div className="price-ctas">
-                <Link to="/login" className="btn btn-primary btn-md">Sign In</Link>
-                <Link to="/register" className="btn btn-outline btn-md">Create Free Account</Link>
-              </div>
+              {isVerified ? (
+                <>
+                  <div className="price-verified-header">
+                    <svg viewBox="0 0 14 14" fill="none" width="16" height="16"><circle cx="7" cy="7" r="6" fill="var(--petrol-600, #00778B)" /><path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <span>Verified Pro Pricing</span>
+                  </div>
+                  <div className="price-amount">{'₹'}{(product.id * 47 + 299).toLocaleString()}</div>
+                  <p className="price-note">Inclusive of GST. Free design service included.</p>
+                  <button className="btn btn-primary btn-md" style={{ width: '100%' }}>Add to Cart</button>
+                </>
+              ) : isRegistered ? (
+                <>
+                  <h3>Verification Pending</h3>
+                  <p>Your account is awaiting verification. Once approved, you'll unlock exclusive pro pricing and ordering.</p>
+                  <div className="price-pending-badge">
+                    <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="7" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5"/><path d="M8 5v4" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5" strokeLinecap="round"/><circle cx="8" cy="11.5" r="0.75" fill="var(--amber-500, #f59e0b)"/></svg>
+                    <span>Pending review — typically 1-2 business days</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h3>Login to See Pricing</h3>
+                  <p>Exclusive pricing for registered photographers. Sign in or create a free account to view prices and place orders.</p>
+                  <div className="price-ctas">
+                    <Link to="/login" className="btn btn-primary btn-md">Sign In</Link>
+                    <Link to="/register" className="btn btn-outline btn-md">Create Free Account</Link>
+                  </div>
+                </>
+              )}
             </div>
 
             <button

@@ -82,6 +82,25 @@
 .product-price-box .price-ctas {
   display: flex; gap: var(--space-3);
 }
+.price-verified-header {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  color: var(--petrol-600); margin-bottom: var(--space-3);
+}
+.price-amount {
+  font-family: var(--font-display); font-size: 32px; font-weight: 700;
+  color: var(--petrol-800); margin-bottom: var(--space-2);
+}
+.price-note {
+  font-size: 13px; color: var(--neutral-500); margin-bottom: var(--space-5);
+}
+.price-pending-badge {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 13px; color: var(--amber-700, #b45309);
+  background: var(--amber-50, #fffbeb); border: 1px solid var(--amber-200, #fde68a);
+  border-radius: var(--radius-md); padding: 10px 14px; margin-top: var(--space-2);
+}
+.price-pending-badge svg { flex-shrink: 0; margin-top: 1px; }
 .product-specs {
   margin-top: var(--space-6);
 }

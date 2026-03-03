@@ -18,7 +18,19 @@
       "Bash(/c/Windows/System32/taskkill.exe //F //PID 34156)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(ls:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(where:*)",
+      "Bash(npx --yes pdf-parse:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(cmd /c \"netstat -ano | findstr 5173\")",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run dev -- --port 5173)",
+      "Bash(set \"PATH=C:\\\\Program Files\\\\nodejs;%PATH%\")"
     ]
   }
 }

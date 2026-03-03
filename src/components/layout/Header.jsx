@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { productsMenu, communityMenu, supportMenu } from '../../data/navigation'
+import { useAuth } from '../../context/AuthContext'
 import CanveraLogo from '../common/CanveraLogo'
 import ProductFinder from '../finder/ProductFinder'
 import '../../styles/header.css'
 
 
 export default function Header() {
+  const { authState, isRegistered, isVerified, logout } = useAuth()
+  const navigate = useNavigate()
   const [activePanel, setActivePanel] = useState(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [showFinder, setShowFinder] = useState(false)
@@ -144,13 +147,37 @@ export default function Header() {
                 <path d="M10.5 10.5L15 15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
             </button>
-            <Link className="auth-contact" to="/login">
-              <svg viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
-                <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
-              Profile
-            </Link>
+            {isRegistered ? (
+              <div className="header-user-menu">
+                <span className="header-user-name">
+                  <svg viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
+                    <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                  </svg>
+                  {authState.name?.split(' ')[0]}
+                  {isVerified && (
+                    <svg className="header-verified-badge" viewBox="0 0 14 14" fill="none" width="14" height="14">
+                      <circle cx="7" cy="7" r="6" fill="var(--petrol-600, #00778B)" />
+                      <path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </span>
+                <button
+                  className="header-logout-btn"
+                  onClick={() => { logout(); navigate('/') }}
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link className="auth-contact" to="/login">
+                <svg viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
+                  <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+                Profile
+              </Link>
+            )}
             <Link className="auth-cta" to="/contact">Contact Us</Link>
           </div>
 

@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import '../../styles/auth.css'
 
 
 export default function SignIn() {
-  const { authState } = useAuth()
+  const { authState, login, isRegistered } = useAuth()
+  const navigate = useNavigate()
   const [loginMethod, setLoginMethod] = useState('password')
   const [form, setForm] = useState({
     identity: '', password: '', otp: '', rememberMe: false,
@@ -67,6 +68,13 @@ export default function SignIn() {
     setOtpCountdown(30)
   }
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isRegistered) {
+      navigate('/', { replace: true })
+    }
+  }, [isRegistered, navigate])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const errors = {}
@@ -95,8 +103,18 @@ export default function SignIn() {
     }
 
     setFieldErrors({})
+
+    // Authenticate against dummy users (password mode uses real check, OTP mode auto-succeeds)
+    const password = loginMethod === 'password' ? form.password : 'password123'
+    const result = login(form.identity.trim(), password)
+
+    if (!result.success) {
+      setFieldErrors({ identity: result.error })
+      return
+    }
+
     setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
+    setTimeout(() => navigate('/'), 1200)
   }
 
   return (
