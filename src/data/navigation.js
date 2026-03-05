@@ -1,62 +1,24 @@
-export const productsMenu = {
+export const shopMenu = {
   columns: [
     {
-      title: 'Explore Products',
+      title: 'Categories',
       links: [
-        { label: 'Premium Albums', href: '/products?category=premium-albums' },
-        { label: 'Standard Albums', href: '/products?category=standard-albums' },
-        { label: 'Photobooks & Magazines', href: '/products?category=photobooks' },
-        { label: 'Decor & Gifts', href: '/products?category=decor-gifts' },
+        { label: 'Photobooks', href: '/products?category=photobooks' },
+        { label: 'Moment Books', href: '/products?category=moment-books' },
+        { label: 'Magazines', href: '/products?category=magazines' },
+        { label: 'Wall & Decor', href: '/products?category=wall-decor' },
+        { label: 'Gifting Packages', href: '/products?category=gifting-packages' },
+        { label: 'Accessories', href: '/products?category=accessories' },
       ],
     },
     {
       title: 'Quick Links',
       links: [
-        { label: 'Browse All Products', href: '/products' },
-        { label: 'New Arrivals', href: '/products?badge=new' },
+        { label: 'All Products', href: '/products' },
         { label: 'Best Sellers', href: '/products?badge=bestseller' },
-        { label: 'Design Service', href: '/products' },
-      ],
-    },
-    {
-      title: 'For Photographers',
-      links: [
-        { label: 'Why Canvera', href: '/products' },
-        { label: 'Order a Sample Kit', href: '/products' },
-        { label: 'Album Calculator', href: '/products' },
-        { label: 'Download Catalogue', href: '/products' },
-      ],
-    },
-  ],
-};
-
-export const communityMenu = {
-  columns: [
-    {
-      title: 'Connect',
-      links: [
-        { label: 'Photographer Forum', href: '/products' },
-        { label: 'Events & Meetups', href: '/products' },
-        { label: 'Ambassador Program', href: '/products' },
-        { label: 'Refer a Photographer', href: '/products' },
-      ],
-    },
-    {
-      title: 'Learn',
-      links: [
-        { label: 'Blog & Insights', href: '/products' },
-        { label: 'Product Tutorials', href: '/products' },
-        { label: 'Webinars', href: '/products' },
-        { label: 'Success Stories', href: '/products' },
-      ],
-    },
-    {
-      title: 'Resources',
-      links: [
-        { label: 'Download Catalogue', href: '/products' },
-        { label: 'Brand Guidelines', href: '/products' },
-        { label: 'FAQs', href: '/products' },
-        { label: 'Album Glossary', href: '/products' },
+        { label: 'New Arrivals', href: '/products?badge=new' },
+        { label: 'Limited Edition', href: '/products?badge=limited' },
+        { label: 'Quick Shop', href: '/products?quick=true' },
       ],
     },
   ],

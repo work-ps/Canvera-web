@@ -5,6 +5,8 @@ import Layout from './components/layout/Layout'
 import LandingPage from './pages/LandingPage'
 import ProductsPage from './components/products/ProductsPage'
 import ProductDetail from './components/products/ProductDetail'
+import CollectionsPage from './pages/CollectionsPage'
+import CollectionDetailPage from './pages/CollectionDetailPage'
 import ContactPage from './components/contact/ContactPage'
 import SignIn from './components/auth/SignIn'
 import SignUp from './components/auth/SignUp'
@@ -19,6 +21,8 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/collections" element={<CollectionsPage />} />
+            <Route path="/collections/:slug" element={<CollectionDetailPage />} />
             <Route path="/own-your-album" element={<OwnYourAlbumPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<SignIn />} />

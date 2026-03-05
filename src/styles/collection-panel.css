@@ -1,0 +1,131 @@
+/* ===== Collection dropdown panel — cards carousel with navigation arrows ===== */
+/* Inherits white background + 420px height from .dropdown-panel.panel-fixed  */
+
+/* Wrapper — stacks cards row + footer */
+.collection-panel-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Scrollable cards row — hidden scrollbar */
+.collection-panel-inner {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.collection-panel-inner::-webkit-scrollbar { display: none; }
+
+/* Individual card — sized to fit within 420px panel height */
+.collection-card {
+  flex: 0 0 250px;
+  scroll-snap-align: start;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.collection-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card image area — 5:6 aspect ratio (matching reference proportions) */
+.collection-card-image {
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Subtle background SVG icon */
+.collection-card-image svg {
+  width: 48px;
+  height: 48px;
+  color: rgba(255,255,255,0.12);
+}
+
+/* Collection name — centered on card */
+.collection-card-name {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--text-body-xl);
+  font-weight: var(--weight-semibold);
+  color: #fff;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.25);
+}
+
+/* Footer row — description left, arrows right */
+.collection-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-shrink: 0;
+  padding-top: var(--space-3);
+}
+
+/* Description text — design system typography */
+.collection-panel-desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--neutral-500);
+}
+
+/* Arrow navigation buttons */
+.collection-panel-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+.collection-nav-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--neutral-200);
+  background: white;
+  color: var(--neutral-600);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+.collection-nav-btn:hover {
+  border-color: var(--petrol-300);
+  color: var(--petrol-600);
+  background: var(--petrol-25);
+}
+.collection-nav-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Gradient background variants */
+.cc-petrol  { background: linear-gradient(155deg, #0A6E7E 0%, #003A54 100%); }
+.cc-amber   { background: linear-gradient(155deg, #9B7418 0%, #5C3A0A 100%); }
+.cc-warm    { background: linear-gradient(155deg, #8A6C4A 0%, #4A3520 100%); }
+.cc-dark    { background: linear-gradient(155deg, #4A4A4A 0%, #1A1A1A 100%); }
+.cc-neutral { background: linear-gradient(155deg, #7B8290 0%, #374151 100%); }
+.cc-deep    { background: linear-gradient(155deg, #6B4F9C 0%, #2D1B4E 100%); }
+.cc-leaf    { background: linear-gradient(155deg, #1B7B5A 0%, #0A4030 100%); }
+.cc-mixed   { background: linear-gradient(155deg, #7B6038 0%, #3A2D18 100%); }

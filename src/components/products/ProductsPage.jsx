@@ -6,6 +6,14 @@ import products from '../../data/products'
 import '../../styles/products-page.css'
 import '../../styles/popular-products.css'
 
+const categoryAliases = {
+  'moment-books': 'standard-albums',
+  'magazines': 'photobooks',
+  'wall-decor': 'canvas-frames',
+  'gifting-packages': 'decor-gifts',
+  'accessories': 'calendars',
+}
+
 const emptyFilters = {
   categories: [],
   materials: [],
@@ -23,8 +31,9 @@ export default function ProductsPage() {
   const [filters, setFilters] = useState(() => {
     const init = { ...emptyFilters }
     if (categoryParam) {
+      const resolved = categoryAliases[categoryParam] || categoryParam
       const match = products.find(p =>
-        p.category.toLowerCase().replace(/[& ]+/g, '-') === categoryParam
+        p.category.toLowerCase().replace(/[& ]+/g, '-') === resolved
       )
       if (match) init.categories = [match.category]
     }

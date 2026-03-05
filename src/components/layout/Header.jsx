@@ -1,10 +1,29 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { productsMenu, communityMenu, supportMenu } from '../../data/navigation'
+import { shopMenu, supportMenu } from '../../data/navigation'
+import collections from '../../data/collections'
 import { useAuth } from '../../context/AuthContext'
 import CanveraLogo from '../common/CanveraLogo'
 import ProductFinder from '../finder/ProductFinder'
 import '../../styles/header.css'
+import '../../styles/collection-panel.css'
+
+
+const panelLabels = { shop: 'Shop', collection: 'Collection', support: 'Support' }
+const panelRoutes = { shop: '/products', collection: '/collections', support: '/contact' }
+const panelData = { shop: shopMenu, support: supportMenu }
+
+// SVGs for collection cards in the dropdown
+const collectionCardSvgs = {
+  petrol: <svg viewBox="0 0 80 60" fill="none"><rect x="3" y="3" width="74" height="54" rx="6" stroke="currentColor" strokeWidth="1.5"/><path d="M3 42l20-15 14 8 17-14 20 12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  amber: <svg viewBox="0 0 80 60" fill="none"><rect x="3" y="3" width="74" height="54" rx="6" stroke="currentColor" strokeWidth="1.5"/><path d="M40 17v26M27 30h26" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  warm: <svg viewBox="0 0 80 60" fill="none"><path d="M40 8c-8 0-15 3-15 3v40s7-3 15-3 15 3 15 3V11s-7-3-15-3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/><path d="M40 8v40" stroke="currentColor" strokeWidth="1"/></svg>,
+  dark: <svg viewBox="0 0 80 60" fill="none"><rect x="3" y="3" width="74" height="54" rx="6" stroke="currentColor" strokeWidth="1.5"/><path d="M24 20l8 8-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M38 40h20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  neutral: <svg viewBox="0 0 80 60" fill="none"><rect x="6" y="3" width="68" height="54" rx="5" stroke="currentColor" strokeWidth="1.5"/><rect x="14" y="10" width="52" height="30" rx="3" stroke="currentColor" strokeWidth="1"/></svg>,
+  mixed: <svg viewBox="0 0 80 60" fill="none"><rect x="10" y="5" width="60" height="50" rx="3" stroke="currentColor" strokeWidth="1.5"/><path d="M20 17h40M20 26h30M20 35h34M20 44h24" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/></svg>,
+  leaf: <svg viewBox="0 0 80 60" fill="none"><path d="M40 54V26" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M40 26c-16-11-28 0-28 14s19 8 28-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  deep: <svg viewBox="0 0 80 60" fill="none"><rect x="5" y="7" width="70" height="46" rx="5" stroke="currentColor" strokeWidth="1.5"/><path d="M5 19h70" stroke="currentColor" strokeWidth="1"/><path d="M20 33l11 11 23-20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+}
 
 
 export default function Header() {
@@ -15,7 +34,15 @@ export default function Header() {
   const [showFinder, setShowFinder] = useState(false)
   const hoverTimeoutRef = useRef(null)
   const searchInputRef = useRef(null)
+  const collectionScrollRef = useRef(null)
   const location = useLocation()
+
+  const scrollCollection = useCallback((direction) => {
+    const container = collectionScrollRef.current
+    if (!container) return
+    const scrollAmount = 270
+    container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' })
+  }, [])
 
   // Close panels on route change
   useEffect(() => {
@@ -38,12 +65,9 @@ export default function Header() {
     openPanel(panelId)
   }, [openPanel])
 
-  const handleNavLeave = useCallback((panelId) => {
-    hoverTimeoutRef.current = setTimeout(() => {
-      setActivePanel(prev => prev === panelId ? null : prev)
-      setIsPanelOpen(prev => activePanel === panelId ? false : prev)
-    }, 200)
-  }, [activePanel])
+  const handleNavLeave = useCallback(() => {
+    hoverTimeoutRef.current = setTimeout(closePanel, 200)
+  }, [closePanel])
 
   const handlePanelEnter = useCallback(() => {
     clearTimeout(hoverTimeoutRef.current)
@@ -82,26 +106,59 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [closePanel])
 
-  const panelData = { products: productsMenu, community: communityMenu, support: supportMenu }
-
   const chevSvg = (
     <svg className="chev" viewBox="0 0 10 10" fill="none">
       <path d="M2.5 3.75L5 6.25L7.5 3.75" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 
+  /* ---- Panel renderers ---- */
+
   const renderMenuPanel = (menuData) => (
-    <div className="products-grid">
+    <div className={`products-grid${menuData.columns.length === 2 ? ' two-col' : ''}`}>
       {menuData.columns.map((col, i) => (
         <div className="products-col" key={i}>
           <h3>{col.title}</h3>
-          <div className={i === 0 && activePanel === 'products' ? 'products-list' : 'sec-links'}>
+          <div className={i === 0 && activePanel === 'shop' ? 'products-list' : 'sec-links'}>
             {col.links.map((link, j) => (
               <Link to={link.href} key={j} onClick={closePanel}>{link.label}</Link>
             ))}
           </div>
         </div>
       ))}
+    </div>
+  )
+
+  const renderCollectionPanel = () => (
+    <div className="collection-panel-wrap">
+      <div className="collection-panel-inner" ref={collectionScrollRef}>
+        {collections.map(col => (
+          <Link
+            to={`/collections/${col.slug}`}
+            className="collection-card"
+            key={col.id}
+            onClick={closePanel}
+          >
+            <div className={`collection-card-image cc-${col.imageVariant}`}>
+              {collectionCardSvgs[col.imageVariant] || collectionCardSvgs.petrol}
+              <span className="collection-card-name">{col.name}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="collection-panel-footer">
+        <p className="collection-panel-desc">
+          Our albums are organized into nine distinct collections, each deriving from a unique material foundation and realized through distinct textures, finishes, and artisan craftsmanship.
+        </p>
+        <div className="collection-panel-nav">
+          <button className="collection-nav-btn" onClick={() => scrollCollection('left')} aria-label="Previous collections">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <button className="collection-nav-btn" onClick={() => scrollCollection('right')} aria-label="Next collections">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   )
 
@@ -114,29 +171,31 @@ export default function Header() {
           </Link>
 
           <nav className="header-nav">
-            {['products', 'community', 'support'].map(panel => (
+            {/* Dropdown tabs: Shop, Collection, Support */}
+            {['shop', 'collection', 'support'].map(panel => (
               <button
                 key={panel}
                 className={`nav-link${activePanel === panel ? ' active' : ''}`}
                 onMouseEnter={() => handleNavEnter(panel)}
-                onMouseLeave={() => handleNavLeave(panel)}
+                onMouseLeave={handleNavLeave}
+                onClick={() => { closePanel(); navigate(panelRoutes[panel]) }}
               >
-                {panel.charAt(0).toUpperCase() + panel.slice(1)}
+                {panelLabels[panel]}
                 {chevSvg}
               </button>
             ))}
-            <button className="nav-link nav-finder" onClick={() => { closePanel(); setShowFinder(true) }}>
-              <svg viewBox="0 0 16 16" fill="none" style={{width:14,height:14}}>
-                <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.3"/>
-                <path d="M11 11l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-                <path d="M7 5v4M5 7h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-              </svg>
-              Product Finder
+
+            {/* Find Your Product */}
+            <button className="nav-link" onClick={() => { closePanel(); setShowFinder(true) }}>
+              Find Your Product
             </button>
-            <Link className="nav-link" to="/own-your-album">Own Your Album</Link>
+
+            {/* Make Your Own */}
+            <Link className="nav-link" to="/own-your-album">Make Your Own</Link>
           </nav>
 
           <div className="header-auth">
+            {/* Search */}
             <button
               className={`nav-search${activePanel === 'search' ? ' active' : ''}`}
               onClick={toggleSearch}
@@ -147,6 +206,8 @@ export default function Header() {
                 <path d="M10.5 10.5L15 15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
             </button>
+
+            {/* Profile */}
             {isRegistered ? (
               <div className="header-user-menu">
                 <span className="header-user-name">
@@ -170,7 +231,7 @@ export default function Header() {
                 </button>
               </div>
             ) : (
-              <Link className="auth-contact" to="/login">
+              <Link className="profile-link" to="/login">
                 <svg viewBox="0 0 16 16" fill="none">
                   <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
                   <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
@@ -178,6 +239,8 @@ export default function Header() {
                 Profile
               </Link>
             )}
+
+            {/* Contact Us */}
             <Link className="auth-cta" to="/contact">Contact Us</Link>
           </div>
 
@@ -193,19 +256,38 @@ export default function Header() {
         onClick={closePanel}
       />
 
-      {/* Menu Panels */}
-      {['products', 'community', 'support'].map(panel => (
-        <div
-          key={panel}
-          className={`dropdown-panel${activePanel === panel ? ' open' : ''}`}
-          onMouseEnter={handlePanelEnter}
-          onMouseLeave={handlePanelLeave}
-        >
-          <div className="panel-inner">
-            {renderMenuPanel(panelData[panel])}
-          </div>
+      {/* Shop Panel — fixed height */}
+      <div
+        className={`dropdown-panel panel-fixed${activePanel === 'shop' ? ' open' : ''}`}
+        onMouseEnter={handlePanelEnter}
+        onMouseLeave={handlePanelLeave}
+      >
+        <div className="panel-inner">
+          {renderMenuPanel(panelData.shop)}
         </div>
-      ))}
+      </div>
+
+      {/* Support Panel — content-driven height */}
+      <div
+        className={`dropdown-panel${activePanel === 'support' ? ' open' : ''}`}
+        onMouseEnter={handlePanelEnter}
+        onMouseLeave={handlePanelLeave}
+      >
+        <div className="panel-inner">
+          {renderMenuPanel(panelData.support)}
+        </div>
+      </div>
+
+      {/* Collection Panel — same fixed height as Shop */}
+      <div
+        className={`dropdown-panel panel-fixed${activePanel === 'collection' ? ' open' : ''}`}
+        onMouseEnter={handlePanelEnter}
+        onMouseLeave={handlePanelLeave}
+      >
+        <div className="panel-inner">
+          {renderCollectionPanel()}
+        </div>
+      </div>
 
       {/* Search Panel */}
       <div

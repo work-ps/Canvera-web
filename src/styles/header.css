@@ -87,9 +87,10 @@
   background: white; border-bottom: 1px solid var(--neutral-100); z-index: 999;
   max-height: 0; overflow: hidden;
   transition: max-height 0.35s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.25s ease;
-  opacity: 0;
+  opacity: 0; pointer-events: none;
 }
-.dropdown-panel.open { max-height: 420px; opacity: 1; }
+.dropdown-panel.open { max-height: 480px; opacity: 1; pointer-events: auto; }
+.dropdown-panel.panel-fixed.open { height: 420px; }
 .panel-inner { max-width: 1120px; margin: 0 auto; padding: var(--space-7) var(--space-8) var(--space-8); }
 .products-grid { display: grid; grid-template-columns: 240px 1fr 1fr; gap: var(--space-8); align-items: start; }
 .products-col h3 {
@@ -155,6 +156,21 @@
   border-radius: var(--radius-sm); transition: all 0.2s;
 }
 .header-logout-btn:hover { color: var(--red-600, #dc2626); background: var(--red-50, #fef2f2); }
+
+/* Profile link (logged-out state) — no border, subtle hover bg */
+.profile-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  color: var(--neutral-600); text-decoration: none;
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm);
+  transition: color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+.profile-link svg { width: 14px; height: 14px; }
+.profile-link:hover { color: var(--petrol-600); background: var(--petrol-25, #f0f7fa); }
+
+/* Shop panel 2-column variant */
+.products-grid.two-col { grid-template-columns: 240px 1fr; }
 
 .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: var(--space-2); }
 .mobile-toggle span {
