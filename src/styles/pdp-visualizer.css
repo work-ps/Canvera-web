@@ -1,0 +1,165 @@
+/* ==========================================================================
+   PDP Product Visualizer — Left panel
+   ========================================================================== */
+
+.pdp-visualizer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--warm-offwhite, #F8F6F2);
+  padding: var(--space-6);
+}
+
+/* ---- Image area ---- */
+.pdp-viz-image-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  min-height: 0;
+}
+
+.pdp-viz-image {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+/* SVG placeholder styling */
+.pdp-viz-svg-wrap {
+  width: 70%;
+  max-width: 380px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+.pdp-viz-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Carousel dots ---- */
+.pdp-viz-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+}
+
+.pdp-viz-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neutral-300);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s;
+}
+.pdp-viz-dot--active {
+  background: var(--petrol-600);
+  width: 10px;
+  height: 10px;
+}
+
+/* ---- Caption ---- */
+.pdp-viz-caption {
+  font-size: var(--text-body-sm);
+  color: var(--neutral-600);
+  text-align: center;
+  padding: var(--space-2) 0;
+  line-height: var(--leading-relaxed);
+}
+.pdp-viz-caption span {
+  color: var(--neutral-400);
+}
+
+/* ---- Config Summary Strip ---- */
+.pdp-viz-summary {
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.pdp-viz-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.1s;
+  font-size: var(--text-body-xs);
+}
+.pdp-viz-summary-row:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.pdp-viz-summary-label {
+  color: var(--neutral-500);
+  font-weight: var(--weight-medium);
+}
+
+.pdp-viz-summary-value {
+  color: var(--neutral-900);
+  font-weight: var(--weight-medium);
+}
+
+.pdp-viz-summary-value--unset {
+  color: var(--neutral-400);
+  font-style: italic;
+}
+
+/* ---- Zoom button ---- */
+.pdp-viz-zoom {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--neutral-200);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  color: var(--neutral-600);
+}
+.pdp-viz-zoom:hover {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.pdp-viz-zoom svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .pdp-visualizer {
+    padding: var(--space-4);
+  }
+
+  .pdp-viz-summary {
+    display: none;
+  }
+
+  .pdp-viz-svg-wrap {
+    width: 50%;
+    max-width: 200px;
+  }
+}

@@ -1,0 +1,546 @@
+/* ==========================================================================
+   PDP Review Block, CTA Block, Post-config sections
+   ========================================================================== */
+
+/* ---- Order Review Block ---- */
+.pdp-review {
+  background: var(--neutral-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.pdp-review-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xs);
+  font-weight: var(--weight-bold);
+  color: var(--neutral-900);
+  margin-bottom: var(--space-1);
+}
+
+.pdp-review-subtitle {
+  font-size: var(--text-body-md);
+  color: var(--neutral-600);
+  margin-bottom: var(--space-5);
+}
+
+/* Config summary table */
+.pdp-review-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pdp-review-table tr {
+  border-bottom: 1px solid var(--neutral-200);
+}
+.pdp-review-table tr:last-child {
+  border-bottom: none;
+}
+
+.pdp-review-table td {
+  padding: var(--space-3) 0;
+  font-size: var(--text-body-sm);
+  vertical-align: top;
+}
+
+.pdp-review-table td:first-child {
+  color: var(--neutral-600);
+  width: 35%;
+  font-weight: var(--weight-medium);
+}
+
+.pdp-review-table td:nth-child(2) {
+  color: var(--neutral-900);
+  font-weight: var(--weight-medium);
+}
+
+.pdp-review-table td:last-child {
+  text-align: right;
+  width: 80px;
+}
+
+.pdp-review-edit {
+  font-size: var(--text-body-xs);
+  color: var(--petrol-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  padding: 0;
+}
+.pdp-review-edit:hover {
+  text-decoration: underline;
+}
+.pdp-review-edit--error {
+  color: var(--error);
+}
+
+.pdp-review-required {
+  color: var(--error);
+  font-size: var(--text-body-sm);
+}
+
+/* Itemised Price Breakdown */
+.pdp-price-breakdown {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--neutral-200);
+}
+
+.pdp-price-breakdown-title {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--neutral-900);
+  margin-bottom: var(--space-3);
+}
+
+.pdp-price-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pdp-price-table tr {
+  border-bottom: 1px solid var(--neutral-100);
+}
+.pdp-price-table tr:last-child {
+  border-bottom: none;
+}
+
+.pdp-price-table td {
+  padding: var(--space-2) 0;
+  font-size: var(--text-body-sm);
+}
+
+.pdp-price-table td:first-child {
+  color: var(--neutral-700);
+}
+
+.pdp-price-table td:last-child {
+  text-align: right;
+  font-weight: var(--weight-medium);
+  color: var(--neutral-900);
+  white-space: nowrap;
+}
+
+.pdp-price-total-row td {
+  padding-top: var(--space-3);
+  border-top: 2px solid var(--neutral-300);
+  font-weight: var(--weight-bold) !important;
+  font-size: var(--text-body-md) !important;
+  color: var(--neutral-900) !important;
+}
+
+.pdp-price-note {
+  font-size: var(--text-body-xs);
+  color: var(--neutral-500);
+  margin-top: var(--space-3);
+}
+
+/* ---- CTA Block ---- */
+.pdp-cta-block {
+  margin-top: var(--space-8);
+  text-align: center;
+}
+
+.pdp-cta-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-bold);
+  color: var(--neutral-900);
+  margin-bottom: var(--space-1);
+}
+
+.pdp-cta-heading em {
+  font-style: normal;
+  color: var(--petrol-600);
+}
+
+.pdp-cta-price {
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-bold);
+  color: var(--neutral-900);
+  margin: var(--space-3) 0;
+}
+
+.pdp-cta-price-note {
+  font-size: var(--text-body-sm);
+  color: var(--neutral-600);
+  margin-bottom: var(--space-5);
+}
+
+.pdp-cta-main {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.pdp-cta-main--active {
+  background: var(--petrol-600);
+  color: #fff;
+}
+.pdp-cta-main--active:hover {
+  background: var(--petrol-700);
+  box-shadow: var(--shadow-lg);
+}
+
+.pdp-cta-main--disabled {
+  background: var(--neutral-400);
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.pdp-cta-main svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Secondary actions */
+.pdp-cta-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.pdp-cta-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-body-sm);
+  color: var(--neutral-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  padding: var(--space-2);
+}
+.pdp-cta-secondary-btn:hover {
+  color: var(--petrol-600);
+}
+
+/* Trust indicators */
+.pdp-trust {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--neutral-100);
+}
+
+.pdp-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-body-sm);
+  color: var(--neutral-600);
+  text-align: left;
+}
+
+.pdp-trust-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--petrol-600);
+  margin-top: 1px;
+}
+
+/* ---- Post-Config Sections ---- */
+.pdp-post-section {
+  margin-bottom: var(--space-8);
+}
+
+.pdp-post-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xs);
+  font-weight: var(--weight-bold);
+  color: var(--neutral-900);
+  margin-bottom: var(--space-5);
+}
+
+/* Production Timeline */
+.pdp-timeline {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.pdp-timeline-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+.pdp-timeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--neutral-200);
+}
+
+.pdp-timeline-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--petrol-50);
+  border: 2px solid var(--petrol-200);
+  margin: 0 auto var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.pdp-timeline-dot svg {
+  width: 16px;
+  height: 16px;
+  color: var(--petrol-600);
+}
+
+.pdp-timeline-label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--neutral-800);
+  margin-bottom: var(--space-1);
+}
+
+.pdp-timeline-desc {
+  font-size: var(--text-body-xs);
+  color: var(--neutral-600);
+  line-height: var(--leading-relaxed);
+}
+
+/* Included tiles */
+.pdp-included-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.pdp-included-tile {
+  text-align: center;
+  padding: var(--space-5) var(--space-3);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--neutral-100);
+}
+
+.pdp-included-tile svg {
+  width: 32px;
+  height: 32px;
+  color: var(--petrol-600);
+  margin: 0 auto var(--space-3);
+}
+
+.pdp-included-tile-label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--neutral-800);
+}
+
+/* Bulk CTA */
+.pdp-bulk-cta {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--neutral-100);
+  padding: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.pdp-bulk-text {
+  font-size: var(--text-body-md);
+  color: var(--neutral-700);
+}
+
+.pdp-bulk-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-body-xl);
+  font-weight: var(--weight-bold);
+  color: var(--neutral-900);
+  margin-bottom: var(--space-1);
+}
+
+/* ---- Hero Identity Block ---- */
+.pdp-hero {
+  margin-bottom: var(--space-8);
+}
+
+.pdp-hero-badge {
+  display: inline-block;
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--petrol-600);
+  background: var(--petrol-25);
+  border: 1px solid var(--petrol-100);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-3);
+}
+
+.pdp-hero-name {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-extrabold);
+  color: var(--neutral-900);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-2);
+}
+
+.pdp-hero-subtitle {
+  font-size: var(--text-body-lg);
+  color: var(--neutral-600);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+.pdp-hero-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.pdp-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-body-sm);
+  color: var(--neutral-700);
+  background: var(--neutral-50);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--neutral-100);
+}
+
+.pdp-hero-pill::before {
+  content: '\25CE';
+  color: var(--petrol-500);
+  font-size: 12px;
+}
+
+.pdp-hero-price {
+  font-size: var(--text-body-md);
+  color: var(--neutral-700);
+}
+.pdp-hero-price strong {
+  font-family: var(--font-display);
+  font-size: var(--text-body-xl);
+  font-weight: var(--weight-bold);
+  color: var(--neutral-900);
+}
+
+.pdp-hero-details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-body-sm);
+  color: var(--petrol-600);
+  margin-top: var(--space-3);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  padding: 0;
+}
+.pdp-hero-details-link:hover {
+  text-decoration: underline;
+}
+
+/* ---- Product Details Tabs ---- */
+.pdp-tabs {
+  margin-bottom: var(--space-8);
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.pdp-tabs-bar {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pdp-tabs-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.pdp-tab-btn {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--neutral-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  font-family: var(--font-body);
+  transition: color 0.15s;
+}
+.pdp-tab-btn:hover {
+  color: var(--petrol-600);
+}
+.pdp-tab-btn--active {
+  color: var(--petrol-600);
+  font-weight: var(--weight-semibold);
+}
+.pdp-tab-btn--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--space-4);
+  right: var(--space-4);
+  height: 2px;
+  background: var(--petrol-600);
+  border-radius: 1px;
+}
+
+.pdp-tab-content {
+  padding: var(--space-5) 0;
+  font-size: var(--text-body-md);
+  color: var(--neutral-700);
+  line-height: var(--leading-relaxed);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .pdp-timeline {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .pdp-timeline-step:not(:last-child)::after {
+    display: none;
+  }
+  .pdp-included-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pdp-bulk-cta {
+    flex-direction: column;
+    text-align: center;
+  }
+  .pdp-hero-name {
+    font-size: var(--text-display-sm);
+  }
+}

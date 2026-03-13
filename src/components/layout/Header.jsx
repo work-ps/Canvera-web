@@ -52,7 +52,10 @@ export default function Header() {
   const openPanel = useCallback((panelId) => {
     clearTimeout(hoverTimeoutRef.current)
     setActivePanel(panelId)
-    setIsPanelOpen(true)
+    // Only show backdrop for full-width nav panels, not profile/account dropdowns
+    if (panelId !== 'profile' && panelId !== 'account') {
+      setIsPanelOpen(true)
+    }
   }, [])
 
   const closePanel = useCallback(() => {
@@ -207,37 +210,119 @@ export default function Header() {
               </svg>
             </button>
 
-            {/* Profile */}
+            {/* Profile / Account dropdown */}
             {isRegistered ? (
-              <div className="header-user-menu">
-                <span className="header-user-name">
+              <div
+                className="profile-trigger-wrap"
+                onMouseEnter={() => handleNavEnter('account')}
+                onMouseLeave={handleNavLeave}
+              >
+                <button className="profile-link profile-link--active">
                   <svg viewBox="0 0 16 16" fill="none">
                     <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
                     <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
                   </svg>
                   {authState.name?.split(' ')[0]}
                   {isVerified && (
-                    <svg className="header-verified-badge" viewBox="0 0 14 14" fill="none" width="14" height="14">
+                    <svg className="header-verified-badge" viewBox="0 0 14 14" fill="none" width="12" height="12">
                       <circle cx="7" cy="7" r="6" fill="var(--petrol-600, #00778B)" />
                       <path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   )}
-                </span>
-                <button
-                  className="header-logout-btn"
-                  onClick={() => { logout(); navigate('/') }}
-                >
-                  Logout
                 </button>
+
+                {activePanel === 'account' && (
+                  <div
+                    className="profile-dropdown profile-dropdown--account"
+                    onMouseEnter={handlePanelEnter}
+                    onMouseLeave={handlePanelLeave}
+                  >
+                    <div className="profile-dropdown-user">
+                      <div className="profile-dropdown-avatar">
+                        {authState.name?.charAt(0) || 'P'}
+                      </div>
+                      <div className="profile-dropdown-user-info">
+                        <span className="profile-dropdown-user-name">
+                          {authState.name || 'Photographer'}
+                          {isVerified && (
+                            <svg className="header-verified-badge" viewBox="0 0 14 14" fill="none" width="13" height="13">
+                              <circle cx="7" cy="7" r="6" fill="var(--petrol-600, #00778B)" />
+                              <path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          )}
+                        </span>
+                        <span className="profile-dropdown-user-detail">
+                          {authState.studio || authState.email}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="profile-dropdown-divider" />
+
+                    <nav className="profile-dropdown-links">
+                      {isVerified && <Link to="/dashboard" onClick={closePanel}>Dashboard</Link>}
+                      <Link to="/products" onClick={closePanel}>Shop Products</Link>
+                      <Link to={isVerified ? '/dashboard' : '/login'} onClick={() => closePanel()}>My Orders</Link>
+                    </nav>
+
+                    <div className="profile-dropdown-divider" />
+
+                    <nav className="profile-dropdown-links">
+                      <Link to={isVerified ? '/dashboard' : '/login'} onClick={closePanel}>Profile</Link>
+                      <Link to={isVerified ? '/dashboard' : '/login'} onClick={closePanel}>Club Canvera</Link>
+                    </nav>
+
+                    <div className="profile-dropdown-divider" />
+
+                    <button
+                      className="profile-dropdown-signout"
+                      onClick={() => { closePanel(); navigate('/'); setTimeout(logout, 50) }}
+                    >
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <path d="M6 14H3.5a1 1 0 01-1-1V3a1 1 0 011-1H6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M10.5 11.5L14 8l-3.5-3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M14 8H6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                      </svg>
+                      Sign Out
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
-              <Link className="profile-link" to="/login">
-                <svg viewBox="0 0 16 16" fill="none">
-                  <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
-                  <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                </svg>
-                Profile
-              </Link>
+              <div
+                className="profile-trigger-wrap"
+                onMouseEnter={() => handleNavEnter('profile')}
+                onMouseLeave={handleNavLeave}
+              >
+                <button className="profile-link" onClick={() => navigate('/login')}>
+                  <svg viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
+                    <path d="M2 14.5c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                  </svg>
+                  Profile
+                </button>
+
+                {activePanel === 'profile' && (
+                  <div
+                    className="profile-dropdown"
+                    onMouseEnter={handlePanelEnter}
+                    onMouseLeave={handlePanelLeave}
+                  >
+                    <div className="profile-dropdown-header">
+                      <span className="profile-dropdown-welcome">Welcome</span>
+                      <span className="profile-dropdown-subtitle">To access account and manage orders</span>
+                    </div>
+                    <Link to="/login" className="profile-dropdown-cta" onClick={closePanel}>
+                      LOGIN / SIGNUP
+                    </Link>
+                    <div className="profile-dropdown-divider" />
+                    <nav className="profile-dropdown-links">
+                      <Link to="/login" onClick={closePanel}>Orders</Link>
+                      <Link to="/contact" onClick={closePanel}>Contact Us</Link>
+                    </nav>
+                  </div>
+                )}
+              </div>
             )}
 
             {/* Contact Us */}

@@ -11,6 +11,9 @@ import ContactPage from './components/contact/ContactPage'
 import SignIn from './components/auth/SignIn'
 import SignUp from './components/auth/SignUp'
 import OwnYourAlbumPage from './pages/OwnYourAlbumPage'
+import DashboardPage from './pages/DashboardPage'
+import ProtectedRoute from './components/auth/ProtectedRoute'
+import ProductConfigPage from './pages/ProductConfigPage'
 
 function App() {
   return (
@@ -18,9 +21,11 @@ function App() {
       <CompareProvider>
         <Routes>
           <Route element={<Layout />}>
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/products/:slug/configure" element={<ProductConfigPage />} />
             <Route path="/collections" element={<CollectionsPage />} />
             <Route path="/collections/:slug" element={<CollectionDetailPage />} />
             <Route path="/own-your-album" element={<OwnYourAlbumPage />} />

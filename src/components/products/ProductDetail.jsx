@@ -147,6 +147,10 @@ export default function ProductDetail() {
                   <div className="price-amount">{'₹'}{(product.id * 47 + 299).toLocaleString()}</div>
                   <p className="price-note">Inclusive of GST. Free design service included.</p>
                   <button className="btn btn-primary btn-md" style={{ width: '100%' }}>Add to Cart</button>
+                  <Link to={`/products/${slug}/configure`} className="btn btn-outline btn-md" style={{ width: '100%', marginTop: 8 }}>
+                    <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M2 4h12M4 4v9a1 1 0 001 1h6a1 1 0 001-1V4M6 4V2.5A.5.5 0 016.5 2h3a.5.5 0 01.5.5V4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M6 7h4M6 10h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                    Configure &amp; Order
+                  </Link>
                 </>
               ) : isRegistered ? (
                 <>
@@ -156,6 +160,9 @@ export default function ProductDetail() {
                     <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="7" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5"/><path d="M8 5v4" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5" strokeLinecap="round"/><circle cx="8" cy="11.5" r="0.75" fill="var(--amber-500, #f59e0b)"/></svg>
                     <span>Pending review — typically 1-2 business days</span>
                   </div>
+                  <Link to={`/products/${slug}/configure`} className="btn btn-outline btn-md" style={{ width: '100%', marginTop: 12 }}>
+                    Configure &amp; Order
+                  </Link>
                 </>
               ) : (
                 <>
@@ -165,6 +172,9 @@ export default function ProductDetail() {
                     <Link to="/login" className="btn btn-primary btn-md">Sign In</Link>
                     <Link to="/register" className="btn btn-outline btn-md">Create Free Account</Link>
                   </div>
+                  <Link to={`/products/${slug}/configure`} className="btn btn-outline btn-md" style={{ width: '100%', marginTop: 12 }}>
+                    Configure &amp; Order
+                  </Link>
                 </>
               )}
             </div>

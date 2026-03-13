@@ -7,6 +7,8 @@ import CompareDrawer from '../compare/CompareDrawer'
 
 export default function Layout() {
   const { pathname } = useLocation()
+  const isDashboard = pathname === '/dashboard'
+  const isConfigurePage = /^\/products\/[^/]+\/configure$/.test(pathname)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -15,12 +17,10 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-      <CompareBar />
-      <CompareDrawer />
+      {isDashboard || isConfigurePage ? <Outlet /> : <main><Outlet /></main>}
+      {!isDashboard && !isConfigurePage && <Footer />}
+      {!isConfigurePage && <CompareBar />}
+      {!isConfigurePage && <CompareDrawer />}
     </>
   )
 }

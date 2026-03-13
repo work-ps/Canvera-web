@@ -5,7 +5,7 @@ import '../../styles/auth.css'
 
 
 export default function SignIn() {
-  const { authState, login, isRegistered } = useAuth()
+  const { authState, login, isRegistered, isVerified } = useAuth()
   const navigate = useNavigate()
   const [loginMethod, setLoginMethod] = useState('password')
   const [form, setForm] = useState({
@@ -71,9 +71,9 @@ export default function SignIn() {
   // Redirect if already logged in
   useEffect(() => {
     if (isRegistered) {
-      navigate('/', { replace: true })
+      navigate(isVerified ? '/dashboard' : '/', { replace: true })
     }
-  }, [isRegistered, navigate])
+  }, [isRegistered, isVerified, navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -114,7 +114,9 @@ export default function SignIn() {
     }
 
     setSubmitted(true)
-    setTimeout(() => navigate('/'), 1200)
+    setTimeout(() => {
+      navigate(result.user.status === 'verified' ? '/dashboard' : '/')
+    }, 1200)
   }
 
   return (

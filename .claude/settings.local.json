@@ -30,7 +30,25 @@
       "Bash(findstr:*)",
       "Bash(taskkill:*)",
       "Bash(npm run dev -- --port 5173)",
-      "Bash(set \"PATH=C:\\\\Program Files\\\\nodejs;%PATH%\")"
+      "Bash(set \"PATH=C:\\\\Program Files\\\\nodejs;%PATH%\")",
+      "Bash(PATH=\"/c/Program Files/nodejs:$PATH\")",
+      "Bash(\"/c/Program Files/nodejs/npm\" install --prefix /c/Users/ASUS/Downloads/Claudecode_folder/canvera-app)",
+      "Bash(echo $PATH)",
+      "Bash(npm --version)",
+      "Bash(git remote add origin https://github.com/work-ps/Canvera-web.git)",
+      "Bash(git push -u origin master)",
+      "Bash(gh auth status)",
+      "Bash(git config --list)",
+      "Bash(GIT_TERMINAL_PROMPT=0 git push -u origin master)",
+      "Bash(cmd /c \"dir C:\\\\Users\\\\ASUS\\\\Downloads\\\\Claudecode_folder\\\\canvera-app\\\\src\\\\components\"\")",
+      "Bash(cmd /c \"dir /b C:\\\\Users\\\\ASUS\\\\Downloads\\\\Claudecode_folder\\\\canvera-app\\\\src\\\\components\")",
+      "Bash(cmd /c \"mkdir C:\\\\Users\\\\ASUS\\\\Downloads\\\\Claudecode_folder\\\\canvera-app\\\\src\\\\components\\\\pdp\")",
+      "Bash(for f in src/components/auth/ProtectedRoute.jsx src/context/PDPConfigContext.jsx src/data/pdpOptions.js src/data/pdpPricing.js src/pages/DashboardPage.jsx src/pages/ProductConfigPage.jsx)",
+      "Bash(do echo \"=== $f ===\")",
+      "Read(//c/Users/ASUS/Downloads/Claudecode_folder/canvera-app/**)",
+      "Bash(done)",
+      "Bash(cmd /c \"dir /b src\\\\components\\\\pdp\")",
+      "Bash(cmd /c \"dir /b image-audit & dir /b scripts\")"
     ]
   }
 }
