@@ -3,12 +3,12 @@ export const shopMenu = {
     {
       title: 'Categories',
       links: [
+        { label: 'Premium Albums', href: '/products?category=premium-albums' },
+        { label: 'Standard Albums', href: '/products?category=standard-albums' },
         { label: 'Photobooks', href: '/products?category=photobooks' },
-        { label: 'Moment Books', href: '/products?category=moment-books' },
-        { label: 'Magazines', href: '/products?category=magazines' },
-        { label: 'Wall & Decor', href: '/products?category=wall-decor' },
-        { label: 'Gifting Packages', href: '/products?category=gifting-packages' },
-        { label: 'Accessories', href: '/products?category=accessories' },
+        { label: 'Canvas & Frames', href: '/products?category=canvas-frames' },
+        { label: 'Decor & Gifts', href: '/products?category=decor-gifts' },
+        { label: 'Calendars', href: '/products?category=calendars' },
       ],
     },
     {
@@ -58,42 +58,30 @@ export const supportMenu = {
 
 export const footerColumns = [
   {
-    title: 'Products',
+    title: 'Quick Links',
     links: [
-      { label: 'Premium Albums', href: '/products?category=premium-albums' },
-      { label: 'Standard Albums', href: '/products?category=standard-albums' },
-      { label: 'Photobooks', href: '/products?category=photobooks' },
-      { label: 'Canvas & Frames', href: '/products?category=canvas-frames' },
-      { label: 'Decor & Gifts', href: '/products?category=decor-gifts' },
-      { label: 'Calendars', href: '/products?category=calendars' },
+      { label: 'Shop', href: '/products' },
+      { label: 'Collections', href: '/collections' },
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   {
-    title: 'Company',
+    title: 'Customer Service',
     links: [
-      { label: 'About Canvera', href: '/products' },
-      { label: 'Why Choose Us', href: '/products' },
-      { label: 'Careers', href: '/products' },
-      { label: 'Press & Media', href: '/products' },
+      { label: 'FAQ', href: '/products' },
+      { label: 'Track Order', href: '/products' },
+      { label: 'Check Genuineness', href: '/products' },
+      { label: 'Returns & Refunds', href: '/products' },
     ],
   },
   {
     title: 'Support',
     links: [
-      { label: 'Contact Us', href: '/contact' },
       { label: 'Help Center', href: '/products' },
-      { label: 'Track Order', href: '/products' },
+      { label: 'Contact Us', href: '/contact' },
       { label: 'Shipping Info', href: '/products' },
-      { label: 'Returns', href: '/products' },
-    ],
-  },
-  {
-    title: 'Community',
-    links: [
-      { label: 'Photographer Forum', href: '/products' },
-      { label: 'Blog', href: '/products' },
-      { label: 'Tutorials', href: '/products' },
-      { label: 'Events', href: '/products' },
+      { label: 'Bulk Orders', href: '/products' },
     ],
   },
 ];

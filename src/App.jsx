@@ -14,6 +14,7 @@ import OwnYourAlbumPage from './pages/OwnYourAlbumPage'
 import DashboardPage from './pages/DashboardPage'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import ProductConfigPage from './pages/ProductConfigPage'
+import AboutPage from './pages/AboutPage'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/collections" element={<CollectionsPage />} />
             <Route path="/collections/:slug" element={<CollectionDetailPage />} />
             <Route path="/own-your-album" element={<OwnYourAlbumPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />

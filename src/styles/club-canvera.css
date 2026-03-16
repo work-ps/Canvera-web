@@ -1,0 +1,91 @@
+/* ==========================================================================
+   Club Canvera — Pro Partner promotional banner
+   ========================================================================== */
+
+.club-section {
+  padding: var(--space-8) 0;
+  max-width: 1120px; margin: 0 auto;
+  padding-left: var(--space-8); padding-right: var(--space-8);
+}
+.club-inner {
+  width: 100%; padding: var(--space-11) var(--space-8);
+  background: linear-gradient(135deg, var(--amber-50) 0%, #FFF0DD 40%, #FFEACC 100%);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Badge pill */
+.club-badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--amber-800);
+  background: var(--amber-400);
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-6);
+}
+
+/* Title */
+.club-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-extrabold);
+  color: var(--petrol-900);
+  line-height: var(--leading-tight);
+  margin: 0 0 var(--space-4);
+}
+
+/* Description */
+.club-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-loose);
+  color: var(--neutral-600);
+  max-width: 640px;
+  margin: 0 0 var(--space-8);
+}
+
+/* CTA button — amber accent */
+.club-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-semibold);
+  color: white;
+  background: var(--amber-500);
+  border: none;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(244,126,19,0.25);
+}
+.club-cta:hover {
+  background: var(--amber-600);
+  box-shadow: 0 6px 20px rgba(244,126,19,0.35);
+  transform: translateY(-1px);
+}
+.club-cta svg {
+  width: 16px; height: 16px;
+  transition: transform 0.2s;
+}
+.club-cta:hover svg { transform: translateX(3px); }
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 900px) {
+  .club-section { padding: var(--space-6) var(--space-5); }
+  .club-inner { padding: var(--space-9) var(--space-6); }
+  .club-title { font-size: var(--text-display-sm); }
+  .club-desc { font-size: var(--text-body-md); }
+  .club-cta { padding: 12px 24px; font-size: 13px; }
+}

@@ -1,0 +1,191 @@
+/* ==========================================================================
+   About Page — Full about page with hero, story, values, stats, mission
+   ========================================================================== */
+
+.about-page {
+  min-height: 100vh;
+}
+
+/* ── Hero Banner ──────────────────────────────── */
+.about-hero {
+  background: linear-gradient(155deg, var(--petrol-200) 0%, var(--petrol-400) 50%, var(--petrol-700) 100%);
+  padding: var(--space-12) var(--space-8);
+  text-align: center;
+}
+.about-hero-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  font-weight: var(--weight-extrabold);
+  color: white;
+  margin: 0 0 var(--space-4);
+  line-height: var(--leading-tight);
+}
+.about-hero-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-body-xl);
+  line-height: var(--leading-relaxed);
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Content Blocks (Story, Mission) ─────────── */
+.about-block {
+  padding: var(--space-11) 0;
+}
+.about-block-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+.about-block-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-extrabold);
+  color: var(--petrol-900);
+  line-height: var(--leading-snug);
+  margin: 0 0 var(--space-7);
+}
+.about-block-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-loose);
+  color: var(--neutral-600);
+  margin: 0 0 var(--space-5);
+}
+.about-block-text:last-child { margin-bottom: 0; }
+
+/* ── Values Section ──────────────────────────── */
+.about-values {
+  padding: var(--space-11) 0;
+  background: var(--neutral-25);
+}
+.about-values-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+.about-values-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-extrabold);
+  color: var(--petrol-900);
+  text-align: center;
+  margin: 0 0 var(--space-9);
+  line-height: var(--leading-snug);
+}
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-7);
+}
+.about-value-card {
+  text-align: center;
+}
+.about-value-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto var(--space-5);
+  background: var(--petrol-50);
+  border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center;
+}
+.about-value-icon svg {
+  width: 24px; height: 24px;
+  color: var(--petrol-600);
+}
+.about-value-name {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-bold);
+  color: var(--petrol-900);
+  margin: 0 0 var(--space-3);
+}
+.about-value-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body-base);
+  line-height: var(--leading-normal);
+  color: var(--neutral-500);
+  margin: 0;
+}
+
+/* ── Stats Banner ────────────────────────────── */
+.about-stats {
+  background: linear-gradient(155deg, var(--petrol-700) 0%, var(--petrol-900) 100%);
+  padding: var(--space-10) 0;
+}
+.about-stats-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-7);
+  text-align: center;
+}
+.about-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+.about-stat-icon {
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--space-2);
+}
+.about-stat-icon svg {
+  width: 22px; height: 22px;
+  color: var(--petrol-200);
+}
+.about-stat-number {
+  font-family: var(--font-display);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-extrabold);
+  color: white;
+  letter-spacing: -0.02em;
+}
+.about-stat-label {
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--petrol-200);
+}
+
+/* ── Mission uses same block style but no extra styling needed ── */
+.about-mission {
+  border-top: 1px solid var(--neutral-100);
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 900px) {
+  .about-hero { padding: var(--space-10) var(--space-5); }
+  .about-hero-title { font-size: var(--text-display-md); }
+  .about-hero-subtitle { font-size: var(--text-body-lg); }
+
+  .about-block { padding: var(--space-9) 0; }
+  .about-block-inner { padding: 0 var(--space-5); }
+  .about-block-title { font-size: var(--text-display-xs); }
+
+  .about-values { padding: var(--space-9) 0; }
+  .about-values-inner { padding: 0 var(--space-5); }
+  .about-values-title { font-size: var(--text-display-xs); margin-bottom: var(--space-7); }
+  .about-values-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .about-stats { padding: var(--space-8) 0; }
+  .about-stats-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    padding: 0 var(--space-5);
+  }
+  .about-stat-number { font-size: var(--text-display-xs); }
+}
+
+@media (max-width: 480px) {
+  .about-values-grid { grid-template-columns: 1fr; }
+  .about-stats-inner { grid-template-columns: 1fr 1fr; }
+}

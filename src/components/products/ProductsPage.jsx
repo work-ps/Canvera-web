@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import ProductFilter from './ProductFilter'
 import ProductCard from '../home/ProductCard'
 import products from '../../data/products'
+import collections from '../../data/collections'
 import '../../styles/products-page.css'
 import '../../styles/popular-products.css'
 
@@ -16,11 +17,18 @@ const categoryAliases = {
 
 const emptyFilters = {
   categories: [],
-  materials: [],
+  collections: [],
   sizes: [],
   orientations: [],
   bindings: [],
-  printTypes: [],
+}
+
+const dimensionLabels = {
+  categories: 'Category',
+  collections: 'Collection',
+  sizes: 'Size',
+  orientations: 'Orientation',
+  bindings: 'Binding',
 }
 
 export default function ProductsPage() {
@@ -40,7 +48,8 @@ export default function ProductsPage() {
     return init
   })
 
-  const [sortBy, setSortBy] = useState('popular')
+  const [sortBy, setSortBy] = useState('relevance')
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
 
   const handleToggle = useCallback((dimension, value) => {
     if (dimension === 'clear-all') {
@@ -61,8 +70,13 @@ export default function ProductsPage() {
     if (filters.categories.length > 0) {
       result = result.filter(p => filters.categories.includes(p.category))
     }
-    if (filters.materials.length > 0) {
-      result = result.filter(p => filters.materials.includes(p.material))
+    if (filters.collections.length > 0) {
+      const matchingProductNames = new Set()
+      filters.collections.forEach(colName => {
+        const col = collections.find(c => c.name === colName)
+        if (col) col.productNames.forEach(n => matchingProductNames.add(n))
+      })
+      result = result.filter(p => matchingProductNames.has(p.name))
     }
     if (filters.sizes.length > 0) {
       result = result.filter(p => p.sizes?.some(s => filters.sizes.includes(s)))
@@ -73,22 +87,22 @@ export default function ProductsPage() {
     if (filters.bindings.length > 0) {
       result = result.filter(p => p.bindings?.some(b => filters.bindings.includes(b)))
     }
-    if (filters.printTypes.length > 0) {
-      result = result.filter(p => p.printTypes?.some(pt => filters.printTypes.includes(pt)))
-    }
     if (badgeParam) {
       result = result.filter(p => p.badge === badgeParam)
     }
 
     switch (sortBy) {
-      case 'rating':
-        result.sort((a, b) => b.rating - a.rating)
+      case 'price-low':
+      case 'price-high':
         break
-      case 'reviews':
+      case 'newest':
+        result.sort((a, b) => b.id - a.id)
+        break
+      case 'best-selling':
         result.sort((a, b) => b.reviewCount - a.reviewCount)
         break
-      case 'name':
-        result.sort((a, b) => a.name.localeCompare(b.name))
+      case 'better-deal':
+        result.sort((a, b) => (b.rating * b.reviewCount) - (a.rating * a.reviewCount))
         break
       default:
         break
@@ -97,16 +111,70 @@ export default function ProductsPage() {
     return result
   }, [filters, badgeParam, sortBy])
 
-  const activeCount = Object.values(filters).reduce((sum, arr) => sum + arr.length, 0)
+  const activeChips = useMemo(() => {
+    const chips = []
+    Object.entries(filters).forEach(([dim, values]) => {
+      values.forEach(val => {
+        chips.push({ dimension: dim, value: val })
+      })
+    })
+    return chips
+  }, [filters])
 
   return (
     <div className="products-page">
       <div className="products-page-inner">
-        <div className="breadcrumb">
-          <Link to="/">Home</Link>
-          <span>/</span>
-          <span className="current">Products</span>
+        {/* Top bar: breadcrumb left, count + sort right */}
+        <div className="shop-toolbar">
+          <div className="breadcrumb">
+            <Link to="/">Home</Link>
+            <span>/</span>
+            <span className="current">Products</span>
+          </div>
+          <div className="shop-toolbar-right">
+            <span className="shop-product-count">{filtered.length} products</span>
+            <select
+              className="shop-sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="relevance">Relevance</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="newest">Newest</option>
+              <option value="best-selling">Best Selling</option>
+              <option value="better-deal">Better Deal</option>
+            </select>
+            <button
+              className="shop-mobile-filter-btn"
+              onClick={() => setMobileFilterOpen(true)}
+            >
+              <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
+                <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+              </svg>
+              Filters
+            </button>
+          </div>
         </div>
+
+        {/* Active filter chips */}
+        {activeChips.length > 0 && (
+          <div className="shop-active-chips">
+            {activeChips.map(chip => (
+              <button
+                key={`${chip.dimension}-${chip.value}`}
+                className="shop-chip"
+                onClick={() => handleToggle(chip.dimension, chip.value)}
+              >
+                {chip.value}
+                <span className="shop-chip-x">&times;</span>
+              </button>
+            ))}
+            <button className="shop-clear-all" onClick={() => handleToggle('clear-all')}>
+              Clear all
+            </button>
+          </div>
+        )}
 
         <div className="products-layout">
           <ProductFilter
@@ -115,23 +183,6 @@ export default function ProductsPage() {
           />
 
           <div>
-            <div className="products-header">
-              <h1>
-                All Products
-                <span className="products-count">({filtered.length})</span>
-              </h1>
-              <select
-                className="sort-select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="popular">Sort: Popular</option>
-                <option value="rating">Sort: Highest Rated</option>
-                <option value="reviews">Sort: Most Reviews</option>
-                <option value="name">Sort: Name A-Z</option>
-              </select>
-            </div>
-
             <div className="products-grid-list">
               {filtered.map(product => (
                 <ProductCard key={product.id} product={product} showCompare listingMode />
@@ -151,6 +202,19 @@ export default function ProductsPage() {
             )}
           </div>
         </div>
+
+        {/* Mobile filter drawer */}
+        {mobileFilterOpen && (
+          <div className="shop-mobile-overlay" onClick={() => setMobileFilterOpen(false)}>
+            <div className="shop-mobile-drawer" onClick={e => e.stopPropagation()}>
+              <div className="shop-mobile-drawer-header">
+                <span>Filters</span>
+                <button onClick={() => setMobileFilterOpen(false)}>&times;</button>
+              </div>
+              <ProductFilter filters={filters} onToggle={handleToggle} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
