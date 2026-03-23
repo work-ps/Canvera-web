@@ -4,7 +4,7 @@ import ProductCard from './ProductCard'
 import products from '../../data/products'
 import '../../styles/popular-products.css'
 
-const popularIds = [1, 2, 5, 4, 9, 3, 7, 8]
+const popularIds = [26, 27, 28, 5, 29, 30, 7, 11, 1, 31]
 
 export default function PopularProducts() {
   const scrollRef = useRef(null)
@@ -53,7 +53,7 @@ export default function PopularProducts() {
             <h2 className="section-title">Popular Products</h2>
             <p className="section-subtitle">Loved by photographers across India</p>
           </div>
-          <Link to="/products" className="view-all-link">
+          <Link to="/shop" className="view-all-link">
             View All Products
             <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Link>

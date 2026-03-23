@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCompare } from '../../context/CompareContext'
 import productSlides from '../../data/productSlides'
+import { getProductImages, getProductThumbnail } from '../../data/productImages'
 
 const badgeMap = {
   bestseller: { cls: 'pc-badge-bestseller', text: 'Best Seller' },
@@ -124,18 +125,24 @@ export default function ProductCard({ product, showCompare = false, listingMode 
     }
   }
 
-  /* ---- Resolve default SVG for this product ---- */
+  /* ---- Resolve images for this product ---- */
   const defaultSvg = productSvgs[product.imageVariant] || productSvgs.petrol
+  const realImages = getProductImages(product.slug)
+  const thumbnail = getProductThumbnail(product.slug)
+  const hasRealImages = realImages.length > 0
+
+  /* ---- Listing-mode carousel: use real images if available ---- */
+  const listingSlides = hasRealImages ? realImages.slice(0, 5) : productSlides
 
   return (
-    <Link to={`/products/${product.slug}`} className="product-card-link">
+    <Link to={`/product/${product.slug}`} className="product-card-link">
       <div
         className={`product-card${listingMode ? ' pc-listing-mode' : ''}${compareMode ? ' pc-compare-mode' : ''}`}
         onMouseEnter={listingMode ? handleMouseEnter : undefined}
         onMouseLeave={listingMode ? handleMouseLeave : undefined}
       >
         {/* ==================== IMAGE AREA ==================== */}
-        <div className={`pc-image pc-img-${product.imageVariant}`}>
+        <div className={`pc-image${hasRealImages ? ' pc-has-photo' : ` pc-img-${product.imageVariant}`}`}>
           {/* Badge (top-left) */}
           {badge && <span className={`pc-badge ${badge.cls}`}>{badge.text}</span>}
 
@@ -159,18 +166,29 @@ export default function ProductCard({ product, showCompare = false, listingMode 
             </button>
           )}
 
-          {/* Carousel slides (listing mode) OR static SVG (default) */}
+          {/* Carousel slides (listing mode) OR static image/SVG (default) */}
           {listingMode ? (
             <div className="pc-carousel-wrap">
-              {productSlides.map((slide, i) => (
+              {listingSlides.map((slide, i) => (
                 <div
                   key={i}
                   className={`pc-slide${i === slideIndex ? ' pc-slide-active' : ''}`}
                 >
-                  {slide === null ? defaultSvg : slide}
+                  {typeof slide === 'string' ? (
+                    <img src={slide} alt={`${product.name} ${i + 1}`} className="pc-slide-img" loading="lazy" />
+                  ) : (
+                    slide === null ? defaultSvg : slide
+                  )}
                 </div>
               ))}
             </div>
+          ) : hasRealImages ? (
+            <img
+              src={thumbnail}
+              alt={product.name}
+              className="pc-product-photo"
+              loading="lazy"
+            />
           ) : (
             defaultSvg
           )}
@@ -188,7 +206,7 @@ export default function ProductCard({ product, showCompare = false, listingMode 
           {/* Dot indicators (listing mode, on hover) */}
           {listingMode && isHovered && (
             <div className="pc-dots">
-              {productSlides.map((_, i) => (
+              {listingSlides.map((_, i) => (
                 <span key={i} className={`pc-dot${i === slideIndex ? ' pc-dot-active' : ''}`} />
               ))}
             </div>

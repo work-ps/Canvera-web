@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import VideoOverlay from './VideoOverlay'
 import '../../styles/hero.css'
 
 const carouselCards = [
   { theme: '', visual: 'cc-visual-light', chip: { cls: 'cc-chip-new', text: 'Best Seller' }, tag: 'Premium Album', name: 'Acroluxe', desc: 'Acrylic tab cover · 5 colours · Leather binding' },
   { theme: 'cc-accent', visual: 'cc-visual-accent', chip: null, tag: 'New Launch', name: 'Dualuxe Set', desc: 'Dual photobooks with acrylic + engraved covers' },
   { theme: '', visual: 'cc-visual-warm', chip: { cls: 'cc-chip-premium', text: 'Premium' }, tag: 'Signature Series', name: 'Royal Relics', desc: '13 colours · Acrylic window · Wood box' },
-  { theme: 'cc-dark', visual: 'cc-visual-dark', chip: null, tag: 'Foiling Finish', name: 'Amora', desc: '8 design styles · Velvet lamination box' },
+  { theme: 'cc-dark', visual: 'cc-visual-dark', chip: null, tag: 'Foiling Finish', name: 'Premium Amora', desc: '8 design styles · Velvet lamination box' },
   { theme: 'cc-leaf', visual: 'cc-visual-leaf', chip: null, tag: 'Explore', name: 'Own Your Album', desc: 'Build your perfect album in 5 easy steps' },
 ]
 
@@ -21,7 +20,6 @@ const carouselSvgs = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
-  const [videoOpen, setVideoOpen] = useState(false)
   const autoTimerRef = useRef(null)
   const total = carouselCards.length
 
@@ -68,40 +66,38 @@ export default function Hero() {
         <div className="hero-copy">
           <div className="hero-badge">
             <span className="badge-dot"></span>
-            Trusted by 75,000+ Photographers
+            Trusted by 91,000+ Partners
           </div>
           <h1 className="hero-headline">
             Your Craft Deserves <em>Premium Albums</em>
           </h1>
           <p className="hero-sub">
-            India's largest photobook platform — design, order, and deliver stunning albums your clients will treasure. Professional tools, exclusive member benefits, white-glove support.
+            Photographs deserve more than storage — they deserve to be experienced. Award-winning photobooks crafted with state-of-the-art precision and delivered across 2,800+ cities. You bring the vision, we'll bring it to life.
           </p>
           <div className="hero-ctas">
-            <Link to="/register" className="hero-cta-primary">
-              Join for Free
+            <Link to="/collections" className="hero-cta-primary">
+              Explore Collection
               <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </Link>
-            <button className="hero-cta-secondary" onClick={() => setVideoOpen(true)}>
-              <span className="hero-cta-play-icon">
-                <svg viewBox="0 0 16 16" fill="none"><polygon points="6,3.5 6,12.5 13,8" fill="currentColor"/></svg>
-              </span>
-              Explore Canvera Experience
-            </button>
+            <Link to="/signup" className="hero-cta-secondary">
+              Join Now
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </Link>
           </div>
           <div className="hero-proof">
-            <div className="hero-stat">
-              <div className="hero-stat-num">150+</div>
-              <div className="hero-stat-label">Album Products</div>
-            </div>
-            <div className="hero-stat-divider"></div>
             <div className="hero-stat">
               <div className="hero-stat-num">Since 2007</div>
               <div className="hero-stat-label">Serving India</div>
             </div>
             <div className="hero-stat-divider"></div>
             <div className="hero-stat">
-              <div className="hero-stat-num">500+</div>
-              <div className="hero-stat-label">Cities Delivered</div>
+              <div className="hero-stat-num">91,000+</div>
+              <div className="hero-stat-label">Partners</div>
+            </div>
+            <div className="hero-stat-divider"></div>
+            <div className="hero-stat">
+              <div className="hero-stat-num">1.75M+</div>
+              <div className="hero-stat-label">Albums Sold</div>
             </div>
           </div>
         </div>
@@ -147,7 +143,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <VideoOverlay open={videoOpen} onClose={() => setVideoOpen(false)} />
     </section>
   )
 }

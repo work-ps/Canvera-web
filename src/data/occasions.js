@@ -2,32 +2,32 @@ const occasions = [
   {
     id: 'weddings',
     name: 'Weddings',
-    productIds: [1, 2, 4, 3, 5, 6, 8, 9, 10],
+    productIds: [32, 1, 33, 10, 34, 3, 6, 35, 36, 37, 11, 38, 39, 40],
   },
   {
     id: 'pre-wedding',
     name: 'Pre-Wedding',
-    productIds: [3, 5, 7, 9, 10, 16, 17, 19],
-  },
-  {
-    id: 'baby-kids',
-    name: 'Baby & Kids',
-    productIds: [14, 15, 12, 21, 22, 23, 24],
+    productIds: [30, 41, 42, 43, 44, 45, 7, 46, 47],
   },
   {
     id: 'maternity',
     name: 'Maternity',
-    productIds: [3, 8, 16, 14, 17, 22],
+    productIds: [38, 11, 37, 48, 47, 46],
+  },
+  {
+    id: 'baby-kids',
+    name: 'Baby & Kids',
+    productIds: [48, 26, 31, 49, 8, 50],
   },
   {
     id: 'birthdays',
     name: 'Birthdays',
-    productIds: [21, 22, 23, 25, 15, 12, 14],
+    productIds: [26, 8, 48, 13, 45],
   },
   {
     id: 'corporate',
     name: 'Corporate',
-    productIds: [13, 11, 14, 24, 25, 20, 17],
+    productIds: [13, 14, 24, 25, 20, 17],
   },
   {
     id: 'portraits-family',

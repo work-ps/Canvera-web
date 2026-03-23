@@ -15,9 +15,9 @@ export default function AboutCanvera() {
             </div>
             <div className="about-top-right">
               <p className="about-desc">
-                Since 2007, we've partnered with 75,000+ photographers to craft world-class albums — combining precision printing, handpicked materials, and white-glove support to turn precious moments into heirloom keepsakes, delivered across 500+ cities.
+                Since 2007, we've partnered with 91,000+ photographers to craft world-class albums — combining precision printing, handpicked materials, and white-glove support to turn precious moments into heirloom keepsakes, delivered across 2,800+ cities.
               </p>
-              <Link to="/products" className="about-learn-more">
+              <Link to="/shop" className="about-learn-more">
                 Learn More
                 <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Link>
@@ -45,7 +45,7 @@ export default function AboutCanvera() {
               </div>
             </div>
             <div className="about-showcase-caption">
-              Serving India since 2007 · 10M+ albums delivered · 500+ cities
+              Serving India since 2007 · 1.75 million albums sold · 2,800+ cities
             </div>
           </div>
 

@@ -29,6 +29,89 @@
   margin: 0 auto;
 }
 
+/* ── Video Section ──────────────────────────── */
+.about-video-section {
+  padding: var(--space-10) 0;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: var(--space-8);
+  padding-right: var(--space-8);
+}
+.about-video-inner {
+  width: 100%;
+}
+.about-video-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--petrol-900);
+}
+.about-video-player video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-video-player.playing video {
+  object-fit: contain;
+  background: black;
+}
+/* Play button overlay */
+.about-video-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  background: rgba(0, 41, 61, 0.55);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.about-video-play-btn:hover {
+  background: rgba(0, 41, 61, 0.4);
+}
+.about-video-play-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.about-video-play-btn:hover .about-video-play-icon {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.25);
+}
+.about-video-play-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--petrol-700);
+  margin-left: 3px;
+}
+.about-video-play-label {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.02em;
+}
+.about-video-caption {
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  color: var(--neutral-500);
+  text-align: center;
+  margin: var(--space-4) 0 0;
+  line-height: var(--leading-normal);
+}
+
 /* ── Content Blocks (Story, Mission) ─────────── */
 .about-block {
   padding: var(--space-11) 0;
@@ -55,102 +138,109 @@
 }
 .about-block-text:last-child { margin-bottom: 0; }
 
-/* ── Values Section ──────────────────────────── */
-.about-values {
+/* ── Bento Grid — Values + Stats combined ──── */
+.about-bento {
   padding: var(--space-11) 0;
   background: var(--neutral-25);
 }
-.about-values-inner {
+.about-bento-inner {
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 var(--space-8);
-}
-.about-values-title {
-  font-family: var(--font-display);
-  font-size: var(--text-display-md);
-  font-weight: var(--weight-extrabold);
-  color: var(--petrol-900);
-  text-align: center;
-  margin: 0 0 var(--space-9);
-  line-height: var(--leading-snug);
-}
-.about-values-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-7);
+  grid-auto-rows: auto;
+  gap: var(--space-5);
 }
-.about-value-card {
+
+/* ── Shared card base ── */
+.bento-card {
+  border-radius: var(--radius-xl, 16px);
+  padding: var(--space-7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Wide content cards (span 2 cols) ── */
+.bento-card--wide {
+  grid-column: span 2;
+  background: white;
+  border: 1px solid var(--neutral-100);
+}
+.bento-card--who  { background: linear-gradient(145deg, var(--petrol-25, #F0FAFB) 0%, white 70%); }
+.bento-card--whatwedo { background: linear-gradient(145deg, white 30%, var(--amber-25, #FFFBF0) 100%); }
+
+/* ── Medium content cards (span 2 cols) ── */
+.bento-card--medium {
+  grid-column: span 2;
+  background: white;
+  border: 1px solid var(--neutral-100);
+}
+.bento-card--diy   { background: linear-gradient(145deg, var(--leaf-25, #F2FAF4) 0%, white 70%); }
+.bento-card--where { background: linear-gradient(145deg, white 30%, var(--petrol-25, #F0FAFB) 100%); }
+
+/* ── Stat cards (1 col each) ── */
+.bento-card--stat {
+  grid-column: span 1;
+  background: linear-gradient(155deg, var(--petrol-700) 0%, var(--petrol-900) 100%);
   text-align: center;
+  align-items: center;
+  padding: var(--space-8) var(--space-5);
+  min-height: 160px;
 }
-.about-value-icon {
-  width: 56px; height: 56px;
-  margin: 0 auto var(--space-5);
+
+/* ── Card icon ── */
+.bento-card-icon {
+  width: 48px;
+  height: 48px;
   background: var(--petrol-50);
   border-radius: var(--radius-lg);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  flex-shrink: 0;
 }
-.about-value-icon svg {
-  width: 24px; height: 24px;
+.bento-card-icon svg {
+  width: 22px;
+  height: 22px;
   color: var(--petrol-600);
 }
-.about-value-name {
+
+/* ── Card typography ── */
+.bento-card-title {
   font-family: var(--font-display);
-  font-size: var(--text-body-lg);
+  font-size: var(--text-body-xl, 18px);
   font-weight: var(--weight-bold);
   color: var(--petrol-900);
-  margin: 0 0 var(--space-3);
+  margin: 0 0 var(--space-2);
+  line-height: var(--leading-snug);
 }
-.about-value-desc {
+.bento-card-desc {
   font-family: var(--font-body);
   font-size: var(--text-body-base);
-  line-height: var(--leading-normal);
-  color: var(--neutral-500);
+  line-height: var(--leading-relaxed);
+  color: var(--neutral-600);
   margin: 0;
 }
 
-/* ── Stats Banner ────────────────────────────── */
-.about-stats {
-  background: linear-gradient(155deg, var(--petrol-700) 0%, var(--petrol-900) 100%);
-  padding: var(--space-10) 0;
-}
-.about-stats-inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 var(--space-8);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-7);
-  text-align: center;
-}
-.about-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-}
-.about-stat-icon {
-  width: 48px; height: 48px;
-  background: rgba(255,255,255,0.1);
-  border-radius: var(--radius-lg);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: var(--space-2);
-}
-.about-stat-icon svg {
-  width: 22px; height: 22px;
-  color: var(--petrol-200);
-}
-.about-stat-number {
+/* ── Stat typography ── */
+.bento-stat-number {
   font-family: var(--font-display);
-  font-size: var(--text-display-sm);
+  font-size: var(--text-display-sm, 30px);
   font-weight: var(--weight-extrabold);
   color: white;
   letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: var(--space-1);
 }
-.about-stat-label {
+.bento-stat-label {
   font-family: var(--font-body);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   color: var(--petrol-200);
+  line-height: var(--leading-normal);
 }
 
 /* ── Mission uses same block style but no extra styling needed ── */
@@ -160,6 +250,11 @@
 
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 900px) {
+  .about-video-section { padding: var(--space-8) var(--space-5); }
+  .about-video-play-icon { width: 56px; height: 56px; }
+  .about-video-play-icon svg { width: 22px; height: 22px; }
+  .about-video-play-label { font-size: 14px; }
+
   .about-hero { padding: var(--space-10) var(--space-5); }
   .about-hero-title { font-size: var(--text-display-md); }
   .about-hero-subtitle { font-size: var(--text-body-lg); }
@@ -168,24 +263,22 @@
   .about-block-inner { padding: 0 var(--space-5); }
   .about-block-title { font-size: var(--text-display-xs); }
 
-  .about-values { padding: var(--space-9) 0; }
-  .about-values-inner { padding: 0 var(--space-5); }
-  .about-values-title { font-size: var(--text-display-xs); margin-bottom: var(--space-7); }
-  .about-values-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-6);
-  }
-
-  .about-stats { padding: var(--space-8) 0; }
-  .about-stats-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-6);
+  .about-bento { padding: var(--space-9) 0; }
+  .about-bento-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
     padding: 0 var(--space-5);
   }
-  .about-stat-number { font-size: var(--text-display-xs); }
+  .bento-card--wide { grid-column: span 2; }
+  .bento-card--medium { grid-column: span 2; }
+  .bento-card--stat { grid-column: span 1; }
+  .bento-card { padding: var(--space-6); }
+  .bento-stat-number { font-size: var(--text-display-xs, 24px); }
 }
 
 @media (max-width: 480px) {
-  .about-values-grid { grid-template-columns: 1fr; }
-  .about-stats-inner { grid-template-columns: 1fr 1fr; }
+  .about-bento-inner { grid-template-columns: 1fr 1fr; }
+  .bento-card--wide { grid-column: span 2; }
+  .bento-card--medium { grid-column: span 2; }
+  .bento-card--stat { grid-column: span 1; }
 }

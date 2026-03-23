@@ -28,10 +28,10 @@ const deals = [
     icon: <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" strokeWidth="1.5"/><path d="M6 30l12-9 8 6 10-8 8 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="18" cy="18" r="4" stroke="currentColor" strokeWidth="1.5"/></svg>,
   },
   {
-    tag: 'Free Upgrade',
-    title: 'Leather Cover Upgrade',
-    desc: 'Free upgrade from Suede to Leather on Celestial & Picture Paradise orders above ₹5,000.',
-    highlight: 'FREE',
+    tag: 'Special Offer',
+    title: 'Fab Leather 40+ Sheets',
+    desc: 'Book a Premium Fab Leather album with more than 40 sheets and get a special 5% discount.',
+    highlight: '5% OFF',
     accent: 'amber',
     icon: <svg viewBox="0 0 48 48" fill="none"><path d="M8 40V16a4 4 0 014-4h24a4 4 0 014 4v24" stroke="currentColor" strokeWidth="1.5"/><path d="M4 40h40" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M20 24h8M24 20v8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>,
   },
@@ -85,7 +85,7 @@ export default function DealsCarousel() {
 
           {/* Bottom bar inside the strip */}
           <div className="deals-strip-bottom">
-            <Link to="/register" className="deals-join-btn">
+            <Link to="/signup" className="deals-join-btn">
               Join Now
               <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </Link>

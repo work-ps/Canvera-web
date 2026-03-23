@@ -1,11 +1,17 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react'
 import StarRating from '../ui/StarRating'
 import ProductCard from '../home/ProductCard'
 import ProductShowcase from './ProductShowcase'
 import { useCompare } from '../../context/CompareContext'
 import { useAuth } from '../../context/AuthContext'
+import { useCart } from '../../context/CartContext'
 import products from '../../data/products'
+import { getProductImages } from '../../data/productImages'
+import { getStartingPrice, basePrices, surcharges } from '../../data/pdpPricing'
+import { sizeLabels, orientationOptions, bindingDescriptions } from '../../data/pdpOptions'
+import ConfigCard from '../pdp/ConfigCard'
+import TooltipIcon from '../pdp/TooltipIcon'
 import '../../styles/product-detail.css'
 import '../../styles/product-showcase.css'
 import '../../styles/popular-products.css'
@@ -21,10 +27,251 @@ const productSvgs = {
   deep: <svg viewBox="0 0 120 90" fill="none"><rect x="8" y="10" width="104" height="70" rx="6" stroke="currentColor" strokeWidth="2"/><path d="M8 28h104" stroke="currentColor" strokeWidth="1.5"/><path d="M30 48l16 16 34-30" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
 }
 
+function ProductImageGallery({ product, productSvgs }) {
+  const images = getProductImages(product.slug)
+  const [activeIdx, setActiveIdx] = useState(0)
+  const hasImages = images.length > 0
+  const fallbackSvg = productSvgs[product.imageVariant] || productSvgs.petrol
+
+  if (!hasImages) {
+    return (
+      <div className={`product-image-wrap pc-img-${product.imageVariant}`}>
+        {fallbackSvg}
+      </div>
+    )
+  }
+
+  return (
+    <div className="product-image-wrap pdp-gallery">
+      <div className="pdp-gallery-main">
+        <img
+          src={images[activeIdx]}
+          alt={`${product.name} — image ${activeIdx + 1}`}
+          className="pdp-gallery-hero"
+        />
+      </div>
+      {images.length > 1 && (
+        <div className="pdp-gallery-thumbs">
+          {images.map((src, i) => (
+            <button
+              key={i}
+              className={`pdp-thumb${i === activeIdx ? ' pdp-thumb-active' : ''}`}
+              onClick={() => setActiveIdx(i)}
+              aria-label={`View image ${i + 1}`}
+            >
+              <img src={src} alt={`${product.name} thumb ${i + 1}`} loading="lazy" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart, navigate }) {
+  const sizes = product.sizes || []
+  const orientations = product.orientations || []
+  const bindings = product.bindings || []
+
+  const [selectedSize, setSelectedSize] = useState(sizes[0] || null)
+  const [selectedOrientation, setSelectedOrientation] = useState(orientations[0] || null)
+  const [selectedBinding, setSelectedBinding] = useState(bindings[0] || null)
+  const [wishlisted, setWishlisted] = useState(false)
+  const [bindingDrawer, setBindingDrawer] = useState(false)
+
+  const startingPrice = getStartingPrice(product.id)
+  const currentPrice = basePrices[product.id]?.[selectedSize] || startingPrice
+  const productPrices = basePrices[product.id] || {}
+
+  const handleBuyNow = () => {
+    navigate(`/order/${slug}`, {
+      state: { size: selectedSize, orientation: selectedOrientation, binding: selectedBinding }
+    })
+  }
+
+  return (
+    <div className="product-price-box">
+      {/* Starting Price */}
+      {startingPrice && (
+        <div className="pdp-starting-price">
+          <span className="pdp-starting-label">STARTING FROM</span>
+          <span className="pdp-starting-amount">&#x20B9;{(currentPrice || startingPrice).toLocaleString('en-IN')}</span>
+        </div>
+      )}
+
+      {/* Size — ConfigCards */}
+      {sizes.length > 0 && (
+        <div className="pdp-selector">
+          <label className="pdp-selector-label">
+            Size
+            <TooltipIcon text="The physical dimensions of your closed album." />
+          </label>
+          <div className="pdp-config-cards">
+            {sizes.map((s, idx) => {
+              const info = sizeLabels[s]
+              const price = productPrices[s]
+              return (
+                <ConfigCard
+                  key={s}
+                  selected={selectedSize === s}
+                  badge={idx === 0 ? 'Most Popular' : undefined}
+                  title={info?.label || s}
+                  subtitle={info?.format || ''}
+                  specs={info?.printArea ? [`Print area ${info.printArea}`] : undefined}
+                  price={price}
+                  priceType="from"
+                  onClick={() => setSelectedSize(s)}
+                />
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Orientation — ConfigCards */}
+      {orientations.length > 0 && (
+        <div className="pdp-selector">
+          <label className="pdp-selector-label">Orientation</label>
+          <div className="pdp-config-cards">
+            {orientations.map(o => {
+              const info = orientationOptions.find(opt => opt.id === o)
+              return (
+                <ConfigCard
+                  key={o}
+                  selected={selectedOrientation === o}
+                  title={o}
+                  subtitle={info?.description || ''}
+                  specs={info?.bestFor ? [`Best for: ${info.bestFor}`] : undefined}
+                  onClick={() => setSelectedOrientation(o)}
+                />
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Binding — stacked ConfigCards + comparison helper */}
+      {bindings.length > 0 && (
+        <div className="pdp-selector">
+          <label className="pdp-selector-label">
+            Binding Type
+            <TooltipIcon text="How your pages open and lie flat. Affects the reading experience." />
+          </label>
+          <div className="pdp-config-cards pdp-config-cards--stack">
+            {bindings.map(b => {
+              const info = bindingDescriptions[b] || {}
+              const cost = surcharges.bindings[b] ?? 0
+              return (
+                <ConfigCard
+                  key={b}
+                  selected={selectedBinding === b}
+                  title={b}
+                  subtitle={info.description || ''}
+                  specs={info.specs}
+                  price={cost > 0 ? cost : null}
+                  priceType={cost > 0 ? 'addon' : 'included'}
+                  onClick={() => setSelectedBinding(b)}
+                />
+              )
+            })}
+          </div>
+          {bindings.length > 1 && (
+            <div style={{ marginTop: 12 }}>
+              <button className="pdp-faq-toggle" type="button" onClick={() => setBindingDrawer(p => !p)} aria-expanded={bindingDrawer}>
+                Not sure which binding?<span style={{ marginLeft: 4 }}>{bindingDrawer ? '\u2191' : '\u2192'}</span> See comparison
+              </button>
+            </div>
+          )}
+          {bindingDrawer && (
+            <div className="pdp-drawer-overlay" onClick={e => { if (e.target === e.currentTarget) setBindingDrawer(false) }}>
+              <div className="pdp-drawer" role="dialog" aria-label="Binding comparison">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                  <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700 }}>Binding Comparison</h3>
+                  <button type="button" onClick={() => setBindingDrawer(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--neutral-500)', padding: 4 }} aria-label="Close">&times;</button>
+                </div>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ borderBottom: '2px solid var(--neutral-200)' }}>
+                      <th style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--neutral-600)' }}>Binding</th>
+                      <th style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--neutral-600)' }}>Opening</th>
+                      <th style={{ textAlign: 'right', padding: '8px 12px', color: 'var(--neutral-600)' }}>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bindings.map(b => {
+                      const cost = surcharges.bindings[b] ?? 0
+                      const opening = b.includes('Layflat') ? '180\u00B0 flat' : b === 'Continuous' ? 'Seamless flow' : b === 'Splicing' ? 'Traditional spine' : b === 'Spiral' ? '360\u00B0 flip' : '\u2014'
+                      return (
+                        <tr key={b} style={{ borderBottom: '1px solid var(--neutral-100)' }}>
+                          <td style={{ padding: '8px 12px', fontWeight: 600, color: 'var(--neutral-900)' }}>{b}</td>
+                          <td style={{ padding: '8px 12px', color: 'var(--neutral-600)' }}>{opening}</td>
+                          <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 500 }}>{cost > 0 ? `+ \u20B9${cost.toLocaleString('en-IN')}` : 'Included'}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Auth-conditional CTAs */}
+      {isVerified ? (
+        <div className="pdp-cta-row">
+          <button className="btn btn-primary btn-md pdp-buy-now" onClick={handleBuyNow}>
+            Buy Now
+            <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <button
+            className="btn btn-outline btn-md"
+            onClick={() => {
+              addToCart(product, { size: selectedSize, orientation: selectedOrientation, binding: selectedBinding, complete: false, price: currentPrice || 0 })
+              navigate('/cart')
+            }}
+          >
+            <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M1 1h2l2 9h8l2-6H5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><circle cx="6" cy="13" r="1" fill="currentColor"/><circle cx="12" cy="13" r="1" fill="currentColor"/></svg>
+            Add to Cart
+          </button>
+          <button
+            className={`btn btn-outline btn-md pdp-wishlist${wishlisted ? ' pdp-wishlist--active' : ''}`}
+            onClick={() => setWishlisted(w => !w)}
+          >
+            <svg viewBox="0 0 16 16" fill={wishlisted ? 'currentColor' : 'none'} width="16" height="16">
+              <path d="M8 14s-5.5-3.5-5.5-7A3.5 3.5 0 018 4a3.5 3.5 0 015.5 3c0 3.5-5.5 7-5.5 7z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      ) : isRegistered ? (
+        <>
+          <h3 style={{ marginTop: 16 }}>Verification Pending</h3>
+          <p>Your account is awaiting verification. Once approved, you'll unlock exclusive pro pricing and ordering.</p>
+          <div className="price-pending-badge">
+            <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="7" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5"/><path d="M8 5v4" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5" strokeLinecap="round"/><circle cx="8" cy="11.5" r="0.75" fill="var(--amber-500, #f59e0b)"/></svg>
+            <span>Pending review — typically 1-2 business days</span>
+          </div>
+        </>
+      ) : (
+        <>
+          <h3 style={{ marginTop: 16 }}>Login to See Pricing</h3>
+          <p>Exclusive pricing for registered photographers. Sign in or create a free account to view prices and place orders.</p>
+          <div className="price-ctas">
+            <Link to="/login" className="btn btn-primary btn-md">Sign In</Link>
+            <Link to="/signup" className="btn btn-outline btn-md">Create Free Account</Link>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
 export default function ProductDetail() {
   const { slug } = useParams()
   const { isInCompare, addToCompare, removeFromCompare, isCompareFull } = useCompare()
   const { isRegistered, isVerified } = useAuth()
+  const { addToCart } = useCart()
+  const navigate = useNavigate()
 
   const product = useMemo(() => products.find(p => p.slug === slug), [slug])
 
@@ -68,7 +315,7 @@ export default function ProductDetail() {
         <div className="product-detail-inner" style={{ textAlign: 'center', padding: '120px 0' }}>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 32, color: 'var(--petrol-800)', marginBottom: 16 }}>Product Not Found</h1>
           <p style={{ color: 'var(--neutral-500)', marginBottom: 24 }}>The product you're looking for doesn't exist.</p>
-          <Link to="/products" className="btn btn-primary btn-md">Browse All Products</Link>
+          <Link to="/shop" className="btn btn-primary btn-md">Browse All Products</Link>
         </div>
       </div>
     )
@@ -104,15 +351,13 @@ export default function ProductDetail() {
         <div className="breadcrumb">
           <Link to="/">Home</Link>
           <span>/</span>
-          <Link to="/products">Products</Link>
+          <Link to="/shop">Products</Link>
           <span>/</span>
           <span className="current">{product.name}</span>
         </div>
 
         <div className="product-detail-layout">
-          <div className={`product-image-wrap pc-img-${product.imageVariant}`}>
-            {productSvgs[product.imageVariant] || productSvgs.petrol}
-          </div>
+          <ProductImageGallery product={product} productSvgs={productSvgs} />
 
           <div className="product-info">
             <div className="product-tag">{product.tag}</div>
@@ -137,47 +382,14 @@ export default function ProductDetail() {
               </div>
             )}
 
-            <div className="product-price-box">
-              {isVerified ? (
-                <>
-                  <div className="price-verified-header">
-                    <svg viewBox="0 0 14 14" fill="none" width="16" height="16"><circle cx="7" cy="7" r="6" fill="var(--petrol-600, #00778B)" /><path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    <span>Verified Pro Pricing</span>
-                  </div>
-                  <div className="price-amount">{'₹'}{(product.id * 47 + 299).toLocaleString()}</div>
-                  <p className="price-note">Inclusive of GST. Free design service included.</p>
-                  <button className="btn btn-primary btn-md" style={{ width: '100%' }}>Add to Cart</button>
-                  <Link to={`/products/${slug}/configure`} className="btn btn-outline btn-md" style={{ width: '100%', marginTop: 8 }}>
-                    <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M2 4h12M4 4v9a1 1 0 001 1h6a1 1 0 001-1V4M6 4V2.5A.5.5 0 016.5 2h3a.5.5 0 01.5.5V4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M6 7h4M6 10h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
-                    Configure &amp; Order
-                  </Link>
-                </>
-              ) : isRegistered ? (
-                <>
-                  <h3>Verification Pending</h3>
-                  <p>Your account is awaiting verification. Once approved, you'll unlock exclusive pro pricing and ordering.</p>
-                  <div className="price-pending-badge">
-                    <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="7" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5"/><path d="M8 5v4" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5" strokeLinecap="round"/><circle cx="8" cy="11.5" r="0.75" fill="var(--amber-500, #f59e0b)"/></svg>
-                    <span>Pending review — typically 1-2 business days</span>
-                  </div>
-                  <Link to={`/products/${slug}/configure`} className="btn btn-outline btn-md" style={{ width: '100%', marginTop: 12 }}>
-                    Configure &amp; Order
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <h3>Login to See Pricing</h3>
-                  <p>Exclusive pricing for registered photographers. Sign in or create a free account to view prices and place orders.</p>
-                  <div className="price-ctas">
-                    <Link to="/login" className="btn btn-primary btn-md">Sign In</Link>
-                    <Link to="/register" className="btn btn-outline btn-md">Create Free Account</Link>
-                  </div>
-                  <Link to={`/products/${slug}/configure`} className="btn btn-outline btn-md" style={{ width: '100%', marginTop: 12 }}>
-                    Configure &amp; Order
-                  </Link>
-                </>
-              )}
-            </div>
+            <PdpPriceAndConfig
+              product={product}
+              slug={slug}
+              isVerified={isVerified}
+              isRegistered={isRegistered}
+              addToCart={addToCart}
+              navigate={navigate}
+            />
 
             <button
               className={`btn btn-outline btn-md compare-detail-btn${inCompare ? ' compare-active' : ''}`}

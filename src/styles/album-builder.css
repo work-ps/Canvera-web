@@ -149,9 +149,11 @@
   border-color: var(--petrol-500); box-shadow: 0 0 0 3px rgba(0,87,128,0.1);
 }
 .ab-product-card-img {
-  height: 160px; display: flex; align-items: center; justify-content: center;
+  height: 160px; display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
 .ab-product-card-img svg { width: 56px; height: 56px; opacity: 0.4; }
+.ab-product-card-photo { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.ab-product-card:hover .ab-product-card-photo { transform: scale(1.05); }
 .ab-product-card-body {
   padding: var(--space-4);
 }

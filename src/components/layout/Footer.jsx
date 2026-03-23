@@ -14,7 +14,7 @@ export default function Footer() {
             <Link to="/">
               <CanveraLogo height={26} style={{ filter: 'brightness(0) invert(1)' }} />
             </Link>
-            <p>India's largest premium photo album platform. Trusted by 75,000+ photographers across 500+ cities since 2007.</p>
+            <p>India's largest premium photo album platform. Trusted by 91,000+ partners across 2,800+ cities since 2007.</p>
             <div className="footer-contact-info">
               <div className="footer-contact-item">
                 <svg viewBox="0 0 16 16" fill="none"><path d="M14 11.5v2a1 1 0 01-1.1 1 10.05 10.05 0 01-4.4-1.5A9.9 9.9 0 015 9.5a10 10 0 01-1.5-4.4A1 1 0 014.5 4h2a1 1 0 011 .8 6.5 6.5 0 00.35 1.4 1 1 0 01-.2 1L6.7 8.2a8 8 0 003.1 3.1l1-1a1 1 0 011-.2 6.5 6.5 0 001.4.35 1 1 0 01.8 1z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>

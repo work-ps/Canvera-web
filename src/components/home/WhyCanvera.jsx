@@ -8,8 +8,8 @@ const reasons = [
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
       </svg>
     ),
-    title: 'Premium Materials',
-    desc: 'Archival-grade papers, Italian leathers, and museum-quality inks for products that last generations.',
+    title: 'State-of-the-Art Precision',
+    desc: 'Calibration devices, 6-colour printing, and hawk-eyed quality control — your images reproduced exactly as you intended.',
   },
   {
     icon: (
@@ -17,8 +17,8 @@ const reasons = [
         <path d="M12 15l-2 5l9-13h-5l2-5l-9 13h5z"/>
       </svg>
     ),
-    title: 'Handcrafted Quality',
-    desc: 'Every product passes through a rigorous multi-point quality check before shipping.',
+    title: 'Award-Winning Photobooks',
+    desc: 'Multiple international award-winning albums — a favourite among India\'s top wedding and life-event photographers.',
   },
   {
     icon: (
@@ -29,8 +29,8 @@ const reasons = [
         <circle cx="18.5" cy="18.5" r="2.5"/>
       </svg>
     ),
-    title: 'Free Shipping & Fast Delivery',
-    desc: 'Complimentary shipping across 500+ cities with 5-7 day turnaround and real-time tracking.',
+    title: 'Lightning-Fast Turnarounds',
+    desc: 'From order to doorstep across 2,800+ cities — fast delivery with real-time tracking so your clients never wait.',
   },
   {
     icon: (
@@ -39,8 +39,8 @@ const reasons = [
         <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
       </svg>
     ),
-    title: 'Dedicated Support',
-    desc: 'Expert support team that understands the photography business inside out.',
+    title: 'Design Your Way',
+    desc: 'Use top software like Fundy and Pixellu, pick a template, or send us your JPEGs — we\'ll take care of the design for you.',
   },
 ]
 
