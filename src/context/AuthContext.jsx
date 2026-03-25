@@ -25,8 +25,16 @@ function saveAuth(data) {
 export function AuthProvider({ children }) {
   const [authState, setAuthState] = useState(() => loadAuth())
 
-  const register = useCallback((name, email, phone, businessProof, idFileName) => {
-    const data = { status: 'registered', name, email, phone, businessProof, idFileName, registeredAt: Date.now() }
+  const register = useCallback((name, email, phone, { password, isPhotographer, studioName } = {}) => {
+    const data = {
+      status: 'registered',
+      name,
+      email,
+      phone,
+      isPhotographer: !!isPhotographer,
+      studioName: studioName || '',
+      registeredAt: Date.now(),
+    }
     saveAuth(data)
     setAuthState(data)
   }, [])

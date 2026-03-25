@@ -395,7 +395,7 @@
   color: var(--petrol-600);
   background: var(--petrol-25);
   border: 1px solid var(--petrol-100);
-  padding: 4px 12px;
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
   margin-bottom: var(--space-3);
 }
@@ -430,7 +430,7 @@
   font-size: var(--text-body-sm);
   color: var(--neutral-700);
   background: var(--neutral-50);
-  padding: 4px 12px;
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
   border: 1px solid var(--neutral-100);
 }

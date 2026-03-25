@@ -59,10 +59,10 @@ export default function ProductFinder({ onClose }) {
     selectedAttrs.forEach(attr => {
       switch (attr) {
         case 'premium':
-          pool = pool.filter(p => p.badge === 'bestseller' || p.category === 'Premium Albums')
+          pool = pool.filter(p => p.badge === 'bestseller' || p.category === 'Photobooks')
           break
         case 'value':
-          pool = pool.filter(p => p.category === 'Standard Albums' || p.category === 'Photobooks')
+          pool = pool.filter(p => p.category === 'Momentbooks' || p.category === 'Magazines')
           break
         case 'customizable':
           pool = pool.filter(p => p.customization?.length > 0)
@@ -173,7 +173,7 @@ export default function ProductFinder({ onClose }) {
                   {results.map(product => (
                     <Link
                       key={product.id}
-                      to={`/products/${product.slug}`}
+                      to={`/product/${product.slug}`}
                       className="finder-result-card"
                       onClick={onClose}
                     >
@@ -202,7 +202,7 @@ export default function ProductFinder({ onClose }) {
                   <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   Back
                 </button>
-                <Link to="/products" className="finder-browse-all" onClick={onClose}>
+                <Link to="/shop" className="finder-browse-all" onClick={onClose}>
                   View All Products
                   <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </Link>

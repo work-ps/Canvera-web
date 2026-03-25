@@ -30,12 +30,12 @@
 }
 .banner-item h3 {
   font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-semibold);
   margin-bottom: var(--space-2);
 }
 .banner-item p {
-  font-size: 13px;
+  font-size: var(--text-body-base);
   color: var(--petrol-200);
   line-height: 1.5;
 }

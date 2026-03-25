@@ -3,14 +3,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { shopMenu, supportMenu } from '../../data/navigation'
 import collections from '../../data/collections'
 import { useAuth } from '../../context/AuthContext'
+import { useCart } from '../../context/CartContext'
 import CanveraLogo from '../common/CanveraLogo'
-import ProductFinder from '../finder/ProductFinder'
 import '../../styles/header.css'
 import '../../styles/collection-panel.css'
 
 
 const panelLabels = { shop: 'Shop', collection: 'Collection', support: 'Support' }
-const panelRoutes = { shop: '/products', collection: '/collections', support: '/contact' }
+const panelRoutes = { shop: '/shop', collection: '/collections', support: '/contact' }
 const panelData = { shop: shopMenu, support: supportMenu }
 
 // SVGs for collection cards in the dropdown
@@ -28,10 +28,10 @@ const collectionCardSvgs = {
 
 export default function Header() {
   const { authState, isRegistered, isVerified, logout } = useAuth()
+  const { cartCount } = useCart()
   const navigate = useNavigate()
   const [activePanel, setActivePanel] = useState(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
-  const [showFinder, setShowFinder] = useState(false)
   const hoverTimeoutRef = useRef(null)
   const searchInputRef = useRef(null)
   const collectionScrollRef = useRef(null)
@@ -188,13 +188,13 @@ export default function Header() {
               </button>
             ))}
 
-            {/* Find Your Product */}
-            <button className="nav-link" onClick={() => { closePanel(); setShowFinder(true) }}>
-              Find Your Product
-            </button>
-
-            {/* Make Your Own */}
-            <Link className="nav-link" to="/own-your-album">Make Your Own</Link>
+            {/* Contact Us — button-style nav link */}
+            <Link className="nav-link nav-contact" to="/contact">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v5a2 2 0 01-2 2H8l-3 2.5V11H4a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Contact Us
+            </Link>
           </nav>
 
           <div className="header-auth">
@@ -208,6 +208,25 @@ export default function Header() {
                 <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1.4"/>
                 <path d="M10.5 10.5L15 15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
+            </button>
+
+            {/* Cart — icon + label */}
+            <button
+              className="header-cart-btn"
+              onClick={() => navigate(isRegistered ? '/cart' : '/login?redirect=%2Fcart')}
+              aria-label="Cart"
+            >
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M1 1h2.5l1.2 7.4a1 1 0 001 .8h6.4a1 1 0 001-.7L14.5 4H3.8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="6" cy="13" r="1" fill="currentColor"/>
+                <circle cx="12" cy="13" r="1" fill="currentColor"/>
+              </svg>
+              <span className="header-cart-label">Cart</span>
+              {cartCount > 0 && (
+                <span className="header-cart-badge">
+                  {cartCount > 9 ? '9+' : cartCount}
+                </span>
+              )}
             </button>
 
             {/* Profile / Account dropdown */}
@@ -260,16 +279,16 @@ export default function Header() {
                     <div className="profile-dropdown-divider" />
 
                     <nav className="profile-dropdown-links">
-                      {isVerified && <Link to="/dashboard" onClick={closePanel}>Dashboard</Link>}
-                      <Link to="/products" onClick={closePanel}>Shop Products</Link>
-                      <Link to={isVerified ? '/dashboard' : '/login'} onClick={() => closePanel()}>My Orders</Link>
+                      {isVerified && <Link to="/profile" onClick={closePanel}>Dashboard</Link>}
+                      <Link to="/shop" onClick={closePanel}>Shop Products</Link>
+                      <Link to={isVerified ? '/profile' : '/login'} onClick={() => closePanel()}>My Orders</Link>
                     </nav>
 
                     <div className="profile-dropdown-divider" />
 
                     <nav className="profile-dropdown-links">
-                      <Link to={isVerified ? '/dashboard' : '/login'} onClick={closePanel}>Profile</Link>
-                      <Link to={isVerified ? '/dashboard' : '/login'} onClick={closePanel}>Club Canvera</Link>
+                      <Link to={isVerified ? '/profile' : '/login'} onClick={closePanel}>Profile</Link>
+                      <Link to={isVerified ? '/profile' : '/login'} onClick={closePanel}>Club Canvera</Link>
                     </nav>
 
                     <div className="profile-dropdown-divider" />
@@ -324,9 +343,6 @@ export default function Header() {
                 )}
               </div>
             )}
-
-            {/* Contact Us */}
-            <Link className="auth-cta" to="/contact">Contact Us</Link>
           </div>
 
           <button className="mobile-toggle" aria-label="Menu">
@@ -390,16 +406,14 @@ export default function Header() {
           </div>
           <div className="quick-links">
             <h4>Quick Links</h4>
-            <Link to="/products?category=premium-albums" onClick={closePanel}><span className="arrow">&rarr;</span> Premium Flushmount Albums</Link>
-            <Link to="/products?category=standard-albums" onClick={closePanel}><span className="arrow">&rarr;</span> Standard Albums</Link>
-            <Link to="/products?category=photobooks" onClick={closePanel}><span className="arrow">&rarr;</span> Photobooks &amp; Magazines</Link>
+            <Link to="/shop?category=photobooks" onClick={closePanel}><span className="arrow">&rarr;</span> Photobooks</Link>
+            <Link to="/shop?category=momentbooks" onClick={closePanel}><span className="arrow">&rarr;</span> Momentbooks</Link>
+            <Link to="/shop?category=magazines" onClick={closePanel}><span className="arrow">&rarr;</span> Magazines</Link>
             <Link to="/contact" onClick={closePanel}><span className="arrow">&rarr;</span> Contact Us</Link>
           </div>
         </div>
       </div>
 
-      {/* Product Finder Overlay */}
-      {showFinder && <ProductFinder onClose={() => setShowFinder(false)} />}
     </>
   )
 }

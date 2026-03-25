@@ -29,13 +29,13 @@
   display: flex; flex-direction: column; gap: var(--space-3);
 }
 .about-brand-name {
-  font-family: var(--font-display); font-size: 36px;
-  font-weight: 800; color: var(--amber-400);
+  font-family: var(--font-display); font-size: var(--text-display-lg);
+  font-weight: var(--weight-extrabold); color: var(--amber-400);
   line-height: 1.1;
 }
 .about-tagline {
-  font-family: var(--font-display); font-size: 26px;
-  font-weight: 600; color: white; line-height: 1.25;
+  font-family: var(--font-display); font-size: var(--text-display-sm);
+  font-weight: var(--weight-semibold); color: white; line-height: 1.25;
 }
 
 /* Right — Description + Learn More */
@@ -44,16 +44,16 @@
   padding-top: var(--space-2);
 }
 .about-desc {
-  font-family: var(--font-body); font-size: 14px; line-height: 1.7;
+  font-family: var(--font-body); font-size: var(--text-body-md); line-height: 1.7;
   color: var(--petrol-200); max-width: 460px;
 }
 
 /* Learn More — outline button on dark, uses design token borders */
 .about-learn-more {
   display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: 10px 20px; width: fit-content;
+  padding: var(--space-3) var(--space-5); width: fit-content;
   background: transparent; color: white;
-  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  font-family: var(--font-body); font-size: var(--text-body-base); font-weight: var(--weight-semibold);
   border: 1.5px solid var(--petrol-400); border-radius: var(--radius-md);
   text-decoration: none; transition: all 0.2s ease;
 }
@@ -89,7 +89,7 @@
 }
 .asc-card svg { width: 40px; height: 40px; }
 .asc-card span {
-  font-family: var(--font-body); font-size: 12px; font-weight: 600;
+  font-family: var(--font-body); font-size: var(--text-body-sm); font-weight: var(--weight-semibold);
   letter-spacing: 0.3px; text-align: center; color: var(--petrol-100);
 }
 
@@ -103,8 +103,8 @@
 .about-showcase-caption {
   padding: var(--space-3) var(--space-6);
   background: var(--petrol-900);
-  font-family: var(--font-body); font-size: 11px;
-  color: var(--petrol-300); letter-spacing: 0.4px;
+  font-family: var(--font-body); font-size: var(--text-body-xs);
+  color: var(--petrol-300); letter-spacing: var(--tracking-wider);
 }
 
 /* ── Responsive ───────────────────────────────────── */

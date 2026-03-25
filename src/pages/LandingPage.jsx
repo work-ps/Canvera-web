@@ -19,8 +19,8 @@ export default function LandingPage() {
       <ClubCanvera />
       <ExploreCollections />
       <CraftedQuality />
-      <ActionCards />
       <WhyCanvera />
+      <ActionCards />
       <Testimonials />
     </>
   )

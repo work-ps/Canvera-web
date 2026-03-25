@@ -9,7 +9,7 @@ export default function CompareBar() {
   const { pathname } = useLocation()
   const { compareList, removeFromCompare, clearCompare, openDrawer } = useCompare()
 
-  const isProductsRoute = pathname === '/products' || pathname.startsWith('/products/')
+  const isProductsRoute = pathname === '/shop' || pathname.startsWith('/shop/') || pathname === '/products' || pathname.startsWith('/products/') || pathname.startsWith('/product/')
   const visible = isProductsRoute && compareList.length > 0
 
   const emptySlots = MAX_SLOTS - compareList.length

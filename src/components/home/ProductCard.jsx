@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCompare } from '../../context/CompareContext'
+import { useAuth } from '../../context/AuthContext'
+import { useCart } from '../../context/CartContext'
+import { getStartingPrice } from '../../data/pdpPricing'
 import productSlides from '../../data/productSlides'
 import { getProductImages, getProductThumbnail } from '../../data/productImages'
 
@@ -79,7 +82,10 @@ export { productSvgs, badgeMap }
 
 export default function ProductCard({ product, showCompare = false, listingMode = false }) {
   const { isInCompare, addToCompare, removeFromCompare, isCompareFull, compareList } = useCompare()
+  const { isRegistered, isVerified } = useAuth()
+  const { addToCart } = useCart()
   const badge = product.badge ? badgeMap[product.badge] : null
+  const startingPrice = isRegistered ? getStartingPrice(product.id) : null
   const inCompare = showCompare && isInCompare(product.id)
   const compareFull = showCompare && isCompareFull && !inCompare
   const compareMode = listingMode && compareList.length > 0
@@ -107,11 +113,18 @@ export default function ProductCard({ product, showCompare = false, listingMode 
 
   const navigate = useNavigate()
 
-  /* ---- Login CTA click (listing mode) ---- */
-  const handleLoginClick = (e) => {
+  /* ---- Login / Add-to-cart CTA click (listing mode) ---- */
+  const [addedToCart, setAddedToCart] = useState(false)
+  const handleCTAClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    navigate('/login')
+    if (isVerified) {
+      addToCart(product, { size: product.sizes?.[0] || null, orientation: product.orientations?.[0] || null, binding: product.bindings?.[0] || null, complete: false, price: startingPrice || 0 })
+      setAddedToCart(true)
+      setTimeout(() => setAddedToCart(false), 1500)
+    } else {
+      navigate('/login')
+    }
   }
 
   /* ---- Compare click ---- */
@@ -227,18 +240,34 @@ export default function ProductCard({ product, showCompare = false, listingMode 
         {/* ==================== BODY AREA ==================== */}
         {listingMode ? (
           <div className="pc-body pc-body-listing">
-            {/* Default: tag + clamped name */}
+            {/* Default: tag + clamped name + price */}
             <div className="pc-body-default">
               <div className="pc-tag">{product.tag}</div>
               <div className="pc-name pc-name-clamped">{product.name}</div>
+              {startingPrice && (
+                <div className="pc-price">Starting from &#x20B9;{startingPrice.toLocaleString('en-IN')}</div>
+              )}
             </div>
-            {/* Hover: lock + CTA */}
-            <div className="pc-body-hover" onClick={handleLoginClick}>
-              <svg className="pc-lock-icon" viewBox="0 0 16 16" fill="none">
-                <rect x="3" y="7" width="10" height="8" rx="2" stroke="currentColor" strokeWidth="1.3"/>
-                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-              </svg>
-              <span className="pc-login-cta">Login to add to cart</span>
+            {/* Hover: cart / login CTA */}
+            <div className={`pc-body-hover${isVerified ? ' pc-body-hover--authed' : ''}`} onClick={handleCTAClick}>
+              {isVerified ? (
+                <>
+                  <svg className="pc-cart-icon" viewBox="0 0 16 16" fill="none">
+                    <path d="M1 1h2l2 9h8l2-6H5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle cx="6" cy="13" r="1" fill="currentColor"/>
+                    <circle cx="12" cy="13" r="1" fill="currentColor"/>
+                  </svg>
+                  <span className="pc-login-cta">{addedToCart ? 'Added to Cart ✓' : 'Add to Cart'}</span>
+                </>
+              ) : (
+                <>
+                  <svg className="pc-lock-icon" viewBox="0 0 16 16" fill="none">
+                    <rect x="3" y="7" width="10" height="8" rx="2" stroke="currentColor" strokeWidth="1.3"/>
+                    <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  </svg>
+                  <span className="pc-login-cta">Login to add to cart</span>
+                </>
+              )}
             </div>
           </div>
         ) : (
@@ -246,6 +275,9 @@ export default function ProductCard({ product, showCompare = false, listingMode 
             <div className="pc-tag">{product.tag}</div>
             <div className="pc-name">{product.name}</div>
             <div className="pc-specs">{product.specs}</div>
+            {startingPrice && (
+              <div className="pc-price">Starting from &#x20B9;{startingPrice.toLocaleString('en-IN')}</div>
+            )}
             <span className="pc-arrow">
               <svg viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

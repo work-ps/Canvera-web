@@ -16,7 +16,6 @@ import { usePDPConfig } from '../../context/PDPConfigContext'
 
 export default function CTABlock() {
   const {
-    pricing,
     allRequiredComplete,
     setAttemptedProceed,
     saveDraft,
@@ -57,20 +56,12 @@ export default function CTABlock() {
     }
   }, [])
 
-  const totalFormatted = pricing.total
-    ? `\u20B9${pricing.total.toLocaleString('en-IN')}`
-    : '\u20B90'
-
   return (
     <div className="pdp-cta-block">
       {/* Heading */}
       <div className="pdp-cta-heading">
         Your photobook is configured. <em>Make it real.</em>
       </div>
-
-      {/* Price */}
-      <div className="pdp-cta-price">{totalFormatted}</div>
-      <div className="pdp-cta-price-note">Inclusive of all selected options</div>
 
       {/* Primary CTA */}
       <button
@@ -79,7 +70,7 @@ export default function CTABlock() {
         onClick={handleProceed}
         disabled={false}
       >
-        Proceed to Payment
+        {allRequiredComplete ? 'Proceed to Order' : 'Complete required fields'}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="5" y1="12" x2="19" y2="12" />
           <polyline points="12 5 19 12 12 19" />

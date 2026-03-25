@@ -1,0 +1,189 @@
+/* ==========================================================================
+   Size Chart — shared component styles
+   ========================================================================== */
+
+/* ── Trigger link ── */
+.size-chart-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1, 4px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm, 13px);
+  font-weight: var(--weight-medium, 500);
+  color: var(--petrol-600, #006080);
+  padding: 0;
+  transition: color 0.15s;
+}
+.size-chart-trigger:hover {
+  color: var(--petrol-800, #003040);
+  text-decoration: underline;
+}
+.size-chart-trigger svg { flex-shrink: 0; }
+
+/* ── Unit badge ── */
+.size-unit-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: var(--weight-medium, 500);
+  color: var(--neutral-500, #6b7280);
+  background: var(--neutral-50, #f9fafb);
+  border: 1px solid var(--neutral-200, #e5e7eb);
+  border-radius: var(--radius-full, 100px);
+  padding: 1px var(--space-2);
+  margin-left: var(--space-2, 8px);
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+
+/* ── Size heading row (unit + chart link) ── */
+.size-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3, 12px);
+  flex-wrap: wrap;
+}
+.size-heading-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+}
+
+/* ── Overlay ── */
+.size-chart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5, 20px);
+  animation: sizeChartFadeIn 0.15s ease;
+}
+@keyframes sizeChartFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Modal ── */
+.size-chart-modal {
+  background: #fff;
+  border-radius: var(--radius-lg, 12px);
+  width: 100%;
+  max-width: 640px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  animation: sizeChartSlideUp 0.2s ease;
+}
+@keyframes sizeChartSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.size-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5, 20px) var(--space-6, 24px);
+  border-bottom: 1px solid var(--neutral-100, #f3f4f6);
+}
+.size-chart-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: var(--weight-bold, 700);
+  color: var(--petrol-800, #003040);
+}
+.size-chart-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--neutral-400);
+  cursor: pointer;
+  padding: var(--space-1, 4px);
+  line-height: 1;
+  border-radius: var(--radius-sm, 4px);
+}
+.size-chart-close:hover { background: var(--neutral-50); color: var(--neutral-700); }
+
+/* Unit toggle */
+.size-chart-unit-toggle {
+  display: flex;
+  gap: 0;
+  padding: var(--space-4, 16px) var(--space-6, 24px) 0;
+}
+.size-chart-unit-btn {
+  flex: 1;
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  border: 1.5px solid var(--neutral-200, #e5e7eb);
+  background: #fff;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: var(--weight-semibold, 600);
+  color: var(--neutral-500);
+  transition: all 0.15s;
+}
+.size-chart-unit-btn:first-child { border-radius: var(--radius-md, 8px) 0 0 var(--radius-md, 8px); }
+.size-chart-unit-btn:last-child { border-radius: 0 var(--radius-md, 8px) var(--radius-md, 8px) 0; border-left: 0; }
+.size-chart-unit-btn--active {
+  background: var(--petrol-50, #f0fafb);
+  border-color: var(--petrol-600, #006080);
+  color: var(--petrol-700, #004060);
+}
+
+/* Table wrapper */
+.size-chart-table-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4, 16px) var(--space-6, 24px);
+}
+.size-chart-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.size-chart-table thead th {
+  text-align: left;
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--neutral-600, #4b5563);
+  border-bottom: 2px solid var(--neutral-200, #e5e7eb);
+  white-space: nowrap;
+}
+.size-chart-table tbody td {
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  border-bottom: 1px solid var(--neutral-50, #f9fafb);
+  color: var(--neutral-700, #374151);
+}
+.size-chart-cell-size {
+  font-weight: var(--weight-semibold, 600);
+  color: var(--petrol-800, #003040);
+  white-space: nowrap;
+}
+.size-chart-cell-dim {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Footer */
+.size-chart-footer {
+  padding: var(--space-3, 12px) var(--space-6, 24px) var(--space-5, 20px);
+  font-size: 11px;
+  color: var(--neutral-400, #9ca3af);
+  text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .size-chart-modal { max-width: 100%; margin: var(--space-3, 12px); }
+  .size-chart-table { font-size: 12px; }
+  .size-chart-unit-btn { font-size: 12px; padding: var(--space-2, 8px); }
+}

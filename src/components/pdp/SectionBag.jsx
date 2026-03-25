@@ -33,8 +33,6 @@ export default function SectionBag() {
               onClick={() => updateConfig('bagType', opt.id)}
               title={opt.name}
               subtitle={opt.description}
-              price={isNone ? null : price}
-              priceType={isNone ? null : price > 0 ? 'addon' : 'included'}
             />
           )
         })}

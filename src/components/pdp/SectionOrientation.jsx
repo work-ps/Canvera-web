@@ -90,8 +90,6 @@ export default function SectionOrientation() {
             title={opt.name}
             subtitle={opt.description}
             specs={[`Best for: ${opt.bestFor}`]}
-            price={null}
-            priceType="included"
             onClick={() => updateConfig('orientation', opt.id)}
           >
             <div style={{ marginBottom: 'var(--space-2)' }}>

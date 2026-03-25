@@ -37,8 +37,6 @@ export default function SectionBinding() {
               title={name}
               subtitle={info.description}
               specs={info.specs}
-              price={cost > 0 ? cost : null}
-              priceType={cost > 0 ? 'addon' : 'included'}
               onClick={() => updateConfig('binding', name)}
             />
           )
@@ -88,7 +86,6 @@ export default function SectionBinding() {
                   <th style={{ textAlign: 'left', padding: 'var(--space-2) var(--space-3)', color: 'var(--neutral-600)' }}>Binding</th>
                   <th style={{ textAlign: 'left', padding: 'var(--space-2) var(--space-3)', color: 'var(--neutral-600)' }}>Opening</th>
                   <th style={{ textAlign: 'left', padding: 'var(--space-2) var(--space-3)', color: 'var(--neutral-600)' }}>Best For</th>
-                  <th style={{ textAlign: 'right', padding: 'var(--space-2) var(--space-3)', color: 'var(--neutral-600)' }}>Price</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,9 +115,6 @@ export default function SectionBinding() {
                       </td>
                       <td style={{ padding: 'var(--space-2) var(--space-3)', color: 'var(--neutral-600)' }}>
                         {bestFor || '\u2014'}
-                      </td>
-                      <td style={{ padding: 'var(--space-2) var(--space-3)', textAlign: 'right', fontWeight: 'var(--weight-medium)' }}>
-                        {cost > 0 ? `+ \u20B9${formatINR(cost)}` : 'Included'}
                       </td>
                     </tr>
                   )

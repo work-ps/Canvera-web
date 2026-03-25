@@ -8,11 +8,11 @@ import '../../styles/products-page.css'
 import '../../styles/popular-products.css'
 
 const categoryAliases = {
-  'moment-books': 'standard-albums',
-  'magazines': 'photobooks',
+  'premium-albums': 'photobooks',
+  'standard-albums': 'momentbooks',
+  'moment-books': 'momentbooks',
   'wall-decor': 'canvas-frames',
   'gifting-packages': 'decor-gifts',
-  'accessories': 'calendars',
 }
 
 const emptyFilters = {

@@ -4,10 +4,16 @@
 
 .why-section {
   padding: var(--space-10) 0;
-  background: var(--neutral-25);
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: var(--space-8);
+  padding-right: var(--space-8);
 }
 .why-inner {
-  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
+  width: 100%;
+  padding: var(--space-9) var(--space-8);
+  background: linear-gradient(135deg, var(--petrol-50) 0%, #E0F4F7 40%, #D2EFF4 100%);
+  border-radius: var(--radius-xl);
 }
 
 /* Title */
@@ -35,9 +41,10 @@
 .why-card-icon {
   width: 56px; height: 56px;
   margin: 0 auto var(--space-5);
-  background: var(--petrol-50);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: var(--radius-lg);
   display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 41, 61, 0.06);
 }
 .why-card-icon svg {
   width: 24px; height: 24px;
@@ -60,8 +67,8 @@
 
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 900px) {
-  .why-section { padding: var(--space-8) 0; }
-  .why-inner { padding: 0 var(--space-5); }
+  .why-section { padding: var(--space-8) 0; padding-left: var(--space-5); padding-right: var(--space-5); }
+  .why-inner { padding: var(--space-7) var(--space-6); }
   .why-title { font-size: var(--text-display-xs); margin-bottom: var(--space-7); }
   .why-grid {
     grid-template-columns: 1fr 1fr;

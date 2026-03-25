@@ -148,8 +148,6 @@ function MainPaperPicker() {
                 `Recommended: ${paper.recommended}`,
                 !compatible ? `Incompatible with ${config.lamination} lamination` : '',
               ].filter(Boolean)}
-              price={cost > 0 ? cost : null}
-              priceType={cost > 0 ? 'addon' : 'included'}
               onClick={() => updateConfig('paper', paper.id)}
             />
           )
@@ -308,9 +306,6 @@ function SpecialPaperSection() {
                       <option key={sp.id} value={sp.id}>{sp.name}</option>
                     ))}
                   </select>
-                  <span className="pdp-range-cost">
-                    {'\u20B9'}{formatINR(rangeCost)}
-                  </span>
                   <button
                     type="button"
                     className="pdp-range-remove"

@@ -57,15 +57,7 @@ export default function SectionOrderType() {
           onClick={() => updateConfig('orderType', 'raw')}
           title="Raw or Unedited Files"
           subtitle="Your images need colour correction, cropping, or layout adjustments before printing. Our pre-press team will review and prepare your files."
-        >
-          <div className="pdp-card-price" style={{ marginTop: 8 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }}>
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            Pre-press review — adds &#x20B9;{prepressPrice.toLocaleString('en-IN')}
-          </div>
-        </ConfigCard>
+        />
 
         {/* Card B: Edited / Print-Ready */}
         <ConfigCard
@@ -73,14 +65,7 @@ export default function SectionOrderType() {
           onClick={() => updateConfig('orderType', 'print-ready')}
           title="Edited & Print-Ready"
           subtitle="Your images are fully edited, colour-corrected, and exported at the correct resolution. They go directly into production without additional review."
-        >
-          <div className="pdp-card-price pdp-card-price--included" style={{ marginTop: 8 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }}>
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            Direct to production — no additional fee
-          </div>
-        </ConfigCard>
+        />
       </div>
 
       {/* FAQ Toggle */}

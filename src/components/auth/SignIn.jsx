@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import '../../styles/auth.css'
 
@@ -7,9 +7,11 @@ import '../../styles/auth.css'
 export default function SignIn() {
   const { authState, login, isRegistered, isVerified } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || null
   const [loginMethod, setLoginMethod] = useState('password')
   const [form, setForm] = useState({
-    identity: '', password: '', otp: '', rememberMe: false,
+    identity: '', password: '', otp: '',
   })
   const [otpSent, setOtpSent] = useState(false)
   const [otpCountdown, setOtpCountdown] = useState(0)
@@ -34,11 +36,8 @@ export default function SignIn() {
   }, [otpCountdown])
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setForm(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }))
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
     if (fieldErrors[name]) {
       setFieldErrors(prev => ({ ...prev, [name]: '' }))
     }
@@ -71,7 +70,7 @@ export default function SignIn() {
   // Redirect if already logged in
   useEffect(() => {
     if (isRegistered) {
-      navigate(isVerified ? '/dashboard' : '/', { replace: true })
+      navigate(redirectTo || (isVerified ? '/profile' : '/'), { replace: true })
     }
   }, [isRegistered, isVerified, navigate])
 
@@ -115,7 +114,7 @@ export default function SignIn() {
 
     setSubmitted(true)
     setTimeout(() => {
-      navigate(result.user.status === 'verified' ? '/dashboard' : '/')
+      navigate(redirectTo || (result.user.status === 'verified' ? '/profile' : '/'))
     }, 1200)
   }
 
@@ -126,8 +125,8 @@ export default function SignIn() {
         <p className="auth-subtitle">Sign in to your Canvera account</p>
 
         {submitted && (
-          <div className="alert alert-success" style={{ marginBottom: 'var(--space-5)' }}>
-            <svg className="alert-icon" viewBox="0 0 18 18" fill="none">
+          <div className="auth-alert auth-alert--success">
+            <svg viewBox="0 0 18 18" fill="none">
               <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5"/>
               <path d="M6 9l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -137,22 +136,23 @@ export default function SignIn() {
 
         {/* Verification pending notice for registered but unverified users */}
         {authState?.status === 'registered' && (
-          <div className="alert alert-info" style={{ marginBottom: 'var(--space-5)', background: 'var(--petrol-25, #f0f7fa)', border: '1px solid var(--petrol-100, #d0e8f0)', borderRadius: 'var(--radius-md)', padding: '12px 16px', display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13px', color: 'var(--petrol-700, #005780)' }}>
-            <svg style={{ width: 18, height: 18, flexShrink: 0, marginTop: 1 }} viewBox="0 0 18 18" fill="none">
+          <div className="auth-alert auth-alert--info">
+            <svg viewBox="0 0 18 18" fill="none">
               <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5"/>
               <path d="M9 6v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               <circle cx="9" cy="12.5" r="0.75" fill="currentColor"/>
             </svg>
             <span>
               Your account is under verification. You'll get full access once verified.{' '}
-              <Link to="/register" style={{ fontWeight: 600, textDecoration: 'underline' }}>Check status or provide details</Link>
+              <Link to="/signup">Check status or provide details</Link>
             </span>
           </div>
         )}
 
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
+          {/* Email or Phone field */}
           <div className="input-group">
-            <label className="input-label">Email or Phone Number *</label>
+            <label className="input-label">Email or Phone Number</label>
             <input
               className={`input-field${fieldErrors.identity ? ' error' : ''}`}
               type="text"
@@ -164,41 +164,45 @@ export default function SignIn() {
             {fieldErrors.identity && <span className="input-hint error-text">{fieldErrors.identity}</span>}
           </div>
 
-          {/* Method tabs */}
-          <div className="auth-method-tabs">
-            <button
-              type="button"
-              className={`auth-method-tab${loginMethod === 'password' ? ' active' : ''}`}
-              onClick={() => switchMethod('password')}
-            >
-              Password
-            </button>
-            <button
-              type="button"
-              className={`auth-method-tab${loginMethod === 'otp' ? ' active' : ''}`}
-              onClick={() => switchMethod('otp')}
-            >
-              Login with OTP
-            </button>
-          </div>
-
-          {/* Password mode */}
+          {/* PASSWORD MODE */}
           {loginMethod === 'password' && (
-            <div className="input-group">
-              <label className="input-label">Password *</label>
-              <input
-                className={`input-field${fieldErrors.password ? ' error' : ''}`}
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-              />
-              {fieldErrors.password && <span className="input-hint error-text">{fieldErrors.password}</span>}
-            </div>
+            <>
+              <div className="input-group">
+                <label className="input-label">Password</label>
+                <input
+                  className={`input-field${fieldErrors.password ? ' error' : ''}`}
+                  type="password"
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                />
+                {fieldErrors.password && <span className="input-hint error-text">{fieldErrors.password}</span>}
+              </div>
+
+              <div className="auth-forgot-row">
+                <a href="#">Forgot Password?</a>
+              </div>
+
+              <button type="submit" className="btn btn-primary btn-lg auth-submit">
+                Sign In
+              </button>
+
+              <div className="auth-divider">
+                <span>or</span>
+              </div>
+
+              <button
+                type="button"
+                className="auth-alt-btn"
+                onClick={() => switchMethod('otp')}
+              >
+                Login with OTP
+              </button>
+            </>
           )}
 
-          {/* OTP mode */}
+          {/* OTP MODE */}
           {loginMethod === 'otp' && (
             <>
               {!otpSent ? (
@@ -212,7 +216,7 @@ export default function SignIn() {
               ) : (
                 <div className="auth-otp-section">
                   <div className="input-group">
-                    <label className="input-label">Enter OTP *</label>
+                    <label className="input-label">Enter OTP</label>
                     <input
                       className={`input-field${fieldErrors.otp ? ' error' : ''}`}
                       type="text"
@@ -240,32 +244,28 @@ export default function SignIn() {
                   </div>
                 </div>
               )}
+
+              <button type="submit" className="btn btn-primary btn-lg auth-submit">
+                Sign In
+              </button>
+
+              <div className="auth-divider">
+                <span>or</span>
+              </div>
+
+              <button
+                type="button"
+                className="auth-alt-btn"
+                onClick={() => switchMethod('password')}
+              >
+                Sign in with Password
+              </button>
             </>
           )}
-
-          <div className="auth-options">
-            <label>
-              <input
-                type="checkbox"
-                name="rememberMe"
-                checked={form.rememberMe}
-                onChange={handleChange}
-                style={{ accentColor: 'var(--petrol-600)' }}
-              />
-              {' '}Remember me
-            </label>
-            {loginMethod === 'password' && (
-              <a href="#">Forgot Password?</a>
-            )}
-          </div>
-
-          <button type="submit" className="btn btn-primary btn-lg auth-submit">
-            Sign In
-          </button>
         </form>
 
         <div className="auth-footer">
-          New to Canvera? <Link to="/register">Join for Free</Link>
+          New to Canvera? <Link to="/signup">Sign Up</Link>
         </div>
       </div>
     </div>

@@ -1,0 +1,572 @@
+/* ==========================================================================
+   Make Your Own — Visual Builder Flow
+   ========================================================================== */
+
+/* ---- Page layout: two-panel ---- */
+.myo-page {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  max-width: 1120px;
+  margin: var(--header-height) auto 0;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ---- Left panel: Visualizer ---- */
+.myo-viz-panel {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  background: var(--warm-offwhite, #F8F6F2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  overflow: hidden;
+}
+
+.myo-viz-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 400px;
+}
+
+.myo-viz-book-wrap {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.myo-book-svg {
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.myo-viz-caption {
+  font-size: var(--text-body-sm, 0.875rem);
+  color: var(--neutral-500, #737373);
+  text-align: center;
+  line-height: var(--leading-relaxed, 1.625);
+  min-height: 1.5em;
+  transition: opacity 0.3s ease;
+}
+
+/* ---- Right panel: Content ---- */
+.myo-content-panel {
+  padding: var(--space-8, 2rem) var(--space-8, 2rem) var(--space-12, 3rem);
+  overflow-y: auto;
+  max-height: calc(100vh - var(--header-height));
+}
+
+/* ---- Progress bar ---- */
+.myo-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+  margin-bottom: var(--space-6, 1.5rem);
+}
+
+.myo-progress-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--neutral-200, #e5e5e5);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.myo-progress-fill {
+  height: 100%;
+  background: var(--petrol-600, #005780);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.myo-progress-label {
+  font-size: var(--text-body-xs, 0.75rem);
+  color: var(--neutral-400, #a3a3a3);
+  white-space: nowrap;
+  font-weight: var(--weight-medium, 500);
+}
+
+/* ---- Breadcrumbs ---- */
+.myo-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+  margin-bottom: var(--space-5, 1.25rem);
+}
+
+.myo-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-body-xs, 0.75rem);
+  font-weight: var(--weight-medium, 500);
+  color: var(--petrol-700, #004060);
+  background: var(--petrol-50, #e6f0f5);
+  border: 1px solid var(--petrol-100, #cce0ea);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.myo-breadcrumb:hover {
+  background: var(--petrol-100, #cce0ea);
+  border-color: var(--petrol-200, #99c2d6);
+}
+
+/* ---- Step header ---- */
+.myo-step-header {
+  margin-bottom: var(--space-6, 1.5rem);
+}
+
+.myo-step-title {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: var(--text-display-md, 1.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--neutral-900, #171717);
+  line-height: var(--leading-tight, 1.25);
+  margin: 0 0 var(--space-2, 0.5rem);
+}
+
+.myo-step-subtitle {
+  font-size: var(--text-body-md, 1rem);
+  color: var(--neutral-500, #737373);
+  margin: 0;
+  line-height: var(--leading-relaxed, 1.625);
+}
+
+/* ---- Options grid (step 1, step 3) ---- */
+.myo-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-3, 0.75rem);
+}
+
+.myo-options-grid--wide {
+  grid-template-columns: 1fr;
+}
+
+/* ---- Options row (horizontal wrap) ---- */
+.myo-options-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.myo-options-row > * {
+  flex: 1 1 180px;
+  max-width: 260px;
+}
+
+/* ---- Option card ---- */
+.myo-option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-4, 1rem);
+  background: #fff;
+  border: 1.5px solid var(--neutral-200, #e5e5e5);
+  border-radius: var(--radius-lg, 12px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.myo-option-card:hover {
+  border-color: var(--petrol-300, #66adc6);
+  box-shadow: 0 2px 12px rgba(0, 87, 128, 0.08);
+  transform: translateY(-1px);
+}
+
+.myo-option-card--selected {
+  border-color: var(--petrol-600, #005780);
+  background: var(--petrol-50, #e6f0f5);
+  box-shadow: 0 0 0 1px var(--petrol-600, #005780);
+}
+
+.myo-option-card--compact {
+  padding: var(--space-3, 0.75rem);
+}
+
+.myo-option-card--swatch {
+  align-items: center;
+  text-align: center;
+}
+
+.myo-option-card--pattern {
+  align-items: center;
+  text-align: center;
+}
+
+/* ---- Swatch circle ---- */
+.myo-option-swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(0,0,0,0.08);
+}
+
+.myo-option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.myo-option-name {
+  font-size: var(--text-body-md, 1rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--neutral-900, #171717);
+  line-height: var(--leading-tight, 1.25);
+}
+
+.myo-option-desc {
+  font-size: var(--text-body-sm, 0.875rem);
+  color: var(--neutral-500, #737373);
+  line-height: var(--leading-relaxed, 1.625);
+}
+
+.myo-option-specs {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2, 0.5rem) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  font-size: var(--text-body-xs, 0.75rem);
+  color: var(--neutral-500, #737373);
+}
+
+.myo-option-specs li::before {
+  content: '\2713 ';
+  color: var(--petrol-600, #005780);
+  font-weight: var(--weight-bold);
+}
+
+/* ---- Orientation glyph ---- */
+.myo-ori-glyph {
+  width: 40px;
+  height: 32px;
+  border-radius: 3px;
+  border: 1.5px solid var(--neutral-300, #d4d4d4);
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.myo-ori-glyph[data-orientation="portrait"] {
+  width: 28px;
+  height: 40px;
+}
+
+.myo-ori-glyph[data-orientation="square"] {
+  width: 36px;
+  height: 36px;
+}
+
+/* ---- Lamination icon ---- */
+.myo-lam-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+/* ---- Cover pattern icon ---- */
+.myo-pattern-icon {
+  width: 72px;
+  height: 56px;
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+/* ---- Sub-step within a step ---- */
+.myo-substep {
+  margin-bottom: var(--space-6, 1.5rem);
+}
+
+.myo-substep-title {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: var(--text-body-lg, 1.125rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--neutral-800, #262626);
+  margin: 0 0 var(--space-3, 0.75rem);
+}
+
+/* ---- Color swatches ---- */
+.myo-color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.myo-color-swatch {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg, 12px);
+  border: 2px solid rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.myo-color-swatch:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.myo-color-swatch--selected {
+  border-color: var(--petrol-600, #005780);
+  box-shadow: 0 0 0 2px var(--petrol-600, #005780);
+  transform: scale(1.08);
+}
+
+.myo-color-swatch-label {
+  font-size: var(--text-body-2xs);
+  font-weight: var(--weight-semibold);
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  width: 100%;
+  text-align: center;
+  padding: 2px 0;
+  line-height: 1.3;
+  backdrop-filter: blur(4px);
+}
+
+/* ---- Final result (step 7) ---- */
+.myo-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6, 1.5rem);
+}
+
+.myo-result-heading {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: var(--text-display-xs, 1.25rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--neutral-900, #171717);
+  margin: 0 0 var(--space-3, 0.75rem);
+}
+
+.myo-result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2, 0.5rem) var(--space-6, 1.5rem);
+}
+
+.myo-result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.myo-result-label {
+  font-size: var(--text-body-xs, 0.75rem);
+  color: var(--neutral-400, #a3a3a3);
+  font-weight: var(--weight-medium, 500);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.myo-result-value {
+  font-size: var(--text-body-md, 1rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--neutral-900, #171717);
+}
+
+/* ---- Action buttons ---- */
+.myo-result-actions {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+}
+
+.myo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--text-body-md, 1rem);
+  font-weight: var(--weight-semibold, 600);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+.myo-btn--primary {
+  background: var(--petrol-600, #005780);
+  color: #fff;
+}
+
+.myo-btn--primary:hover {
+  background: var(--petrol-700, #004060);
+  box-shadow: 0 2px 12px rgba(0, 87, 128, 0.2);
+}
+
+.myo-btn--secondary {
+  background: #fff;
+  color: var(--petrol-600, #005780);
+  border: 1.5px solid var(--petrol-200, #99c2d6);
+}
+
+.myo-btn--secondary:hover {
+  background: var(--petrol-50, #e6f0f5);
+  border-color: var(--petrol-300, #66adc6);
+}
+
+/* ---- Similar products ---- */
+.myo-similar {
+  border-top: 1px solid var(--neutral-100, #f5f5f5);
+  padding-top: var(--space-6, 1.5rem);
+}
+
+.myo-similar-title {
+  font-size: var(--text-body-md, 1rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--neutral-700, #404040);
+  margin: 0 0 var(--space-4, 1rem);
+}
+
+.myo-similar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-3, 0.75rem);
+}
+
+.myo-similar-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-3, 0.75rem);
+  background: #fff;
+  border: 1px solid var(--neutral-200, #e5e5e5);
+  border-radius: var(--radius-lg, 12px);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.myo-similar-card:hover {
+  border-color: var(--petrol-200, #99c2d6);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.myo-similar-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius-md, 8px);
+}
+
+.myo-similar-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md, 8px);
+  opacity: 0.15;
+}
+
+.myo-similar-name {
+  font-size: var(--text-body-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--neutral-900, #171717);
+}
+
+.myo-similar-tag {
+  font-size: var(--text-body-xs, 0.75rem);
+  color: var(--neutral-500, #737373);
+}
+
+/* ---- Animations ---- */
+.myo-fade-in {
+  animation: myoFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes myoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .myo-page {
+    grid-template-columns: 1fr;
+  }
+
+  .myo-viz-panel {
+    position: relative;
+    top: 0;
+    height: auto;
+    min-height: 200px;
+    max-height: 280px;
+    padding: var(--space-4, 1rem);
+  }
+
+  .myo-viz-book-wrap {
+    max-width: 180px;
+  }
+
+  .myo-content-panel {
+    max-height: none;
+    padding: var(--space-5, 1.25rem) var(--space-4, 1rem) var(--space-8, 2rem);
+  }
+
+  .myo-step-title {
+    font-size: var(--text-display-sm, 1.5rem);
+  }
+
+  .myo-options-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .myo-options-row > * {
+    flex: 1 1 140px;
+  }
+
+  .myo-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .myo-result-actions {
+    flex-direction: column;
+  }
+
+  .myo-btn {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .myo-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .myo-options-row > * {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .myo-color-swatch {
+    width: 56px;
+    height: 56px;
+  }
+}

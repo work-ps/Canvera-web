@@ -14,11 +14,11 @@
   margin-bottom: var(--space-7);
 }
 .occasion-section .section-label {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-  color: var(--amber-500); font-weight: 600; margin-bottom: var(--space-2);
+  font-size: var(--text-body-xs); text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  color: var(--amber-500); font-weight: var(--weight-semibold); margin-bottom: var(--space-2);
 }
 .occasion-section .section-title {
-  font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--petrol-800);
+  font-family: var(--font-display); font-size: var(--text-display-md); font-weight: var(--weight-bold); color: var(--petrol-800);
   line-height: 1.2;
 }
 
@@ -44,8 +44,8 @@
 
 .occasion-tag {
   font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-medium);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
   border: 1.5px solid var(--neutral-200);
@@ -76,13 +76,13 @@
 }
 .occasion-help span {
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: var(--text-body-base);
   color: var(--neutral-500);
 }
 .specialist-link {
   font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-semibold);
   color: var(--petrol-600);
   text-decoration: none;
   display: inline-flex;

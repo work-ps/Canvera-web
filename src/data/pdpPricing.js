@@ -110,6 +110,8 @@ export const surcharges = {
   },
 
   prepressReview: 500,  // Raw files pre-press fee
+  designServiceFee: 4500,  // Design service fee
+  hexachromeMultiplier: 0.15,  // Hexachrome +15% surcharge
 }
 
 // Calculate total price from config
@@ -258,6 +260,30 @@ export function calculatePrice(config, productId) {
       amount: surcharges.prepressReview,
       type: 'addon',
     })
+  }
+
+  // Design service fee
+  if (config.orderType === 'design-service') {
+    lineItems.push({
+      key: 'designService',
+      label: 'Design Service Fee',
+      amount: surcharges.designServiceFee,
+      type: 'addon',
+    })
+  }
+
+  // Hexachrome color printing surcharge
+  if (config.colorPrinting === 'Hexachrome') {
+    const subtotal = lineItems.reduce((s, i) => s + i.amount, 0)
+    const hexAmt = Math.round(subtotal * surcharges.hexachromeMultiplier)
+    if (hexAmt > 0) {
+      lineItems.push({
+        key: 'hexachrome',
+        label: 'Hexachrome Color Printing (+15%)',
+        amount: hexAmt,
+        type: 'addon',
+      })
+    }
   }
 
   const total = lineItems.reduce((sum, item) => sum + item.amount, 0)

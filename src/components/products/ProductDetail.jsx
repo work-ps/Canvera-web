@@ -1,8 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react'
-import StarRating from '../ui/StarRating'
 import ProductCard from '../home/ProductCard'
-import ProductShowcase from './ProductShowcase'
+import ProductDetailTabs from './ProductDetailTabs'
 import { useCompare } from '../../context/CompareContext'
 import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
@@ -12,6 +11,7 @@ import { getStartingPrice, basePrices, surcharges } from '../../data/pdpPricing'
 import { sizeLabels, orientationOptions, bindingDescriptions } from '../../data/pdpOptions'
 import ConfigCard from '../pdp/ConfigCard'
 import TooltipIcon from '../pdp/TooltipIcon'
+import SizeChartModal from '../shared/SizeChartModal'
 import '../../styles/product-detail.css'
 import '../../styles/product-showcase.css'
 import '../../styles/popular-products.css'
@@ -32,6 +32,32 @@ function ProductImageGallery({ product, productSvgs }) {
   const [activeIdx, setActiveIdx] = useState(0)
   const hasImages = images.length > 0
   const fallbackSvg = productSvgs[product.imageVariant] || productSvgs.petrol
+  const thumbsRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
+
+  const updateThumbScroll = useCallback(() => {
+    const el = thumbsRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 4)
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
+  }, [])
+
+  useEffect(() => {
+    const el = thumbsRef.current
+    if (!el) return
+    updateThumbScroll()
+    el.addEventListener('scroll', updateThumbScroll, { passive: true })
+    const ro = new ResizeObserver(updateThumbScroll)
+    ro.observe(el)
+    return () => { el.removeEventListener('scroll', updateThumbScroll); ro.disconnect() }
+  }, [updateThumbScroll, images])
+
+  const scrollThumbs = (dir) => {
+    const el = thumbsRef.current
+    if (!el) return
+    el.scrollBy({ left: dir === 'left' ? -200 : 200, behavior: 'smooth' })
+  }
 
   if (!hasImages) {
     return (
@@ -51,17 +77,33 @@ function ProductImageGallery({ product, productSvgs }) {
         />
       </div>
       {images.length > 1 && (
-        <div className="pdp-gallery-thumbs">
-          {images.map((src, i) => (
-            <button
-              key={i}
-              className={`pdp-thumb${i === activeIdx ? ' pdp-thumb-active' : ''}`}
-              onClick={() => setActiveIdx(i)}
-              aria-label={`View image ${i + 1}`}
-            >
-              <img src={src} alt={`${product.name} thumb ${i + 1}`} loading="lazy" />
-            </button>
-          ))}
+        <div className="pdp-gallery-thumbs-wrap">
+          <button
+            className={`pdp-thumb-arrow pdp-thumb-arrow--left${!canScrollLeft ? ' pdp-thumb-arrow--hidden' : ''}`}
+            onClick={() => scrollThumbs('left')}
+            aria-label="Scroll thumbnails left"
+          >
+            <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <div className="pdp-gallery-thumbs" ref={thumbsRef}>
+            {images.map((src, i) => (
+              <button
+                key={i}
+                className={`pdp-thumb${i === activeIdx ? ' pdp-thumb-active' : ''}`}
+                onClick={() => setActiveIdx(i)}
+                aria-label={`View image ${i + 1}`}
+              >
+                <img src={src} alt={`${product.name} thumb ${i + 1}`} loading="lazy" />
+              </button>
+            ))}
+          </div>
+          <button
+            className={`pdp-thumb-arrow pdp-thumb-arrow--right${!canScrollRight ? ' pdp-thumb-arrow--hidden' : ''}`}
+            onClick={() => scrollThumbs('right')}
+            aria-label="Scroll thumbnails right"
+          >
+            <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
         </div>
       )}
     </div>
@@ -76,7 +118,6 @@ function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart,
   const [selectedSize, setSelectedSize] = useState(sizes[0] || null)
   const [selectedOrientation, setSelectedOrientation] = useState(orientations[0] || null)
   const [selectedBinding, setSelectedBinding] = useState(bindings[0] || null)
-  const [wishlisted, setWishlisted] = useState(false)
   const [bindingDrawer, setBindingDrawer] = useState(false)
 
   const startingPrice = getStartingPrice(product.id)
@@ -91,21 +132,26 @@ function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart,
 
   return (
     <div className="product-price-box">
-      {/* Starting Price */}
-      {startingPrice && (
+      {/* Starting Price (post-login only) */}
+      {isRegistered && startingPrice && (
         <div className="pdp-starting-price">
           <span className="pdp-starting-label">STARTING FROM</span>
-          <span className="pdp-starting-amount">&#x20B9;{(currentPrice || startingPrice).toLocaleString('en-IN')}</span>
+          <span className="pdp-starting-amount">&#x20B9;{startingPrice.toLocaleString('en-IN')}</span>
         </div>
       )}
 
       {/* Size — ConfigCards */}
       {sizes.length > 0 && (
         <div className="pdp-selector">
-          <label className="pdp-selector-label">
-            Size
-            <TooltipIcon text="The physical dimensions of your closed album." />
-          </label>
+          <div className="size-heading-row">
+            <div className="size-heading-left">
+              <label className="pdp-selector-label" style={{ margin: 0 }}>
+                Size
+                <TooltipIcon text="The physical dimensions of your closed album." />
+              </label>
+            </div>
+            <SizeChartModal sizes={sizes} />
+          </div>
           <div className="pdp-config-cards">
             {sizes.map((s, idx) => {
               const info = sizeLabels[s]
@@ -118,8 +164,6 @@ function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart,
                   title={info?.label || s}
                   subtitle={info?.format || ''}
                   specs={info?.printArea ? [`Print area ${info.printArea}`] : undefined}
-                  price={price}
-                  priceType="from"
                   onClick={() => setSelectedSize(s)}
                 />
               )
@@ -168,8 +212,6 @@ function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart,
                   title={b}
                   subtitle={info.description || ''}
                   specs={info.specs}
-                  price={cost > 0 ? cost : null}
-                  priceType={cost > 0 ? 'addon' : 'included'}
                   onClick={() => setSelectedBinding(b)}
                 />
               )
@@ -194,7 +236,6 @@ function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart,
                     <tr style={{ borderBottom: '2px solid var(--neutral-200)' }}>
                       <th style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--neutral-600)' }}>Binding</th>
                       <th style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--neutral-600)' }}>Opening</th>
-                      <th style={{ textAlign: 'right', padding: '8px 12px', color: 'var(--neutral-600)' }}>Price</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -205,7 +246,6 @@ function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart,
                         <tr key={b} style={{ borderBottom: '1px solid var(--neutral-100)' }}>
                           <td style={{ padding: '8px 12px', fontWeight: 600, color: 'var(--neutral-900)' }}>{b}</td>
                           <td style={{ padding: '8px 12px', color: 'var(--neutral-600)' }}>{opening}</td>
-                          <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 500 }}>{cost > 0 ? `+ \u20B9${cost.toLocaleString('en-IN')}` : 'Included'}</td>
                         </tr>
                       )
                     })}
@@ -233,14 +273,6 @@ function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart,
           >
             <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M1 1h2l2 9h8l2-6H5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><circle cx="6" cy="13" r="1" fill="currentColor"/><circle cx="12" cy="13" r="1" fill="currentColor"/></svg>
             Add to Cart
-          </button>
-          <button
-            className={`btn btn-outline btn-md pdp-wishlist${wishlisted ? ' pdp-wishlist--active' : ''}`}
-            onClick={() => setWishlisted(w => !w)}
-          >
-            <svg viewBox="0 0 16 16" fill={wishlisted ? 'currentColor' : 'none'} width="16" height="16">
-              <path d="M8 14s-5.5-3.5-5.5-7A3.5 3.5 0 018 4a3.5 3.5 0 015.5 3c0 3.5-5.5 7-5.5 7z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
           </button>
         </div>
       ) : isRegistered ? (
@@ -321,30 +353,6 @@ export default function ProductDetail() {
     )
   }
 
-  const inCompare = isInCompare(product.id)
-  const compareFull = isCompareFull && !inCompare
-
-  const handleCompare = () => {
-    if (inCompare) removeFromCompare(product.id)
-    else if (!compareFull) addToCompare(product)
-  }
-
-  const specsRows = [
-    ['Category', product.category],
-    ['Type', product.tag],
-    ['Material', product.material],
-    ['Specifications', product.specs],
-    product.sizes?.length > 0 && ['Sizes Available', product.sizes.join(', ')],
-    product.orientations?.length > 0 && ['Orientations', product.orientations.join(', ')],
-    product.bindings?.length > 0 && ['Bindings', product.bindings.join(', ')],
-    ['Rating', `${product.rating} / 5 (${product.reviewCount}+ reviews)`],
-    ['Availability', 'In Stock'],
-    ['Delivery', '5–7 business days'],
-    ['Design Service', 'Free included'],
-  ].filter(Boolean)
-
-  const features = product.features || []
-
   return (
     <div className="product-detail">
       <div className="product-detail-inner">
@@ -360,27 +368,8 @@ export default function ProductDetail() {
           <ProductImageGallery product={product} productSvgs={productSvgs} />
 
           <div className="product-info">
-            <div className="product-tag">{product.tag}</div>
             <h1>{product.name}</h1>
-            <div className="product-rating-row">
-              <StarRating rating={product.rating} />
-              <span className="pc-rating-text">
-                <strong>{product.rating}</strong> ({product.reviewCount}+ reviews)
-              </span>
-            </div>
-
-            <p className="product-desc">{product.description}</p>
-
-            {features.length > 0 && (
-              <div className="product-features">
-                {features.map((f, i) => (
-                  <span key={i} className="feature-tag">
-                    <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    {f}
-                  </span>
-                ))}
-              </div>
-            )}
+            <span className="pdp-tag-pill">{product.tag}</span>
 
             <PdpPriceAndConfig
               product={product}
@@ -390,44 +379,11 @@ export default function ProductDetail() {
               addToCart={addToCart}
               navigate={navigate}
             />
-
-            <button
-              className={`btn btn-outline btn-md compare-detail-btn${inCompare ? ' compare-active' : ''}`}
-              onClick={handleCompare}
-              disabled={compareFull}
-              title={compareFull ? 'Maximum 4 products can be compared' : ''}
-            >
-              {inCompare ? (
-                <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-                  <path d="M3.5 8.5L6.5 11.5L12.5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              ) : (
-                <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-                  <rect x="1" y="4" width="7" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
-                  <rect x="8" y="3" width="7" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
-                </svg>
-              )}
-              {inCompare ? 'Remove from Compare' : 'Add to Compare'}
-            </button>
-
-            <div className="product-specs">
-              <h3>Specifications</h3>
-              <table className="specs-table">
-                <tbody>
-                  {specsRows.map(([label, value], i) => (
-                    <tr key={i}>
-                      <td>{label}</td>
-                      <td>{value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
 
-        {/* Interactive Product Showcase */}
-        <ProductShowcase product={product} />
+        {/* Product Details Tabs */}
+        <ProductDetailTabs product={product} />
 
         {related.length > 0 && (
           <div className="related-products">

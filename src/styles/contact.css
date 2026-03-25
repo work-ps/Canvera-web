@@ -1,5 +1,5 @@
 .contact-page {
-  margin-top: 52px;
+  margin-top: var(--header-height);
   min-height: 100vh;
   background: white;
 }
@@ -11,12 +11,12 @@
 /* Breadcrumb – reuse pattern from products page */
 .contact-page .breadcrumb {
   display: flex; align-items: center; gap: var(--space-2);
-  margin-bottom: var(--space-8); font-size: 13px;
+  margin-bottom: var(--space-8); font-size: var(--text-body-base);
 }
 .contact-page .breadcrumb a { color: var(--neutral-500); transition: color 0.15s; text-decoration: none; }
 .contact-page .breadcrumb a:hover { color: var(--petrol-600); }
 .contact-page .breadcrumb span { color: var(--neutral-300); }
-.contact-page .breadcrumb .current { color: var(--neutral-700); font-weight: 500; }
+.contact-page .breadcrumb .current { color: var(--neutral-700); font-weight: var(--weight-medium); }
 
 /* Two-column layout */
 .contact-layout {
@@ -31,12 +31,12 @@
   position: sticky; top: 72px;
 }
 .contact-info h1 {
-  font-family: var(--font-display); font-size: 36px; font-weight: 700;
+  font-family: var(--font-display); font-size: var(--text-display-lg); font-weight: var(--weight-bold);
   color: var(--petrol-800); line-height: 1.2;
   margin-bottom: var(--space-3);
 }
 .contact-subtitle {
-  font-family: var(--font-body); font-size: 15px;
+  font-family: var(--font-body); font-size: var(--text-body-lg);
   color: var(--neutral-500); line-height: 1.6;
   margin-bottom: var(--space-8);
 }
@@ -57,23 +57,23 @@
   width: 22px; height: 22px; color: var(--petrol-600);
 }
 .card-label {
-  font-family: var(--font-body); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 1.2px;
-  font-weight: 600; color: var(--petrol-600);
+  font-family: var(--font-body); font-size: var(--text-body-xs);
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  font-weight: var(--weight-semibold); color: var(--petrol-600);
 }
 .card-number {
-  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+  font-family: var(--font-display); font-size: var(--text-display-xs); font-weight: var(--weight-bold);
   color: var(--petrol-800); margin-bottom: var(--space-2);
 }
 .card-desc {
-  font-size: 13px; color: var(--neutral-500);
+  font-size: var(--text-body-base); color: var(--neutral-500);
   line-height: 1.5; margin-bottom: var(--space-4);
 }
 .card-btn {
   display: flex; align-items: center; justify-content: center;
   gap: var(--space-2); width: 100%;
-  padding: 10px 16px; border-radius: var(--radius-md);
-  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-md);
+  font-family: var(--font-body); font-size: var(--text-body-base); font-weight: var(--weight-semibold);
   text-decoration: none; cursor: pointer;
   transition: all 0.2s ease; border: none;
 }
@@ -88,7 +88,7 @@
 .card-btn-phone:hover { background: var(--petrol-700); box-shadow: var(--shadow-md); }
 
 .contact-hours {
-  font-size: 12px; color: var(--neutral-400);
+  font-size: var(--text-body-sm); color: var(--neutral-400);
   line-height: 1.5; margin-top: var(--space-2);
 }
 
@@ -103,14 +103,14 @@
   display: flex; flex-direction: column; gap: var(--space-5);
 }
 .contact-form h2 {
-  font-family: var(--font-display); font-size: 26px; font-weight: 700;
+  font-family: var(--font-display); font-size: var(--text-display-sm); font-weight: var(--weight-bold);
   color: var(--petrol-800); margin-bottom: var(--space-1);
 }
 .form-subtitle {
-  font-size: 14px; color: var(--neutral-500); line-height: 1.5;
+  font-size: var(--text-body-md); color: var(--neutral-500); line-height: 1.5;
 }
 .input-helper {
-  font-size: 11px; color: var(--neutral-400);
+  font-size: var(--text-body-xs); color: var(--neutral-400);
   margin-top: var(--space-1);
 }
 
@@ -122,17 +122,17 @@
   position: relative; flex-shrink: 0;
 }
 .phone-code-trigger {
-  display: flex; align-items: center; gap: 6px;
-  height: 100%; padding: 0 12px;
+  display: flex; align-items: center; gap: var(--space-2);
+  height: 100%; padding: 0 var(--space-3);
   background: white; border: 1.5px solid var(--neutral-200);
   border-radius: var(--radius-md); cursor: pointer;
-  font-family: var(--font-body); font-size: 14px; color: var(--neutral-800);
+  font-family: var(--font-body); font-size: var(--text-body-md); color: var(--neutral-800);
   transition: border-color 0.2s, box-shadow 0.2s;
   white-space: nowrap;
 }
 .phone-code-trigger:hover { border-color: var(--neutral-300); }
 .phone-code-trigger:focus { border-color: var(--petrol-400); box-shadow: 0 0 0 3px rgba(0,87,128,0.1); outline: none; }
-.phone-code-flag { font-size: 16px; line-height: 1; }
+.phone-code-flag { font-size: var(--text-body-lg); line-height: 1; }
 .phone-code-chev {
   width: 10px; height: 10px; color: var(--neutral-400);
   transition: transform 0.2s;
@@ -147,14 +147,14 @@
 }
 .phone-code-option {
   display: flex; align-items: center; gap: var(--space-2);
-  padding: 8px 14px; cursor: pointer;
-  font-family: var(--font-body); font-size: 13px; color: var(--neutral-700);
+  padding: var(--space-2) var(--space-4); cursor: pointer;
+  font-family: var(--font-body); font-size: var(--text-body-base); color: var(--neutral-700);
   transition: background 0.15s;
 }
 .phone-code-option:hover { background: var(--petrol-25); }
-.phone-code-option.selected { background: var(--petrol-50); color: var(--petrol-700); font-weight: 600; }
+.phone-code-option.selected { background: var(--petrol-50); color: var(--petrol-700); font-weight: var(--weight-semibold); }
 .phone-code-name { flex: 1; }
-.phone-code-val { color: var(--neutral-400); font-size: 12px; }
+.phone-code-val { color: var(--neutral-400); font-size: var(--text-body-sm); }
 .phone-number {
   flex: 1; min-width: 0;
 }
@@ -165,8 +165,8 @@
   padding: var(--space-3) 0;
 }
 .photographer-toggle label {
-  font-size: 14px; color: var(--neutral-700);
-  font-weight: 500; cursor: pointer;
+  font-size: var(--text-body-md); color: var(--neutral-700);
+  font-weight: var(--weight-medium); cursor: pointer;
 }
 .toggle-switch {
   position: relative; width: 44px; height: 24px;
@@ -190,7 +190,7 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-  .contact-page { margin-top: 48px; }
+  .contact-page { margin-top: var(--space-9); }
   .contact-page-inner { padding: var(--space-6) var(--space-5) var(--space-10); }
   .contact-layout { grid-template-columns: 1fr; gap: var(--space-8); }
   .contact-info { position: static; }

@@ -3,8 +3,8 @@
    ========================================================================== */
 
 .album-builder {
-  margin-top: 52px;
-  min-height: calc(100vh - 52px);
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
   background: var(--neutral-25);
 }
 
@@ -13,7 +13,7 @@
   background: white;
   border-bottom: 1px solid var(--neutral-100);
   padding: var(--space-5) 0;
-  position: sticky; top: 52px; z-index: 100;
+  position: sticky; top: var(--header-height); z-index: 100;
 }
 .ab-progress-inner {
   max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
@@ -160,7 +160,7 @@
 .ab-product-card-tag {
   font-family: var(--font-body); font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold); color: var(--petrol-500);
-  text-transform: uppercase; letter-spacing: 1px;
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
   margin-bottom: var(--space-1);
 }
 .ab-product-card-name {
@@ -188,7 +188,7 @@
 .ab-spec-label {
   font-family: var(--font-body); font-size: var(--text-body-sm);
   font-weight: var(--weight-semibold); color: var(--neutral-500);
-  text-transform: uppercase; letter-spacing: 0.8px;
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
   margin-bottom: var(--space-3);
 }
 .ab-spec-grid {
@@ -299,7 +299,7 @@
   display: flex; gap: var(--space-3); flex-wrap: wrap;
 }
 .ab-accessory-card {
-  flex: 0 0 calc(33.333% - 8px);
+  flex: 0 0 calc(33.333% - var(--space-2));
   padding: var(--space-5);
   background: white; border: 1.5px solid var(--neutral-200);
   border-radius: var(--radius-lg); cursor: pointer;
@@ -351,7 +351,7 @@
 .ab-review-section-title {
   font-family: var(--font-body); font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold); color: var(--neutral-400);
-  text-transform: uppercase; letter-spacing: 1px;
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
   margin-bottom: var(--space-3);
 }
 .ab-review-row {
@@ -372,7 +372,7 @@
 .ab-review-tag {
   font-family: var(--font-body); font-size: var(--text-body-xs);
   font-weight: var(--weight-medium); color: var(--petrol-600);
-  background: var(--petrol-50); padding: 3px 10px;
+  background: var(--petrol-50); padding: 3px var(--space-3);
   border-radius: var(--radius-full);
 }
 
@@ -453,7 +453,7 @@
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
-  .album-builder { margin-top: 48px; }
+  .album-builder { margin-top: var(--space-9); }
   .ab-progress-inner { padding: 0 var(--space-5); overflow-x: auto; }
   .ab-content { padding: var(--space-5); }
   .ab-product-grid { grid-template-columns: repeat(2, 1fr); }

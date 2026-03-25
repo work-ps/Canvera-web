@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import '../../styles/auth.css'
 
@@ -20,8 +20,8 @@ const SLIDES = [
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     ),
-    title: 'We Verify Your Business',
-    desc: 'Our team reviews your ID & business proof',
+    title: 'Set Up Your Profile',
+    desc: 'Tell us about yourself and your business',
   },
   {
     icon: (
@@ -31,31 +31,28 @@ const SLIDES = [
       </svg>
     ),
     title: 'Start Using Canvera',
-    desc: 'Access the full platform once verified',
+    desc: 'Access the full platform and start ordering',
   },
 ]
 
 export default function SignUp() {
-  const { authState, register, logout } = useAuth()
+  const { register } = useAuth()
+  const navigate = useNavigate()
 
-  // Clear auth on every mount so reload always starts fresh for testing
-  useEffect(() => {
-    logout()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // Registration form state
   const [form, setForm] = useState({
     fullName: '',
     email: '',
     phone: '',
-    businessProof: '',
-    idFile: null,
+    password: '',
+    confirmPassword: '',
+    isPhotographer: false,
+    studioName: '',
     terms: false,
   })
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
-  const fileInputRef = useRef(null)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -63,54 +60,71 @@ export default function SignUp() {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }))
   }
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0] || null
-    setForm(prev => ({ ...prev, idFile: file }))
-    if (errors.idFile) setErrors(prev => ({ ...prev, idFile: '' }))
-  }
-
-  const handleFileRemove = () => {
-    setForm(prev => ({ ...prev, idFile: null }))
-    if (fileInputRef.current) fileInputRef.current.value = ''
+  const handleTogglePhotographer = () => {
+    setForm(prev => ({
+      ...prev,
+      isPhotographer: !prev.isPhotographer,
+      studioName: !prev.isPhotographer ? prev.studioName : '',
+    }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const errs = {}
+
     if (!form.fullName.trim()) errs.fullName = 'Full name is required'
+
     if (!form.email.trim()) {
       errs.email = 'Email is required'
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       errs.email = 'Please enter a valid email'
     }
+
     if (!form.phone.trim()) {
       errs.phone = 'Phone number is required'
     } else if (!/^[\d\s+()-]{7,15}$/.test(form.phone.trim())) {
       errs.phone = 'Please enter a valid phone number'
     }
-    if (form.idFile) {
-      const allowed = ['image/jpeg', 'image/png', 'application/pdf']
-      if (!allowed.includes(form.idFile.type)) {
-        errs.idFile = 'Please upload a JPG, PNG, or PDF file'
-      } else if (form.idFile.size > 5 * 1024 * 1024) {
-        errs.idFile = 'File must be under 5 MB'
-      }
+
+    if (!form.password) {
+      errs.password = 'Password is required'
+    } else if (form.password.length < 8) {
+      errs.password = 'Password must be at least 8 characters'
     }
+
+    if (!form.confirmPassword) {
+      errs.confirmPassword = 'Please confirm your password'
+    } else if (form.password !== form.confirmPassword) {
+      errs.confirmPassword = 'Passwords do not match'
+    }
+
     if (!form.terms) errs.terms = 'Please accept the Terms & Conditions'
 
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
       return
     }
+
     register(
       form.fullName.trim(),
       form.email.trim(),
       form.phone.trim(),
-      form.businessProof.trim(),
-      form.idFile ? form.idFile.name : ''
+      {
+        password: form.password,
+        isPhotographer: form.isPhotographer,
+        studioName: form.studioName.trim(),
+      }
     )
     setSubmitted(true)
   }
+
+  // Auto-redirect after success
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => navigate('/'), 4000)
+      return () => clearTimeout(timer)
+    }
+  }, [submitted, navigate])
 
   return (
     <div className="auth-page join-page">
@@ -118,7 +132,6 @@ export default function SignUp() {
         {/* ===== LEFT PANEL ===== */}
         <div className="join-left">
           <div className="join-left-inner">
-            {/* Stacked playing cards showing the 3-step flow */}
             <div className="join-visual-card">
               <div className="join-card-stack">
                 {SLIDES.map((slide, i) => (
@@ -134,11 +147,10 @@ export default function SignUp() {
               </div>
             </div>
 
-            {/* Contact support — outside the card, brand-colored buttons */}
             <div className="join-contact">
-              <span className="join-contact-title">Need help with verification?</span>
+              <span className="join-contact-title">Need help signing up?</span>
               <div className="join-contact-links">
-                <a href="https://wa.me/919876543210?text=Hi%2C%20I%20need%20help%20with%20Canvera%20verification." target="_blank" rel="noopener noreferrer" className="join-contact-btn join-contact-btn--whatsapp">
+                <a href="https://wa.me/919876543210?text=Hi%2C%20I%20need%20help%20signing%20up%20on%20Canvera." target="_blank" rel="noopener noreferrer" className="join-contact-btn join-contact-btn--whatsapp">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
                   </svg>
@@ -150,7 +162,7 @@ export default function SignUp() {
                   </svg>
                   <span>1-800-419-0570</span>
                 </a>
-                <a href="mailto:support@canvera.com?subject=Verification%20Help" className="join-contact-btn join-contact-btn--email">
+                <a href="mailto:support@canvera.com?subject=Signup%20Help" className="join-contact-btn join-contact-btn--email">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                     <path d="M22 6l-10 7L2 6" />
@@ -165,22 +177,21 @@ export default function SignUp() {
         {/* ===== RIGHT PANEL ===== */}
         <div className="join-right">
           <div className="join-right-inner">
-            {/* Form header — microcopy for step 1 */}
             {!submitted && (
               <div className="join-form-header">
-                <h2 className="join-form-title">Join Canvera</h2>
+                <h2 className="join-form-title">Create Your Account</h2>
                 <p className="join-form-subtitle">
-                  Create your photographer account — it only takes a minute.
+                  Sign up to start ordering premium albums and products.
                 </p>
               </div>
             )}
 
-            {/* Content area — form fields or confirmation message */}
             <div className="join-form-compact">
               {!submitted ? (
                 <form id="join-form" className="auth-form" onSubmit={handleSubmit} noValidate>
+                  {/* 1. Full Name */}
                   <div className="input-group">
-                    <label className="input-label">Full Name *</label>
+                    <label className="input-label">Full Name</label>
                     <input
                       className={`input-field${errors.fullName ? ' error' : ''}`}
                       type="text"
@@ -192,8 +203,9 @@ export default function SignUp() {
                     {errors.fullName && <span className="input-hint error-text">{errors.fullName}</span>}
                   </div>
 
+                  {/* 2. Email */}
                   <div className="input-group">
-                    <label className="input-label">Email *</label>
+                    <label className="input-label">Email</label>
                     <input
                       className={`input-field${errors.email ? ' error' : ''}`}
                       type="email"
@@ -205,8 +217,9 @@ export default function SignUp() {
                     {errors.email && <span className="input-hint error-text">{errors.email}</span>}
                   </div>
 
+                  {/* 3. Phone Number */}
                   <div className="input-group">
-                    <label className="input-label">Phone / WhatsApp *</label>
+                    <label className="input-label">Phone Number</label>
                     <input
                       className={`input-field${errors.phone ? ' error' : ''}`}
                       type="tel"
@@ -215,73 +228,112 @@ export default function SignUp() {
                       onChange={handleChange}
                       placeholder="+91 98765 43210"
                     />
+                    <span className="input-hint">WhatsApp preferred</span>
                     {errors.phone && <span className="input-hint error-text">{errors.phone}</span>}
                   </div>
 
+                  {/* 4. Create Password */}
                   <div className="input-group">
-                    <label className="input-label">Business or Social Proof</label>
-                    <input
-                      className={`input-field${errors.businessProof ? ' error' : ''}`}
-                      type="url"
-                      name="businessProof"
-                      value={form.businessProof}
-                      onChange={handleChange}
-                      placeholder="Instagram, website, or business URL"
-                    />
-                    <span className="input-hint">Your website, Instagram, or any link that helps us verify</span>
-                  </div>
-
-                  <div className="input-group">
-                    <label className="input-label">ID Proof</label>
-                    <div
-                      className={`file-upload-zone${errors.idFile ? ' error' : ''}`}
-                      onClick={() => fileInputRef.current?.click()}
-                      onDragOver={(e) => { e.preventDefault(); e.stopPropagation() }}
-                      onDrop={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        const file = e.dataTransfer.files[0]
-                        if (file) setForm(prev => ({ ...prev, idFile: file }))
-                      }}
-                    >
+                    <label className="input-label">Create Password</label>
+                    <div className="input-password-wrap">
                       <input
-                        type="file"
-                        ref={fileInputRef}
-                        accept=".jpg,.jpeg,.png,.pdf"
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
+                        className={`input-field${errors.password ? ' error' : ''}`}
+                        type={showPassword ? 'text' : 'password'}
+                        name="password"
+                        value={form.password}
+                        onChange={handleChange}
+                        placeholder="Minimum 8 characters"
                       />
-                      {!form.idFile ? (
-                        <>
-                          <svg className="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="17 8 12 3 7 8" />
-                            <line x1="12" y1="3" x2="12" y2="15" />
+                      <button
+                        type="button"
+                        className="input-password-toggle"
+                        onClick={() => setShowPassword(v => !v)}
+                        tabIndex={-1}
+                        aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      >
+                        {showPassword ? (
+                          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M2.5 2.5l15 15"/>
+                            <path d="M8.8 8.8a1.7 1.7 0 0 0 2.4 2.4"/>
+                            <path d="M4.2 4.2C2.7 5.5 1.5 7.3 1 10c1.2 5.5 5 8 9 8 1.8 0 3.4-.5 4.8-1.4"/>
+                            <path d="M17 14.2c1-1.2 1.8-2.7 2-4.2-1.2-5.5-5-8-9-8-.6 0-1.2.1-1.8.2"/>
                           </svg>
-                          <span className="file-upload-text">
-                            Drag & drop or <strong>browse</strong>
-                          </span>
-                          <span className="file-upload-hint">JPG, PNG, or PDF (max 5 MB)</span>
-                        </>
-                      ) : (
-                        <div className="file-upload-preview">
-                          <svg className="file-upload-file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                            <polyline points="14 2 14 8 20 8" />
+                        ) : (
+                          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 10s3.5-7 9-7 9 7 9 7-3.5 7-9 7-9-7-9-7z"/>
+                            <circle cx="10" cy="10" r="2.5"/>
                           </svg>
-                          <span className="file-upload-filename">{form.idFile.name}</span>
-                          <button type="button" className="file-upload-remove" onClick={(e) => { e.stopPropagation(); handleFileRemove() }}>
-                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-                              <path d="M4 4l8 8M12 4l-8 8" />
-                            </svg>
-                          </button>
-                        </div>
-                      )}
+                        )}
+                      </button>
                     </div>
-                    <span className="input-hint">Government or official ID for verification</span>
-                    {errors.idFile && <span className="input-hint error-text">{errors.idFile}</span>}
+                    {errors.password && <span className="input-hint error-text">{errors.password}</span>}
                   </div>
 
+                  {/* 5. Confirm Password */}
+                  <div className="input-group">
+                    <label className="input-label">Confirm Password</label>
+                    <div className="input-password-wrap">
+                      <input
+                        className={`input-field${errors.confirmPassword ? ' error' : ''}`}
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        name="confirmPassword"
+                        value={form.confirmPassword}
+                        onChange={handleChange}
+                        placeholder="Re-enter your password"
+                      />
+                      <button
+                        type="button"
+                        className="input-password-toggle"
+                        onClick={() => setShowConfirmPassword(v => !v)}
+                        tabIndex={-1}
+                        aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                      >
+                        {showConfirmPassword ? (
+                          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M2.5 2.5l15 15"/>
+                            <path d="M8.8 8.8a1.7 1.7 0 0 0 2.4 2.4"/>
+                            <path d="M4.2 4.2C2.7 5.5 1.5 7.3 1 10c1.2 5.5 5 8 9 8 1.8 0 3.4-.5 4.8-1.4"/>
+                            <path d="M17 14.2c1-1.2 1.8-2.7 2-4.2-1.2-5.5-5-8-9-8-.6 0-1.2.1-1.8.2"/>
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 10s3.5-7 9-7 9 7 9 7-3.5 7-9 7-9-7-9-7z"/>
+                            <circle cx="10" cy="10" r="2.5"/>
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    {errors.confirmPassword && <span className="input-hint error-text">{errors.confirmPassword}</span>}
+                  </div>
+
+                  {/* 6. Photographer toggle */}
+                  <div className="auth-toggle-row">
+                    <span className="auth-toggle-label">I am a professional photographer</span>
+                    <button
+                      type="button"
+                      className={`auth-toggle${form.isPhotographer ? ' active' : ''}`}
+                      onClick={handleTogglePhotographer}
+                      role="switch"
+                      aria-checked={form.isPhotographer}
+                    >
+                      <span className="auth-toggle-thumb" />
+                    </button>
+                  </div>
+
+                  {/* 7. Studio name (conditional) */}
+                  {form.isPhotographer && (
+                    <div className="input-group">
+                      <label className="input-label">Business / Studio Name <span className="input-optional">(Optional)</span></label>
+                      <input
+                        className="input-field"
+                        type="text"
+                        name="studioName"
+                        value={form.studioName}
+                        onChange={handleChange}
+                        placeholder="e.g. Pixel Studio Photography"
+                      />
+                    </div>
+                  )}
                 </form>
               ) : (
                 <div className="join-pending-section">
@@ -293,10 +345,9 @@ export default function SignUp() {
                       </svg>
                     </div>
 
-                    <h2 className="join-confirmation-headline">You're All Set!</h2>
+                    <h2 className="join-confirmation-headline">Welcome to Canvera!</h2>
                     <p className="join-confirmation-subtext">
-                      We've received your details and our team is reviewing your profile.
-                      You'll hear from us on WhatsApp and email within 24 hours.
+                      Your account has been created successfully. You can now sign in and start exploring our products.
                     </p>
 
                     <div className="join-confirmation-steps">
@@ -304,15 +355,15 @@ export default function SignUp() {
                       <ul className="join-confirmation-steps-list">
                         <li>
                           <span className="join-confirmation-step-num">1</span>
-                          <span>Our team reviews your submitted details</span>
+                          <span>Browse our catalog and find what you love</span>
                         </li>
                         <li>
                           <span className="join-confirmation-step-num">2</span>
-                          <span>You'll receive a confirmation on WhatsApp &amp; email</span>
+                          <span>Customize and order your products</span>
                         </li>
                         <li>
                           <span className="join-confirmation-step-num">3</span>
-                          <span>Access premium products once verified</span>
+                          <span>Get premium albums delivered to your doorstep</span>
                         </li>
                       </ul>
                     </div>
@@ -321,10 +372,11 @@ export default function SignUp() {
               )}
             </div>
 
-            {/* Button + footer — pinned to bottom, consistent position */}
+            {/* Bottom area — terms, submit, sign in link */}
             <div className="join-bottom-area">
               {!submitted ? (
                 <>
+                  {/* 8. Terms checkbox */}
                   <div className="join-terms-row">
                     <div className="terms-check">
                       <input type="checkbox" name="terms" checked={form.terms} onChange={handleChange} id="join-terms" />
@@ -334,17 +386,21 @@ export default function SignUp() {
                     </div>
                     {errors.terms && <span className="input-hint error-text">{errors.terms}</span>}
                   </div>
+
+                  {/* 9. Sign Up button */}
                   <button type="submit" form="join-form" className="btn btn-primary btn-lg auth-submit">
-                    Join Now — It's Free
+                    Sign Up
                   </button>
                 </>
               ) : (
-                <Link to="/products" className="btn btn-accent btn-lg auth-submit">
-                  Explore Premium Products &rarr;
+                <Link to="/login" className="btn btn-primary btn-lg auth-submit">
+                  Sign In to Your Account &rarr;
                 </Link>
               )}
+
+              {/* 10. Sign in option */}
               <div className="auth-footer" style={submitted ? { visibility: 'hidden' } : undefined}>
-                Already have an account? <Link to="/login">Sign in</Link>
+                Already have an account? <Link to="/login">Sign In</Link>
               </div>
             </div>
           </div>
