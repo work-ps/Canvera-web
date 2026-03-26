@@ -1,0 +1,1135 @@
+/* ==========================================================================
+   Order Configuration Flow Styles
+   Canvera Design System — Inter only, petrol + teal palette
+   ========================================================================== */
+
+/* -- Page Layout -------------------------------------------------- */
+.oc-page {
+  background: var(--bg-primary);
+  min-height: 100vh;
+  padding-top: var(--header-height);
+}
+
+.oc-page-header {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-4) 0;
+}
+.oc-page-header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.oc-back-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  transition: background var(--duration-fast) var(--ease);
+}
+.oc-back-link:hover {
+  background: var(--bg-secondary);
+}
+.oc-page-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: var(--tracking-tight);
+}
+.oc-page-subtitle {
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+/* -- Stepper ------------------------------------------------------ */
+.oc-stepper-wrap {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-5) 0;
+  position: sticky;
+  top: var(--header-height);
+  z-index: 50;
+}
+.oc-stepper {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+.oc-stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+.oc-stepper-line {
+  position: absolute;
+  top: 16px;
+  right: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border-default);
+  z-index: 0;
+  transition: background var(--duration-normal) var(--ease);
+}
+.oc-stepper-line--done {
+  background: var(--brand-teal);
+}
+.oc-stepper-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-strong);
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-disabled);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease);
+  position: relative;
+  z-index: 1;
+}
+.oc-stepper-circle:disabled {
+  cursor: default;
+}
+.oc-stepper-circle--active {
+  background: var(--brand-teal);
+  border-color: var(--brand-teal);
+  color: var(--text-inverse);
+}
+.oc-stepper-circle--complete {
+  background: var(--brand-teal);
+  border-color: var(--brand-teal);
+  color: var(--text-inverse);
+}
+.oc-stepper-circle--future {
+  background: var(--bg-primary);
+  border-color: var(--border-strong);
+  color: var(--text-disabled);
+}
+.oc-stepper-label {
+  margin-top: var(--space-2);
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  font-weight: var(--weight-medium);
+}
+.oc-stepper-label--active {
+  color: var(--brand-teal);
+  font-weight: var(--weight-semibold);
+}
+.oc-stepper-label--complete {
+  color: var(--brand-teal);
+}
+
+/* -- Content Layout ----------------------------------------------- */
+.oc-content {
+  padding: var(--space-8) 0 var(--space-16);
+}
+.oc-content-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--space-10);
+  align-items: start;
+}
+.oc-main {
+  min-width: 0;
+}
+.oc-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 80px);
+}
+
+/* -- Price Sidebar ------------------------------------------------ */
+.oc-price-sidebar {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+.oc-price-product {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.oc-price-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+.oc-price-product-name {
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.oc-price-running-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-4);
+}
+.oc-price-running-label {
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  font-weight: var(--weight-medium);
+}
+.oc-price-running-amount {
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.oc-price-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.oc-price-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-body-sm);
+}
+.oc-price-line--base {
+  font-weight: var(--weight-medium);
+}
+.oc-price-line--base .oc-price-line-label {
+  color: var(--text-primary);
+}
+.oc-price-line-label {
+  color: var(--text-secondary);
+}
+.oc-price-line-amount {
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+}
+.oc-price-divider {
+  height: 1px;
+  background: var(--border-default);
+  margin: var(--space-4) 0;
+}
+.oc-price-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-lg);
+}
+.oc-price-total-amount {
+  color: var(--text-brand);
+  font-weight: var(--weight-semibold);
+}
+.oc-price-pro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  background: var(--teal-50);
+  color: var(--brand-teal);
+  border-radius: var(--radius-full);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+}
+
+/* -- Save as Draft button in sidebar ----------------------------- */
+.oc-price-save-draft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) 0;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease);
+}
+.oc-price-save-draft:hover {
+  color: var(--brand-teal);
+}
+.oc-price-save-draft svg {
+  flex-shrink: 0;
+}
+
+/* -- Step Content ------------------------------------------------- */
+.oc-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+.oc-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.oc-section-heading {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  letter-spacing: var(--tracking-tight);
+}
+.oc-section-desc {
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: var(--leading-relaxed);
+}
+.oc-subsection-heading {
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  margin: var(--space-5) 0 var(--space-3);
+}
+
+/* -- Form Fields -------------------------------------------------- */
+.oc-field-row {
+  display: grid;
+  gap: var(--space-4);
+}
+.oc-field-row--2 {
+  grid-template-columns: 1fr 1fr;
+}
+.oc-field-row--3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.oc-field-row--4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.oc-select {
+  appearance: auto;
+  cursor: pointer;
+}
+.oc-textarea {
+  height: auto;
+  min-height: 100px;
+  resize: vertical;
+  padding: var(--space-3) var(--space-4);
+}
+
+/* -- Read-only Box ------------------------------------------------ */
+.oc-readonly-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-body-md);
+  color: var(--text-secondary);
+}
+
+/* -- Sheets Control ----------------------------------------------- */
+.oc-sheets-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.oc-sheets-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-strong);
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+.oc-sheets-btn:hover:not(:disabled) {
+  border-color: var(--brand-teal);
+  color: var(--brand-teal);
+}
+.oc-sheets-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.oc-sheets-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+.oc-sheets-number {
+  font-size: var(--text-heading-xl);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  line-height: 1;
+}
+.oc-sheets-label {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  margin-top: var(--space-1);
+}
+.oc-sheets-hint {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+}
+
+/* -- Dropzone ----------------------------------------------------- */
+.oc-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+.oc-dropzone:hover {
+  border-color: var(--brand-teal);
+  background: var(--teal-50);
+}
+.oc-dropzone-text {
+  font-size: var(--text-body-md);
+  color: var(--text-secondary);
+  margin-top: var(--space-3);
+}
+.oc-dropzone-hint {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  margin-top: var(--space-1);
+}
+.oc-or-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
+}
+.oc-or-divider::before,
+.oc-or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+
+/* -- Card Rows ---------------------------------------------------- */
+.oc-card-row {
+  display: grid;
+  gap: var(--space-4);
+}
+.oc-card-row--2 {
+  grid-template-columns: 1fr 1fr;
+}
+.oc-card-row--3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.oc-card-row--4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.oc-card-row--5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* -- Type Cards --------------------------------------------------- */
+.oc-type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-5) var(--space-4);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  gap: var(--space-2);
+  position: relative;
+}
+.oc-type-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+.oc-type-card--selected {
+  border-color: var(--brand-teal);
+  background: var(--teal-50);
+}
+.oc-type-card--sm {
+  padding: var(--space-4) var(--space-3);
+}
+.oc-type-card-check {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--brand-teal);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.oc-type-card-icon {
+  color: var(--neutral-400);
+  margin-bottom: var(--space-1);
+}
+.oc-type-card--selected .oc-type-card-icon {
+  color: var(--brand-teal);
+}
+.oc-type-card-title {
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-md);
+  color: var(--text-primary);
+}
+.oc-type-card-desc {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  line-height: var(--leading-normal);
+}
+.oc-type-card-price-badge {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  background: var(--warning-light);
+  color: #8B6000;
+  border-radius: var(--radius-full);
+  font-size: var(--text-body-2xs);
+  font-weight: var(--weight-semibold);
+  margin-top: var(--space-1);
+}
+.oc-type-card-price {
+  font-size: var(--text-body-sm);
+  color: var(--warning);
+  font-weight: var(--weight-semibold);
+}
+
+/* -- Design Style Cards ------------------------------------------- */
+.oc-design-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-4);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  gap: var(--space-2);
+}
+.oc-design-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+.oc-design-card--selected {
+  border-color: var(--brand-teal);
+  background: var(--teal-50);
+}
+.oc-design-card-swatch {
+  color: var(--neutral-300);
+}
+.oc-design-card--selected .oc-design-card-swatch {
+  color: var(--brand-teal);
+}
+.oc-design-card-name {
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-sm);
+  color: var(--text-primary);
+}
+.oc-design-card-hint {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+}
+
+/* -- Color Swatches ----------------------------------------------- */
+.oc-swatch-row {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+.oc-swatch-row--materials {
+  gap: var(--space-4);
+}
+.oc-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1);
+}
+.oc-swatch-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-default);
+  transition: all var(--duration-fast) var(--ease);
+}
+.oc-swatch--selected .oc-swatch-circle {
+  box-shadow: 0 0 0 3px var(--bg-primary), 0 0 0 5px var(--brand-teal);
+  transform: scale(1.1);
+}
+.oc-swatch-label {
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+}
+.oc-swatch--selected .oc-swatch-label {
+  font-weight: var(--weight-semibold);
+  color: var(--brand-teal);
+}
+
+/* -- Material Swatches -------------------------------------------- */
+.oc-material-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  min-width: 80px;
+}
+.oc-material-swatch:hover {
+  border-color: var(--border-strong);
+}
+.oc-material-swatch--selected {
+  border-color: var(--brand-teal);
+  background: var(--teal-50);
+}
+.oc-material-swatch-circle {
+  color: var(--neutral-400);
+}
+.oc-material-swatch--selected .oc-material-swatch-circle {
+  color: var(--brand-teal);
+}
+.oc-material-swatch-name {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.oc-material-swatch-price {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+}
+
+/* -- Cover Text Fields -------------------------------------------- */
+.oc-cover-text-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* -- Paper Detail ------------------------------------------------- */
+.oc-paper-detail {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-top: var(--space-3);
+}
+.oc-paper-detail-name {
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-md);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.oc-paper-detail-desc {
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
+  margin-top: var(--space-1);
+}
+.oc-paper-detail-specs {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+}
+.oc-paper-detail-price {
+  margin-top: var(--space-2);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-brand);
+}
+
+/* -- SPECIAL Badge ------------------------------------------------ */
+.oc-badge-special {
+  display: inline-block;
+  padding: 1px var(--space-2);
+  background: var(--brand-teal);
+  color: var(--text-inverse);
+  border-radius: var(--radius-full);
+  font-size: var(--text-body-2xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+/* -- Toggle Header ------------------------------------------------ */
+.oc-toggle-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+}
+.oc-toggle-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.oc-toggle-title {
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-md);
+  color: var(--text-primary);
+}
+.oc-toggle-subtitle {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  margin-top: 1px;
+}
+
+/* -- Toggle Switch ------------------------------------------------ */
+.oc-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+  border: none;
+  cursor: pointer;
+  transition: background var(--duration-normal) var(--ease);
+  padding: 0;
+  flex-shrink: 0;
+}
+.oc-switch--on {
+  background: var(--brand-teal);
+}
+.oc-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-normal) var(--ease);
+}
+.oc-switch--on .oc-switch-knob {
+  transform: translateX(20px);
+}
+
+/* -- Checkbox Rows ------------------------------------------------ */
+.oc-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-body-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.oc-checkbox-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--brand-teal);
+}
+.oc-checkbox-row--card {
+  padding: var(--space-4) var(--space-5);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  transition: all var(--duration-fast) var(--ease);
+}
+.oc-checkbox-row--active {
+  border-color: var(--brand-teal);
+  background: var(--teal-50);
+}
+.oc-checkbox-label {
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.oc-checkbox-desc {
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+/* -- Progressive Disclosure --------------------------------------- */
+.oc-progressive-section {
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--teal-200);
+  margin-top: var(--space-4);
+}
+
+/* -- Special Paper Entries ---------------------------------------- */
+.oc-special-papers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+.oc-special-entry {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.oc-special-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+.oc-special-entry-num {
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-md);
+  color: var(--text-primary);
+}
+.oc-special-remove {
+  font-size: var(--text-body-xs);
+  color: var(--error);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: var(--weight-medium);
+}
+.oc-special-remove:hover {
+  text-decoration: underline;
+}
+.oc-special-price-hint {
+  margin-top: var(--space-3);
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  font-weight: var(--weight-medium);
+}
+
+/* -- Page Pills --------------------------------------------------- */
+.oc-page-pills-section {
+  margin-top: var(--space-4);
+}
+.oc-page-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.oc-page-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+}
+.oc-page-pill--active {
+  background: var(--teal-50);
+  border-color: var(--brand-teal);
+  color: var(--brand-teal);
+}
+.oc-page-pill--add {
+  border-style: dashed;
+  color: var(--text-tertiary);
+}
+.oc-page-pill--add:hover {
+  border-color: var(--brand-teal);
+  color: var(--brand-teal);
+}
+
+/* -- Add Button --------------------------------------------------- */
+.oc-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--brand-teal);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2) 0;
+}
+.oc-add-btn:hover {
+  text-decoration: underline;
+}
+
+/* -- FAQ ---------------------------------------------------------- */
+.oc-faq-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--brand-teal);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.oc-faq-toggle:hover {
+  text-decoration: underline;
+}
+.oc-faq-drawer {
+  margin-top: var(--space-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.oc-faq-item {
+  border-bottom: 1px solid var(--border-default);
+}
+.oc-faq-item:last-child {
+  border-bottom: none;
+}
+.oc-faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.oc-faq-question:hover {
+  background: var(--bg-secondary);
+}
+.oc-faq-answer {
+  padding: 0 var(--space-4) var(--space-3);
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* -- Step Navigation ---------------------------------------------- */
+.oc-step-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-default);
+}
+.oc-nav-btn {
+  min-width: 140px;
+}
+.oc-nav-btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* -- Review Cards ------------------------------------------------- */
+.oc-review-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.oc-review-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+.oc-review-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--brand-teal);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.oc-review-edit:hover {
+  text-decoration: underline;
+}
+.oc-review-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--text-body-sm);
+}
+.oc-review-row:last-child {
+  border-bottom: none;
+}
+.oc-review-row-label {
+  color: var(--text-secondary);
+}
+.oc-review-row-value {
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+}
+
+/* -- Review Price Lines ------------------------------------------- */
+.oc-review-price-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.oc-review-price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+}
+.oc-review-price-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-default);
+  margin-top: var(--space-2);
+}
+
+/* -- Review Actions ----------------------------------------------- */
+.oc-review-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+/* -- Mobile Price Bar --------------------------------------------- */
+.oc-mobile-price-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-default);
+  box-shadow: 0 -4px 12px rgba(26, 42, 58, 0.08);
+}
+.oc-mobile-price-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4) var(--side-padding);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.oc-mobile-price-label {
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  font-weight: var(--weight-medium);
+}
+.oc-mobile-price-amount {
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.oc-mobile-price-chevron {
+  color: var(--text-tertiary);
+  transition: transform var(--duration-fast) var(--ease);
+}
+.oc-mobile-price-chevron--open {
+  transform: rotate(180deg);
+}
+.oc-mobile-price-panel {
+  padding: 0 var(--side-padding) var(--space-4);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* -- Box Price Hint ----------------------------------------------- */
+.oc-box-price-hint {
+  margin-top: var(--space-3);
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+  font-weight: var(--weight-medium);
+}
+
+/* -- Responsive --------------------------------------------------- */
+@media (max-width: 1023px) {
+  .oc-content-inner {
+    grid-template-columns: 1fr;
+  }
+  .oc-sidebar {
+    display: none;
+  }
+  .oc-mobile-price-bar {
+    display: block;
+  }
+  .oc-content {
+    padding-bottom: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .oc-stepper-label {
+    display: none;
+  }
+  .oc-stepper-circle {
+    width: 28px;
+    height: 28px;
+  }
+  .oc-field-row--3,
+  .oc-field-row--4,
+  .oc-card-row--3,
+  .oc-card-row--4,
+  .oc-card-row--5 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .oc-card-row--2 {
+    grid-template-columns: 1fr;
+  }
+  .oc-review-actions {
+    flex-direction: column;
+  }
+  .oc-review-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

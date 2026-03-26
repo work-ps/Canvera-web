@@ -1,13 +1,14 @@
 /* ==========================================================================
    PDP Product Visualizer — Left panel
+   Canvera Design System
    ========================================================================== */
 
 .pdp-visualizer {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--warm-offwhite, #F8F6F2);
-  padding: var(--space-6);
+  background: var(--bg-secondary);
+  padding: var(--space-7);
 }
 
 /* ---- Image area ---- */
@@ -26,7 +27,8 @@
   max-width: 85%;
   max-height: 85%;
   object-fit: contain;
-  transition: opacity 0.2s ease;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--duration-normal) var(--ease);
 }
 
 /* SVG placeholder styling */
@@ -37,7 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-normal) var(--ease);
 }
 .pdp-viz-svg-wrap svg {
   width: 100%;
@@ -56,35 +58,36 @@
 .pdp-viz-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--neutral-300);
   border: none;
   cursor: pointer;
   padding: 0;
-  transition: all 0.15s;
+  transition: all var(--duration-fast) var(--ease);
 }
 .pdp-viz-dot--active {
-  background: var(--petrol-600);
+  background: var(--brand-teal);
   width: 10px;
   height: 10px;
 }
 
 /* ---- Caption ---- */
 .pdp-viz-caption {
+  font-family: var(--font-sans);
   font-size: var(--text-body-sm);
-  color: var(--neutral-600);
+  color: var(--text-secondary);
   text-align: center;
   padding: var(--space-2) 0;
   line-height: var(--leading-relaxed);
 }
 .pdp-viz-caption span {
-  color: var(--neutral-400);
+  color: var(--text-disabled);
 }
 
 /* ---- Config Summary Strip ---- */
 .pdp-viz-summary {
   margin-top: auto;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid var(--border-default);
   padding-top: var(--space-3);
   display: flex;
   flex-direction: column;
@@ -100,7 +103,8 @@
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.1s;
+  transition: background var(--duration-fast) var(--ease);
+  font-family: var(--font-sans);
   font-size: var(--text-body-xs);
 }
 .pdp-viz-summary-row:hover {
@@ -108,17 +112,17 @@
 }
 
 .pdp-viz-summary-label {
-  color: var(--neutral-500);
+  color: var(--text-tertiary);
   font-weight: var(--weight-medium);
 }
 
 .pdp-viz-summary-value {
-  color: var(--neutral-900);
+  color: var(--text-primary);
   font-weight: var(--weight-medium);
 }
 
 .pdp-viz-summary-value--unset {
-  color: var(--neutral-400);
+  color: var(--text-disabled);
   font-style: italic;
 }
 
@@ -131,16 +135,16 @@
   height: 36px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.85);
-  border: 1px solid var(--neutral-200);
+  border: 1px solid var(--border-default);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s;
-  color: var(--neutral-600);
+  transition: all var(--duration-fast) var(--ease);
+  color: var(--text-secondary);
 }
 .pdp-viz-zoom:hover {
-  background: #fff;
+  background: var(--bg-primary);
   box-shadow: var(--shadow-sm);
 }
 .pdp-viz-zoom svg {

@@ -6,7 +6,7 @@ import '../../styles/pdp-header.css'
 
 export default function PDPHeader() {
   const {
-    product, config, pricing, startingPrice,
+    product, config,
     allRequiredComplete, setAttemptedProceed, saveDraft,
     setExpandedSection,
   } = usePDPConfig()
@@ -15,7 +15,6 @@ export default function PDPHeader() {
   const [showToast, setShowToast] = useState(false)
 
   const hasSelections = config.size !== null
-  const displayPrice = hasSelections ? pricing.total : startingPrice
 
   const handleSaveDraft = useCallback(() => {
     saveDraft()
@@ -38,33 +37,16 @@ export default function PDPHeader() {
           {/* Left: breadcrumb + name */}
           <div className="pdp-header-left">
             <div className="pdp-header-breadcrumb">
-              <Link to="/products">
+              <Link to="/shop">
                 <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Link>
-              <Link to="/products">All Products</Link>
+              <Link to="/shop">All Products</Link>
             </div>
             <span className="pdp-header-product-name">{product.name}</span>
           </div>
 
-          {/* Center: price */}
-          <div className="pdp-header-center">
-            <span className="pdp-header-price">
-              {displayPrice ? `\u20b9${displayPrice.toLocaleString('en-IN')}` : '\u2014'}
-            </span>
-            <span className="pdp-header-price-label">
-              {!hasSelections ? 'Starting from' : (
-                <>
-                  Est. Total{' \u2014 '}
-                  <button
-                    className="pdp-header-breakdown-link"
-                    onClick={() => setShowBreakdown(true)}
-                  >
-                    See breakdown &#x25BE;
-                  </button>
-                </>
-              )}
-            </span>
-          </div>
+          {/* Center spacer */}
+          <div className="pdp-header-center" />
 
           {/* Right: actions */}
           <div className="pdp-header-right">
@@ -83,15 +65,7 @@ export default function PDPHeader() {
         </div>
       </div>
 
-      {/* Breakdown panel */}
-      {showBreakdown && (
-        <PriceBreakdownPanel
-          lineItems={pricing.lineItems}
-          total={pricing.total}
-          isOpen={showBreakdown}
-          onClose={() => setShowBreakdown(false)}
-        />
-      )}
+      {/* Breakdown panel removed — pricing only in ordering flow */}
 
       {/* Toast */}
       {showToast && (
@@ -100,20 +74,7 @@ export default function PDPHeader() {
 
       {/* Mobile bottom bar */}
       <div className="pdp-mobile-bar">
-        <div>
-          <span className="pdp-mobile-bar-price">
-            {displayPrice ? `\u20b9${displayPrice.toLocaleString('en-IN')}` : '\u2014'}
-          </span>
-          {hasSelections && (
-            <button
-              className="pdp-header-breakdown-link"
-              onClick={() => setShowBreakdown(true)}
-              style={{ display: 'block', marginTop: 2 }}
-            >
-              See breakdown &#x25BE;
-            </button>
-          )}
-        </div>
+        <div></div>
         <button
           className="pdp-header-cta"
           disabled={!allRequiredComplete}

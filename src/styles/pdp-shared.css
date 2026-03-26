@@ -1,5 +1,6 @@
 /* ==========================================================================
    PDP Shared — Progress dots, comparison drawer
+   Canvera Design System
    ========================================================================== */
 
 /* ---- Section Progress Dots (right edge) ---- */
@@ -18,28 +19,28 @@
 .pdp-progress-dot {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: 1.5px solid var(--neutral-300);
   background: transparent;
   cursor: pointer;
   padding: 0;
-  transition: all 0.15s ease;
+  transition: all var(--duration-fast) var(--ease);
   position: relative;
 }
 .pdp-progress-dot:hover {
-  border-color: var(--petrol-400);
+  border-color: var(--teal-400);
   transform: scale(1.2);
 }
 
 .pdp-progress-dot--active {
-  border-color: var(--petrol-600);
-  background: var(--petrol-600);
-  box-shadow: 0 0 0 3px var(--petrol-100);
+  border-color: var(--brand-teal);
+  background: var(--brand-teal);
+  box-shadow: 0 0 0 3px var(--teal-100);
 }
 
 .pdp-progress-dot--complete {
-  border-color: var(--petrol-300);
-  background: var(--petrol-200);
+  border-color: var(--teal-300);
+  background: var(--teal-200);
 }
 
 .pdp-progress-dot--error {
@@ -54,16 +55,17 @@
   top: 50%;
   transform: translateY(-50%);
   white-space: nowrap;
+  font-family: var(--font-sans);
   font-size: var(--text-body-xs);
-  color: var(--neutral-600);
-  background: #fff;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--neutral-100);
+  border: 1px solid var(--border-default);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.15s;
+  transition: opacity var(--duration-fast) var(--ease);
 }
 .pdp-progress-dot:hover .pdp-progress-dot-label {
   opacity: 1;
@@ -73,9 +75,14 @@
 .pdp-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--bg-overlay);
   z-index: 300;
-  animation: pdpFadeIn 0.15s ease;
+  animation: pdpSharedFadeIn var(--duration-fast) var(--ease-out);
+}
+
+@keyframes pdpSharedFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .pdp-drawer {
@@ -85,12 +92,12 @@
   width: 480px;
   max-width: 90vw;
   height: 100vh;
-  background: #fff;
+  background: var(--bg-primary);
   z-index: 301;
-  box-shadow: var(--shadow-xl);
-  padding: var(--space-6);
+  box-shadow: var(--shadow-2xl);
+  padding: var(--space-7);
   overflow-y: auto;
-  animation: pdpDrawerSlide 0.3s ease;
+  animation: pdpDrawerSlide var(--duration-normal) var(--ease-spring);
 }
 
 @keyframes pdpDrawerSlide {
@@ -105,24 +112,26 @@
   width: 32px;
   height: 32px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--neutral-200);
-  background: #fff;
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--neutral-600);
+  color: var(--text-secondary);
+  transition: background var(--duration-fast) var(--ease);
 }
 .pdp-drawer-close:hover {
-  background: var(--neutral-50);
+  background: var(--bg-secondary);
 }
 
 .pdp-drawer-title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--text-display-xs);
-  font-weight: var(--weight-bold);
-  color: var(--neutral-900);
-  margin-bottom: var(--space-5);
+  font-weight: var(--weight-light);
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  letter-spacing: var(--tracking-tight);
 }
 
 /* Comparison table */
@@ -134,16 +143,17 @@
 .pdp-compare-table td {
   padding: var(--space-3) var(--space-4);
   text-align: left;
+  font-family: var(--font-sans);
   font-size: var(--text-body-sm);
-  border-bottom: 1px solid var(--neutral-100);
+  border-bottom: 1px solid var(--border-default);
 }
 .pdp-compare-table th {
-  font-weight: var(--weight-semibold);
-  color: var(--neutral-900);
-  background: var(--neutral-50);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
 }
 .pdp-compare-table td {
-  color: var(--neutral-700);
+  color: var(--text-secondary);
 }
 
 /* ---- Toast Notification ---- */
@@ -153,14 +163,15 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 400;
-  background: var(--neutral-900);
-  color: #fff;
+  background: var(--text-primary);
+  color: var(--text-inverse);
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-full);
+  font-family: var(--font-sans);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
-  box-shadow: var(--shadow-lg);
-  animation: pdpToastIn 0.3s ease;
+  box-shadow: var(--shadow-xl);
+  animation: pdpToastIn var(--duration-normal) var(--ease-out);
 }
 
 @keyframes pdpToastIn {

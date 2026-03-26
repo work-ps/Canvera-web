@@ -1,121 +1,70 @@
-/* Shop By Occasion Section */
-.occasion-section {
-  padding: var(--space-8) 0;
-}
-.occasion-inner {
-  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
+/* ==========================================================================
+   Shop By Occasion — Circle cards row
+   ========================================================================== */
+
+.occ-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-10);
+    flex-wrap: wrap;
 }
 
-/* Section Header — left aligned, microcopy right-aligned to heading baseline */
-.occasion-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: var(--space-7);
-}
-.occasion-section .section-label {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-  color: var(--amber-500); font-weight: 600; margin-bottom: var(--space-2);
-}
-.occasion-section .section-title {
-  font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--petrol-800);
-  line-height: 1.2;
-}
-
-/* Controls row: tags only */
-.occasion-controls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-6);
-  margin-bottom: var(--space-7);
-}
-
-/* Occasion tags — pill buttons */
-.occasion-tags {
-  display: flex;
-  gap: var(--space-2);
-  overflow-x: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  flex-shrink: 1;
-  padding: var(--space-1) 0;
-}
-.occasion-tags::-webkit-scrollbar { display: none; }
-
-.occasion-tag {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
-  border: 1.5px solid var(--neutral-200);
-  background: white;
-  color: var(--neutral-600);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-.occasion-tag:hover {
-  border-color: var(--petrol-300);
-  color: var(--petrol-600);
-  background: var(--petrol-25);
-}
-.occasion-tag.active {
-  background: var(--petrol-600);
-  border-color: var(--petrol-600);
-  color: white;
-}
-
-/* Microcopy — right side */
-.occasion-help {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.occasion-help span {
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--neutral-500);
-}
-.specialist-link {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--petrol-600);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  transition: color 0.2s;
-}
-.specialist-link:hover { color: var(--petrol-700); }
-.specialist-link svg {
-  width: 14px; height: 14px; transition: transform 0.2s;
-}
-.specialist-link:hover svg { transform: translateX(3px); }
-
-/* Scroll gradient overrides for neutral-25 bg */
-.occasion-section .products-scroll-wrap::before {
-  background: linear-gradient(to right, var(--neutral-25), transparent);
-}
-.occasion-section .products-scroll-wrap::after {
-  background: linear-gradient(to left, var(--neutral-25), transparent);
-}
-
-@media (max-width: 900px) {
-  .occasion-section { padding: var(--space-6) 0; }
-  .occasion-inner { padding: 0 var(--space-5); }
-  .occasion-section .section-title { font-size: 24px; }
-  .occasion-header {
+.occ-item {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-3);
-  }
-  .occasion-help {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-1);
-  }
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--duration-normal) var(--ease);
+}
+
+.occ-item:hover {
+    transform: scale(1.08);
+}
+
+.occ-item:hover .occ-circle {
+    box-shadow: var(--shadow-md);
+}
+
+.occ-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--bg-tertiary);
+    transition: box-shadow var(--duration-normal) var(--ease);
+}
+
+.occ-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.occ-placeholder {
+    width: 100%;
+    height: 100%;
+}
+
+.occ-name {
+    font-size: var(--text-body-base);
+    font-weight: var(--weight-medium);
+    color: var(--text-primary);
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .occ-row {
+        gap: var(--space-6);
+    }
+
+    .occ-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .occ-name {
+        font-size: var(--text-body-sm);
+    }
 }

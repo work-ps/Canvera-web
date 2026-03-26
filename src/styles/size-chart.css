@@ -1,0 +1,211 @@
+/* ==========================================================================
+   Size Chart — shared component styles
+   Canvera 2.0 Design System
+   ========================================================================== */
+
+/* -- Trigger link ------------------------------------------------- */
+.size-chart-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--petrol-600);
+  padding: 0;
+  transition: color var(--duration-fast) var(--ease);
+}
+.size-chart-trigger:hover {
+  color: var(--interactive-primary-hover);
+  text-decoration: underline;
+}
+.size-chart-trigger svg {
+  flex-shrink: 0;
+}
+
+/* -- Unit badge --------------------------------------------------- */
+.size-unit-badge {
+  display: inline-block;
+  font-size: var(--text-body-2xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-tertiary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  padding: 1px var(--space-2);
+  margin-left: var(--space-2);
+  vertical-align: middle;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* -- Size heading row (unit + chart link) ------------------------- */
+.size-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.size-heading-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* -- Overlay ------------------------------------------------------ */
+.size-chart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 24, 36, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  animation: sizeChartFadeIn var(--duration-fast) var(--ease-out);
+}
+@keyframes sizeChartFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* -- Modal -------------------------------------------------------- */
+.size-chart-modal {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 640px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-2xl);
+  animation: sizeChartSlideUp var(--duration-normal) var(--ease-spring);
+}
+@keyframes sizeChartSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.size-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border-default);
+}
+.size-chart-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+.size-chart-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-disabled);
+  cursor: pointer;
+  padding: var(--space-1);
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease),
+              color var(--duration-fast) var(--ease);
+}
+.size-chart-close:hover {
+  background: var(--bg-secondary);
+  color: var(--neutral-700);
+}
+
+/* Unit toggle */
+.size-chart-unit-toggle {
+  display: flex;
+  gap: 0;
+  padding: var(--space-4) var(--space-6) 0;
+}
+.size-chart-unit-btn {
+  flex: 1;
+  padding: var(--space-2) var(--space-4);
+  border: 1.5px solid var(--border-strong);
+  background: var(--bg-primary);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-tertiary);
+  transition: all var(--duration-fast) var(--ease);
+}
+.size-chart-unit-btn:first-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+.size-chart-unit-btn:last-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-left: 0;
+}
+.size-chart-unit-btn--active {
+  background: var(--petrol-50);
+  border-color: var(--interactive-primary);
+  color: var(--text-brand);
+}
+
+/* Table wrapper */
+.size-chart-table-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-6);
+}
+.size-chart-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-body-sm);
+}
+.size-chart-table thead th {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--border-strong);
+  white-space: nowrap;
+}
+.size-chart-table tbody td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--bg-secondary);
+  color: var(--neutral-700);
+}
+.size-chart-cell-size {
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.size-chart-cell-dim {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Footer */
+.size-chart-footer {
+  padding: var(--space-3) var(--space-6) var(--space-5);
+  font-size: var(--text-body-2xs);
+  color: var(--text-disabled);
+  text-align: center;
+}
+
+/* -- Responsive --------------------------------------------------- */
+@media (max-width: 600px) {
+  .size-chart-modal {
+    max-width: 100%;
+    margin: var(--space-3);
+  }
+  .size-chart-table {
+    font-size: var(--text-body-xs);
+  }
+  .size-chart-unit-btn {
+    font-size: var(--text-body-xs);
+    padding: var(--space-2);
+  }
+}

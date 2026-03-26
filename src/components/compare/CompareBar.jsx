@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { useCompare } from '../../context/CompareContext'
-import { productSvgs } from '../home/ProductCard'
+import { getProductThumbnail } from '../../data/productImages'
 import '../../styles/compare.css'
 
 const MAX_SLOTS = 4
@@ -9,7 +9,7 @@ export default function CompareBar() {
   const { pathname } = useLocation()
   const { compareList, removeFromCompare, clearCompare, openDrawer } = useCompare()
 
-  const isProductsRoute = pathname === '/products' || pathname.startsWith('/products/')
+  const isProductsRoute = pathname === '/shop' || pathname.startsWith('/shop/') || pathname === '/products' || pathname.startsWith('/products/') || pathname.startsWith('/product/')
   const visible = isProductsRoute && compareList.length > 0
 
   const emptySlots = MAX_SLOTS - compareList.length
@@ -21,7 +21,11 @@ export default function CompareBar() {
           {compareList.map(product => (
             <div className="compare-bar-item" key={product.id}>
               <div className={`compare-bar-item-thumb pc-img-${product.imageVariant}`}>
-                {productSvgs[product.imageVariant] || productSvgs.petrol}
+                {getProductThumbnail(product.slug) ? (
+                  <img src={getProductThumbnail(product.slug)} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <svg viewBox="0 0 56 42" fill="none"><rect x="3" y="3" width="50" height="36" rx="4" stroke="currentColor" strokeWidth="1.5"/></svg>
+                )}
               </div>
               <span className="compare-bar-item-name">{product.name}</span>
               <button

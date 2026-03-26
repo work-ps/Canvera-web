@@ -22,7 +22,7 @@ function firstSentence(text) {
 }
 
 export default function HeroIdentityBlock() {
-  const { product, startingPrice, setExpandedSection } = usePDPConfig()
+  const { product, setExpandedSection } = usePDPConfig()
 
   if (!product) return null
 
@@ -30,9 +30,7 @@ export default function HeroIdentityBlock() {
   const name = product.name
   const subtitle = firstSentence(product.description)
   const highlights = (product.features || []).slice(0, 4)
-  const priceFormatted = startingPrice
-    ? `\u20B9${startingPrice.toLocaleString('en-IN')}`
-    : null
+  /* Price removed — shown only on product cards and ordering flow */
 
   const handleDetailsClick = () => {
     // Scroll to details tabs or first config section
@@ -62,12 +60,7 @@ export default function HeroIdentityBlock() {
         </div>
       )}
 
-      {/* Starting price */}
-      {priceFormatted && (
-        <div className="pdp-hero-price">
-          From <strong>{priceFormatted}</strong>
-        </div>
-      )}
+      {/* Price removed — shown on product cards and ordering flow only */}
 
       {/* View full product details link */}
       <button

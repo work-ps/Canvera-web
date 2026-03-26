@@ -1,127 +1,192 @@
 /* ==========================================================================
    About Canvera — Contained dark brand panel (1120px max-width)
+   Canvera 2.0 Design System
    ========================================================================== */
 
 .about-canvera {
   padding: var(--space-10) 0;
+  background: var(--bg-primary);
 }
 .about-canvera-inner {
-  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
 }
 
-/* Dark panel — contained card with rounded corners */
+/* Dark panel -- contained card with rounded corners */
 .about-panel {
-  background: var(--petrol-900);
-  border-radius: var(--radius-xl);
-  padding: var(--space-9) var(--space-8);
-  display: flex; flex-direction: column; gap: var(--space-8);
-  color: white;
+  background: var(--bg-primary);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  color: var(--text-inverse);
 }
 
-/* ── Top row: headline left, description right ──── */
+/* -- Top row: headline left, description right -------------------- */
 .about-top {
-  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
   align-items: start;
 }
 
-/* Left — Brand name + tagline */
+/* Left -- Brand name + tagline */
 .about-top-left {
-  display: flex; flex-direction: column; gap: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 .about-brand-name {
-  font-family: var(--font-display); font-size: 36px;
-  font-weight: 800; color: var(--amber-400);
+  font-family: var(--font-sans);
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-regular);
+  color: var(--amber-400);
   line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
 }
 .about-tagline {
-  font-family: var(--font-display); font-size: 26px;
-  font-weight: 600; color: white; line-height: 1.25;
+  font-family: var(--font-sans);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-regular);
+  color: var(--text-inverse);
+  line-height: var(--leading-snug);
 }
 
-/* Right — Description + Learn More */
+/* Right -- Description + Learn More */
 .about-top-right {
-  display: flex; flex-direction: column; gap: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
   padding-top: var(--space-2);
 }
 .about-desc {
-  font-family: var(--font-body); font-size: 14px; line-height: 1.7;
-  color: var(--petrol-200); max-width: 460px;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  line-height: var(--leading-loose);
+  color: var(--petrol-200);
+  max-width: 460px;
 }
 
-/* Learn More — outline button on dark, uses design token borders */
+/* Learn More -- outline button on dark */
 .about-learn-more {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: 10px 20px; width: fit-content;
-  background: transparent; color: white;
-  font-family: var(--font-body); font-size: 13px; font-weight: 600;
-  border: 1.5px solid var(--petrol-400); border-radius: var(--radius-md);
-  text-decoration: none; transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  width: fit-content;
+  background: transparent;
+  color: var(--text-inverse);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-semibold);
+  border: 1.5px solid var(--petrol-400);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--duration-normal) var(--ease);
 }
-.about-learn-more svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.about-learn-more svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--duration-normal) var(--ease);
+}
 .about-learn-more:hover {
-  background: var(--petrol-800);
+  background: var(--bg-primary);
   border-color: var(--petrol-300);
 }
-.about-learn-more:hover svg { transform: translateX(3px); }
+.about-learn-more:hover svg {
+  transform: translateX(3px);
+}
 
-/* ── Showcase visual area ─────────────────────────── */
+/* -- Showcase visual area ----------------------------------------- */
 .about-showcase {
   position: relative;
-  border-radius: var(--radius-lg); overflow: hidden;
-  background: var(--petrol-800);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--interactive-primary-hover);
 }
 .about-showcase-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4); padding: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-6);
 }
 .asc-card {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: var(--space-3); padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-5);
   border-radius: var(--radius-md);
   background: var(--petrol-700);
   border: 1px solid var(--petrol-600);
-  transition: all 0.3s ease;
+  transition: all var(--duration-normal) var(--ease);
 }
 .asc-card:hover {
   background: var(--petrol-600);
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
 }
-.asc-card svg { width: 40px; height: 40px; }
+.asc-card svg {
+  width: 40px;
+  height: 40px;
+}
 .asc-card span {
-  font-family: var(--font-body); font-size: 12px; font-weight: 600;
-  letter-spacing: 0.3px; text-align: center; color: var(--petrol-100);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.3px;
+  text-align: center;
+  color: var(--petrol-100);
 }
 
 /* Card accent colors */
 .asc-card--1 { color: var(--amber-400); }
 .asc-card--2 { color: var(--petrol-300); }
 .asc-card--3 { color: var(--leaf-400); }
-.asc-card--4 { color: white; }
+.asc-card--4 { color: var(--text-inverse); }
 
 /* Caption bar at bottom */
 .about-showcase-caption {
   padding: var(--space-3) var(--space-6);
-  background: var(--petrol-900);
-  font-family: var(--font-body); font-size: 11px;
-  color: var(--petrol-300); letter-spacing: 0.4px;
+  background: var(--bg-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  color: var(--petrol-300);
+  letter-spacing: var(--tracking-wider);
 }
 
-/* ── Responsive ───────────────────────────────────── */
+/* -- Responsive --------------------------------------------------- */
 @media (max-width: 900px) {
-  .about-canvera { padding: var(--space-8) 0; }
-  .about-canvera-inner { padding: 0 var(--space-5); }
-  .about-panel {
-    padding: var(--space-7) var(--space-6);
-    gap: var(--space-6);
-    border-radius: var(--radius-lg);
+  .about-canvera {
+    padding: var(--space-8) 0;
   }
-  .about-top { grid-template-columns: 1fr; gap: var(--space-5); }
-  .about-brand-name { font-size: 28px; }
-  .about-tagline { font-size: 22px; }
+  .about-canvera-inner {
+    padding: 0 var(--space-5);
+  }
+  .about-panel {
+    padding: var(--space-8) var(--space-6);
+    gap: var(--space-7);
+    border-radius: var(--radius-xl);
+  }
+  .about-top {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .about-brand-name {
+    font-size: var(--text-display-sm);
+  }
+  .about-tagline {
+    font-size: var(--text-display-xs);
+  }
   .about-showcase-grid {
     grid-template-columns: 1fr 1fr;
-    padding: var(--space-5); gap: var(--space-3);
+    padding: var(--space-5);
+    gap: var(--space-3);
   }
-  .asc-card { padding: var(--space-4); }
+  .asc-card {
+    padding: var(--space-4);
+  }
 }

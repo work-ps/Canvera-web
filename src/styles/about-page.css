@@ -1,284 +1,182 @@
 /* ==========================================================================
-   About Page — Full about page with hero, story, values, stats, mission
+   About Page
    ========================================================================== */
 
 .about-page {
-  min-height: 100vh;
+  margin-top: var(--header-height);
+  background: var(--bg-primary);
 }
 
-/* ── Hero Banner ──────────────────────────────── */
+/* -- Hero ------------------------------------------------------------ */
 .about-hero {
-  background: linear-gradient(155deg, var(--petrol-200) 0%, var(--petrol-400) 50%, var(--petrol-700) 100%);
-  padding: var(--space-12) var(--space-8);
-  text-align: center;
+  position: relative;
+  height: 40vh;
+  min-height: 280px;
+  background: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1400&q=80') center / cover no-repeat;
 }
+
+.about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 42, 58, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .about-hero-title {
-  font-family: var(--font-display);
-  font-size: var(--text-display-xl);
-  font-weight: var(--weight-extrabold);
-  color: white;
-  margin: 0 0 var(--space-4);
+  font-family: var(--font-sans);
+  font-size: 48px;
+  font-weight: var(--weight-light);
+  color: var(--text-inverse);
+  letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
 }
-.about-hero-subtitle {
-  font-family: var(--font-body);
-  font-size: var(--text-body-xl);
-  line-height: var(--leading-relaxed);
-  color: rgba(255,255,255,0.85);
+
+/* -- Stats ----------------------------------------------------------- */
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.about-stat-card {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+.about-stat-number {
+  display: block;
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-light);
+  color: var(--text-accent);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-2);
+}
+
+.about-stat-label {
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+}
+
+/* -- Story (two-column) ---------------------------------------------- */
+.about-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.about-story-text .display-md {
+  margin-bottom: var(--space-6);
+}
+
+.about-body {
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-loose);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-5);
+}
+
+.about-body:last-child {
+  margin-bottom: 0;
+}
+
+.about-story-image img {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+}
+
+/* -- Technology (two-column reversed) -------------------------------- */
+.about-tech {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.about-tech-text .display-md {
+  margin-bottom: var(--space-6);
+}
+
+.about-tech-image img {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+}
+
+/* -- CTA ------------------------------------------------------------- */
+.about-cta {
+  padding: var(--space-24) 0;
+  background: var(--bg-secondary);
+}
+
+.about-cta-inner {
+  text-align: center;
   max-width: 600px;
   margin: 0 auto;
 }
 
-/* ── Video Section ──────────────────────────── */
-.about-video-section {
-  padding: var(--space-10) 0;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding-left: var(--space-8);
-  padding-right: var(--space-8);
-}
-.about-video-inner {
-  width: 100%;
-}
-.about-video-player {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  background: var(--petrol-900);
-}
-.about-video-player video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.about-video-player.playing video {
-  object-fit: contain;
-  background: black;
-}
-/* Play button overlay */
-.about-video-play-btn {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
-  background: rgba(0, 41, 61, 0.55);
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.about-video-play-btn:hover {
-  background: rgba(0, 41, 61, 0.4);
-}
-.about-video-play-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.about-video-play-btn:hover .about-video-play-icon {
-  transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.25);
-}
-.about-video-play-icon svg {
-  width: 28px;
-  height: 28px;
-  color: var(--petrol-700);
-  margin-left: 3px;
-}
-.about-video-play-label {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  letter-spacing: 0.02em;
-}
-.about-video-caption {
-  font-family: var(--font-body);
-  font-size: var(--text-body-sm);
-  color: var(--neutral-500);
-  text-align: center;
-  margin: var(--space-4) 0 0;
-  line-height: var(--leading-normal);
-}
-
-/* ── Content Blocks (Story, Mission) ─────────── */
-.about-block {
-  padding: var(--space-11) 0;
-}
-.about-block-inner {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 0 var(--space-8);
-}
-.about-block-title {
-  font-family: var(--font-display);
-  font-size: var(--text-display-md);
-  font-weight: var(--weight-extrabold);
-  color: var(--petrol-900);
-  line-height: var(--leading-snug);
-  margin: 0 0 var(--space-7);
-}
-.about-block-text {
-  font-family: var(--font-body);
-  font-size: var(--text-body-lg);
-  line-height: var(--leading-loose);
-  color: var(--neutral-600);
-  margin: 0 0 var(--space-5);
-}
-.about-block-text:last-child { margin-bottom: 0; }
-
-/* ── Bento Grid — Values + Stats combined ──── */
-.about-bento {
-  padding: var(--space-11) 0;
-  background: var(--neutral-25);
-}
-.about-bento-inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 var(--space-8);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: auto;
-  gap: var(--space-5);
-}
-
-/* ── Shared card base ── */
-.bento-card {
-  border-radius: var(--radius-xl, 16px);
-  padding: var(--space-7);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* ── Wide content cards (span 2 cols) ── */
-.bento-card--wide {
-  grid-column: span 2;
-  background: white;
-  border: 1px solid var(--neutral-100);
-}
-.bento-card--who  { background: linear-gradient(145deg, var(--petrol-25, #F0FAFB) 0%, white 70%); }
-.bento-card--whatwedo { background: linear-gradient(145deg, white 30%, var(--amber-25, #FFFBF0) 100%); }
-
-/* ── Medium content cards (span 2 cols) ── */
-.bento-card--medium {
-  grid-column: span 2;
-  background: white;
-  border: 1px solid var(--neutral-100);
-}
-.bento-card--diy   { background: linear-gradient(145deg, var(--leaf-25, #F2FAF4) 0%, white 70%); }
-.bento-card--where { background: linear-gradient(145deg, white 30%, var(--petrol-25, #F0FAFB) 100%); }
-
-/* ── Stat cards (1 col each) ── */
-.bento-card--stat {
-  grid-column: span 1;
-  background: linear-gradient(155deg, var(--petrol-700) 0%, var(--petrol-900) 100%);
-  text-align: center;
-  align-items: center;
-  padding: var(--space-8) var(--space-5);
-  min-height: 160px;
-}
-
-/* ── Card icon ── */
-.bento-card-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--petrol-50);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.about-cta-inner .display-md {
   margin-bottom: var(--space-4);
-  flex-shrink: 0;
-}
-.bento-card-icon svg {
-  width: 22px;
-  height: 22px;
-  color: var(--petrol-600);
 }
 
-/* ── Card typography ── */
-.bento-card-title {
-  font-family: var(--font-display);
-  font-size: var(--text-body-xl, 18px);
-  font-weight: var(--weight-bold);
-  color: var(--petrol-900);
-  margin: 0 0 var(--space-2);
-  line-height: var(--leading-snug);
-}
-.bento-card-desc {
-  font-family: var(--font-body);
-  font-size: var(--text-body-base);
+.about-cta-sub {
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
   line-height: var(--leading-relaxed);
-  color: var(--neutral-600);
-  margin: 0;
+  margin-bottom: var(--space-8);
 }
 
-/* ── Stat typography ── */
-.bento-stat-number {
-  font-family: var(--font-display);
-  font-size: var(--text-display-sm, 30px);
-  font-weight: var(--weight-extrabold);
-  color: white;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: var(--space-1);
-}
-.bento-stat-label {
-  font-family: var(--font-body);
-  font-size: var(--text-body-sm);
-  font-weight: var(--weight-medium);
-  color: var(--petrol-200);
-  line-height: var(--leading-normal);
-}
-
-/* ── Mission uses same block style but no extra styling needed ── */
-.about-mission {
-  border-top: 1px solid var(--neutral-100);
-}
-
-/* ── Responsive ───────────────────────────────── */
+/* -- Responsive ------------------------------------------------------ */
 @media (max-width: 900px) {
-  .about-video-section { padding: var(--space-8) var(--space-5); }
-  .about-video-play-icon { width: 56px; height: 56px; }
-  .about-video-play-icon svg { width: 22px; height: 22px; }
-  .about-video-play-label { font-size: 14px; }
+  .about-hero-title {
+    font-size: var(--text-display-md);
+  }
 
-  .about-hero { padding: var(--space-10) var(--space-5); }
-  .about-hero-title { font-size: var(--text-display-md); }
-  .about-hero-subtitle { font-size: var(--text-body-lg); }
-
-  .about-block { padding: var(--space-9) 0; }
-  .about-block-inner { padding: 0 var(--space-5); }
-  .about-block-title { font-size: var(--text-display-xs); }
-
-  .about-bento { padding: var(--space-9) 0; }
-  .about-bento-inner {
+  .about-stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
-    padding: 0 var(--space-5);
   }
-  .bento-card--wide { grid-column: span 2; }
-  .bento-card--medium { grid-column: span 2; }
-  .bento-card--stat { grid-column: span 1; }
-  .bento-card { padding: var(--space-6); }
-  .bento-stat-number { font-size: var(--text-display-xs, 24px); }
+
+  .about-story,
+  .about-tech {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .about-tech-image {
+    order: -1;
+  }
 }
 
 @media (max-width: 480px) {
-  .about-bento-inner { grid-template-columns: 1fr 1fr; }
-  .bento-card--wide { grid-column: span 2; }
-  .bento-card--medium { grid-column: span 2; }
-  .bento-card--stat { grid-column: span 1; }
+  .about-hero {
+    height: 30vh;
+    min-height: 200px;
+  }
+
+  .about-hero-title {
+    font-size: var(--text-display-sm);
+  }
+
+  .about-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-stat-card {
+    padding: var(--space-5) var(--space-3);
+  }
+
+  .about-stat-number {
+    font-size: var(--text-display-sm);
+  }
 }

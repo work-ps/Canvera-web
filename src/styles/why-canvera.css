@@ -1,73 +1,49 @@
 /* ==========================================================================
-   Why Photographers Choose Canvera — reasons grid
+   Why Canvera — Stat cards grid
    ========================================================================== */
 
-.why-section {
-  padding: var(--space-10) 0;
-  background: var(--neutral-25);
-}
-.why-inner {
-  max-width: 1120px; margin: 0 auto; padding: 0 var(--space-8);
-}
-
-/* Title */
-.why-title {
-  font-family: var(--font-display);
-  font-size: var(--text-display-md);
-  font-weight: var(--weight-extrabold);
-  color: var(--petrol-900);
-  text-align: center;
-  margin: 0 0 var(--space-9);
-  line-height: var(--leading-snug);
-}
-
-/* Reasons grid — 4 columns */
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-7);
-}
-
-/* Reason card */
-.why-card {
-  text-align: center;
-}
-.why-card-icon {
-  width: 56px; height: 56px;
-  margin: 0 auto var(--space-5);
-  background: var(--petrol-50);
-  border-radius: var(--radius-lg);
-  display: flex; align-items: center; justify-content: center;
-}
-.why-card-icon svg {
-  width: 24px; height: 24px;
-  color: var(--petrol-600);
-}
-.why-card-name {
-  font-family: var(--font-display);
-  font-size: var(--text-body-lg);
-  font-weight: var(--weight-bold);
-  color: var(--petrol-900);
-  margin: 0 0 var(--space-3);
-}
-.why-card-desc {
-  font-family: var(--font-body);
-  font-size: var(--text-body-base);
-  line-height: var(--leading-normal);
-  color: var(--neutral-500);
-  margin: 0;
-}
-
-/* ── Responsive ───────────────────────────────── */
-@media (max-width: 900px) {
-  .why-section { padding: var(--space-8) 0; }
-  .why-inner { padding: 0 var(--space-5); }
-  .why-title { font-size: var(--text-display-xs); margin-bottom: var(--space-7); }
-  .why-grid {
-    grid-template-columns: 1fr 1fr;
+.wc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-6);
-  }
 }
-@media (max-width: 540px) {
-  .why-grid { grid-template-columns: 1fr; }
+
+.wc-card {
+    padding: var(--space-7);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    transition: transform var(--duration-normal) var(--ease),
+                box-shadow var(--duration-normal) var(--ease);
+}
+
+.wc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.wc-stat {
+    margin-bottom: var(--space-3);
+}
+
+.wc-title {
+    margin-bottom: var(--space-2);
+}
+
+.wc-desc {
+    font-size: var(--text-body-sm);
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+@media (max-width: 1023px) {
+    .wc-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .wc-grid {
+        grid-template-columns: 1fr;
+    }
 }

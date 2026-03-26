@@ -1,80 +1,74 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import ProductCard from './ProductCard'
 import products from '../../data/products'
+import { getProductThumbnail } from '../../data/productImages'
 import '../../styles/popular-products.css'
 
-const popularIds = [26, 27, 28, 5, 29, 30, 7, 11, 1, 31]
+const badgeLabels = {
+  bestseller: 'Bestseller',
+  new: 'New',
+  popular: 'Popular',
+}
+
+/* Pick the first 8 products that have real photos, prioritising those with badges */
+const featured = (() => {
+  const withBadge = products.filter(p => p.badge && getProductThumbnail(p.slug))
+  const withoutBadge = products.filter(p => !p.badge && getProductThumbnail(p.slug))
+  return [...withBadge, ...withoutBadge].slice(0, 8)
+})()
 
 export default function PopularProducts() {
-  const scrollRef = useRef(null)
-  const wrapRef = useRef(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [atEnd, setAtEnd] = useState(false)
-  const getScrollStep = () => {
-    const card = scrollRef.current?.querySelector('.product-card')
-    if (!card) return 340
-    const gap = parseFloat(getComputedStyle(scrollRef.current.querySelector('.products-scroll-track')).gap) || 24
-    return card.offsetWidth + gap
-  }
-
-  const updateArrows = useCallback(() => {
-    if (!scrollRef.current) return
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
-    setCanScrollLeft(scrollLeft > 4)
-    setAtEnd(scrollLeft + clientWidth >= scrollWidth - 4)
-  }, [])
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-    el.addEventListener('scroll', updateArrows)
-    window.addEventListener('resize', updateArrows)
-    updateArrows()
-    return () => {
-      el.removeEventListener('scroll', updateArrows)
-      window.removeEventListener('resize', updateArrows)
-    }
-  }, [updateArrows])
-
-  const scrollLeft = () => scrollRef.current?.scrollBy({ left: -getScrollStep(), behavior: 'smooth' })
-  const scrollRight = () => scrollRef.current?.scrollBy({ left: getScrollStep(), behavior: 'smooth' })
-
-  const popularProducts = popularIds.map(id => products.find(p => p.id === id)).filter(Boolean)
-
-  const wrapCls = `products-scroll-wrap${canScrollLeft ? ' can-scroll-left' : ''}${atEnd ? ' scrolled-end' : ''}`
-
   return (
-    <section className="popular-products">
-      <div className="popular-inner">
+    <section className="section">
+      <div className="container">
         <div className="section-header">
           <div>
-            <div className="section-label">Crafted With Care</div>
-            <h2 className="section-title">Popular Products</h2>
-            <p className="section-subtitle">Loved by photographers across India</p>
+            <div className="section-label">Best Sellers</div>
+            <h2 className="section-title">Most Loved by Photographers</h2>
           </div>
-          <Link to="/shop" className="view-all-link">
+          <Link to="/shop" className="link-arrow">
             View All Products
             <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Link>
         </div>
 
-        <div className={wrapCls} ref={wrapRef}>
-          <button className={`scroll-arrow scroll-left${!canScrollLeft ? ' hidden' : ''}`} onClick={scrollLeft} aria-label="Scroll left">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
+        <div className="pp-grid">
+          {featured.map((product) => {
+            const thumbnail = getProductThumbnail(product.slug)
+            const badge = product.badge ? badgeLabels[product.badge] : null
+            return (
+              <Link
+                key={product.id}
+                to={`/product/${product.slug}`}
+                className="pp-card"
+              >
+                <div className="pp-card-image">
+                  {badge && <span className="badge badge-glass pp-badge">{badge}</span>}
+                  {thumbnail ? (
+                    <img
+                      src={thumbnail}
+                      alt={product.name}
+                      className="pp-card-img"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="pp-card-placeholder" />
+                  )}
+                </div>
+                <div className="pp-card-body">
+                  <span className="pp-card-collection">{product.tag}</span>
+                  <h3 className="pp-card-name">{product.name}</h3>
+                  <span className="pp-card-price">From &#x20B9;{(product.id * 1200 + 2999).toLocaleString('en-IN')}</span>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
 
-          <div className="products-scroll" ref={scrollRef}>
-            <div className="products-scroll-track">
-              {popularProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </div>
-
-          <button className={`scroll-arrow scroll-right${atEnd ? ' hidden' : ''}`} onClick={scrollRight} aria-label="Scroll right">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
+        <div className="pp-view-all-mobile">
+          <Link to="/shop" className="link-arrow">
+            View All Products
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </Link>
         </div>
       </div>
     </section>

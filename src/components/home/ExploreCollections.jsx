@@ -1,17 +1,35 @@
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import collections from '../../data/collections'
+import products from '../../data/products'
+import { getProductThumbnail } from '../../data/productImages'
 import '../../styles/explore-collections.css'
 
-const variantGradients = {
-  petrol:  'linear-gradient(155deg, #0A6E7E 0%, #003A54 100%)',
-  amber:   'linear-gradient(155deg, #9B7418 0%, #5C3A0A 100%)',
-  warm:    'linear-gradient(155deg, #8A6C4A 0%, #4A3520 100%)',
-  dark:    'linear-gradient(155deg, #4A4A4A 0%, #1A1A1A 100%)',
-  neutral: 'linear-gradient(155deg, #7B8290 0%, #374151 100%)',
-  deep:    'linear-gradient(155deg, #6B4F9C 0%, #2D1B4E 100%)',
-  leaf:    'linear-gradient(155deg, #1B7B5A 0%, #0A4030 100%)',
-  mixed:   'linear-gradient(155deg, #7B6038 0%, #3A2D18 100%)',
+/* Get a representative image for each collection by finding the first product that has a real photo */
+function getCollectionImage(collection) {
+  for (const pName of collection.productNames) {
+    const product = products.find(p =>
+      p.name === pName ||
+      p.name.toLowerCase().includes(pName.toLowerCase().split(' ')[0])
+    )
+    if (product) {
+      const img = getProductThumbnail(product.slug)
+      if (img) return img
+    }
+  }
+  return null
+}
+
+/* Gradient fallbacks per imageVariant */
+const gradientFallbacks = {
+  petrol: 'linear-gradient(145deg, #005780, #003A54)',
+  warm: 'linear-gradient(145deg, #8B6914, #5A4410)',
+  amber: 'linear-gradient(145deg, #B07D1A, #6B4D10)',
+  neutral: 'linear-gradient(145deg, #56687A, #2D3E4F)',
+  deep: 'linear-gradient(145deg, #5E3F8A, #3A2660)',
+  dark: 'linear-gradient(145deg, #1a2a3a, #0a1520)',
+  leaf: 'linear-gradient(145deg, #2a9d8f, #1A6B61)',
+  mixed: 'linear-gradient(145deg, #6E8091, #415264)',
 }
 
 export default function ExploreCollections() {
@@ -38,58 +56,67 @@ export default function ExploreCollections() {
     }
   }, [updateArrows])
 
-  const getScrollStep = () => {
-    const card = scrollRef.current?.querySelector('.ec-card')
-    if (!card) return 280
-    return card.offsetWidth + 20
+  const scroll = (dir) => {
+    scrollRef.current?.scrollBy({ left: dir * 340, behavior: 'smooth' })
   }
 
-  const doScrollLeft = () => scrollRef.current?.scrollBy({ left: -getScrollStep(), behavior: 'smooth' })
-  const doScrollRight = () => scrollRef.current?.scrollBy({ left: getScrollStep(), behavior: 'smooth' })
-
   return (
-    <section className="ec-section">
-      <div className="ec-inner">
-        <div className="ec-header">
+    <section className="section-alt">
+      <div className="container">
+        <div className="section-header">
           <div>
-            <div className="section-label">Our Ranges</div>
-            <h2 className="section-title">Explore Collections</h2>
+            <div className="section-label">Collections</div>
+            <h2 className="section-title">Explore Our Ranges</h2>
           </div>
-          <Link to="/collections" className="ec-view-all">
-            View All Collections
+          <Link to="/collections" className="link-arrow">
+            View All
             <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Link>
         </div>
 
-        <div className={`ec-scroll-wrap${canScrollLeft ? ' can-scroll-left' : ''}${atEnd ? ' scrolled-end' : ''}`}>
-          <button className={`scroll-arrow scroll-left${!canScrollLeft ? ' hidden' : ''}`} onClick={doScrollLeft} aria-label="Scroll left">
+        <div className="ec-scroll-container">
+          <button
+            className={`scroll-arrow scroll-left${!canScrollLeft ? ' hidden' : ''}`}
+            onClick={() => scroll(-1)}
+            aria-label="Scroll left"
+          >
             <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
 
           <div className="ec-scroll" ref={scrollRef}>
             <div className="ec-track">
-              {collections.map(col => (
-                <Link key={col.id} to={`/collections/${col.slug}`} className="ec-card">
-                  <div className="ec-card-image" style={{ background: variantGradients[col.imageVariant] || variantGradients.petrol }}>
-                    <span className="ec-card-name">{col.name}</span>
-                    <span className="ec-card-count">{col.productNames.length} {col.productNames.length === 1 ? 'product' : 'products'}</span>
-                    <div className="ec-card-overlay">
-                      <span className="ec-overlay-name">{col.fullName || col.name}</span>
-                      <span className="ec-overlay-cta">View Collection
-                        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </span>
+              {collections.map((col) => {
+                const img = getCollectionImage(col)
+                const fallback = gradientFallbacks[col.imageVariant] || gradientFallbacks.neutral
+                return (
+                  <Link
+                    key={col.id}
+                    to={`/collections/${col.slug}`}
+                    className="ec-card"
+                  >
+                    <div
+                      className="ec-card-bg"
+                      style={img ? { backgroundImage: `url(${img})` } : { background: fallback }}
+                    >
+                      <div className="ec-card-gradient" />
+                      <div className="ec-card-info">
+                        <h3 className="ec-card-name">{col.fullName}</h3>
+                        <span className="ec-card-count">
+                          {col.productNames.length} product{col.productNames.length !== 1 ? 's' : ''}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="ec-card-body">
-                    <div className="ec-card-tag">{col.productNames.length} {col.productNames.length === 1 ? 'Product' : 'Products'} in Collection</div>
-                    <p className="ec-card-desc">{col.description}</p>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
             </div>
           </div>
 
-          <button className={`scroll-arrow scroll-right${atEnd ? ' hidden' : ''}`} onClick={doScrollRight} aria-label="Scroll right">
+          <button
+            className={`scroll-arrow scroll-right${atEnd ? ' hidden' : ''}`}
+            onClick={() => scroll(1)}
+            aria-label="Scroll right"
+          >
             <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </div>

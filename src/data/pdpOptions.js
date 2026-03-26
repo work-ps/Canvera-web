@@ -4,21 +4,21 @@
    ========================================================================== */
 
 export const sizeLabels = {
-  '12x18': { label: '12 \u00d7 18\u2033', format: 'Large Landscape', printArea: '11.5 \u00d7 17.5\u2033' },
-  '12x16': { label: '12 \u00d7 16\u2033', format: 'Medium Landscape', printArea: '11.5 \u00d7 15.5\u2033' },
-  '12x15': { label: '12 \u00d7 15\u2033', format: 'Classic Landscape', printArea: '11.5 \u00d7 14.5\u2033' },
-  '12x12': { label: '12 \u00d7 12\u2033', format: 'Large Square', printArea: '11.5 \u00d7 11.5\u2033' },
-  '10x14': { label: '10 \u00d7 14\u2033', format: 'Standard Landscape', printArea: '9.5 \u00d7 13.5\u2033' },
-  '8x12':  { label: '8 \u00d7 12\u2033', format: 'Compact Landscape', printArea: '7.5 \u00d7 11.5\u2033' },
-  '8x10':  { label: '8 \u00d7 10\u2033', format: 'Compact', printArea: '7.5 \u00d7 9.5\u2033' },
-  '16x20': { label: '16 \u00d7 20\u2033', format: 'Extra Large', printArea: '15.5 \u00d7 19.5\u2033' },
-  '16x16': { label: '16 \u00d7 16\u2033', format: 'Square', printArea: '15.5 \u00d7 15.5\u2033' },
-  '3x3':   { label: '3 \u00d7 3\u2033', format: 'Mini Square', printArea: '2.75 \u00d7 2.75\u2033' },
+  '12x18': { label: '12 \u00d7 18\u2033', format: 'Large Landscape', printArea: '11.5 \u00d7 17.5\u2033', cm: '30.5 \u00d7 45.7 cm' },
+  '12x16': { label: '12 \u00d7 16\u2033', format: 'Medium Landscape', printArea: '11.5 \u00d7 15.5\u2033', cm: '30.5 \u00d7 40.6 cm' },
+  '12x15': { label: '12 \u00d7 15\u2033', format: 'Classic Landscape', printArea: '11.5 \u00d7 14.5\u2033', cm: '30.5 \u00d7 38.1 cm' },
+  '12x12': { label: '12 \u00d7 12\u2033', format: 'Large Square', printArea: '11.5 \u00d7 11.5\u2033', cm: '30.5 \u00d7 30.5 cm' },
+  '10x14': { label: '10 \u00d7 14\u2033', format: 'Standard Landscape', printArea: '9.5 \u00d7 13.5\u2033', cm: '25.4 \u00d7 35.6 cm' },
+  '8x12':  { label: '8 \u00d7 12\u2033', format: 'Compact Landscape', printArea: '7.5 \u00d7 11.5\u2033', cm: '20.3 \u00d7 30.5 cm' },
+  '8x10':  { label: '8 \u00d7 10\u2033', format: 'Compact', printArea: '7.5 \u00d7 9.5\u2033', cm: '20.3 \u00d7 25.4 cm' },
+  '16x20': { label: '16 \u00d7 20\u2033', format: 'Extra Large', printArea: '15.5 \u00d7 19.5\u2033', cm: '40.6 \u00d7 50.8 cm' },
+  '16x16': { label: '16 \u00d7 16\u2033', format: 'Square', printArea: '15.5 \u00d7 15.5\u2033', cm: '40.6 \u00d7 40.6 cm' },
+  '3x3':   { label: '3 \u00d7 3\u2033', format: 'Mini Square', printArea: '2.75 \u00d7 2.75\u2033', cm: '7.6 \u00d7 7.6 cm' },
   '11oz':  { label: '11 oz', format: 'Standard Mug', printArea: 'Wrap-around' },
   '15oz':  { label: '15 oz', format: 'Large Mug', printArea: 'Wrap-around' },
-  'A3':    { label: 'A3', format: 'Large Calendar', printArea: '11.7 \u00d7 16.5\u2033' },
-  'A4':    { label: 'A4', format: 'Standard Calendar', printArea: '8.3 \u00d7 11.7\u2033' },
-  'Desktop': { label: 'Desktop', format: 'Table Calendar', printArea: '6 \u00d7 4\u2033' },
+  'A3':    { label: 'A3', format: 'Large Calendar', printArea: '11.7 \u00d7 16.5\u2033', cm: '29.7 \u00d7 42.0 cm' },
+  'A4':    { label: 'A4', format: 'Standard Calendar', printArea: '8.3 \u00d7 11.7\u2033', cm: '21.0 \u00d7 29.7 cm' },
+  'Desktop': { label: 'Desktop', format: 'Table Calendar', printArea: '6 \u00d7 4\u2033', cm: '15.2 \u00d7 10.2 cm' },
 }
 
 export const orientationOptions = [

@@ -3,35 +3,23 @@ import '../../styles/action-cards.css'
 
 export default function ActionCards() {
   return (
-    <section className="action-cards">
-      <div className="action-cards-inner">
-
-        {/* Card 1 — Explore Products (left, outline button) */}
-        <div className="action-card action-card--explore">
-          <div className="action-card-content">
-            <p className="action-card-desc">
-              From premium photobooks and coffee table books to gorgeous prints, canvases, calendars, and décor — <strong>150+ products</strong> crafted for weddings, portraits, and every moment worth preserving.
-            </p>
+    <section className="section cta-final">
+      <div className="container">
+        <div className="cta-final-inner">
+          <h2 className="display-lg cta-final-headline">
+            Ready to Create Something Beautiful?
+          </h2>
+          <div className="cta-final-buttons">
+            <Link to="/shop" className="btn btn-primary btn-lg">
+              Explore Products
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </Link>
+            <Link to="/signup" className="btn btn-secondary btn-lg">
+              Join as Photographer
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </Link>
           </div>
-          <Link to="/shop" className="action-card-cta action-card-cta--outline">
-            Explore Products
-            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </Link>
         </div>
-
-        {/* Card 2 — Join Now (right, primary button) */}
-        <div className="action-card action-card--join">
-          <div className="action-card-content">
-            <p className="action-card-desc">
-              Join <strong>1,000+ photographers who sign up every month</strong>. Get wholesale pricing, access to Fundy and Pixellu, and a partner community that's been empowering photographers since 2007.
-            </p>
-          </div>
-          <Link to="/signup" className="action-card-cta action-card-cta--primary">
-            Join Now
-            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </Link>
-        </div>
-
       </div>
     </section>
   )

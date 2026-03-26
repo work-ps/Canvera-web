@@ -1,0 +1,591 @@
+/* ==========================================================================
+   Make Your Own — Visual Builder Flow
+   Canvera Design System — Inter only, white canvas
+   ========================================================================== */
+
+/* ---- Page layout: two-panel ---- */
+.myo-page {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  max-width: var(--max-width);
+  margin: var(--header-height) auto 0;
+  padding: 0 var(--side-padding);
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ---- Left panel: Visualizer ---- */
+.myo-viz-panel {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  overflow: hidden;
+}
+
+.myo-viz-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 400px;
+}
+
+.myo-viz-book-wrap {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-slow) var(--ease-spring);
+}
+
+.myo-book-svg {
+  width: 100%;
+  height: 100%;
+  transition: all var(--duration-slow) var(--ease-spring);
+}
+
+.myo-viz-caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
+  text-align: center;
+  line-height: var(--leading-relaxed);
+  min-height: 1.5em;
+  transition: opacity var(--duration-normal) var(--ease);
+}
+
+/* ---- Right panel: Content ---- */
+.myo-content-panel {
+  padding: var(--space-8) var(--space-8) var(--space-12);
+  overflow-y: auto;
+  max-height: calc(100vh - var(--header-height));
+  background: var(--bg-primary);
+}
+
+/* ---- Progress bar ---- */
+.myo-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-7);
+}
+
+.myo-progress-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--border-default);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.myo-progress-fill {
+  height: 100%;
+  background: var(--brand-teal);
+  border-radius: 2px;
+  transition: width var(--duration-slow) var(--ease-spring);
+}
+
+.myo-progress-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  color: var(--text-disabled);
+  white-space: nowrap;
+  font-weight: var(--weight-medium);
+}
+
+/* ---- Breadcrumbs ---- */
+.myo-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.myo-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-accent);
+  background: var(--teal-50);
+  border: 1px solid var(--teal-100);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  white-space: nowrap;
+}
+
+.myo-breadcrumb:hover {
+  background: var(--teal-100);
+  border-color: var(--teal-200);
+}
+
+/* ---- Step header ---- */
+.myo-step-header {
+  margin-bottom: var(--space-7);
+}
+
+.myo-step-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-light);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+  margin: 0 0 var(--space-2);
+  letter-spacing: var(--tracking-tight);
+}
+
+.myo-step-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: var(--leading-relaxed);
+}
+
+/* ---- Options grid (step 1, step 3) ---- */
+.myo-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.myo-options-grid--wide {
+  grid-template-columns: 1fr;
+}
+
+/* ---- Options row (horizontal wrap) ---- */
+.myo-options-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.myo-options-row > * {
+  flex: 1 1 180px;
+  max-width: 260px;
+}
+
+/* ---- Option card ---- */
+.myo-option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease);
+  text-align: left;
+  width: 100%;
+}
+
+.myo-option-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.myo-option-card--selected {
+  border-color: var(--brand-teal);
+  background: var(--teal-50);
+  box-shadow: 0 0 0 1px var(--brand-teal);
+}
+
+.myo-option-card--compact {
+  padding: var(--space-3);
+}
+
+.myo-option-card--swatch {
+  align-items: center;
+  text-align: center;
+}
+
+.myo-option-card--pattern {
+  align-items: center;
+  text-align: center;
+}
+
+/* ---- Swatch circle ---- */
+.myo-option-swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.myo-option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.myo-option-name {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+
+.myo-option-desc {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
+  line-height: var(--leading-relaxed);
+}
+
+.myo-option-specs {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+}
+
+.myo-option-specs li::before {
+  content: '\2713 ';
+  color: var(--brand-teal);
+  font-weight: var(--weight-medium);
+}
+
+/* ---- Orientation glyph ---- */
+.myo-ori-glyph {
+  width: 40px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--neutral-300);
+  margin-bottom: var(--space-1);
+}
+
+.myo-ori-glyph[data-orientation="portrait"] {
+  width: 28px;
+  height: 40px;
+}
+
+.myo-ori-glyph[data-orientation="square"] {
+  width: 36px;
+  height: 36px;
+}
+
+/* ---- Lamination icon ---- */
+.myo-lam-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+/* ---- Cover pattern icon ---- */
+.myo-pattern-icon {
+  width: 72px;
+  height: 56px;
+  margin-bottom: var(--space-1);
+}
+
+/* ---- Sub-step within a step ---- */
+.myo-substep {
+  margin-bottom: var(--space-7);
+}
+
+.myo-substep-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-4);
+}
+
+/* ---- Color swatches ---- */
+.myo-color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.myo-color-swatch {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.myo-color-swatch:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-md);
+}
+
+.myo-color-swatch--selected {
+  border-color: var(--brand-teal);
+  box-shadow: 0 0 0 2px var(--brand-teal);
+  transform: scale(1.08);
+}
+
+.myo-color-swatch-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-2xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-inverse);
+  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  text-align: center;
+  padding: 2px 0;
+  line-height: 1.3;
+  backdrop-filter: blur(4px);
+}
+
+/* ---- Final result (step 7) ---- */
+.myo-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.myo-result-heading {
+  font-family: var(--font-sans);
+  font-size: var(--text-display-xs);
+  font-weight: var(--weight-light);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-3);
+  letter-spacing: var(--tracking-tight);
+}
+
+.myo-result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2) var(--space-6);
+}
+
+.myo-result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.myo-result-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  color: var(--text-disabled);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.myo-result-value {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+
+/* ---- Action buttons ---- */
+.myo-result-actions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.myo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  border: none;
+}
+
+.myo-btn--primary {
+  background: var(--interactive-primary);
+  color: var(--text-inverse);
+}
+
+.myo-btn--primary:hover {
+  background: var(--interactive-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.myo-btn--secondary {
+  background: var(--bg-primary);
+  color: var(--brand-petrol);
+  border: 1.5px solid var(--border-default);
+}
+
+.myo-btn--secondary:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-strong);
+}
+
+/* ---- Similar products ---- */
+.myo-similar {
+  border-top: 1px solid var(--border-default);
+  padding-top: var(--space-7);
+}
+
+.myo-similar-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-4);
+}
+
+.myo-similar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-3);
+}
+
+.myo-similar-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  text-align: left;
+}
+
+.myo-similar-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.myo-similar-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.myo-similar-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  opacity: 0.15;
+}
+
+.myo-similar-name {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+
+.myo-similar-tag {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  color: var(--text-tertiary);
+}
+
+/* ---- Animations ---- */
+.myo-fade-in {
+  animation: myoFadeIn 0.35s var(--ease-spring) both;
+}
+
+@keyframes myoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .myo-page {
+    grid-template-columns: 1fr;
+  }
+
+  .myo-viz-panel {
+    position: relative;
+    top: 0;
+    height: auto;
+    min-height: 200px;
+    max-height: 280px;
+    padding: var(--space-4);
+  }
+
+  .myo-viz-book-wrap {
+    max-width: 180px;
+  }
+
+  .myo-content-panel {
+    max-height: none;
+    padding: var(--space-6) var(--side-padding) var(--space-8);
+  }
+
+  .myo-step-title {
+    font-size: var(--text-display-sm);
+  }
+
+  .myo-options-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .myo-options-row > * {
+    flex: 1 1 140px;
+  }
+
+  .myo-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .myo-result-actions {
+    flex-direction: column;
+  }
+
+  .myo-btn {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .myo-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .myo-options-row > * {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .myo-color-swatch {
+    width: 56px;
+    height: 56px;
+  }
+}

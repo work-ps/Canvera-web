@@ -47,7 +47,7 @@ const configRows = [
 ]
 
 export default function OrderReviewBlock() {
-  const { config, pricing, setExpandedSection, sectionStates } = usePDPConfig()
+  const { config, setExpandedSection, sectionStates } = usePDPConfig()
 
   return (
     <div className="pdp-review">
@@ -94,27 +94,7 @@ export default function OrderReviewBlock() {
         </tbody>
       </table>
 
-      {/* Itemised Price Breakdown */}
-      <div className="pdp-price-breakdown">
-        <div className="pdp-price-breakdown-title">Price Breakdown</div>
-        <table className="pdp-price-table">
-          <tbody>
-            {pricing.lineItems.map((item) => (
-              <tr key={item.key}>
-                <td>{item.label}</td>
-                <td>{fmt(item.amount)}</td>
-              </tr>
-            ))}
-            <tr className="pdp-price-total-row">
-              <td>Total</td>
-              <td>{fmt(pricing.total) || '\u20B90'}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="pdp-price-note">
-          Final price confirmed at checkout.
-        </div>
-      </div>
+      {/* Price breakdown removed — shown only in ordering flow */}
     </div>
   )
 }

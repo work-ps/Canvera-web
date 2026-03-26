@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import products from '../../data/products'
 import { productSvgs } from '../home/ProductCard'
 
-const albumCategories = ['Premium Albums', 'Standard Albums', 'Photobooks']
+const albumCategories = ['Photobooks', 'Momentbooks', 'Magazines']
 
 export default function StepChooseProduct({ selectedId, onSelect }) {
   const [activeCategory, setActiveCategory] = useState(albumCategories[0])

@@ -1,0 +1,248 @@
+/* ==========================================================================
+   Product Card — Visual-heavy, image-dominant, premium
+   ========================================================================== */
+
+.pc {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--duration-normal) var(--ease),
+                box-shadow var(--duration-normal) var(--ease);
+}
+
+.pc:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* ── Image Area ── */
+.pc-image-wrap {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+}
+
+.pc-skeleton {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.pc-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--duration-slow) var(--ease);
+}
+
+.pc-img-active {
+    opacity: 1;
+}
+
+.pc-placeholder {
+    width: 100%;
+    height: 100%;
+}
+
+/* Subtle zoom on hover */
+.pc-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(26,42,58,0.03) 0%, transparent 40%);
+}
+
+.pc:hover .pc-img-active {
+    transform: scale(1.04);
+    transition: transform 4s var(--ease);
+}
+
+/* ── Badge ── */
+.pc-badge {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 5;
+    font-size: var(--text-body-2xs);
+    font-weight: var(--weight-medium);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--text-primary);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+}
+
+/* ── Compare Button ── */
+.pc-compare {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 5;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease);
+    color: var(--text-secondary);
+}
+
+.pc:hover .pc-compare,
+.pc-compare-on {
+    opacity: 1;
+}
+
+.pc-compare-on {
+    background: var(--brand-teal);
+    color: white;
+}
+
+.pc-compare-full {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.pc-compare svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ── Carousel Dots ── */
+.pc-dots {
+    position: absolute;
+    bottom: var(--space-3);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    gap: 4px;
+}
+
+.pc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    transition: all var(--duration-fast);
+}
+
+.pc-dot-on {
+    background: white;
+    width: 16px;
+    border-radius: 3px;
+}
+
+/* ── Info Area ── */
+.pc-info {
+    padding: var(--space-4) var(--space-1) var(--space-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.pc-collection {
+    font-size: var(--text-body-xs);
+    font-weight: var(--weight-medium);
+    color: var(--text-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+}
+
+.pc-name {
+    font-size: var(--text-heading-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-primary);
+    line-height: var(--leading-snug);
+    margin: 0;
+}
+
+.pc-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-body-xs);
+    color: var(--text-secondary);
+}
+
+.pc-review-count {
+    color: var(--text-tertiary);
+}
+
+.pc-price {
+    font-size: var(--text-body-base);
+    color: var(--text-secondary);
+    font-weight: var(--weight-regular);
+    margin-top: var(--space-0-5);
+}
+
+.pc-price-login {
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+/* ── Hover CTA (listing mode) ── */
+.pc-cta {
+    margin-top: var(--space-2);
+    width: 100%;
+    height: 36px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-body-xs);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all var(--duration-normal) var(--ease);
+}
+
+.pc-cta-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pc-cta:hover {
+    background: var(--interactive-primary);
+    border-color: var(--interactive-primary);
+    color: var(--text-inverse);
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+    .pc-name {
+        font-size: var(--text-body-md);
+    }
+
+    .pc-cta {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .pc-compare {
+        opacity: 1;
+    }
+}

@@ -250,9 +250,6 @@ function MaterialColourPicker() {
             >
               <div className="pdp-card-title">{mat.name}</div>
               <div className="pdp-card-desc">{mat.description}</div>
-              <div className={`pdp-card-price${cost > 0 ? '' : ' pdp-card-price--included'}`}>
-                {cost > 0 ? `+ \u20B9${formatINR(cost)}` : 'Included'}
-              </div>
             </div>
           )
         })}
@@ -351,7 +348,7 @@ function NamingSection() {
             <option value="">Select treatment</option>
             {namingTreatments.map(t => (
               <option key={t.id} value={t.id}>
-                {t.name} {surcharges.namingTreatments[t.id] > 0 ? `(+ \u20B9${formatINR(surcharges.namingTreatments[t.id])})` : '(Included)'}
+                {t.name}
               </option>
             ))}
           </select>
@@ -376,14 +373,6 @@ function NamingSection() {
           </span>
         </div>
       </div>
-
-      {/* Naming cost summary */}
-      {config.namingTreatment && namingTotal > 0 && (
-        <div style={{ fontSize: 'var(--text-body-sm)', color: 'var(--neutral-600)', marginTop: 'var(--space-2)' }}>
-          {config.namingTreatment} &times; {lineCount} line{lineCount > 1 ? 's' : ''} ={' '}
-          <strong>+ {'\u20B9'}{formatINR(namingTotal)}</strong>
-        </div>
-      )}
 
       {/* Live preview */}
       {(config.coverName1 || config.coverName2) && (

@@ -1,396 +1,551 @@
+/* ==========================================================================
+   Auth — Canvera 2.0 Design System
+   Clean, minimal forms. Inter only. White canvas. Premium feel.
+   ========================================================================== */
+
+/* ==========================================================================
+   Auth Page — Shared Layout
+   ========================================================================== */
+
 .auth-page {
-  margin-top: 52px;
-  min-height: calc(100vh - 52px);
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--neutral-25) 0%, var(--petrol-25) 100%);
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
   padding: var(--space-8) var(--space-4);
 }
+
+/* ==========================================================================
+   Auth Card — Sign In
+   ========================================================================== */
+
 .auth-card {
-  width: 100%; max-width: 480px;
-  background: white; border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl); padding: var(--space-9);
-}
-.auth-card .auth-logo {
-  text-align: center; margin-bottom: var(--space-7);
-}
-.auth-card .auth-logo img { height: 28px; margin: 0 auto; }
-.auth-card h1 {
-  font-family: var(--font-display); font-size: 28px; font-weight: 700;
-  color: var(--petrol-800); text-align: center;
-  margin-bottom: var(--space-2);
-}
-.auth-card .auth-subtitle {
-  font-size: 14px; color: var(--neutral-500); text-align: center;
-  margin-bottom: var(--space-7);
-}
-.auth-form {
-  display: flex; flex-direction: column; gap: var(--space-5);
-}
-.auth-form-row {
-  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);
-}
-.auth-options {
-  display: flex; align-items: center; justify-content: space-between;
-}
-.auth-options label {
-  display: flex; align-items: center; gap: var(--space-2);
-  font-size: 13px; color: var(--neutral-600); cursor: pointer;
-}
-.auth-options a {
-  font-size: 13px; color: var(--petrol-600); font-weight: 500;
-  transition: color 0.15s;
-}
-.auth-options a:hover { color: var(--petrol-700); }
-.auth-submit {
-  width: 100%; padding: 14px; margin-top: var(--space-2);
-}
-.auth-footer {
-  text-align: center; margin-top: var(--space-6);
-  font-size: 14px; color: var(--neutral-500);
-}
-.auth-footer a {
-  color: var(--petrol-600); font-weight: 600;
-  transition: color 0.15s;
-}
-.auth-footer a:hover { color: var(--petrol-700); }
-.terms-check {
-  display: flex; align-items: flex-start; gap: var(--space-2);
-}
-.terms-check input { margin-top: 3px; accent-color: var(--petrol-600); }
-.terms-check label {
-  font-size: 13px; color: var(--neutral-600); line-height: 1.5;
-}
-.terms-check a { color: var(--petrol-600); font-weight: 500; }
-
-/* Method tabs — pill-style toggle */
-.auth-method-tabs {
-  display: flex; gap: 0; background: var(--neutral-100);
-  border-radius: var(--radius-md); padding: 3px;
-}
-.auth-method-tab {
-  flex: 1; padding: 8px 16px; border: none; background: transparent;
-  font-family: var(--font-body); font-size: 13px; font-weight: 500;
-  color: var(--neutral-500); cursor: pointer; border-radius: calc(var(--radius-md) - 2px);
-  transition: all 0.2s ease;
-}
-.auth-method-tab:hover { color: var(--neutral-700); }
-.auth-method-tab.active {
-  background: white; color: var(--petrol-700); font-weight: 600;
-  box-shadow: var(--shadow-sm);
-}
-
-/* Send OTP button */
-.auth-send-otp { width: 100%; }
-
-/* OTP section */
-.auth-otp-section {
-  display: flex; flex-direction: column; gap: var(--space-1);
-}
-.auth-otp-resend {
-  display: flex; align-items: center; justify-content: flex-end;
-  margin-top: var(--space-1); font-size: 12px;
-}
-.auth-otp-timer { color: var(--neutral-400); }
-.auth-otp-resend-btn {
-  background: none; border: none; color: var(--petrol-600);
-  font-size: 12px; font-weight: 600; cursor: pointer; padding: 0;
-  font-family: var(--font-body);
-}
-.auth-otp-resend-btn:hover { color: var(--petrol-700); text-decoration: underline; }
-
-/* ==========================================================================
-   Join Flow — Two-Column Layout
-   ========================================================================== */
-
-.auth-page.join-page {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-primary);
   padding: 0;
-  background: white;
-}
-.join-layout {
-  display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: var(--space-10);
-  align-items: start;
-  min-height: calc(100vh - 52px);
-  width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: var(--space-5) var(--space-8) var(--space-8);
 }
 
-/* Left panel */
-.join-left {
-  position: sticky;
-  top: 52px;
-  height: calc(100vh - 52px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.join-left-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  padding: var(--space-7);
-  gap: var(--space-6);
+.auth-card--success {
+  text-align: center;
+  max-width: 480px;
 }
 
-/* Right panel */
-.join-right {
-  display: flex;
-  align-items: stretch;
+.auth-logo {
+  text-align: center;
+  margin-bottom: var(--space-8);
 }
-.join-right-inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-7);
+
+.auth-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-light);
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0 0 var(--space-2);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
 }
-.join-bottom-area {
-  margin-top: var(--space-6);
-  width: 100%;
-}
-.join-terms-row {
-  margin-bottom: var(--space-3);
+
+.auth-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0 0 var(--space-8);
+  line-height: var(--leading-normal);
 }
 
 /* ==========================================================================
-   Join Flow — Stacked Card Visual (Left Panel)
+   Auth Form
    ========================================================================== */
 
-.join-visual-card {
-  width: 100%;
-}
-.join-card-stack {
-  position: relative;
-  width: 100%;
-  height: 260px;
-}
-.join-stack-card {
-  position: absolute;
-  left: 0;
-  right: 0;
+.auth-form {
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  background: white;
-  border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-5) var(--space-6);
-  box-shadow: var(--shadow-md);
-  transform-origin: center bottom;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.auth-form .input-label {
+  font-weight: var(--weight-medium);
+}
+
+/* Password field with show/hide toggle */
+.input-password-wrap {
+  position: relative;
+}
+
+.input-password-wrap .input-field {
+  padding-right: var(--space-10);
+}
+
+.input-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-disabled);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.input-password-toggle:hover {
+  color: var(--text-secondary);
+}
+
+.input-password-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Forgot password row */
+.auth-forgot-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: calc(-1 * var(--space-3));
+}
+
+.auth-forgot-link {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
+  font-weight: var(--weight-medium);
+  transition: color var(--duration-fast) var(--ease);
+  text-decoration: none;
   cursor: pointer;
 }
-.join-stack-card:hover {
-  transform: rotate(0deg) translateX(0) translateY(-8px) scale(1.03) !important;
-  box-shadow: var(--shadow-xl);
-  z-index: 10 !important;
+
+.auth-forgot-link:hover {
+  color: var(--text-primary);
 }
-.join-stack-card-icon {
-  width: 48px;
+
+/* Submit button */
+.auth-submit {
+  width: 100%;
   height: 48px;
-  min-width: 48px;
-  border-radius: 50%;
-  background: var(--petrol-600);
+  margin-top: var(--space-1);
+  font-weight: var(--weight-medium);
+}
+
+.auth-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Divider */
+.auth-divider {
   display: flex;
   align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-1) 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+
+.auth-divider span {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-disabled);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+/* OTP toggle button */
+.auth-otp-toggle {
+  width: 100%;
   justify-content: center;
-  color: white;
-}
-.join-stack-card-icon svg {
-  width: 22px;
-  height: 22px;
-}
-.join-stack-card-text {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-.join-stack-card-title {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--petrol-800);
-  margin: 0;
-}
-.join-stack-card-desc {
-  font-size: 12px;
-  color: var(--neutral-500);
-  line-height: 1.4;
-  margin: 0;
+  color: var(--text-secondary);
+  font-weight: var(--weight-medium);
 }
 
-/* Step number badge — top-left corner of each card */
-.join-stack-card-num {
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--petrol-600);
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-sm);
-}
-
-/* Per-step icon colors */
-.join-stack-card-icon--1 { background: var(--amber-500); }
-.join-stack-card-icon--2 { background: var(--teal-500, #2a9d8f); }
-
-/* Fan positions — Step 3 at top, Step 1 at bottom (front) */
-.join-stack-card--2 {
-  top: 0;
-  z-index: 1;
-  opacity: 1;
-  transform: rotate(-3deg) translateX(-6px);
-}
-.join-stack-card--1 {
-  top: 70px;
-  z-index: 2;
-  opacity: 1;
-  transform: rotate(0deg);
-}
-.join-stack-card--0 {
-  top: 140px;
-  z-index: 3;
-  opacity: 1;
-  transform: rotate(3deg) translateX(6px);
+.auth-otp-toggle:hover {
+  color: var(--text-brand);
 }
 
 /* ==========================================================================
-   Join Flow — Contact Support (Left Panel)
+   OTP Digit Boxes
    ========================================================================== */
 
-.join-contact {
+.auth-otp-section {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  width: 100%;
-  margin-top: auto;
+  align-items: center;
 }
-.join-contact-title {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--neutral-400);
+
+.auth-otp-section .input-label {
+  align-self: flex-start;
 }
-.join-contact-links {
+
+.auth-otp-boxes {
   display: flex;
-  gap: var(--space-2);
-  flex-wrap: nowrap;
+  gap: var(--space-3);
+  justify-content: center;
 }
-.join-contact-btn {
-  display: inline-flex;
+
+.auth-otp-digit {
+  width: 56px;
+  height: 56px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-xl);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease),
+              box-shadow var(--duration-fast) var(--ease);
+}
+
+.auth-otp-digit:focus {
+  border-color: var(--brand-teal);
+  box-shadow: var(--focus-ring);
+}
+
+.auth-otp-digit.error {
+  border-color: var(--error);
+}
+
+.auth-otp-resend {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  background: white;
-  border: 1.5px solid var(--neutral-200);
-  border-radius: var(--radius-md);
-  padding: 6px 10px;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  white-space: nowrap;
-  flex: 1;
+  font-size: var(--text-body-sm);
 }
-.join-contact-btn svg {
-  width: 15px;
-  height: 15px;
+
+.auth-otp-timer {
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+}
+
+.auth-otp-resend-btn {
+  background: none;
+  border: none;
+  color: var(--text-brand);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  padding: 0;
+}
+
+.auth-otp-resend-btn:hover {
+  color: var(--interactive-primary-hover);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Auth Alerts
+   ========================================================================== */
+
+.auth-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-base);
+  margin-bottom: var(--space-5);
+  line-height: var(--leading-normal);
+}
+
+.auth-alert svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.auth-alert a {
+  font-weight: var(--weight-medium);
+  text-decoration: underline;
+}
+
+.auth-alert--success {
+  background: var(--success-light);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+}
+
+.auth-alert--info {
+  background: var(--info-light);
+  border: 1px solid var(--petrol-200);
+  color: var(--petrol-800);
+}
+
+/* ==========================================================================
+   Auth Footer
+   ========================================================================== */
+
+.auth-footer {
+  margin-top: var(--space-8);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.auth-footer-link {
+  color: var(--text-brand);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.auth-footer-link:hover {
+  color: var(--interactive-primary-hover);
+}
+
+/* ==========================================================================
+   Auth Checkbox
+   ========================================================================== */
+
+.auth-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.auth-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--brand-petrol);
+  cursor: pointer;
   flex-shrink: 0;
 }
-/* WhatsApp — green */
-.join-contact-btn--whatsapp {
-  color: #128C7E;
-  border-color: #25D366;
-}
-.join-contact-btn--whatsapp:hover {
-  background: #E8FDF1;
-  border-color: #128C7E;
-  box-shadow: var(--shadow-xs);
-}
-/* Toll-free — amber */
-.join-contact-btn--phone {
-  color: var(--amber-700);
-  border-color: var(--amber-400);
-}
-.join-contact-btn--phone:hover {
-  background: var(--amber-50);
-  border-color: var(--amber-500);
-  box-shadow: var(--shadow-xs);
-}
-/* Email — petrol */
-.join-contact-btn--email {
-  color: var(--petrol-600);
-  border-color: var(--petrol-300);
-}
-.join-contact-btn--email:hover {
-  background: var(--petrol-50);
-  border-color: var(--petrol-500);
-  box-shadow: var(--shadow-xs);
+
+.auth-checkbox-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
 }
 
 /* ==========================================================================
-   Join Flow — Form Header (Right Panel)
+   Password Strength Indicator
    ========================================================================== */
 
-.join-form-header {
-  margin-bottom: var(--space-5);
-}
-.join-form-title {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--petrol-800);
-  margin: 0 0 var(--space-1);
-}
-.join-form-subtitle {
-  font-size: 14px;
-  color: var(--neutral-500);
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* ==========================================================================
-   Join Flow — Compact Form (Right Panel)
-   ========================================================================== */
-
-.join-form-compact {
-}
-.join-form-compact .auth-form {
-  gap: 8px;
-}
-.join-form-compact .input-group {
-  gap: 3px;
-}
-.join-form-compact .input-field {
-  padding: 7px 12px;
-  font-size: 13px;
-}
-.join-form-compact .input-label {
-  font-size: 12px;
-}
-.join-form-compact .input-hint {
-  font-size: 11px;
-}
-.join-form-compact .auth-submit {
+.password-strength {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   margin-top: var(--space-1);
-  padding: 12px;
 }
-.join-form-compact .auth-footer {
-  margin-top: var(--space-3);
+
+.password-strength-bar {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+
+.password-strength-segment {
+  height: 4px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--neutral-100);
+  transition: background var(--duration-fast) var(--ease);
+}
+
+.password-strength-segment.active.error {
+  background: var(--error);
+}
+
+.password-strength-segment.active.warning {
+  background: var(--warning);
+}
+
+.password-strength-segment.active.teal {
+  background: var(--teal-300);
+}
+
+.password-strength-segment.active.success {
+  background: var(--success);
+}
+
+.password-strength-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  min-width: 48px;
+}
+
+.password-strength-label.error { color: var(--error); }
+.password-strength-label.warning { color: var(--warning); }
+.password-strength-label.teal { color: var(--teal-700); }
+.password-strength-label.success { color: var(--success); }
+
+/* ==========================================================================
+   Success State
+   ========================================================================== */
+
+.auth-success-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto var(--space-6);
+  color: var(--success);
+}
+
+.auth-success-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* ==========================================================================
-   Join Flow — File Upload Zone
+   Sign Up — Two-Column Layout
+   ========================================================================== */
+
+.auth-page.signup-page {
+  padding: 0;
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+}
+
+.signup-layout {
+  display: flex;
+  min-height: calc(100vh - var(--header-height));
+  width: 100%;
+}
+
+/* Left panel — form */
+.signup-form-panel {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-12) var(--space-8);
+  overflow-y: auto;
+  background: var(--bg-primary);
+}
+
+.signup-form-inner {
+  width: 100%;
+  max-width: 440px;
+}
+
+.signup-logo-link {
+  display: inline-block;
+  margin-bottom: var(--space-10);
+}
+
+.signup-form-header {
+  margin-bottom: var(--space-8);
+}
+
+.signup-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  color: var(--text-accent);
+  margin-top: var(--space-2);
+  line-height: var(--leading-normal);
+}
+
+/* Step 2 header */
+.signup-step-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.signup-back-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: none;
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.signup-back-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.signup-back-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.signup-step-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-tertiary);
+}
+
+/* Upload zones */
+.signup-uploads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.auth-skip-link {
+  width: 100%;
+  justify-content: center;
+  margin-top: calc(-1 * var(--space-2));
+}
+
+/* Right panel — image */
+.signup-image-panel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.signup-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.signup-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-8) var(--space-6);
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+}
+
+.signup-image-trust {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-inverse);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ==========================================================================
+   File Upload Zone
    ========================================================================== */
 
 .file-upload-zone {
@@ -399,59 +554,73 @@
   align-items: center;
   justify-content: center;
   gap: 2px;
-  padding: var(--space-2) var(--space-3);
-  border: 1.5px dashed var(--neutral-300);
+  padding: var(--space-4);
+  border: 1.5px dashed var(--border-strong);
   border-radius: var(--radius-md);
-  background: var(--neutral-25);
+  background: var(--bg-secondary);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  min-height: 60px;
+  transition: border-color var(--duration-normal) var(--ease),
+              background var(--duration-normal) var(--ease);
+  min-height: 72px;
 }
+
 .file-upload-zone:hover {
   border-color: var(--petrol-400);
-  background: var(--petrol-25, #f0fafb);
+  background: var(--petrol-50);
 }
+
 .file-upload-zone.error {
   border-color: var(--error);
 }
+
 .file-upload-icon {
   width: 22px;
   height: 22px;
-  color: var(--neutral-400);
+  color: var(--text-disabled);
 }
+
 .file-upload-text {
-  font-size: 13px;
-  color: var(--neutral-500);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  color: var(--text-tertiary);
 }
+
 .file-upload-text strong {
-  color: var(--petrol-600);
-  font-weight: 600;
+  color: var(--text-brand);
+  font-weight: var(--weight-medium);
 }
+
 .file-upload-hint {
-  font-size: 11px;
-  color: var(--neutral-400);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  color: var(--text-disabled);
 }
+
 .file-upload-preview {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   width: 100%;
 }
+
 .file-upload-file-icon {
   width: 20px;
   height: 20px;
   color: var(--petrol-500);
   flex-shrink: 0;
 }
+
 .file-upload-filename {
-  font-size: 13px;
-  color: var(--neutral-700);
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  font-weight: var(--weight-medium);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   flex: 1;
 }
+
 .file-upload-remove {
   display: flex;
   align-items: center;
@@ -464,139 +633,102 @@
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;
-  transition: background 0.15s;
+  transition: background var(--duration-fast) var(--ease);
 }
+
 .file-upload-remove:hover {
   background: var(--neutral-200);
 }
+
 .file-upload-remove svg {
   width: 12px;
   height: 12px;
-  color: var(--neutral-500);
+  color: var(--text-tertiary);
 }
 
 /* ==========================================================================
-   Join Flow — Pending / Confirmation State
+   Error text
    ========================================================================== */
 
-@keyframes joinFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.join-pending-section {
-  animation: joinFadeIn 0.4s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Expanded confirmation card */
-.join-confirmation--expanded {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: var(--space-8) var(--space-5);
-  background: var(--leaf-50, #EEFBF5);
-  border: 1px solid var(--leaf-100, #DCF7E6);
-  border-radius: var(--radius-lg);
-}
-.join-confirmation-hero {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: var(--leaf-100, #DCF7E6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-5);
-}
-.join-confirmation-hero-icon {
-  width: 48px;
-  height: 48px;
-  color: var(--leaf-600, #0F6B4F);
-}
-.join-confirmation-headline {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--leaf-800, #0A4D3A);
-  margin: 0 0 var(--space-3);
-}
-.join-confirmation-subtext {
-  font-size: 14px;
-  color: var(--neutral-600);
-  line-height: 1.6;
-  margin: 0 0 var(--space-7);
-  max-width: 320px;
-}
-.join-confirmation-steps {
-  width: 100%;
-  text-align: left;
-  background: white;
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-}
-.join-confirmation-steps-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--neutral-800);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 var(--space-4);
-}
-.join-confirmation-steps-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-.join-confirmation-steps-list li {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-size: 13px;
-  color: var(--neutral-700);
-  line-height: 1.5;
-}
-.join-confirmation-step-num {
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  border-radius: 50%;
-  background: var(--leaf-100, #DCF7E6);
-  color: var(--leaf-700, #0B5A43);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
+.error-text {
+  color: var(--error) !important;
+  font-size: var(--text-body-xs);
 }
 
 /* ==========================================================================
-   Responsive — Auth + Join Flow
+   Loading / Redirect State (ProtectedRoute)
    ========================================================================== */
+
+.auth-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.auth-loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-default);
+  border-top-color: var(--brand-petrol);
+  border-radius: 50%;
+  animation: auth-spin 0.7s linear infinite;
+}
+
+@keyframes auth-spin {
+  to { transform: rotate(360deg); }
+}
+
+.auth-loading-text {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-tertiary);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .auth-title {
+    font-size: var(--text-display-xs);
+  }
+
+  /* Signup: stack to single column */
+  .signup-layout {
+    flex-direction: column;
+  }
+
+  .signup-image-panel {
+    display: none;
+  }
+
+  .signup-form-panel {
+    padding: var(--space-8) var(--space-5);
+  }
+
+  .signup-form-inner {
+    max-width: 100%;
+  }
+
+  .signup-uploads {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-otp-digit {
+    width: 48px;
+    height: 48px;
+    font-size: var(--text-heading-lg);
+  }
+}
 
 @media (max-width: 540px) {
-  .auth-page { margin-top: 48px; padding: var(--space-6) var(--space-4); }
-  .auth-card { padding: var(--space-7); }
-  .auth-card h1 { font-size: 24px; }
-  .auth-form-row { grid-template-columns: 1fr; }
-  .file-upload-zone { padding: var(--space-2); min-height: 60px; }
-}
-
-@media (max-width: 900px) {
-  .auth-page.join-page { margin-top: 48px; }
-  .join-layout {
-    grid-template-columns: 1fr;
-    min-height: calc(100vh - 48px);
-    padding: var(--space-5) var(--space-5) var(--space-8);
-    gap: var(--space-8);
-  }
-  .join-left { display: none; }
-  .join-right-inner {
-    max-width: 420px;
-    margin: 0 auto;
+  .auth-card {
+    padding: 0 var(--space-1);
   }
 }

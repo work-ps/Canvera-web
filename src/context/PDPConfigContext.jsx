@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useMemo, useCallback } from 'react'
 import { calculatePrice, getStartingPrice } from '../data/pdpPricing'
 import { configSections } from '../data/pdpOptions'
+import { useAuth } from './AuthContext'
 
 const PDPConfigContext = createContext(null)
 
@@ -28,6 +29,9 @@ const initialConfig = {
 }
 
 export function PDPConfigProvider({ product, children }) {
+  const { isRegistered } = useAuth()
+  const showPricing = isRegistered
+
   const [config, setConfig] = useState(initialConfig)
   const [expandedSection, setExpandedSection] = useState('size')
   const [attemptedProceed, setAttemptedProceed] = useState(false)
@@ -188,6 +192,7 @@ export function PDPConfigProvider({ product, children }) {
     resetConfig,
     pricing,
     startingPrice,
+    showPricing,
     sectionStates,
     allRequiredComplete,
     visibleSections,

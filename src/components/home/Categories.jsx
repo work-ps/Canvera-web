@@ -13,7 +13,7 @@ export default function Categories() {
         <div className="categories-grid">
           {categories.map(cat => (
             <Link
-              to={`/products?category=${cat.slug}`}
+              to={`/shop?category=${cat.slug}`}
               className="category-card"
               key={cat.id}
             >

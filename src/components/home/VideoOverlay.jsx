@@ -93,7 +93,7 @@ export default function VideoOverlay({ open, onClose }) {
             <span className="video-overlay-title">Discover what makes Canvera India's #1 photobook platform</span>
             <span className="video-overlay-subtitle">Craftsmanship · Precision · Quality · B2B Partnership · White-glove Support</span>
           </div>
-          <Link to="/register" className="video-overlay-cta" onClick={onClose}>
+          <Link to="/signup" className="video-overlay-cta" onClick={onClose}>
             Join Now
             <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Link>

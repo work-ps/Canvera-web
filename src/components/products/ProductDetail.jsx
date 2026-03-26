@@ -1,465 +1,572 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react'
-import StarRating from '../ui/StarRating'
 import ProductCard from '../home/ProductCard'
-import ProductShowcase from './ProductShowcase'
+import ProductDetailTabs from './ProductDetailTabs'
 import { useCompare } from '../../context/CompareContext'
 import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
 import products from '../../data/products'
-import { getProductImages } from '../../data/productImages'
-import { getStartingPrice, basePrices, surcharges } from '../../data/pdpPricing'
-import { sizeLabels, orientationOptions, bindingDescriptions } from '../../data/pdpOptions'
-import ConfigCard from '../pdp/ConfigCard'
-import TooltipIcon from '../pdp/TooltipIcon'
+import { getProductImages, getProductThumbnail } from '../../data/productImages'
+import { getStartingPrice } from '../../data/pdpPricing'
+import { sizeLabels, bindingDescriptions } from '../../data/pdpOptions'
 import '../../styles/product-detail.css'
-import '../../styles/product-showcase.css'
-import '../../styles/popular-products.css'
 
-const productSvgs = {
-  petrol: <svg viewBox="0 0 120 90" fill="none"><rect x="5" y="5" width="110" height="80" rx="8" stroke="currentColor" strokeWidth="2"/><path d="M5 65l30-22 20 12 25-20 30 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><circle cx="35" cy="35" r="10" stroke="currentColor" strokeWidth="1.5"/></svg>,
-  amber: <svg viewBox="0 0 120 90" fill="none"><rect x="5" y="5" width="110" height="80" rx="8" stroke="currentColor" strokeWidth="2"/><path d="M60 25v40M40 45h40" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
-  warm: <svg viewBox="0 0 120 90" fill="none"><path d="M60 12c-12 0-22 4-22 4v60s10-4 22-4 22 4 22 4V16s-10-4-22-4z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/><path d="M60 12v60" stroke="currentColor" strokeWidth="1.5"/></svg>,
-  dark: <svg viewBox="0 0 120 90" fill="none"><rect x="5" y="5" width="110" height="80" rx="8" stroke="currentColor" strokeWidth="2"/><path d="M35 30l12 12-12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M55 60h30" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
-  neutral: <svg viewBox="0 0 120 90" fill="none"><rect x="10" y="5" width="100" height="80" rx="6" stroke="currentColor" strokeWidth="2"/><rect x="20" y="15" width="80" height="45" rx="4" stroke="currentColor" strokeWidth="1.5"/><path d="M20 45l20-15 12 8 18-14 18 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  mixed: <svg viewBox="0 0 120 90" fill="none"><rect x="15" y="8" width="90" height="74" rx="4" stroke="currentColor" strokeWidth="2"/><path d="M30 25h60M30 38h45M30 51h52M30 64h35" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  leaf: <svg viewBox="0 0 120 90" fill="none"><path d="M60 80V38" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M60 38c-24-16-42 0-42 20s28 12 42-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M60 50c16-20 38-8 38 8s-24 16-38 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  deep: <svg viewBox="0 0 120 90" fill="none"><rect x="8" y="10" width="104" height="70" rx="6" stroke="currentColor" strokeWidth="2"/><path d="M8 28h104" stroke="currentColor" strokeWidth="1.5"/><path d="M30 48l16 16 34-30" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+/* ── SVG Icons (inline, no deps) ── */
+function StarIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="var(--brand-teal)">
+      <path d="M7 1l1.76 3.57 3.94.57-2.85 2.78.67 3.93L7 10.07l-3.52 1.78.67-3.93L1.3 5.14l3.94-.57L7 1z" />
+    </svg>
+  )
 }
 
-function ProductImageGallery({ product, productSvgs }) {
+function ChevronRight() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ChevronLeft() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function CloseIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function CompareIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M4 2v12M12 2v12M1 5h6M9 11h6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ShieldIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 1L2 3v4c0 3.3 2.1 5.4 5 6 2.9-.6 5-2.7 5-6V3L7 1z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 7l1.5 1.5L9 5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function TruckIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M1 3h8v6H1zM9 5h2.5L13 7.5V9h-4V5z" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="3.5" cy="10.5" r="1.5" stroke="currentColor" strokeWidth="1.1" />
+      <circle cx="10.5" cy="10.5" r="1.5" stroke="currentColor" strokeWidth="1.1" />
+    </svg>
+  )
+}
+
+function LockIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.1" />
+      <path d="M5 6V4a2 2 0 114 0v2" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function CartIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M1 1h2l2 9h8l2-6H5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="6" cy="13" r="1" fill="currentColor" /><circle cx="12" cy="13" r="1" fill="currentColor" />
+    </svg>
+  )
+}
+
+/* ── Image Gallery ── */
+function ProductImageGallery({ product }) {
   const images = getProductImages(product.slug)
   const [activeIdx, setActiveIdx] = useState(0)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [imgLoaded, setImgLoaded] = useState(false)
   const hasImages = images.length > 0
-  const fallbackSvg = productSvgs[product.imageVariant] || productSvgs.petrol
+
+  // Reset when product changes
+  useEffect(() => {
+    setActiveIdx(0)
+    setImgLoaded(false)
+  }, [product.slug])
+
+  const goTo = useCallback((idx) => {
+    setImgLoaded(false)
+    setActiveIdx(idx)
+  }, [])
+
+  const goPrev = useCallback(() => {
+    setImgLoaded(false)
+    setActiveIdx(i => (i === 0 ? images.length - 1 : i - 1))
+  }, [images.length])
+
+  const goNext = useCallback(() => {
+    setImgLoaded(false)
+    setActiveIdx(i => (i === images.length - 1 ? 0 : i + 1))
+  }, [images.length])
+
+  // Keyboard nav in lightbox
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const handler = (e) => {
+      if (e.key === 'Escape') setLightboxOpen(false)
+      if (e.key === 'ArrowLeft') goPrev()
+      if (e.key === 'ArrowRight') goNext()
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [lightboxOpen, goPrev, goNext])
 
   if (!hasImages) {
     return (
-      <div className={`product-image-wrap pc-img-${product.imageVariant}`}>
-        {fallbackSvg}
+      <div className="pdp-gallery">
+        <div className="pdp-gallery__main pdp-gallery__placeholder">
+          <div className="pdp-gallery__placeholder-inner">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <rect x="4" y="8" width="56" height="48" rx="6" stroke="var(--text-tertiary)" strokeWidth="2" />
+              <circle cx="22" cy="26" r="6" stroke="var(--text-tertiary)" strokeWidth="2" />
+              <path d="M4 42l16-12 10 8 14-14 16 12" stroke="var(--text-tertiary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span>No images available</span>
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="product-image-wrap pdp-gallery">
-      <div className="pdp-gallery-main">
-        <img
-          src={images[activeIdx]}
-          alt={`${product.name} — image ${activeIdx + 1}`}
-          className="pdp-gallery-hero"
-        />
+    <div className="pdp-gallery">
+      {/* Main image */}
+      <div className="pdp-gallery__main" onClick={() => setLightboxOpen(true)} role="button" tabIndex={0} aria-label="Open fullscreen image">
+        <div className="pdp-gallery__img-wrap">
+          <img
+            key={images[activeIdx]}
+            src={images[activeIdx]}
+            alt={`${product.name} - image ${activeIdx + 1}`}
+            className={`pdp-gallery__hero${imgLoaded ? ' pdp-gallery__hero--loaded' : ''}`}
+            onLoad={() => setImgLoaded(true)}
+            draggable={false}
+          />
+        </div>
+        {images.length > 1 && (
+          <div className="pdp-gallery__counter badge-glass">
+            {activeIdx + 1} / {images.length}
+          </div>
+        )}
       </div>
+
+      {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="pdp-gallery-thumbs">
+        <div className="pdp-gallery__thumbs">
           {images.map((src, i) => (
             <button
               key={i}
-              className={`pdp-thumb${i === activeIdx ? ' pdp-thumb-active' : ''}`}
-              onClick={() => setActiveIdx(i)}
+              className={`pdp-gallery__thumb${i === activeIdx ? ' pdp-gallery__thumb--active' : ''}`}
+              onClick={() => goTo(i)}
               aria-label={`View image ${i + 1}`}
             >
-              <img src={src} alt={`${product.name} thumb ${i + 1}`} loading="lazy" />
+              <img src={src} alt="" loading="lazy" draggable={false} />
             </button>
           ))}
         </div>
       )}
-    </div>
-  )
-}
 
-function PdpPriceAndConfig({ product, slug, isVerified, isRegistered, addToCart, navigate }) {
-  const sizes = product.sizes || []
-  const orientations = product.orientations || []
-  const bindings = product.bindings || []
-
-  const [selectedSize, setSelectedSize] = useState(sizes[0] || null)
-  const [selectedOrientation, setSelectedOrientation] = useState(orientations[0] || null)
-  const [selectedBinding, setSelectedBinding] = useState(bindings[0] || null)
-  const [wishlisted, setWishlisted] = useState(false)
-  const [bindingDrawer, setBindingDrawer] = useState(false)
-
-  const startingPrice = getStartingPrice(product.id)
-  const currentPrice = basePrices[product.id]?.[selectedSize] || startingPrice
-  const productPrices = basePrices[product.id] || {}
-
-  const handleBuyNow = () => {
-    navigate(`/order/${slug}`, {
-      state: { size: selectedSize, orientation: selectedOrientation, binding: selectedBinding }
-    })
-  }
-
-  return (
-    <div className="product-price-box">
-      {/* Starting Price */}
-      {startingPrice && (
-        <div className="pdp-starting-price">
-          <span className="pdp-starting-label">STARTING FROM</span>
-          <span className="pdp-starting-amount">&#x20B9;{(currentPrice || startingPrice).toLocaleString('en-IN')}</span>
-        </div>
-      )}
-
-      {/* Size — ConfigCards */}
-      {sizes.length > 0 && (
-        <div className="pdp-selector">
-          <label className="pdp-selector-label">
-            Size
-            <TooltipIcon text="The physical dimensions of your closed album." />
-          </label>
-          <div className="pdp-config-cards">
-            {sizes.map((s, idx) => {
-              const info = sizeLabels[s]
-              const price = productPrices[s]
-              return (
-                <ConfigCard
-                  key={s}
-                  selected={selectedSize === s}
-                  badge={idx === 0 ? 'Most Popular' : undefined}
-                  title={info?.label || s}
-                  subtitle={info?.format || ''}
-                  specs={info?.printArea ? [`Print area ${info.printArea}`] : undefined}
-                  price={price}
-                  priceType="from"
-                  onClick={() => setSelectedSize(s)}
-                />
-              )
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Orientation — ConfigCards */}
-      {orientations.length > 0 && (
-        <div className="pdp-selector">
-          <label className="pdp-selector-label">Orientation</label>
-          <div className="pdp-config-cards">
-            {orientations.map(o => {
-              const info = orientationOptions.find(opt => opt.id === o)
-              return (
-                <ConfigCard
-                  key={o}
-                  selected={selectedOrientation === o}
-                  title={o}
-                  subtitle={info?.description || ''}
-                  specs={info?.bestFor ? [`Best for: ${info.bestFor}`] : undefined}
-                  onClick={() => setSelectedOrientation(o)}
-                />
-              )
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Binding — stacked ConfigCards + comparison helper */}
-      {bindings.length > 0 && (
-        <div className="pdp-selector">
-          <label className="pdp-selector-label">
-            Binding Type
-            <TooltipIcon text="How your pages open and lie flat. Affects the reading experience." />
-          </label>
-          <div className="pdp-config-cards pdp-config-cards--stack">
-            {bindings.map(b => {
-              const info = bindingDescriptions[b] || {}
-              const cost = surcharges.bindings[b] ?? 0
-              return (
-                <ConfigCard
-                  key={b}
-                  selected={selectedBinding === b}
-                  title={b}
-                  subtitle={info.description || ''}
-                  specs={info.specs}
-                  price={cost > 0 ? cost : null}
-                  priceType={cost > 0 ? 'addon' : 'included'}
-                  onClick={() => setSelectedBinding(b)}
-                />
-              )
-            })}
-          </div>
-          {bindings.length > 1 && (
-            <div style={{ marginTop: 12 }}>
-              <button className="pdp-faq-toggle" type="button" onClick={() => setBindingDrawer(p => !p)} aria-expanded={bindingDrawer}>
-                Not sure which binding?<span style={{ marginLeft: 4 }}>{bindingDrawer ? '\u2191' : '\u2192'}</span> See comparison
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div className="pdp-lightbox" onClick={() => setLightboxOpen(false)}>
+          <div className="pdp-lightbox__inner" onClick={(e) => e.stopPropagation()}>
+            <button className="pdp-lightbox__close" onClick={() => setLightboxOpen(false)} aria-label="Close lightbox">
+              <CloseIcon />
+            </button>
+            {images.length > 1 && (
+              <button className="pdp-lightbox__arrow pdp-lightbox__arrow--prev" onClick={goPrev} aria-label="Previous image">
+                <ChevronLeft />
               </button>
+            )}
+            <img
+              src={images[activeIdx]}
+              alt={`${product.name} - image ${activeIdx + 1}`}
+              className="pdp-lightbox__img"
+            />
+            {images.length > 1 && (
+              <button className="pdp-lightbox__arrow pdp-lightbox__arrow--next" onClick={goNext} aria-label="Next image">
+                <ChevronRight />
+              </button>
+            )}
+            <div className="pdp-lightbox__counter">
+              {activeIdx + 1} / {images.length}
             </div>
-          )}
-          {bindingDrawer && (
-            <div className="pdp-drawer-overlay" onClick={e => { if (e.target === e.currentTarget) setBindingDrawer(false) }}>
-              <div className="pdp-drawer" role="dialog" aria-label="Binding comparison">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700 }}>Binding Comparison</h3>
-                  <button type="button" onClick={() => setBindingDrawer(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--neutral-500)', padding: 4 }} aria-label="Close">&times;</button>
-                </div>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-                  <thead>
-                    <tr style={{ borderBottom: '2px solid var(--neutral-200)' }}>
-                      <th style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--neutral-600)' }}>Binding</th>
-                      <th style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--neutral-600)' }}>Opening</th>
-                      <th style={{ textAlign: 'right', padding: '8px 12px', color: 'var(--neutral-600)' }}>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {bindings.map(b => {
-                      const cost = surcharges.bindings[b] ?? 0
-                      const opening = b.includes('Layflat') ? '180\u00B0 flat' : b === 'Continuous' ? 'Seamless flow' : b === 'Splicing' ? 'Traditional spine' : b === 'Spiral' ? '360\u00B0 flip' : '\u2014'
-                      return (
-                        <tr key={b} style={{ borderBottom: '1px solid var(--neutral-100)' }}>
-                          <td style={{ padding: '8px 12px', fontWeight: 600, color: 'var(--neutral-900)' }}>{b}</td>
-                          <td style={{ padding: '8px 12px', color: 'var(--neutral-600)' }}>{opening}</td>
-                          <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 500 }}>{cost > 0 ? `+ \u20B9${cost.toLocaleString('en-IN')}` : 'Included'}</td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Auth-conditional CTAs */}
-      {isVerified ? (
-        <div className="pdp-cta-row">
-          <button className="btn btn-primary btn-md pdp-buy-now" onClick={handleBuyNow}>
-            Buy Now
-            <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
-          <button
-            className="btn btn-outline btn-md"
-            onClick={() => {
-              addToCart(product, { size: selectedSize, orientation: selectedOrientation, binding: selectedBinding, complete: false, price: currentPrice || 0 })
-              navigate('/cart')
-            }}
-          >
-            <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M1 1h2l2 9h8l2-6H5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><circle cx="6" cy="13" r="1" fill="currentColor"/><circle cx="12" cy="13" r="1" fill="currentColor"/></svg>
-            Add to Cart
-          </button>
-          <button
-            className={`btn btn-outline btn-md pdp-wishlist${wishlisted ? ' pdp-wishlist--active' : ''}`}
-            onClick={() => setWishlisted(w => !w)}
-          >
-            <svg viewBox="0 0 16 16" fill={wishlisted ? 'currentColor' : 'none'} width="16" height="16">
-              <path d="M8 14s-5.5-3.5-5.5-7A3.5 3.5 0 018 4a3.5 3.5 0 015.5 3c0 3.5-5.5 7-5.5 7z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-        </div>
-      ) : isRegistered ? (
-        <>
-          <h3 style={{ marginTop: 16 }}>Verification Pending</h3>
-          <p>Your account is awaiting verification. Once approved, you'll unlock exclusive pro pricing and ordering.</p>
-          <div className="price-pending-badge">
-            <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="8" cy="8" r="7" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5"/><path d="M8 5v4" stroke="var(--amber-500, #f59e0b)" strokeWidth="1.5" strokeLinecap="round"/><circle cx="8" cy="11.5" r="0.75" fill="var(--amber-500, #f59e0b)"/></svg>
-            <span>Pending review — typically 1-2 business days</span>
           </div>
-        </>
-      ) : (
-        <>
-          <h3 style={{ marginTop: 16 }}>Login to See Pricing</h3>
-          <p>Exclusive pricing for registered photographers. Sign in or create a free account to view prices and place orders.</p>
-          <div className="price-ctas">
-            <Link to="/login" className="btn btn-primary btn-md">Sign In</Link>
-            <Link to="/signup" className="btn btn-outline btn-md">Create Free Account</Link>
-          </div>
-        </>
+        </div>
       )}
     </div>
   )
 }
 
+/* ── Main PDP Component ── */
 export default function ProductDetail() {
   const { slug } = useParams()
+  const navigate = useNavigate()
   const { isInCompare, addToCompare, removeFromCompare, isCompareFull } = useCompare()
   const { isRegistered, isVerified } = useAuth()
-  const { addToCart } = useCart()
-  const navigate = useNavigate()
+  const { addToCart, showToast } = useCart()
 
   const product = useMemo(() => products.find(p => p.slug === slug), [slug])
 
-  const related = useMemo(() => {
-    if (!product) return []
-    const sameCategory = products.filter(p => p.category === product.category && p.id !== product.id)
-    const others = products.filter(p => p.category !== product.category && p.id !== product.id)
-    return [...sameCategory, ...others].slice(0, 10)
+  // PDP local selection state
+  const [selectedSize, setSelectedSize] = useState(null)
+  const [selectedOrientation, setSelectedOrientation] = useState(null)
+  const [selectedBinding, setSelectedBinding] = useState(null)
+  const [addedToCart, setAddedToCart] = useState(false)
+
+  // Initialize selectors when product changes
+  useEffect(() => {
+    if (product) {
+      setSelectedSize(product.sizes?.[0] || null)
+      setSelectedOrientation(product.orientations?.[0] || null)
+      setSelectedBinding(product.bindings?.[0] || null)
+      setAddedToCart(false)
+    }
   }, [product])
 
-  const relScrollRef = useRef(null)
-  const [relCanScrollLeft, setRelCanScrollLeft] = useState(false)
-  const [relScrolledEnd, setRelScrolledEnd] = useState(false)
+  const startingPrice = useMemo(() => {
+    if (!product) return null
+    return getStartingPrice(product.id)
+  }, [product])
 
-  const updateRelScroll = useCallback(() => {
-    const el = relScrollRef.current
-    if (!el) return
-    setRelCanScrollLeft(el.scrollLeft > 10)
-    setRelScrolledEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 10)
-  }, [])
+  const related = useMemo(() => {
+    if (!product) return []
+    return products
+      .filter(p => p.category === product.category && p.id !== product.id)
+      .slice(0, 4)
+  }, [product])
 
+  // Scroll to top on product change
   useEffect(() => {
-    const el = relScrollRef.current
-    if (!el) return
-    updateRelScroll()
-    el.addEventListener('scroll', updateRelScroll, { passive: true })
-    return () => el.removeEventListener('scroll', updateRelScroll)
-  }, [updateRelScroll, related])
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [slug])
 
-  const scrollRelated = (dir) => {
-    const el = relScrollRef.current
-    if (!el) return
-    const card = el.querySelector('.product-card-link')
-    const cardW = card ? card.getBoundingClientRect().width + 20 : 300
-    el.scrollBy({ left: dir === 'left' ? -cardW : cardW, behavior: 'smooth' })
+  const buildInitialConfig = useCallback(() => ({
+    size: selectedSize,
+    orientation: selectedOrientation,
+    binding: selectedBinding,
+    price: startingPrice || 0,
+  }), [selectedSize, selectedOrientation, selectedBinding, startingPrice])
+
+  const handleOrderNow = () => {
+    if (!isRegistered) {
+      navigate('/login')
+      return
+    }
+    const config = buildInitialConfig()
+    addToCart(product, config, 'new')
+    navigate(`/order/${slug}`, { state: { size: selectedSize, orientation: selectedOrientation, binding: selectedBinding } })
   }
 
+  const handleAddToCart = () => {
+    if (!isRegistered) {
+      navigate('/login')
+      return
+    }
+    const config = buildInitialConfig()
+    addToCart(product, config, 'new')
+    showToast('Added to cart')
+    setAddedToCart(true)
+    setTimeout(() => setAddedToCart(false), 2000)
+  }
+
+  const handleCompareToggle = () => {
+    if (!product) return
+    if (isInCompare(product.id)) {
+      removeFromCompare(product.id)
+    } else if (!isCompareFull) {
+      addToCompare(product)
+    }
+  }
+
+  // Spec mini-cards data
+  const specCards = useMemo(() => {
+    if (!product) return []
+    const cards = []
+    if (product.sizes?.length) {
+      cards.push({
+        label: 'Sizes',
+        value: product.sizes.map(s => sizeLabels[s]?.label || s).join(', ')
+      })
+    }
+    if (product.bindings?.length) {
+      cards.push({
+        label: 'Binding',
+        value: product.bindings.join(', ')
+      })
+    }
+    if (product.material) {
+      cards.push({ label: 'Material', value: product.material })
+    }
+    if (product.occasions?.length) {
+      cards.push({
+        label: 'Occasions',
+        value: product.occasions.slice(0, 2).map(o => o.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())).join(', ')
+      })
+    }
+    return cards.slice(0, 4)
+  }, [product])
+
+  /* ── 404 state ── */
   if (!product) {
     return (
-      <div className="product-detail">
-        <div className="product-detail-inner" style={{ textAlign: 'center', padding: '120px 0' }}>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 32, color: 'var(--petrol-800)', marginBottom: 16 }}>Product Not Found</h1>
-          <p style={{ color: 'var(--neutral-500)', marginBottom: 24 }}>The product you're looking for doesn't exist.</p>
-          <Link to="/shop" className="btn btn-primary btn-md">Browse All Products</Link>
+      <div className="pdp">
+        <div className="container">
+          <div className="pdp__not-found">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="20" stroke="var(--border-default)" strokeWidth="2" />
+              <path d="M18 18l12 12M30 18L18 30" stroke="var(--text-tertiary)" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <h1>Product Not Found</h1>
+            <p>The product you are looking for does not exist or has been removed.</p>
+            <Link to="/shop" className="btn btn-primary">Browse All Products</Link>
+          </div>
         </div>
       </div>
     )
   }
 
-  const inCompare = isInCompare(product.id)
-  const compareFull = isCompareFull && !inCompare
-
-  const handleCompare = () => {
-    if (inCompare) removeFromCompare(product.id)
-    else if (!compareFull) addToCompare(product)
-  }
-
-  const specsRows = [
-    ['Category', product.category],
-    ['Type', product.tag],
-    ['Material', product.material],
-    ['Specifications', product.specs],
-    product.sizes?.length > 0 && ['Sizes Available', product.sizes.join(', ')],
-    product.orientations?.length > 0 && ['Orientations', product.orientations.join(', ')],
-    product.bindings?.length > 0 && ['Bindings', product.bindings.join(', ')],
-    ['Rating', `${product.rating} / 5 (${product.reviewCount}+ reviews)`],
-    ['Availability', 'In Stock'],
-    ['Delivery', '5–7 business days'],
-    ['Design Service', 'Free included'],
-  ].filter(Boolean)
-
-  const features = product.features || []
+  const comparing = isInCompare(product.id)
+  const hasSizes = product.sizes?.length > 0
+  const hasOrientations = product.orientations?.length > 0
+  const hasBindings = product.bindings?.length > 0
 
   return (
-    <div className="product-detail">
-      <div className="product-detail-inner">
-        <div className="breadcrumb">
+    <div className="pdp">
+      <div className="container">
+        {/* Breadcrumb */}
+        <nav className="pdp__breadcrumb" aria-label="Breadcrumb">
           <Link to="/">Home</Link>
-          <span>/</span>
-          <Link to="/shop">Products</Link>
-          <span>/</span>
-          <span className="current">{product.name}</span>
-        </div>
+          <span className="pdp__breadcrumb-sep">/</span>
+          <Link to="/shop">Shop</Link>
+          <span className="pdp__breadcrumb-sep">/</span>
+          <span className="pdp__breadcrumb-current">{product.name}</span>
+        </nav>
 
-        <div className="product-detail-layout">
-          <ProductImageGallery product={product} productSvgs={productSvgs} />
-
-          <div className="product-info">
-            <div className="product-tag">{product.tag}</div>
-            <h1>{product.name}</h1>
-            <div className="product-rating-row">
-              <StarRating rating={product.rating} />
-              <span className="pc-rating-text">
-                <strong>{product.rating}</strong> ({product.reviewCount}+ reviews)
-              </span>
-            </div>
-
-            <p className="product-desc">{product.description}</p>
-
-            {features.length > 0 && (
-              <div className="product-features">
-                {features.map((f, i) => (
-                  <span key={i} className="feature-tag">
-                    <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    {f}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            <PdpPriceAndConfig
-              product={product}
-              slug={slug}
-              isVerified={isVerified}
-              isRegistered={isRegistered}
-              addToCart={addToCart}
-              navigate={navigate}
-            />
-
-            <button
-              className={`btn btn-outline btn-md compare-detail-btn${inCompare ? ' compare-active' : ''}`}
-              onClick={handleCompare}
-              disabled={compareFull}
-              title={compareFull ? 'Maximum 4 products can be compared' : ''}
-            >
-              {inCompare ? (
-                <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-                  <path d="M3.5 8.5L6.5 11.5L12.5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              ) : (
-                <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-                  <rect x="1" y="4" width="7" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
-                  <rect x="8" y="3" width="7" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
-                </svg>
-              )}
-              {inCompare ? 'Remove from Compare' : 'Add to Compare'}
-            </button>
-
-            <div className="product-specs">
-              <h3>Specifications</h3>
-              <table className="specs-table">
-                <tbody>
-                  {specsRows.map(([label, value], i) => (
-                    <tr key={i}>
-                      <td>{label}</td>
-                      <td>{value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+        {/* Two-column layout */}
+        <div className="pdp__layout">
+          {/* Left: Gallery */}
+          <div className="pdp__gallery-col">
+            <ProductImageGallery product={product} />
           </div>
-        </div>
 
-        {/* Interactive Product Showcase */}
-        <ProductShowcase product={product} />
+          {/* Right: Product info (sticky) */}
+          <div className="pdp__info-col">
+            <div className="pdp__info">
+              {/* Collection tag */}
+              {product.tag && (
+                <span className="pdp__collection-tag">{product.tag}</span>
+              )}
 
-        {related.length > 0 && (
-          <div className="related-products">
-            <h2>Related Products</h2>
-            <div className={`related-scroll-wrap${relCanScrollLeft ? ' can-scroll-left' : ''}${relScrolledEnd ? ' scrolled-end' : ''}`}>
-              <div className="related-scroll" ref={relScrollRef}>
-                <div className="related-scroll-track">
-                  {related.map(p => (
-                    <ProductCard key={p.id} product={p} showCompare listingMode />
-                  ))}
+              {/* Product name */}
+              <h1 className="pdp__name">{product.name}</h1>
+
+              {/* Rating */}
+              {product.rating && (
+                <div className="pdp__rating">
+                  <StarIcon />
+                  <span className="pdp__rating-num">{product.rating}</span>
+                  <span className="pdp__rating-count">({product.reviewCount} reviews)</span>
                 </div>
+              )}
+
+              {/* Price */}
+              <div className="pdp__price-section">
+                {isRegistered && startingPrice ? (
+                  <span className="pdp__price">
+                    From &#x20B9;{startingPrice.toLocaleString('en-IN')}
+                  </span>
+                ) : (
+                  <Link to="/login" className="pdp__price-login">
+                    Sign in to see pricing
+                  </Link>
+                )}
               </div>
-              {related.length > 3 && (
+
+              {/* Description */}
+              {product.description && (
+                <p className="pdp__description">{product.description}</p>
+              )}
+
+              {/* Divider */}
+              <hr className="pdp__divider" />
+
+              {/* ── Size Selector ── */}
+              {hasSizes && (
+                <div className="pdp__selector">
+                  <span className="pdp__selector-label">Size</span>
+                  <div className="pdp__selector-pills">
+                    {product.sizes.map(s => (
+                      <button
+                        key={s}
+                        className={`pdp__pill${selectedSize === s ? ' pdp__pill--active' : ''}`}
+                        onClick={() => setSelectedSize(s)}
+                      >
+                        {sizeLabels[s]?.label || s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ── Orientation Selector ── */}
+              {hasOrientations && (
+                <div className="pdp__selector">
+                  <span className="pdp__selector-label">Orientation</span>
+                  <div className="pdp__selector-cards">
+                    {product.orientations.map(o => (
+                      <button
+                        key={o}
+                        className={`pdp__option-card${selectedOrientation === o ? ' pdp__option-card--active' : ''}`}
+                        onClick={() => setSelectedOrientation(o)}
+                      >
+                        <span className="pdp__option-card-name">{o}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ── Binding Selector ── */}
+              {hasBindings && (
+                <div className="pdp__selector">
+                  <span className="pdp__selector-label">Binding</span>
+                  <div className="pdp__selector-cards">
+                    {product.bindings.map(b => (
+                      <button
+                        key={b}
+                        className={`pdp__option-card${selectedBinding === b ? ' pdp__option-card--active' : ''}`}
+                        onClick={() => setSelectedBinding(b)}
+                      >
+                        <span className="pdp__option-card-name">{b}</span>
+                        {bindingDescriptions[b]?.description && (
+                          <span className="pdp__option-card-desc">
+                            {bindingDescriptions[b].description.slice(0, 60)}...
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Divider before CTAs */}
+              <hr className="pdp__divider" />
+
+              {/* ── 3 CTAs ── */}
+              {isRegistered ? (
                 <>
-                  <button
-                    className={`scroll-arrow scroll-left${!relCanScrollLeft ? ' hidden' : ''}`}
-                    onClick={() => scrollRelated('left')}
-                    aria-label="Scroll left"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  {/* Order Now */}
+                  <button className="btn btn-primary btn-lg pdp__cta-primary" onClick={handleOrderNow}>
+                    Order Now <ArrowRightIcon />
                   </button>
-                  <button
-                    className={`scroll-arrow scroll-right${relScrolledEnd ? ' hidden' : ''}`}
-                    onClick={() => scrollRelated('right')}
-                    aria-label="Scroll right"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+
+                  {/* Add to Cart */}
+                  <button className="btn btn-secondary pdp__cta-add-cart" onClick={handleAddToCart}>
+                    <CartIcon />
+                    {addedToCart ? 'Added to Cart' : 'Add to Cart'}
                   </button>
                 </>
+              ) : (
+                <>
+                  <button className="btn btn-primary btn-lg pdp__cta-primary" onClick={() => navigate('/login')}>
+                    Sign In to Order <ArrowRightIcon />
+                  </button>
+                  <p className="pdp__signin-note">Sign in to see pricing and place orders</p>
+                </>
               )}
+
+              {/* Add to Compare */}
+              <button
+                className={`btn btn-ghost pdp__cta-compare${comparing ? ' pdp__cta-compare--active' : ''}`}
+                onClick={handleCompareToggle}
+                disabled={!comparing && isCompareFull}
+              >
+                <CompareIcon />
+                {comparing ? 'Remove from Compare' : 'Add to Compare'}
+              </button>
+
+              {/* Spec mini-cards */}
+              {specCards.length > 0 && (
+                <div className="pdp__specs-grid">
+                  {specCards.map((spec, i) => (
+                    <div key={i} className="pdp__spec-card">
+                      <span className="pdp__spec-label">{spec.label}</span>
+                      <span className="pdp__spec-value">{spec.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Trust signals */}
+              <div className="pdp__trust">
+                <span className="pdp__trust-item">
+                  <ShieldIcon />
+                  Quality Guaranteed
+                </span>
+                <span className="pdp__trust-sep">|</span>
+                <span className="pdp__trust-item">
+                  <TruckIcon />
+                  Pan-India Delivery
+                </span>
+                <span className="pdp__trust-sep">|</span>
+                <span className="pdp__trust-item">
+                  <LockIcon />
+                  Secure Checkout
+                </span>
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Below fold: Accordion details */}
+        <hr className="pdp__divider pdp__divider--section" />
+        <ProductDetailTabs product={product} />
+
+        {/* You May Also Like */}
+        {related.length > 0 && (
+          <section className="pdp__related">
+            <div className="pdp__related-header">
+              <h2 className="heading-lg">You May Also Like</h2>
+              <Link to="/shop" className="link-arrow">
+                View All
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </div>
+            <div className="pdp__related-grid">
+              {related.map(p => (
+                <ProductCard key={p.id} product={p} showCompare listingMode />
+              ))}
+            </div>
+          </section>
         )}
       </div>
     </div>

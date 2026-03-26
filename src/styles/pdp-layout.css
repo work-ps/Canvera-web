@@ -1,32 +1,35 @@
 /* ==========================================================================
-   PDP Layout — Two-zone grid, sticky positioning, responsive
+   PDP Layout — Canvera Design System
+   Two-panel: left 50% sticky visualizer, right 50% scrollable config
    ========================================================================== */
 
 .pdp-page {
   min-height: 100vh;
-  background: #fff;
+  background: var(--bg-primary);
 }
 
-/* ---- Two-zone layout ---- */
+/* ---- Two-panel layout ---- */
 .pdp-layout {
   display: grid;
-  grid-template-columns: 55% 45%;
-  max-width: 1400px;
+  grid-template-columns: 50% 50%;
+  max-width: var(--max-width);
   margin: 0 auto;
-  min-height: calc(100vh - 52px);
+  padding: 0 var(--side-padding);
+  min-height: calc(100vh - var(--header-height));
 }
 
 .pdp-left {
   position: sticky;
-  top: 52px;
-  height: calc(100vh - 52px);
+  top: calc(var(--header-height) + var(--space-6));
+  height: calc(100vh - var(--header-height) - var(--space-6));
   overflow: hidden;
 }
 
 .pdp-right {
   padding: var(--space-8) var(--space-8) var(--space-12);
-  border-left: 1px solid var(--neutral-100);
-  min-height: calc(100vh - 52px);
+  border-left: 1px solid var(--border-default);
+  min-height: calc(100vh - var(--header-height));
+  background: var(--bg-primary);
 }
 
 /* ---- Block labels (visual separators) ---- */
@@ -34,12 +37,12 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin: var(--space-9) 0 var(--space-6);
-  color: var(--neutral-500);
-  font-family: var(--font-body);
+  margin: var(--space-8) 0 var(--space-6);
+  color: var(--text-accent);
+  font-family: var(--font-sans);
   font-size: var(--text-body-xs);
-  font-weight: var(--weight-semibold);
-  letter-spacing: 0.08em;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
 }
 
@@ -47,7 +50,7 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--neutral-100);
+  background: var(--border-default);
 }
 
 /* ---- Section spacing ---- */
@@ -60,12 +63,12 @@
 /* ---- Full-width post-config area ---- */
 .pdp-post-config {
   grid-column: 1 / -1;
-  background: var(--neutral-50);
-  padding: var(--space-12) var(--space-8);
+  background: var(--bg-secondary);
+  padding: var(--space-12) var(--side-padding);
 }
 
 .pdp-post-config-inner {
-  max-width: 1120px;
+  max-width: var(--max-width);
   margin: 0 auto;
 }
 
@@ -82,14 +85,14 @@
   }
 
   .pdp-right {
-    padding: var(--space-6) var(--space-4) var(--space-12);
+    padding: var(--space-6) var(--side-padding) var(--space-12);
     border-left: none;
   }
 }
 
 @media (max-width: 540px) {
   .pdp-right {
-    padding: var(--space-5) var(--space-3) var(--space-12);
+    padding: var(--space-5) var(--side-padding) var(--space-12);
   }
 
   .pdp-left {

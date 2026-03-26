@@ -1,19 +1,19 @@
 /* ==========================================================================
-   PDP Sticky Header
+   PDP Sticky Header — Canvera Design System
    ========================================================================== */
 
 .pdp-header {
   position: sticky;
-  top: 52px;
+  top: var(--header-height);
   z-index: 99;
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--neutral-100);
+  border-bottom: 1px solid var(--border-default);
   height: 56px;
   display: flex;
   align-items: center;
-  padding: 0 var(--space-6);
+  padding: 0 var(--side-padding);
 }
 
 .pdp-header-inner {
@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--max-width);
   margin: 0 auto;
   gap: var(--space-4);
 }
@@ -36,8 +36,9 @@
 }
 
 .pdp-header-breadcrumb {
+  font-family: var(--font-sans);
   font-size: var(--text-body-sm);
-  color: var(--neutral-500);
+  color: var(--text-tertiary);
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -46,12 +47,12 @@
 }
 
 .pdp-header-breadcrumb a {
-  color: var(--neutral-500);
+  color: var(--text-tertiary);
   text-decoration: none;
-  transition: color 0.15s;
+  transition: color var(--duration-fast) var(--ease);
 }
 .pdp-header-breadcrumb a:hover {
-  color: var(--petrol-600);
+  color: var(--text-accent);
 }
 
 .pdp-header-breadcrumb svg {
@@ -60,10 +61,10 @@
 }
 
 .pdp-header-product-name {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--text-body-lg);
   font-weight: var(--weight-medium);
-  color: var(--neutral-900);
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -78,17 +79,18 @@
 }
 
 .pdp-header-price {
-  font-family: var(--font-display);
-  font-size: var(--text-body-xl);
-  font-weight: var(--weight-bold);
-  color: var(--neutral-900);
-  transition: opacity 0.1s ease;
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  transition: opacity var(--duration-fast) var(--ease);
   line-height: 1;
 }
 
 .pdp-header-price-label {
+  font-family: var(--font-sans);
   font-size: var(--text-body-xs);
-  color: var(--neutral-500);
+  color: var(--text-tertiary);
   margin-top: 1px;
   display: flex;
   align-items: center;
@@ -96,14 +98,15 @@
 }
 
 .pdp-header-breakdown-link {
-  color: var(--petrol-600);
+  color: var(--text-accent);
   cursor: pointer;
   font-size: var(--text-body-xs);
   background: none;
   border: none;
   padding: 0;
-  font-family: inherit;
+  font-family: var(--font-sans);
   text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
 }
 .pdp-header-breakdown-link:hover {
   text-decoration: underline;
@@ -118,41 +121,41 @@
 }
 
 .pdp-header-save {
+  font-family: var(--font-sans);
   font-size: var(--text-body-sm);
-  color: var(--neutral-600);
+  color: var(--text-secondary);
   background: none;
-  border: 1px solid var(--neutral-200);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  padding: 6px 14px;
+  padding: var(--space-2) var(--space-4);
   cursor: pointer;
-  font-family: var(--font-body);
   font-weight: var(--weight-medium);
-  transition: all 0.15s;
+  transition: all var(--duration-fast) var(--ease);
   white-space: nowrap;
 }
 .pdp-header-save:hover {
-  border-color: var(--neutral-400);
-  background: var(--neutral-50);
+  border-color: var(--border-strong);
+  background: var(--bg-secondary);
 }
 
 .pdp-header-cta {
+  font-family: var(--font-sans);
   font-size: var(--text-body-sm);
-  color: #fff;
-  background: var(--petrol-600);
+  color: var(--text-inverse);
+  background: var(--interactive-primary);
   border: none;
   border-radius: var(--radius-md);
-  padding: 8px 20px;
+  padding: var(--space-2) var(--space-5);
   cursor: pointer;
-  font-family: var(--font-body);
-  font-weight: var(--weight-semibold);
-  transition: all 0.15s;
+  font-weight: var(--weight-medium);
+  transition: all var(--duration-normal) var(--ease);
   white-space: nowrap;
   display: flex;
   align-items: center;
   gap: var(--space-2);
 }
 .pdp-header-cta:hover:not(:disabled) {
-  background: var(--petrol-700);
+  background: var(--interactive-primary-hover);
   box-shadow: var(--shadow-md);
 }
 .pdp-header-cta:disabled {
@@ -170,7 +173,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(26, 42, 58, 0.12);
 }
 
 .pdp-breakdown-panel {
@@ -179,14 +182,14 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 201;
-  background: #fff;
-  border: 1px solid var(--neutral-200);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
-  padding: var(--space-5);
+  padding: var(--space-6);
   min-width: 360px;
   max-width: 440px;
-  animation: pdpSlideDown 0.15s ease;
+  animation: pdpSlideDown var(--duration-normal) var(--ease-out);
 }
 
 @keyframes pdpSlideDown {
@@ -195,10 +198,10 @@
 }
 
 .pdp-breakdown-title {
-  font-family: var(--font-display);
-  font-size: var(--text-body-lg);
-  font-weight: var(--weight-semibold);
-  color: var(--neutral-900);
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
   margin-bottom: var(--space-4);
   display: flex;
   align-items: center;
@@ -209,12 +212,13 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--neutral-500);
-  padding: 4px;
+  color: var(--text-tertiary);
+  padding: var(--space-1);
   border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease);
 }
 .pdp-breakdown-close:hover {
-  background: var(--neutral-50);
+  background: var(--bg-secondary);
 }
 
 .pdp-breakdown-items {
@@ -227,21 +231,22 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  font-family: var(--font-sans);
   font-size: var(--text-body-sm);
-  color: var(--neutral-700);
+  color: var(--text-secondary);
   padding: var(--space-1) 0;
 }
 
 .pdp-breakdown-row--base {
   font-weight: var(--weight-medium);
-  color: var(--neutral-900);
+  color: var(--text-primary);
 }
 
 .pdp-breakdown-row--total {
-  font-weight: var(--weight-bold);
-  font-size: var(--text-body-md);
-  color: var(--neutral-900);
-  border-top: 1px solid var(--neutral-200);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-heading-md);
+  color: var(--text-primary);
+  border-top: 1px solid var(--border-default);
   padding-top: var(--space-3);
   margin-top: var(--space-2);
 }
@@ -254,8 +259,8 @@
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
   .pdp-header {
-    top: 52px;
-    padding: 0 var(--space-4);
+    top: var(--header-height);
+    padding: 0 var(--side-padding);
   }
 
   .pdp-header-left {
@@ -274,21 +279,21 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background: #fff;
-    border-top: 1px solid var(--neutral-200);
-    padding: var(--space-3) var(--space-4);
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-default);
+    padding: var(--space-3) var(--side-padding);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-3);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 -4px 12px rgba(26, 42, 58, 0.06);
   }
 
   .pdp-mobile-bar-price {
-    font-family: var(--font-display);
-    font-size: var(--text-body-xl);
-    font-weight: var(--weight-bold);
-    color: var(--neutral-900);
+    font-family: var(--font-sans);
+    font-size: var(--text-heading-md);
+    font-weight: var(--weight-medium);
+    color: var(--text-primary);
   }
 }
 

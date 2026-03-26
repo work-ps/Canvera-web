@@ -98,8 +98,6 @@ export default function SectionPages() {
               selected={isPresetSelected(tier.sheets)}
               title={tier.label}
               subtitle={`${tier.pages} pages across ${tier.sheets} sheets`}
-              price={cost > 0 ? cost : null}
-              priceType={tier.isBase ? 'included' : 'addon'}
               onClick={() => selectTier(tier.sheets)}
             />
           )
@@ -110,8 +108,6 @@ export default function SectionPages() {
           selected={customMode}
           title="Custom"
           subtitle="Choose an exact sheet count between 10 and 100"
-          price={null}
-          priceType={undefined}
           onClick={enableCustom}
         />
       </div>
@@ -151,16 +147,6 @@ export default function SectionPages() {
             </span>
           </div>
 
-          <div className="pdp-stepper-calc">
-            {extraSheets > 0 ? (
-              <>
-                {extraSheets} extra sheet{extraSheets !== 1 ? 's' : ''} &times; {'\u20B9'}{perSheet}/sheet ={' '}
-                <strong>+ {'\u20B9'}{formatINR(extraCost)}</strong>
-              </>
-            ) : (
-              'Included in base price (10 sheets / 20 pages)'
-            )}
-          </div>
         </div>
       )}
     </div>

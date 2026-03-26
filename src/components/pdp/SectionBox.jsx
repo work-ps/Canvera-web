@@ -33,8 +33,6 @@ export default function SectionBox() {
               onClick={() => updateConfig('boxType', opt.id)}
               title={opt.name}
               subtitle={opt.description}
-              price={isNone ? null : price}
-              priceType={isNone ? null : price > 0 ? 'addon' : 'included'}
             />
           )
         })}

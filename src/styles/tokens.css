@@ -1,136 +1,245 @@
 /* ==========================================================================
-   Design System Tokens
-   All CSS custom properties (variables) for the Canvera design system.
+   Canvera Design System — Tokens
+   Pure white canvas. Inter only. Minimal color. Maximum impact.
+   Derived from logo: Petrol #005780 + Teal #2a9d8f + Text #1a2a3a
    ========================================================================== */
 
 :root {
-    /* Petrol (Primary) */
-    --petrol-900: #00293D;
-    --petrol-800: #003A54;
-    --petrol-700: #004D6E;
-    --petrol-600: #005780;
-    --petrol-500: #00728F;
-    --petrol-400: #0092A7;
-    --petrol-300: #33B5C4;
-    --petrol-200: #80D4DD;
-    --petrol-100: #B3E5EC;
-    --petrol-50: #E0F4F7;
-    --petrol-25: #F0FAFB;
+    /* ── Brand Colors (from logo) ── */
+    --brand-petrol: #005780;
+    --brand-teal: #2a9d8f;
+    --brand-text: #1a2a3a;
 
-    /* Amber (Accent) */
-    --amber-900: #7A3D00;
-    --amber-800: #A35200;
-    --amber-700: #C46200;
-    --amber-600: #E57300;
-    --amber-500: #F47E13;
-    --amber-400: #FF9B3D;
-    --amber-300: #FFB76B;
-    --amber-200: #FFD4A0;
-    --amber-100: #FFEACC;
-    --amber-50: #FFF6EB;
+    /* Petrol scale (primary interactive) */
+    --petrol-900: #003A54;
+    --petrol-800: #004A6D;
+    --petrol-700: #005780;
+    --petrol-600: #006A99;
+    --petrol-500: #0080B3;
+    --petrol-400: #339DC6;
+    --petrol-300: #66B9D9;
+    --petrol-200: #99D5EC;
+    --petrol-100: #CCE9F5;
+    --petrol-50: #EBF5FA;
 
-    /* Leaf (Success) */
-    --leaf-900: #0A4D3A;
-    --leaf-800: #0F6B4F;
-    --leaf-700: #158A65;
-    --leaf-600: #1DA87B;
-    --leaf-500: #2BBF8E;
-    --leaf-400: #5DD4A8;
-    --leaf-300: #8FE5C3;
-    --leaf-200: #B8F0D9;
-    --leaf-100: #DCF7EC;
-    --leaf-50: #EEFBF5;
+    /* Teal scale (accent) */
+    --teal-900: #1A6B61;
+    --teal-800: #228477;
+    --teal-700: #2a9d8f;
+    --teal-600: #3DB3A4;
+    --teal-500: #55C4B7;
+    --teal-400: #7DD4CA;
+    --teal-300: #A5E3DC;
+    --teal-200: #CCF0EC;
+    --teal-100: #E6F8F5;
+    --teal-50: #F2FBFA;
 
-    /* Warm */
-    --warm-offwhite: #F8F6F2;
+    /* Neutral (cool-tinted from brand-text) */
+    --neutral-900: #1a2a3a;
+    --neutral-800: #2D3E4F;
+    --neutral-700: #415264;
+    --neutral-600: #56687A;
+    --neutral-500: #6E8091;
+    --neutral-400: #8899A6;
+    --neutral-300: #A8B5BF;
+    --neutral-200: #C8D1D8;
+    --neutral-100: #E2E8EC;
+    --neutral-50: #F0F3F5;
+    --neutral-25: #F7F8F9;
 
-    /* Neutral */
-    --neutral-950: #0F1419;
-    --neutral-900: #1A2028;
-    --neutral-800: #2D3540;
-    --neutral-700: #434E5B;
-    --neutral-600: #5C6775;
-    --neutral-500: #7A8490;
-    --neutral-400: #9AA3AD;
-    --neutral-300: #B8BFC7;
-    --neutral-200: #D4D9DE;
-    --neutral-100: #ECEEF0;
-    --neutral-50: #F5F6F8;
-    --neutral-25: #FAFBFC;
+    /* Legacy compatibility — amber maps to warm gold, leaf maps to teal */
+    --amber-900: #6B3000;
+    --amber-800: #8B4513;
+    --amber-700: #A0522D;
+    --amber-600: #C46200;
+    --amber-500: #D4881A;
+    --amber-400: #E8A840;
+    --amber-300: #F0C673;
+    --amber-200: #F5DBA6;
+    --amber-100: #FAF0D6;
+    --amber-50: #FDF8ED;
 
-    /* Typography — Font Families */
-    --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --leaf-900: #1A6B61;
+    --leaf-800: #228477;
+    --leaf-700: #2a9d8f;
+    --leaf-600: #3DB3A4;
+    --leaf-500: #2a9d8f;
+    --leaf-400: #55C4B7;
+    --leaf-300: #A5E3DC;
+    --leaf-200: #CCF0EC;
+    --leaf-100: #E6F8F5;
+    --leaf-50: #F2FBFA;
+
+    /* Status */
+    --success: #2a9d8f;
+    --success-light: #F2FBFA;
+    --warning: #E5A100;
+    --warning-light: #FFF8E6;
+    --error: #D93025;
+    --error-light: #FEF0EF;
+    --info: #005780;
+    --info-light: #EBF5FA;
+
+    /* ── Surfaces ── */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F8F9;
+    --bg-tertiary: #F0F3F5;
+    --bg-overlay: rgba(26, 42, 58, 0.4);
+
+    /* ── Text ── */
+    --text-primary: #1a2a3a;
+    --text-secondary: #56687A;
+    --text-tertiary: #8899A6;
+    --text-disabled: #A8B5BF;
+    --text-inverse: #FFFFFF;
+    --text-brand: #005780;
+    --text-accent: #2a9d8f;
+
+    /* ── Borders ── */
+    --border-default: #E2E8EC;
+    --border-subtle: #F0F3F5;
+    --border-strong: #C8D1D8;
+    --border-brand: #005780;
+    --border-accent: #2a9d8f;
+
+    /* ── Interactive ── */
+    --interactive-primary: #005780;
+    --interactive-primary-hover: #006A99;
+    --interactive-primary-active: #004A6D;
+    --interactive-secondary: #2a9d8f;
+    --interactive-secondary-hover: #228477;
+    --focus-ring: 0 0 0 2px rgba(42, 157, 143, 0.3);
+
+    /* ── Typography ── */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
 
-    /* Typography — Type Scale (Display) */
-    --text-display-xl: 44px;
-    --text-display-lg: 36px;
-    --text-display-md: 32px;
-    --text-display-sm: 28px;
+    /* Display (hero, page titles) — light weight, big */
+    --text-display-2xl: 64px;
+    --text-display-xl: 52px;
+    --text-display-lg: 44px;
+    --text-display-md: 36px;
+    --text-display-sm: 30px;
     --text-display-xs: 24px;
 
-    /* Typography — Type Scale (Body) */
-    --text-body-xl: 17px;
-    --text-body-lg: 15px;
-    --text-body-md: 14px;
-    --text-body-base: 13px;
-    --text-body-sm: 12px;
-    --text-body-xs: 11px;
+    /* Heading (section titles, card titles) */
+    --text-heading-xl: 24px;
+    --text-heading-lg: 20px;
+    --text-heading-md: 18px;
+    --text-heading-sm: 16px;
 
-    /* Typography — Line Heights */
-    --leading-none: 1;
-    --leading-tight: 1.15;
-    --leading-snug: 1.3;
-    --leading-normal: 1.5;
-    --leading-relaxed: 1.55;
-    --leading-loose: 1.7;
+    /* Body */
+    --text-body-lg: 17px;
+    --text-body-md: 15px;
+    --text-body-base: 14px;
+    --text-body-sm: 13px;
+    --text-body-xs: 12px;
+    --text-body-2xs: 11px;
 
-    /* Typography — Font Weights */
+    /* Weights */
+    --weight-light: 300;
     --weight-regular: 400;
     --weight-medium: 500;
     --weight-semibold: 600;
     --weight-bold: 700;
-    --weight-extrabold: 800;
 
-    /* Spacing */
+    /* Line heights */
+    --leading-none: 1;
+    --leading-tight: 1.15;
+    --leading-snug: 1.3;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.6;
+    --leading-loose: 1.75;
+
+    /* Letter spacing */
+    --tracking-tighter: -0.03em;
+    --tracking-tight: -0.02em;
+    --tracking-normal: 0em;
+    --tracking-wide: 0.01em;
+    --tracking-wider: 0.04em;
+    --tracking-widest: 0.08em;
+    --tracking-caps: 0.1em;
+
+    /* ── Spacing (8px base) ── */
+    --space-0: 0;
+    --space-px: 1px;
+    --space-0-5: 2px;
     --space-1: 4px;
+    --space-1-5: 6px;
     --space-2: 8px;
     --space-3: 12px;
     --space-4: 16px;
     --space-5: 20px;
     --space-6: 24px;
-    --space-7: 32px;
-    --space-8: 40px;
-    --space-9: 48px;
-    --space-10: 64px;
-    --space-11: 80px;
-    --space-12: 96px;
+    --space-7: 28px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-14: 56px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+    --space-32: 128px;
 
-    /* Radius */
+    /* ── Layout ── */
+    --header-height: 64px;
+    --max-width: 1280px;
+    --max-width-narrow: 720px;
+    --max-width-wide: 1440px;
+    --side-padding: 24px;
+
+    /* ── Border Radius ── */
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
     --radius-xl: 16px;
-    --radius-2xl: 24px;
+    --radius-2xl: 20px;
     --radius-full: 9999px;
 
-    /* Shadows */
-    --shadow-xs: 0 1px 2px rgba(0,41,61,0.05);
-    --shadow-sm: 0 1px 3px rgba(0,41,61,0.08), 0 1px 2px rgba(0,41,61,0.04);
-    --shadow-md: 0 4px 6px -1px rgba(0,41,61,0.08), 0 2px 4px -2px rgba(0,41,61,0.04);
-    --shadow-lg: 0 10px 15px -3px rgba(0,41,61,0.08), 0 4px 6px -4px rgba(0,41,61,0.04);
-    --shadow-xl: 0 20px 25px -5px rgba(0,41,61,0.1), 0 8px 10px -6px rgba(0,41,61,0.06);
-    --shadow-glow: 0 0 20px rgba(0,87,128,0.15);
-    --shadow-amber-glow: 0 0 20px rgba(244,126,19,0.2);
+    /* ── Shadows (subtle, branded) ── */
+    --shadow-xs: 0 1px 2px rgba(26,42,58,0.03);
+    --shadow-sm: 0 1px 3px rgba(26,42,58,0.05);
+    --shadow-md: 0 4px 12px rgba(26,42,58,0.06);
+    --shadow-lg: 0 8px 24px rgba(26,42,58,0.08);
+    --shadow-xl: 0 16px 48px rgba(26,42,58,0.10);
+    --shadow-2xl: 0 24px 64px rgba(26,42,58,0.12);
+    --shadow-card: 0 0 0 1px rgba(26,42,58,0.04), 0 1px 3px rgba(26,42,58,0.04);
+    --shadow-card-hover: 0 8px 24px rgba(26,42,58,0.08), 0 0 0 1px rgba(26,42,58,0.04);
 
-    /* Semantic colors */
-    --success: var(--leaf-500);
-    --success-bg: var(--leaf-50);
-    --warning: var(--amber-500);
-    --warning-bg: var(--amber-50);
-    --error: #DC2626;
-    --error-bg: #FEF2F2;
-    --info: var(--petrol-500);
-    --info-bg: var(--petrol-50);
+    /* ── Motion ── */
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 400ms;
+    --duration-slower: 600ms;
+}
+
+/* ── Responsive tokens ── */
+@media (max-width: 1023px) {
+    :root {
+        --text-display-2xl: 44px;
+        --text-display-xl: 38px;
+        --text-display-lg: 32px;
+        --text-display-md: 28px;
+        --text-display-sm: 24px;
+        --side-padding: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    :root {
+        --text-display-2xl: 36px;
+        --text-display-xl: 30px;
+        --text-display-lg: 26px;
+        --text-display-md: 24px;
+        --text-display-sm: 20px;
+        --text-display-xs: 18px;
+        --text-heading-xl: 20px;
+        --text-heading-lg: 18px;
+        --side-padding: 16px;
+        --header-height: 56px;
+    }
 }
