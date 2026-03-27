@@ -61,7 +61,7 @@
 
 /* Card body */
 .pp-card-body {
-    padding: var(--space-4) var(--space-1) var(--space-2);
+    padding: var(--space-5) var(--space-4) var(--space-5);
 }
 
 .pp-card-collection {
@@ -85,6 +85,11 @@
 .pp-card-price {
     font-size: var(--text-body-base);
     color: var(--text-secondary);
+}
+
+.pp-card-price-login {
+    color: var(--text-tertiary);
+    font-style: italic;
 }
 
 /* View All link on mobile (hidden on desktop) */
@@ -116,6 +121,6 @@
     }
 
     .pp-card-body {
-        padding: var(--space-3) 0 var(--space-1);
+        padding: var(--space-4) var(--space-3) var(--space-4);
     }
 }

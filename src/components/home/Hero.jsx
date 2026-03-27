@@ -58,23 +58,6 @@ export default function Hero() {
             </Link>
           )}
         </div>
-
-        <div className="hero-stats">
-          <div className="hero-stat">
-            <span className="hero-stat-value">1.75M+</span>
-            <span className="hero-stat-label">Albums</span>
-          </div>
-          <span className="hero-stat-dot" />
-          <div className="hero-stat">
-            <span className="hero-stat-value">2,800+</span>
-            <span className="hero-stat-label">Cities</span>
-          </div>
-          <span className="hero-stat-dot" />
-          <div className="hero-stat">
-            <span className="hero-stat-value">Since 2007</span>
-            <span className="hero-stat-label">Serving India</span>
-          </div>
-        </div>
       </div>
     </section>
   )

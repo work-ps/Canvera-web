@@ -165,7 +165,7 @@ export default function ProductCard({ product, showCompare = false, listingMode 
         {startingPrice ? (
           <div className="pc-price">From &#x20B9;{startingPrice.toLocaleString('en-IN')}</div>
         ) : (
-          <div className="pc-price pc-price-login">Sign in for pricing</div>
+          <div className="pc-price pc-price-login">Sign in to unlock pricing</div>
         )}
 
         {/* Listing mode: hover CTA */}

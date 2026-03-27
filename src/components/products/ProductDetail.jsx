@@ -404,7 +404,7 @@ export default function ProductDetail() {
                   </span>
                 ) : (
                   <Link to="/login" className="pdp__price-login">
-                    Sign in to see pricing
+                    Sign in to unlock pricing
                   </Link>
                 )}
               </div>
@@ -498,7 +498,7 @@ export default function ProductDetail() {
                   <button className="btn btn-primary btn-lg pdp__cta-primary" onClick={() => navigate('/login')}>
                     Sign In to Order <ArrowRightIcon />
                   </button>
-                  <p className="pdp__signin-note">Sign in to see pricing and place orders</p>
+                  <p className="pdp__signin-note">Sign in to unlock pricing and place orders</p>
                 </>
               )}
 

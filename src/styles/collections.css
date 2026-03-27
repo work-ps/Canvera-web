@@ -154,10 +154,11 @@
 /* ── Collection Detail — Hero Banner ── */
 .cd-hero {
     position: relative;
-    height: 40vh;
-    min-height: 320px;
-    max-height: 480px;
+    height: 56vh;
+    min-height: 420px;
+    max-height: 600px;
     overflow: hidden;
+    margin-top: calc(-1 * var(--header-height));
 }
 
 .cd-hero-img {
@@ -183,7 +184,7 @@
     left: 0;
     right: 0;
     z-index: 2;
-    padding-bottom: var(--space-10);
+    padding-bottom: var(--space-16);
 }
 
 .cd-hero-label {
@@ -363,7 +364,7 @@
         gap: var(--space-4);
     }
 
-    .cd-hero { height: 35vh; min-height: 240px; }
+    .cd-hero { height: 45vh; min-height: 320px; }
     .cd-hero-title { font-size: var(--text-display-md); }
 
     .cd-intro {

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import products from '../../data/products'
 import { getProductThumbnail } from '../../data/productImages'
+import { getStartingPrice } from '../../data/pdpPricing'
+import { useAuth } from '../../context/AuthContext'
 import '../../styles/popular-products.css'
 
 const badgeLabels = {
@@ -17,6 +19,7 @@ const featured = (() => {
 })()
 
 export default function PopularProducts() {
+  const { isRegistered } = useAuth()
   return (
     <section className="section">
       <div className="container">
@@ -57,7 +60,11 @@ export default function PopularProducts() {
                 <div className="pp-card-body">
                   <span className="pp-card-collection">{product.tag}</span>
                   <h3 className="pp-card-name">{product.name}</h3>
-                  <span className="pp-card-price">From &#x20B9;{(product.id * 1200 + 2999).toLocaleString('en-IN')}</span>
+                  {isRegistered ? (
+                    <span className="pp-card-price">From &#x20B9;{(getStartingPrice(product.id) || 0).toLocaleString('en-IN')}</span>
+                  ) : (
+                    <span className="pp-card-price pp-card-price-login">Sign in to unlock pricing</span>
+                  )}
                 </div>
               </Link>
             )
