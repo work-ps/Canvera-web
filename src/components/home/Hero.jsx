@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { getProductThumbnail } from '../../data/productImages'
 import '../../styles/hero.css'
 
 export default function Hero() {
   const { isRegistered, isVerified } = useAuth()
-  const heroImage = getProductThumbnail('ornato') || getProductThumbnail('luxury-celestial') || '/images/products/acroluxe/1.jpg'
+  const heroImage = '/images/hero/1.png'
 
   // CTAs change based on user state (Fix 10, 11)
   let primaryCta = { label: 'Explore Collection', to: '/collections' }

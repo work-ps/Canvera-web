@@ -18,10 +18,10 @@
 }
 
 .hero-bg-img {
-    width: 100%;
-    height: 100%;
+    width: 102%;
+    height: 102%;
     object-fit: cover;
-    object-position: center 30%;
+    object-position: 40% 35%;
     animation: heroImgIn 1.2s var(--ease-out) both;
 }
 
