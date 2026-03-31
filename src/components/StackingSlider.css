@@ -1,0 +1,133 @@
+.stacking-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stacking-slider__viewport {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+}
+
+.stacking-slider__track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 2px;
+}
+
+/* Card base */
+.stacking-slider__card {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-primary);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  will-change: transform;
+}
+
+/* Stacked cards get a subtle border to show the edge */
+.stacking-slider__card--stacked {
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.stacking-slider__card-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--neutral-50);
+}
+
+.stacking-slider__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Label sits on the image with a bottom gradient */
+.stacking-slider__card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 12px 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, transparent 100%);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: #fff;
+  text-align: left;
+}
+
+/* End message — fills the white space right of the stack */
+.stacking-slider__end-message {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 200px;
+  padding-right: var(--space-4);
+}
+
+.stacking-slider__end-text {
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-secondary);
+}
+
+/* Navigation arrows */
+.stacking-slider__nav {
+  display: flex;
+  gap: 8px;
+}
+
+.stacking-slider__arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--text-primary);
+  background: var(--text-primary);
+  color: var(--text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stacking-slider__arrow:hover:not(:disabled) {
+  background: var(--interactive-primary);
+  border-color: var(--interactive-primary);
+}
+
+.stacking-slider__arrow--disabled {
+  background: transparent;
+  color: var(--neutral-300);
+  border-color: var(--neutral-200);
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .stacking-slider__viewport { height: 280px; }
+  .stacking-slider__card-image { height: 190px; }
+  .stacking-slider__end-message { height: 190px; }
+}
+
+@media (max-width: 767px) {
+  .stacking-slider__viewport { height: 260px; }
+  .stacking-slider__card-image { height: 170px; }
+  .stacking-slider__end-message { height: 170px; max-width: 180px; }
+  .stacking-slider__end-text { font-size: var(--text-heading-lg); }
+  .stacking-slider__arrow { width: 38px; height: 38px; }
+}

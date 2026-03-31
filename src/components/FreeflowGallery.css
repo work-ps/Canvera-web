@@ -1,0 +1,98 @@
+/* Container — fixed viewport */
+.freeflow {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='%231a2a3a'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%231a2a3a' stroke-width='1'/%3E%3C/svg%3E") 12 12, grab;
+  border-radius: var(--radius-xl);
+  background: transparent;
+  touch-action: none;
+}
+
+.freeflow:active {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%231a2a3a'/%3E%3C/svg%3E") 12 12, grabbing;
+}
+
+/* Hint tooltip */
+.freeflow__hint {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  animation: hintFade 0.4s ease-out;
+}
+
+@keyframes hintFade {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Infinite plane */
+.freeflow__plane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+/* Tile block */
+.freeflow__tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Card — image only, fills entirely */
+.freeflow__card {
+  position: absolute;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--neutral-50);
+  will-change: transform;
+  transition: box-shadow 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.freeflow__card:hover {
+  box-shadow: 0 8px 32px rgba(0, 87, 128, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.freeflow__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .freeflow {
+    height: 460px;
+  }
+}
+
+@media (max-width: 767px) {
+  .freeflow {
+    height: 400px;
+  }
+
+  .freeflow__hint {
+    font-size: 10px;
+    padding: 6px 14px;
+  }
+}

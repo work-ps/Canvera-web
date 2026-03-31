@@ -1,0 +1,67 @@
+.collection-card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out);
+}
+
+.collection-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.collection-card__link {
+  display: block;
+  text-decoration: none;
+}
+
+.collection-card__image-container {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--neutral-50);
+}
+
+.collection-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out),
+              filter var(--duration-slower) var(--ease-out);
+  filter: blur(20px);
+  transform: scale(1.02);
+}
+
+.collection-card__image.loaded {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.collection-card:hover .collection-card__image.loaded {
+  transform: scale(var(--image-zoom-scale));
+}
+
+.collection-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-5) var(--space-5);
+  background: linear-gradient(to top, rgba(26, 42, 58, 0.6), transparent);
+}
+
+.collection-card__name {
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-inverse);
+  line-height: var(--leading-heading);
+}
+
+.collection-card__count {
+  font-size: var(--text-body-xs);
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  margin-top: 2px;
+  display: block;
+}

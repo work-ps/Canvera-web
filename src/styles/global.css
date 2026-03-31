@@ -1,0 +1,130 @@
+@import './tokens.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: var(--leading-body);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-regular);
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Utility */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+  width: 100%;
+}
+
+/* Section wrapper — the invisible outer wrapper */
+.section-wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-section) var(--side-padding) 0;
+}
+
+/* Section header — title left, link right */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-6);
+}
+
+.section-title {
+  font-size: var(--text-display-xs);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-heading);
+  color: var(--text-primary);
+}
+
+.section-link {
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-medium);
+  color: var(--interactive-primary);
+  transition: color var(--duration-normal) var(--ease-out);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-link:hover {
+  color: var(--interactive-primary-hover);
+}
+
+.section-link::after {
+  content: '\2192';
+  font-size: 1.1em;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.section-link:hover::after {
+  transform: translateX(3px);
+}
+
+/* Section content — the bordered inner area */
+.section-content {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: var(--card-padding);
+  background: transparent;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.025);
+}
+
+/* Flush variant — no padding for gallery components */
+.section-content--flush {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-200);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-300);
+}

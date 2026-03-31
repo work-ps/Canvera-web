@@ -1,0 +1,217 @@
+/* Product grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--card-gap);
+}
+
+/* Collection grid */
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--card-gap);
+}
+
+/* Occasion row */
+.occasion-row {
+  display: flex;
+  gap: var(--space-6);
+  overflow-x: auto;
+  padding: var(--space-2) 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.occasion-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* Journey grid — flush inside section */
+.journey-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  min-height: 360px;
+}
+
+.journey-image {
+  overflow: hidden;
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+}
+
+.journey-text {
+  padding: var(--space-8) var(--space-8) var(--space-8) var(--space-6);
+}
+
+.journey-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.journey-text h3 {
+  font-size: var(--text-heading-xl);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-heading);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.journey-text p {
+  font-size: var(--text-body-md);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.journey-stats {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-6);
+}
+
+.journey-stat {
+  text-align: left;
+}
+
+.journey-stat__number {
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-extralight);
+  color: var(--interactive-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.journey-stat__label {
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Testimonials — flush, cards fill section */
+.testimonials-track {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.testimonials-track::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonial-card {
+  flex: 0 0 33.333%;
+  scroll-snap-align: start;
+  padding: var(--space-6) var(--space-5);
+  border-right: 1px solid var(--border-default);
+  border-radius: 0;
+  background: transparent;
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+.testimonial-card:last-child {
+  border-right: none;
+}
+
+.testimonial-card:hover {
+  background: var(--neutral-50);
+}
+
+.testimonial-card__stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: var(--space-4);
+}
+
+.testimonial-card__text {
+  font-size: var(--text-body-md);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  margin-bottom: var(--space-5);
+  font-style: italic;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.testimonial-card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.testimonial-card__name {
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+
+.testimonial-card__role {
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .journey-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .journey-image {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    aspect-ratio: 16/9;
+  }
+
+  .journey-text {
+    padding: var(--space-6);
+  }
+
+  .testimonial-card {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--card-gap);
+  }
+
+  .collection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    flex: 0 0 85%;
+    border-right: 1px solid var(--border-default);
+  }
+
+  .journey-stats {
+    gap: var(--space-5);
+  }
+
+  .section-header {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}

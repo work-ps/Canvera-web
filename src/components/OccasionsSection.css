@@ -1,0 +1,72 @@
+/* Occasions section — padding for slider, clip overflow */
+.section-content--occasions {
+  padding: var(--space-4) var(--space-5) var(--space-4);
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+.occasion-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.occasion-item__image-wrap {
+  width: 140px;
+  height: 140px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 2px solid var(--border-subtle);
+  background: var(--neutral-50);
+  transition: border-color var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.occasion-item:hover .occasion-item__image-wrap {
+  border-color: var(--interactive-primary);
+  box-shadow: var(--shadow-product-glow);
+}
+
+.occasion-item__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out),
+              filter var(--duration-slower) var(--ease-out);
+  filter: blur(20px);
+  transform: scale(1.05);
+}
+
+.occasion-item__image.loaded {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.occasion-item:hover .occasion-item__image.loaded {
+  transform: scale(1.08);
+}
+
+.occasion-item__label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .occasion-item__image-wrap {
+    width: 100px;
+    height: 100px;
+  }
+
+  .occasion-item__label {
+    font-size: var(--text-body-xs);
+  }
+}
