@@ -44,7 +44,7 @@ export default function Header() {
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__inner">
         <a href="/" className="header__logo">
-          <span className="header__logo-text">CANVERA</span>
+          <img src="/images/logo.png" alt="Canvera" className="header__logo-img" />
         </a>
 
         <nav className="header__nav" onMouseLeave={() => setActiveNav(null)}>

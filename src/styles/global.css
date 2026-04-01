@@ -52,6 +52,7 @@ button {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-section) var(--side-padding) 0;
+  isolation: isolate;
 }
 
 /* Section header — title left, link right */
@@ -108,6 +109,12 @@ button {
 .section-content--flush {
   padding: 0;
   overflow: hidden;
+}
+
+/* Borderless variant — no outline or shadow */
+.section-content--borderless {
+  border: none;
+  box-shadow: none;
 }
 
 /* Scrollbar styling */

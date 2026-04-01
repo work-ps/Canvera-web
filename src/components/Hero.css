@@ -11,8 +11,6 @@
   width: 100%;
   margin: 0 auto;
   padding: var(--space-10) var(--side-padding) var(--space-12);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-2xl);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -13,6 +13,8 @@ export const products = [
     specs: 'Lay-flat binding, 6-color Hexachrome',
     image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=750&fit=crop',
     price: 5999,
+    description: 'Premium leatherette with lay-flat binding and 6-color Hexachrome printing.',
+    occasions: ['Weddings', 'Pre-Wedding'],
   },
   {
     id: 2,
@@ -28,6 +30,8 @@ export const products = [
     specs: 'Absolute layflat, archival paper',
     image: 'https://images.unsplash.com/photo-1553532434-5ab5b6b84993?w=600&h=750&fit=crop',
     price: 8999,
+    description: 'Italian leather with absolute layflat binding and archival paper.',
+    occasions: ['Weddings', 'Corporate'],
   },
   {
     id: 3,
@@ -43,6 +47,8 @@ export const products = [
     specs: 'Soft-touch finish, gold foil naming',
     image: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=600&h=750&fit=crop',
     price: 3999,
+    description: 'Soft-touch suede finish with elegant gold foil naming.',
+    occasions: ['Maternity', 'Baby & Kids'],
   },
   {
     id: 4,
@@ -58,6 +64,8 @@ export const products = [
     specs: 'Intricate foil patterns, premium paper',
     image: 'https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?w=600&h=750&fit=crop',
     price: 6499,
+    description: 'Intricate metallic foil patterns with premium paper. Limited edition.',
+    occasions: ['Weddings', 'Birthdays'],
   },
   {
     id: 5,
@@ -73,6 +81,8 @@ export const products = [
     specs: 'Layflat binding, matte lamination',
     image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=750&fit=crop',
     price: 4499,
+    description: 'Classic leatherette with matte lamination and layflat binding.',
+    occasions: ['Weddings', 'Portraits & Family'],
   },
   {
     id: 6,
@@ -88,6 +98,8 @@ export const products = [
     specs: 'Artisan craftsmanship, deboss naming',
     image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&h=750&fit=crop',
     price: 5499,
+    description: 'Rich fabric with artisan deboss naming. Handcrafted with care.',
+    occasions: ['Weddings', 'Corporate'],
   },
   {
     id: 7,
@@ -103,6 +115,8 @@ export const products = [
     specs: 'Gallery-quality, ready to hang',
     image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=750&fit=crop',
     price: 1499,
+    description: 'Gallery-quality museum canvas. Ready to hang.',
+    occasions: ['Portraits & Family', 'Baby & Kids'],
   },
   {
     id: 8,
@@ -118,29 +132,31 @@ export const products = [
     specs: 'Organic textures, lay-flat binding',
     image: 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=600&h=750&fit=crop',
     price: 7499,
+    description: 'Natural wood with organic textures and lay-flat binding.',
+    occasions: ['Pre-Wedding', 'Portraits & Family'],
   },
 ];
 
 export const collections = [
-  { id: 1, name: 'Celestial', slug: 'celestial', count: 3, image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&h=600&fit=crop', description: 'Premium albums with celestial-inspired patterns' },
-  { id: 2, name: 'Luxury', slug: 'luxury', count: 7, image: 'https://images.unsplash.com/photo-1553532434-5ab5b6b84993?w=500&h=600&fit=crop', description: 'Finest in luxury album craftsmanship' },
-  { id: 3, name: 'Suede', slug: 'suede', count: 2, image: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=500&h=600&fit=crop', description: 'Soft-touch suede albums with luxurious hand-feel' },
-  { id: 4, name: 'Foiling', slug: 'foiling', count: 3, image: 'https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?w=500&h=600&fit=crop', description: 'Premium foiling with intricate metallic accents' },
-  { id: 5, name: 'Leatherette', slug: 'leatherette', count: 13, image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=600&fit=crop', description: 'Classic leatherette-bound albums' },
-  { id: 6, name: 'Signature', slug: 'signature', count: 2, image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=500&h=600&fit=crop', description: 'Signature-grade materials and distinctive design' },
-  { id: 7, name: 'Fabric', slug: 'fabric', count: 1, image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&h=600&fit=crop', description: 'Fabric-covered albums with rich textures' },
-  { id: 8, name: 'Wood', slug: 'wood', count: 1, image: 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=500&h=600&fit=crop', description: 'Natural wood finishes and organic textures' },
-  { id: 9, name: 'Custom Cover', slug: 'custom-cover', count: 2, image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=500&h=600&fit=crop', description: 'Fully customizable cover designs' },
+  { id: 1, name: 'Celestial', slug: 'celestial', count: 3, image: '/images/collections/celestial.png', description: 'Premium albums with celestial-inspired patterns' },
+  { id: 2, name: 'Luxury', slug: 'luxury', count: 7, image: '/images/collections/luxury.png', description: 'Finest in luxury album craftsmanship' },
+  { id: 3, name: 'Suede', slug: 'suede', count: 2, image: '/images/collections/suede.png', description: 'Soft-touch suede albums with luxurious hand-feel' },
+  { id: 4, name: 'Foiling', slug: 'foiling', count: 3, image: '/images/collections/foiling.png', description: 'Premium foiling with intricate metallic accents' },
+  { id: 5, name: 'Leatherette', slug: 'leatherette', count: 13, image: '/images/collections/leatherette.png', description: 'Classic leatherette-bound albums' },
+  { id: 6, name: 'Signature', slug: 'signature', count: 2, image: '/images/collections/signature.png', description: 'Signature-grade materials and distinctive design' },
+  { id: 7, name: 'Fabric', slug: 'fabric', count: 1, image: '/images/collections/fabric.png', description: 'Fabric-covered albums with rich textures' },
+  { id: 8, name: 'Wood', slug: 'wood', count: 1, image: '/images/collections/wood.png', description: 'Natural wood finishes and organic textures' },
+  { id: 9, name: 'Custom Cover', slug: 'custom-cover', count: 2, image: '/images/collections/custom-cover.png', description: 'Fully customizable cover designs' },
 ];
 
 export const occasions = [
-  { id: 'weddings', name: 'Weddings', image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=520&h=440&fit=crop' },
-  { id: 'pre-wedding', name: 'Pre-Wedding', image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=520&h=440&fit=crop' },
-  { id: 'maternity', name: 'Maternity', image: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?w=520&h=440&fit=crop' },
-  { id: 'baby-kids', name: 'Baby & Kids', image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=520&h=440&fit=crop' },
-  { id: 'birthdays', name: 'Birthdays', image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=520&h=440&fit=crop' },
-  { id: 'corporate', name: 'Corporate', image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=520&h=440&fit=crop' },
-  { id: 'portraits-family', name: 'Portraits & Family', image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=520&h=440&fit=crop' },
+  { id: 'weddings', name: 'Weddings', image: '/images/occasions/wedding.png' },
+  { id: 'pre-wedding', name: 'Pre-Wedding', image: '/images/occasions/pre-wedding.png' },
+  { id: 'maternity', name: 'Maternity', image: '/images/occasions/maternity.png' },
+  { id: 'baby-kids', name: 'Baby & Kids', image: '/images/occasions/baby & kids.png' },
+  { id: 'birthdays', name: 'Birthdays', image: '/images/occasions/birthdays.png' },
+  { id: 'corporate', name: 'Corporate', image: '/images/occasions/corporate.png' },
+  { id: 'portraits-family', name: 'Portraits & Family', image: '/images/occasions/portraits & family.png' },
 ];
 
 export const testimonials = [

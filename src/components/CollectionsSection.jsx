@@ -11,7 +11,7 @@ export default function CollectionsSection() {
           <a href="/collections" className="section-link">View All Collections</a>
         </div>
       </ScrollReveal>
-      <div className="section-content section-content--flush">
+      <div className="section-content section-content--flush section-content--borderless">
         <BentoGallery collections={collections} />
       </div>
     </div>

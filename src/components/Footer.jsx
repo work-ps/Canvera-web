@@ -30,8 +30,7 @@ export default function Footer() {
         <div className="footer__main">
           {/* Brand column */}
           <div className="footer__brand">
-            <span className="footer__logo">CANVERA</span>
-            <p className="footer__tagline">Preserving Memories</p>
+            <img src="/images/logo.png" alt="Canvera" className="footer__logo-img" />
             <p className="footer__desc">
               India&rsquo;s #1 premium photobook platform, trusted by 91,000+ professional
               photographers across 2,800+ cities.

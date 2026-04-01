@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
 import './FreeflowGallery.css';
 
 const CARD_WIDTH = 280;
@@ -24,6 +24,7 @@ export default function FreeflowGallery({ items }) {
   const mouseInContainer = useRef(false);
   const mousePos = useRef({ x: 0, y: 0 });
   const [showHint, setShowHint] = useState(true);
+  const expandedRef = useRef(false);
 
   const totalW = COLS * (CARD_WIDTH + GAP);
   const totalH = ROWS * (CARD_HEIGHT + GAP);
@@ -74,7 +75,7 @@ export default function FreeflowGallery({ items }) {
 
   // Edge auto-scroll — no bounds
   const edgeScrollLoop = useCallback(() => {
-    if (!mouseInContainer.current || isDragging.current) {
+    if (!mouseInContainer.current || isDragging.current || expandedRef.current) {
       edgeScrollFrame.current = requestAnimationFrame(edgeScrollLoop);
       return;
     }
@@ -151,6 +152,7 @@ export default function FreeflowGallery({ items }) {
 
   const handleWheel = useCallback((e) => {
     e.preventDefault();
+    if (expandedRef.current) return;
     hideHint();
     offsetX.set(offsetX.get() - e.deltaX * 0.8);
     offsetY.set(offsetY.get() - e.deltaY * 0.8);
@@ -164,6 +166,21 @@ export default function FreeflowGallery({ items }) {
     return () => el.removeEventListener('wheel', handleWheel);
   }, [handleWheel]);
 
+  const [expandedItem, setExpandedItem] = useState(null);
+
+  const handleExpand = (item, e) => {
+    e.stopPropagation();
+    expandedRef.current = true;
+    cancelAnimationFrame(animFrame.current);
+    velocity.current = { x: 0, y: 0 };
+    setExpandedItem(item);
+  };
+
+  const handleCollapse = () => {
+    expandedRef.current = false;
+    setExpandedItem(null);
+  };
+
   // Build one tile block of cards
   const tiles = [];
   for (let row = 0; row < ROWS; row++) {
@@ -173,26 +190,25 @@ export default function FreeflowGallery({ items }) {
     }
   }
 
-  // 5x5 tile repetition for infinite seamless wrap
   const tileOffsets = [-2, -1, 0, 1, 2];
 
   return (
     <div
       className="freeflow"
       ref={containerRef}
-      onMouseDown={handlePointerDown}
-      onMouseMove={handlePointerMove}
-      onMouseUp={handlePointerUp}
+      onMouseDown={!expandedItem ? handlePointerDown : undefined}
+      onMouseMove={!expandedItem ? handlePointerMove : undefined}
+      onMouseUp={!expandedItem ? handlePointerUp : undefined}
       onMouseLeave={() => {
         mouseInContainer.current = false;
         if (isDragging.current) handlePointerUp();
       }}
       onMouseEnter={() => { mouseInContainer.current = true; }}
-      onTouchStart={handlePointerDown}
-      onTouchMove={handlePointerMove}
-      onTouchEnd={handlePointerUp}
+      onTouchStart={!expandedItem ? handlePointerDown : undefined}
+      onTouchMove={!expandedItem ? handlePointerMove : undefined}
+      onTouchEnd={!expandedItem ? handlePointerUp : undefined}
     >
-      {showHint && (
+      {showHint && !expandedItem && (
         <div className="freeflow__hint">
           Drag &amp; Scroll to explore &bull; Move cursor to edge to auto-scroll
         </div>
@@ -215,6 +231,7 @@ export default function FreeflowGallery({ items }) {
                 <FreeflowCard
                   key={`${tileRow}-${tileCol}-${item._key}`}
                   item={item}
+                  onExpand={handleExpand}
                   style={{
                     left: item._col * (CARD_WIDTH + GAP),
                     top: item._row * (CARD_HEIGHT + GAP),
@@ -227,24 +244,71 @@ export default function FreeflowGallery({ items }) {
           ))
         )}
       </motion.div>
+
+      {/* Expanded overlay — dark glass, within section */}
+      <AnimatePresence>
+        {expandedItem && (
+          <motion.div
+            className="freeflow__expand-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } }}
+            exit={{ opacity: 0, transition: { duration: 0 } }}
+          >
+            <motion.div
+              className="freeflow__expand-image"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
+              exit={{ scale: 0.9, opacity: 0, transition: { duration: 0 } }}
+            >
+              <img src={expandedItem.image} alt={expandedItem.name} />
+            </motion.div>
+            <motion.div
+              className="freeflow__expand-info"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 } }}
+              exit={{ opacity: 0, x: 20, transition: { duration: 0 } }}
+            >
+              <span className="freeflow__expand-collection">
+                {expandedItem.collection || expandedItem.category}
+              </span>
+              <h3 className="freeflow__expand-name">{expandedItem.name}</h3>
+              <p className="freeflow__expand-desc">{expandedItem.description || expandedItem.specs}</p>
+              {expandedItem.occasions && (
+                <div className="freeflow__expand-occasions">
+                  {expandedItem.occasions.map((o) => (
+                    <span key={o} className="freeflow__expand-tag">{o}</span>
+                  ))}
+                </div>
+              )}
+              <a
+                href={`/product/${expandedItem.slug}`}
+                className="freeflow__expand-cta"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Explore Product
+              </a>
+            </motion.div>
+            <button
+              className="freeflow__expand-close"
+              onClick={handleCollapse}
+              aria-label="Close"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M18 6 6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-function FreeflowCard({ item, style }) {
-  const [hovered, setHovered] = useState(false);
-
+function FreeflowCard({ item, style, onExpand }) {
   return (
-    <motion.div
+    <div
       className="freeflow__card"
       style={style}
-      animate={{
-        scale: hovered ? 1.04 : 1,
-        zIndex: hovered ? 10 : 1,
-      }}
-      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
     >
       <img
         src={item.image}
@@ -253,6 +317,16 @@ function FreeflowCard({ item, style }) {
         draggable={false}
         loading="eager"
       />
-    </motion.div>
+      <button
+        className="freeflow__card-enlarge"
+        onMouseDown={(e) => e.stopPropagation()}
+        onClick={(e) => onExpand(item, e)}
+        aria-label="Enlarge"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+        </svg>
+      </button>
+    </div>
   );
 }

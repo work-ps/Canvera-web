@@ -4,6 +4,7 @@
   width: 100%;
   height: 520px;
   overflow: hidden;
+  isolation: isolate;
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='%231a2a3a'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%231a2a3a' stroke-width='1'/%3E%3C/svg%3E") 12 12, grab;
   border-radius: var(--radius-xl);
   background: transparent;
@@ -55,19 +56,21 @@
   left: 0;
 }
 
-/* Card — image only, fills entirely */
+/* Card */
 .freeflow__card {
   position: absolute;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--neutral-50);
   will-change: transform;
-  transition: box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.2s ease;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
 .freeflow__card:hover {
+  transform: scale(1.04);
   box-shadow: 0 8px 32px rgba(0, 87, 128, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 10 !important;
 }
 
 .freeflow__card-img {
@@ -79,10 +82,174 @@
   user-select: none;
 }
 
+/* Enlarge icon — top right, visible on card hover */
+.freeflow__card-enlarge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: rgba(26, 42, 58, 0.7);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.15s;
+  z-index: 5;
+  pointer-events: auto;
+  opacity: 0;
+}
+
+.freeflow__card:hover .freeflow__card-enlarge {
+  opacity: 1;
+}
+
+.freeflow__card-enlarge:hover {
+  background: rgba(26, 42, 58, 0.9);
+}
+
+/* ===== Expanded overlay — dark glass, fills .freeflow ===== */
+.freeflow__expand-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  background: rgb(18, 18, 22);
+  display: flex;
+  align-items: stretch;
+  padding: 24px;
+  gap: 20px;
+  cursor: default;
+  border-radius: var(--radius-xl);
+}
+
+/* Expanded image — 2/3 width, landscape, full height */
+.freeflow__expand-image {
+  flex: 0 0 65%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--neutral-50);
+}
+
+.freeflow__expand-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Info — 1/3 width, full height, vertically centered */
+.freeflow__expand-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 8px 4px 8px 0;
+}
+
+.freeflow__expand-collection {
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.freeflow__expand-name {
+  font-size: var(--text-heading-xl);
+  font-weight: var(--weight-medium);
+  color: #fff;
+  line-height: var(--leading-heading);
+}
+
+.freeflow__expand-desc {
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Occasion tags */
+.freeflow__expand-occasions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.freeflow__expand-tag {
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* CTA */
+.freeflow__expand-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  color: var(--text-primary);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  transition: background 0.2s;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+.freeflow__expand-cta:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Close button — top right of overlay */
+.freeflow__expand-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  z-index: 5;
+}
+
+.freeflow__expand-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
 /* Responsive */
 @media (max-width: 1023px) {
   .freeflow {
     height: 460px;
+  }
+
+  .freeflow__expand-overlay {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .freeflow__expand-image {
+    flex: 0 0 58%;
+  }
+
+  .freeflow__expand-name {
+    font-size: var(--text-heading-lg);
   }
 }
 
@@ -94,5 +261,28 @@
   .freeflow__hint {
     font-size: 10px;
     padding: 6px 14px;
+  }
+
+  .freeflow__expand-overlay {
+    flex-direction: column;
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .freeflow__expand-image {
+    flex: 0 0 55%;
+  }
+
+  .freeflow__expand-info {
+    gap: 8px;
+    padding: 0 4px;
+  }
+
+  .freeflow__expand-name {
+    font-size: var(--text-heading-md);
+  }
+
+  .freeflow__expand-desc {
+    font-size: var(--text-body-xs);
   }
 }
