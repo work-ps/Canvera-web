@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ScrollReveal from './ScrollReveal';
 
 export default function JourneySection() {
@@ -6,7 +7,7 @@ export default function JourneySection() {
       <ScrollReveal>
         <div className="section-header">
           <h2 className="section-title">Experience the Journey</h2>
-          <a href="/about" className="section-link">About Canvera</a>
+          <Link to="/about" className="section-link">About Canvera</Link>
         </div>
       </ScrollReveal>
       <div className="section-content section-content--flush section-content--borderless">
@@ -25,13 +26,15 @@ export default function JourneySection() {
               <div className="journey-text__copy">
                 <h3>Where Every Detail Tells a Story</h3>
                 <p>
-                  Since 2007, we have been transforming photographs into enduring heirlooms.
-                  Each album passes through 40+ quality checkpoints, handled by artisans who
-                  understand that your memories deserve nothing less than perfection.
+                  Since 2007, Canvera has been empowering photographers to create albums
+                  that last generations. In 2025 alone, photographers on our platform
+                  created 1,568,981 albums — each one a story that won't get lost on a
+                  phone or forgotten on a hard drive.
                 </p>
                 <p>
-                  Our 6-color Hexachrome printing brings every photograph to life with
-                  a vibrancy and depth that standard printing simply cannot match.
+                  State-of-the-art machines, hawk-eyed quality control, and
+                  lightning-fast turnarounds — because your memories deserve more than
+                  storage. They deserve to be experienced.
                 </p>
               </div>
               <div className="journey-stats">

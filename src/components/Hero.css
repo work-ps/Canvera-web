@@ -60,6 +60,29 @@
   padding-bottom: var(--space-4);
 }
 
+/* Auth welcome line */
+.hero__welcome {
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.hero__verified-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  background: var(--petrol-50);
+  border: 1px solid var(--petrol-100);
+  border-radius: var(--radius-full);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--brand-petrol);
+}
+
 /* Fade-in animation */
 @keyframes heroFadeIn {
   from {

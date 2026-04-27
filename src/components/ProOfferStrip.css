@@ -1,0 +1,175 @@
+/* ==========================================================================
+   ProOfferStrip — verified photographer exclusive offer bar
+   Fixed at top; sits above the header (z-index: 1001 vs header z-index: 1000)
+   Height: 36px — mirrors --strip-height CSS variable set via JS
+   ========================================================================== */
+
+.pro-strip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  z-index: 1001;
+  background: var(--petrol-900);
+  color: var(--text-inverse);
+  display: flex;
+  align-items: center;
+}
+
+.pro-strip__inner {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ── PRO badge ───────────────────────────────────────────────── */
+.pro-strip__badge {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  color: #fff;
+}
+
+/* ── Content ─────────────────────────────────────────────────── */
+.pro-strip__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-body-xs);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.pro-strip__icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.pro-strip__label {
+  font-weight: var(--weight-semibold);
+  color: #fff;
+}
+
+.pro-strip__sep {
+  opacity: 0.45;
+  font-size: 10px;
+}
+
+.pro-strip__detail {
+  opacity: 0.75;
+  font-weight: var(--weight-regular);
+}
+
+/* ── Code pill ───────────────────────────────────────────────── */
+.pro-strip__code-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: background var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.pro-strip__code-pill:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.pro-strip__code-pill--copied {
+  background: rgba(42, 157, 143, 0.35);
+  border-color: rgba(42, 157, 143, 0.6);
+}
+
+/* ── Controls ────────────────────────────────────────────────── */
+.pro-strip__controls {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pro-strip__dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pro-strip__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.pro-strip__dot--active {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.4);
+}
+
+.pro-strip__dot:not(.pro-strip__dot--active):hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.pro-strip__dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+  padding: 0;
+}
+
+.pro-strip__dismiss:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .pro-strip__detail  { display: none; }
+  .pro-strip__sep     { display: none; }
+  .pro-strip__badge   { display: none; }
+  .pro-strip__content { justify-content: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .pro-strip__dots { display: none; }
+}

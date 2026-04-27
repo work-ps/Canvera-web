@@ -26,13 +26,13 @@
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--bg-primary);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
   will-change: transform;
 }
 
 /* Stacked cards get a subtle border to show the edge */
 .stacking-slider__card--stacked {
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: -1px 0 4px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.02);
 }
 
 .stacking-slider__card-image {
@@ -59,7 +59,7 @@
   left: 0;
   right: 0;
   padding: 28px 12px 10px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.22) 0%, transparent 100%);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   color: #fff;
@@ -117,6 +117,11 @@
   cursor: not-allowed;
 }
 
+/* ── Mobile scroll driver — hidden on desktop ── */
+.stacking-slider__scroll-driver {
+  display: none;
+}
+
 /* Responsive */
 @media (max-width: 1023px) {
   .stacking-slider__viewport { height: 280px; }
@@ -125,9 +130,43 @@
 }
 
 @media (max-width: 767px) {
-  .stacking-slider__viewport { height: 260px; }
-  .stacking-slider__card-image { height: 170px; }
-  .stacking-slider__end-message { height: 170px; max-width: 180px; }
-  .stacking-slider__end-text { font-size: var(--text-heading-lg); }
-  .stacking-slider__arrow { width: 38px; height: 38px; }
+  .stacking-slider__viewport { height: 220px; }
+  .stacking-slider__card-image { height: 160px; }
+  .stacking-slider__end-message { height: 160px; max-width: 180px; }
+  .stacking-slider__end-text {
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body);
+  }
+  .stacking-slider__arrow { width: 44px; height: 44px; }
+  .stacking-slider__nav { gap: var(--space-2); }
+
+  /* Scroll driver — invisible overlay that captures horizontal scroll */
+  .stacking-slider__scroll-driver {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Sits above the cards to intercept touch/scroll events */
+    z-index: 10;
+    /* Fully transparent — only captures input */
+    background: transparent;
+    /* Allow vertical page scroll to pass through */
+    touch-action: pan-x;
+  }
+
+  .stacking-slider__scroll-driver::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Each page = one snap point = one card stacked */
+  .stacking-slider__scroll-page {
+    flex: 0 0 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    pointer-events: none;
+  }
 }

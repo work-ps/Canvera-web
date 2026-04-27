@@ -1,0 +1,134 @@
+# ================================================================
+# Canvera — robots.txt
+# GEO-optimised: AI crawlers explicitly allowed for citability
+# Technique: zubair-trabzada/geo-seo-claude — AI Crawler Analysis
+# ================================================================
+
+# ── Standard search engine crawlers ─────────────────────────────
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+Disallow: /order/
+Disallow: /api/
+Crawl-delay: 1
+
+# ── Google ───────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+Disallow: /order/
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+# ── Bing ─────────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+
+# ── GEO: AI Crawlers — Explicitly ALLOWED for citability ─────────
+# Allowing AI crawlers improves GEO (Generative Engine Optimization)
+# so Canvera content can be cited in ChatGPT, Perplexity, Claude, etc.
+
+User-agent: GPTBot
+Allow: /
+Allow: /shop
+Allow: /products/
+Allow: /collections/
+Allow: /faq
+Allow: /about
+Allow: /genuine
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+Disallow: /order/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /profile
+
+User-agent: Applebot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# ── Disallow bad/scraper bots ────────────────────────────────────
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# ── Sitemap ──────────────────────────────────────────────────────
+Sitemap: https://canvera.com/sitemap.xml

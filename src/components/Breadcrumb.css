@@ -1,0 +1,132 @@
+/* ============================================================
+   Breadcrumb — site-level navigation trail
+   Matches design system: petrol brand + Inter + subtle tokens
+
+   Collapsing rule (enforced in JSX):
+     ≥ 4 items  →  Home · [···] · Previous · Current
+     ≤ 3 items  →  all items visible
+   ============================================================ */
+
+.breadcrumb {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.breadcrumb--flush {
+  border-bottom: none;
+}
+
+.breadcrumb__list {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 10px var(--side-padding);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;       /* no wrapping — collapsed items keep the row tidy */
+  overflow: hidden;
+  gap: 0;
+  list-style: none;
+}
+
+.breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.breadcrumb__sep {
+  font-size: var(--text-body-xs);
+  color: var(--neutral-300);
+  margin: 0 6px;
+  user-select: none;
+}
+
+/* ── Link crumb ─────────────────────────────────────────── */
+.breadcrumb__link {
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: var(--weight-regular);
+  transition: color var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.breadcrumb__link:hover {
+  color: var(--text-primary);
+}
+
+/* ── Current (last) crumb ───────────────────────────────── */
+.breadcrumb__current {
+  font-size: var(--text-body-xs);
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+/* ── Expander "···" button ──────────────────────────────── */
+.breadcrumb__expander {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  min-width: 28px;
+  padding: 0 6px;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--neutral-50, #F9F9F9);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background   var(--duration-fast) var(--ease-out),
+    color        var(--duration-fast) var(--ease-out),
+    transform    var(--duration-fast) var(--ease-out);
+}
+
+.breadcrumb__expander:hover {
+  border-color: var(--petrol, #2E5955);
+  background: var(--petrol-50, #EAF0EF);
+  color: var(--petrol, #2E5955);
+  transform: scale(1.05);
+}
+
+.breadcrumb__expander:active {
+  transform: scale(0.97);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .breadcrumb__list {
+    padding: 8px var(--side-padding);
+  }
+
+  /* Tighten max-widths on small screens */
+  .breadcrumb__link {
+    max-width: 100px;
+  }
+
+  .breadcrumb__current {
+    max-width: 140px;
+  }
+}
+
+@media (max-width: 400px) {
+  .breadcrumb__link {
+    max-width: 72px;
+  }
+
+  .breadcrumb__current {
+    max-width: 110px;
+  }
+}

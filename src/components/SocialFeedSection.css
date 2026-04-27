@@ -1,0 +1,211 @@
+/* ==========================================================================
+   SocialFeedSection — horizontal scroll video card row
+   ========================================================================== */
+
+/* ── Outer frame: positions side arrows, contains track + fade ── */
+.social-feed__frame {
+  position: relative;
+}
+
+/* ── Side arrow buttons ──────────────────────────────────────── */
+.social-feed__arrow {
+  position: absolute;
+  /*
+   * 4:5 card at 210px wide → image height ≈ 262px
+   * Caption below ≈ 46px → total card ≈ 308px
+   * Arrow at 42% centres on the image area (131px ÷ 308px ≈ 42%)
+   */
+  top: 42%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: background var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              opacity var(--duration-fast) var(--ease-out);
+}
+
+.social-feed__arrow:hover {
+  background: var(--neutral-50);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.social-feed__arrow--prev { left: 6px; }
+.social-feed__arrow--next { right: 6px; }
+
+.social-feed__arrow--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Track wrapper — clips overflow & hosts right-edge fade ── */
+.social-feed__wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Right-edge fade */
+.social-feed__wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 20px; /* aligns with track's padding-bottom that seats scrollbar */
+  width: 80px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.92));
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Scrollable track ──────────────────────────────────────── */
+.social-feed {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: var(--space-2) var(--side-padding) var(--space-4);
+  /* Cross-browser scrollbar-height elimination */
+  padding-bottom: 20px;
+  margin-bottom: -20px;
+}
+
+.social-feed::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Individual card ───────────────────────────────────────── */
+.social-feed__card {
+  flex: 0 0 210px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+
+/* ── Thumbnail container — 4:5 (Instagram standard portrait post ratio) ── */
+.social-feed__thumb {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--neutral-50);
+  border: 1px solid var(--border-subtle);
+}
+
+.social-feed__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.social-feed__card:hover .social-feed__thumb img {
+  transform: scale(1.04);
+}
+
+/* ── Platform badge — top-left overlay ────────────────────── */
+.social-feed__platform {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: var(--radius-full);
+  padding: 4px 10px 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  line-height: 1;
+}
+
+/* ── Play button — centred overlay ────────────────────────── */
+.social-feed__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.social-feed__play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+  padding-left: 2px; /* nudge triangle visually centre */
+}
+
+.social-feed__card:hover .social-feed__play-btn {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+/* ── Caption ───────────────────────────────────────────────── */
+.social-feed__meta {
+  padding: 0 2px;
+}
+
+.social-feed__handle {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.social-feed__location {
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
+@media (max-width: 767px) {
+  /* Arrows hidden — touch-scroll on mobile */
+  .social-feed__arrow {
+    display: none;
+  }
+
+  .social-feed__card {
+    flex: 0 0 150px;
+  }
+
+  .social-feed__platform {
+    font-size: 10px;
+    padding: 3px 8px 3px 5px;
+    gap: 3px;
+  }
+
+  .social-feed__play-btn {
+    width: 38px;
+    height: 38px;
+  }
+}

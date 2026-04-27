@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './CollectionCard.css';
 
@@ -14,7 +15,7 @@ export default function CollectionCard({ collection, index = 0 }) {
       transition={{ duration: 0.5, delay: index * 0.05, ease: [0, 0, 0.2, 1] }}
       whileHover={{ y: -2 }}
     >
-      <a href={`/collections/${collection.slug}`} className="collection-card__link">
+      <Link to={`/collections/${collection.slug}`} className="collection-card__link">
         <div className="collection-card__image-container">
           <img
             src={collection.image}
@@ -28,7 +29,7 @@ export default function CollectionCard({ collection, index = 0 }) {
             <span className="collection-card__count">{collection.count} products</span>
           </div>
         </div>
-      </a>
+      </Link>
     </motion.div>
   );
 }

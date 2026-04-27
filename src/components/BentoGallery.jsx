@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './BentoGallery.css';
 
 /*
@@ -36,8 +37,8 @@ export default function BentoGallery({ collections }) {
 
 function BentoItem({ item, layout, index }) {
   return (
-    <a
-      href={`/collections/${item.slug}`}
+    <Link
+      to={`/collections/${item.slug}`}
       className="bento__item bento__fade-in"
       style={{
         gridColumn: layout.col,
@@ -56,6 +57,6 @@ function BentoItem({ item, layout, index }) {
           <span className="bento__label">{item.name}</span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

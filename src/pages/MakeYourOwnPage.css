@@ -1,0 +1,666 @@
+/* ============================================================
+   Make Your Own — Photobook Configurator
+   Single-column centered layout, visual-first cards,
+   full design-system compliance. No left visualizer panel.
+   ============================================================ */
+
+/* ── Keyframes ────────────────────────────────────────────── */
+@keyframes myo-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.myo-fade-in {
+  animation: myo-fade-in 180ms var(--ease-out) both;
+}
+
+/* ── Page wrapper ─────────────────────────────────────────── */
+.myo {
+  min-height: 100vh;
+  padding-top: var(--header-height);
+  background: var(--bg-primary);
+}
+
+/* ── Centered bounded container ───────────────────────────── */
+.myo__bounded {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6) var(--space-16);
+}
+
+/* ── Progress bar ─────────────────────────────────────────── */
+.myo__progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.myo__progress-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--neutral-100);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.myo__progress-fill {
+  height: 100%;
+  background: var(--brand-petrol);
+  border-radius: var(--radius-full);
+  transition: width 400ms var(--ease-out);
+}
+
+.myo__progress-label {
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  min-width: 72px;
+  text-align: right;
+}
+
+/* ── Selection trail ──────────────────────────────────────── */
+.myo__trail {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.myo__trail-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 var(--space-3);
+  background: var(--petrol-50);
+  border: 1px solid var(--petrol-100);
+  border-radius: var(--radius-full);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--brand-petrol);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  transition: background var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.myo__trail-chip:hover {
+  background: var(--petrol-100);
+  border-color: var(--brand-petrol);
+}
+
+/* ── Step header ──────────────────────────────────────────── */
+.myo__step-header {
+  margin-bottom: var(--space-7);
+  animation: myo-fade-in 200ms var(--ease-out) both;
+}
+
+.myo__step-eyebrow {
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--brand-petrol);
+  margin-bottom: var(--space-2);
+}
+
+.myo__step-title {
+  font-size: var(--text-display-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-heading);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ── Sub-step (within a step) ─────────────────────────────── */
+.myo__sub-step {
+  margin-bottom: var(--space-8);
+}
+
+.myo__sub-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.myo__sub-step-title {
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-4);
+}
+
+.myo__sub-step-header .myo__sub-step-title { margin: 0; }
+
+/* ── Size-chart link ──────────────────────────────────────── */
+.myo__chart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--brand-petrol);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--font-sans);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.myo__chart-link:hover { color: var(--interactive-primary-hover); text-decoration: underline; }
+
+/* ════════════════════════════════════════════════════════════
+   GRID LAYOUTS
+   ════════════════════════════════════════════════════════════ */
+.myo-grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.myo-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.myo-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.myo-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ════════════════════════════════════════════════════════════
+   SIZE CHIPS — compact pill selectors for sizes/materials
+   ════════════════════════════════════════════════════════════ */
+.myo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.myo-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-align: center;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.myo-chip:hover {
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+}
+
+.myo-chip--active {
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+  box-shadow: 0 0 0 3px rgba(0, 87, 128, 0.08);
+}
+
+.myo-chip__label {
+  display: block;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.myo-chip--active .myo-chip__label { color: var(--brand-petrol); }
+
+.myo-chip__sub {
+  display: block;
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: 1;
+}
+
+/* ════════════════════════════════════════════════════════════
+   OPTION CARD — visual-first, platform-consistent
+   Matches platform interactive card pattern:
+   petrol border + petrol-50 bg on hover/selected
+   ════════════════════════════════════════════════════════════ */
+.myo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans);
+  position: relative;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              background  var(--duration-fast) var(--ease-out),
+              box-shadow  var(--duration-fast) var(--ease-out),
+              transform   var(--duration-fast) var(--ease-out);
+}
+
+/* Centered variant (material, orientation, lamination, cover design) */
+.myo-card--center {
+  align-items: center;
+  text-align: center;
+}
+
+/* Binding variant — taller, left-aligned, more breathing room */
+.myo-card--binding {
+  padding: var(--space-6);
+  gap: var(--space-3);
+}
+
+.myo-card:hover {
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+  box-shadow: var(--shadow-md);
+}
+
+.myo-card:active {
+  transform: scale(var(--press-scale, 0.98));
+}
+
+/* Selected state */
+.myo-card--selected {
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+  box-shadow: 0 0 0 3px rgba(0, 87, 128, 0.08);
+}
+
+.myo-card--selected:hover {
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+}
+
+/* Selected tick badge — top-right */
+.myo-card--selected::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: var(--brand-petrol)
+    url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l3 3 5-6' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat center;
+}
+
+/* ── Card text elements ───────────────────────────────────── */
+.myo-card__swatch {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(255,255,255,0.65);
+  box-shadow: 0 0 0 1px rgba(26,42,58,0.14);
+  flex-shrink: 0;
+  margin-bottom: var(--space-1);
+}
+
+.myo-card__icon {
+  display: block;
+  margin-bottom: var(--space-2);
+  flex-shrink: 0;
+}
+
+.myo-card__name {
+  display: block;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.myo-card--selected .myo-card__name { color: var(--brand-petrol); }
+
+.myo-card__desc {
+  display: block;
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+.myo-card__hint {
+  display: block;
+  font-size: 11px;
+  color: var(--text-disabled);
+  line-height: var(--leading-snug);
+  margin-top: 1px;
+}
+
+/* ── Orientation glyphs ───────────────────────────────────── */
+.myo-ori-glyph {
+  display: block;
+  background: var(--neutral-200);
+  border-radius: 3px;
+  margin-bottom: var(--space-2);
+  transition: background var(--duration-fast);
+}
+
+.myo-ori-glyph--landscape { width: 48px; height: 34px; }
+.myo-ori-glyph--portrait  { width: 34px; height: 48px; }
+.myo-ori-glyph--square    { width: 40px; height: 40px; }
+
+.myo-card--selected .myo-ori-glyph { background: var(--petrol-100); }
+
+/* ════════════════════════════════════════════════════════════
+   COLOUR SWATCHES
+   ════════════════════════════════════════════════════════════ */
+.myo__color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.myo-color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 2.5px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 1px rgba(26,42,58,0.14);
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.myo-color-swatch:hover {
+  transform: scale(1.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.myo-color-swatch--selected {
+  border-color: var(--brand-petrol);
+  box-shadow: 0 0 0 3px rgba(0, 87, 128, 0.18);
+  transform: scale(1.08);
+}
+
+.myo__color-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.myo__color-label {
+  width: 40px;
+  font-size: 10px;
+  color: var(--text-disabled);
+  text-align: center;
+  line-height: var(--leading-snug);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--duration-fast);
+}
+
+.myo__color-label--active {
+  color: var(--brand-petrol);
+  font-weight: var(--weight-medium);
+}
+
+/* ════════════════════════════════════════════════════════════
+   STEP 7 — RESULT
+   ════════════════════════════════════════════════════════════ */
+
+/* Compact summary row */
+.myo__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  background: var(--petrol-50);
+  border: 1px solid var(--petrol-100);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-7);
+}
+
+.myo__summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.myo__summary-key {
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-secondary);
+}
+
+.myo__summary-val {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+/* Actions row */
+.myo__actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-10);
+}
+
+/* ── Buttons — scoped to MYO, match platform pattern ─────── */
+.myo__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 44px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  transition: background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.myo__btn--primary {
+  background: var(--interactive-primary);
+  color: var(--text-inverse);
+}
+.myo__btn--primary:hover { background: var(--interactive-primary-hover); }
+
+.myo__btn--copied {
+  background: var(--success);
+  color: #fff;
+}
+
+.myo__btn--secondary {
+  background: none;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-strong);
+}
+.myo__btn--secondary:hover {
+  background: var(--neutral-50);
+  border-color: var(--neutral-500);
+}
+
+/* Restart — text-style button, separate from primary actions */
+.myo__restart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 44px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: color var(--duration-fast), background var(--duration-fast), border-color var(--duration-fast);
+}
+.myo__restart-btn:hover {
+  color: var(--text-primary);
+  background: var(--neutral-50);
+  border-color: var(--border-strong);
+}
+
+/* ── Similar products ─────────────────────────────────────── */
+.myo__similar {
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.myo__similar-title {
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-6);
+}
+
+/* ProductCard in 3-col grid — no overrides needed;
+   uses platform .pcard styles with 4/3 image aspect ratio */
+
+/* ════════════════════════════════════════════════════════════
+   SIZE CHART MODAL — matches platform modal pattern
+   ════════════════════════════════════════════════════════════ */
+.myo__modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  z-index: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  animation: myo-fade-in 150ms var(--ease-out) both;
+}
+
+.myo__modal {
+  background: var(--bg-primary);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  max-width: 520px;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.myo__modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.myo__modal-title {
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.myo__modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  background: var(--neutral-50);
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+.myo__modal-close:hover { background: var(--neutral-100); color: var(--text-primary); }
+
+.myo__modal-body {
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-6) var(--space-6);
+}
+
+.myo__size-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-body-sm);
+}
+
+.myo__size-table th {
+  text-align: left;
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-secondary);
+  padding: 0 var(--space-3) var(--space-3) 0;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.myo__size-table td {
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+.myo__size-table tr:last-child td { border-bottom: none; }
+
+.myo__size-table td strong {
+  font-weight: var(--weight-semibold);
+  color: var(--brand-petrol);
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .myo__bounded { padding: var(--space-7) var(--space-5) var(--space-14); }
+}
+
+@media (max-width: 768px) {
+  .myo-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .myo-grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .myo__bounded { padding: var(--space-6) var(--space-4) var(--space-12); }
+  .myo__step-title { font-size: var(--text-heading-lg); }
+
+  .myo-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .myo-grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .myo-grid--2 { grid-template-columns: 1fr; }
+
+  .myo__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .myo__btn,
+  .myo__restart-btn { justify-content: center; width: 100%; }
+
+  .myo__summary { gap: var(--space-3); }
+}
+
+@media (max-width: 420px) {
+  .myo-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}

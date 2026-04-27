@@ -2,10 +2,26 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, animate } from 'framer-motion';
 import './HeroCarousel.css';
 
+function useResponsiveRadius() {
+  const [radius, setRadius] = useState(440);
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w <= 767) setRadius(280);
+      else if (w <= 1023) setRadius(360);
+      else setRadius(440);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+  return radius;
+}
+
 export default function HeroCarousel({ items }) {
   const count = items.length;
   const anglePerItem = 360 / count;
-  const radius = 440;
+  const radius = useResponsiveRadius();
 
   // Motion value for smooth continuous rotation
   const rawRotation = useMotionValue(0);

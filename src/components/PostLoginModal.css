@@ -1,0 +1,250 @@
+/* ==========================================================================
+   PostLoginModal — post-login engagement prompts
+   Variant A: photographer verify prompt (--verify)
+   Variant B: connect with photographer prompt (--connect)
+   ========================================================================== */
+
+.plm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  animation: plm-fade-in var(--duration-slow) var(--ease-out);
+}
+
+@keyframes plm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.plm-modal {
+  position: relative;
+  background: var(--bg-primary);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-8) var(--space-7);
+  max-width: 460px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  animation: plm-slide-in var(--duration-slow) var(--ease-out);
+}
+
+@keyframes plm-slide-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Close ───────────────────────────────────────────────────── */
+.plm-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--neutral-50);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.plm-close:hover {
+  background: var(--neutral-100);
+  color: var(--text-primary);
+}
+
+/* ── Icon ────────────────────────────────────────────────────── */
+.plm-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plm-icon--verify {
+  background: var(--petrol-50);
+  color: var(--brand-petrol);
+  border: 1px solid var(--petrol-100);
+}
+
+.plm-icon--connect {
+  background: var(--teal-50);
+  color: var(--teal-700);
+  border: 1px solid rgba(42, 157, 143, 0.2);
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.plm-eyebrow {
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-brand);
+  margin-bottom: var(--space-1);
+}
+
+.plm-title {
+  font-size: var(--text-heading-xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-3);
+}
+
+.plm-sub {
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+/* ── Benefits list (Variant A) ───────────────────────────────── */
+.plm-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background: var(--petrol-50);
+  border: 1px solid var(--petrol-100);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+}
+
+.plm-benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-body-sm);
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.plm-benefit svg {
+  color: var(--success);
+  flex-shrink: 0;
+}
+
+/* ── How it works (Variant B) ────────────────────────────────── */
+.plm-how {
+  background: var(--neutral-50);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+}
+
+.plm-how__title {
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.plm-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.plm-step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-body-sm);
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.plm-step__num {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--brand-petrol);
+  color: #fff;
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+/* ── Actions ─────────────────────────────────────────────────── */
+.plm-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.plm-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 44px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+  border: none;
+}
+
+.plm-cta--primary {
+  background: var(--interactive-primary);
+  color: var(--text-inverse);
+}
+
+.plm-cta--primary:hover {
+  background: var(--interactive-primary-hover);
+  color: var(--text-inverse);
+}
+
+.plm-cta--ghost {
+  background: none;
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-default);
+}
+
+.plm-cta--ghost:hover {
+  background: var(--neutral-50);
+  color: var(--text-primary);
+}
+
+/* ── Footnote ────────────────────────────────────────────────── */
+.plm-footnote {
+  font-size: var(--text-body-xs);
+  color: var(--text-disabled);
+  text-align: center;
+  margin-top: calc(var(--space-1) * -1);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .plm-modal {
+    padding: var(--space-6) var(--space-5) var(--space-5);
+  }
+}

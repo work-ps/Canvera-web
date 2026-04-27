@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './StackingSlider.css';
 
@@ -9,6 +9,13 @@ const STACK_PEEK = 6;
 export default function StackingSlider({ items, endMessage }) {
   const [stackCount, setStackCount] = useState(1);
   const directionRef = useRef(1); // 1 = forward (stacking), -1 = backward (unstacking)
+
+  // Ref mirror of stackCount — avoids stale closure inside scroll handler
+  const stackCountRef = useRef(1);
+  useEffect(() => { stackCountRef.current = stackCount; }, [stackCount]);
+
+  // Scroll driver ref (mobile only)
+  const scrollDriverRef = useRef(null);
 
   const allStacked = stackCount >= items.length;
   const isAtStart = stackCount <= 1;
@@ -25,6 +32,24 @@ export default function StackingSlider({ items, endMessage }) {
       setStackCount((s) => s - 1);
     }
   };
+
+  // Scroll driver handler — maps scroll position → stackCount
+  const handleScrollDriver = useCallback(() => {
+    const el = scrollDriverRef.current;
+    if (!el) return;
+    const pageWidth = el.clientWidth;
+    if (!pageWidth) return;
+    // Each "page" scroll = one more card stacked (starts at 1)
+    const newCount = Math.min(
+      items.length,
+      Math.max(1, Math.round(el.scrollLeft / pageWidth) + 1)
+    );
+    if (newCount !== stackCountRef.current) {
+      directionRef.current = newCount > stackCountRef.current ? 1 : -1;
+      setStackCount(newCount);
+      stackCountRef.current = newCount;
+    }
+  }, [items.length]);
 
   const stackRightEdge = stackCount > 0
     ? CARD_WIDTH + Math.min(stackCount - 1, 5) * STACK_PEEK
@@ -96,6 +121,21 @@ export default function StackingSlider({ items, endMessage }) {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+
+        {/* ── Mobile scroll driver ──────────────────────────────────────────
+            Invisible overlay sitting above the cards. User scrolls it
+            horizontally; each snap page = one card stacking/unstacking.
+            Hidden on desktop (display:none via CSS media query).         */}
+        <div
+          ref={scrollDriverRef}
+          className="stacking-slider__scroll-driver"
+          onScroll={handleScrollDriver}
+          aria-hidden="true"
+        >
+          {items.map((_, i) => (
+            <div key={i} className="stacking-slider__scroll-page" />
+          ))}
         </div>
       </div>
 

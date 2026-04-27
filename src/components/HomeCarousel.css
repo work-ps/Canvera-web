@@ -1,0 +1,178 @@
+/* ============================================================
+   HomeCarousel — chip tabs + horizontal product scroll
+   Post-login variant for ShopSection & OccasionsSection
+   ============================================================ */
+
+/* ── Chip tabs row (no arrows here) ───────────────────────── */
+.hcarousel__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.hcarousel__chips {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  padding-bottom: 2px; /* prevent focus-ring clip */
+}
+.hcarousel__chips::-webkit-scrollbar { display: none; }
+
+.hcarousel__chip {
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.hcarousel__chip:hover {
+  background: var(--neutral-50);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.hcarousel__chip--active {
+  background: var(--interactive-primary);
+  color: var(--text-inverse);
+  border-color: var(--interactive-primary);
+}
+
+.hcarousel__chip--active:hover {
+  background: var(--interactive-primary-hover);
+  border-color: var(--interactive-primary-hover);
+}
+
+/* ── Frame: wraps track + side arrows ─────────────────────── */
+.hcarousel__frame {
+  position: relative;
+}
+
+/* ── Side arrow buttons ────────────────────────────────────── */
+.hcarousel__arrow {
+  position: absolute;
+  /*
+   * top: 38% centres arrows on the image portion of a 4:5 card.
+   * Card image = 4/5 of card height; card body ≈ remaining 20%.
+   * With the image making up ~80% of height, centre of image = 40% of total,
+   * but transform: translateY(-50%) shifts up half the button, so top: 38%
+   * lands the arrow visually in the middle of the image.
+   */
+  top: 38%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: background var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              opacity var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.hcarousel__arrow:hover {
+  background: var(--neutral-50);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.hcarousel__arrow--prev { left: 6px; }
+.hcarousel__arrow--next { right: 6px; }
+
+/* Hide arrow (no scroll in that direction) */
+.hcarousel__arrow--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Track wrapper — clips overflow & adds right fade ─────── */
+.hcarousel__track-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.hcarousel__track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 20px; /* aligns with track padding-bottom so fade ends at card bottom */
+  width: 64px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.88));
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Scrollable track ──────────────────────────────────────── */
+.hcarousel__track {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /*
+   * Cross-browser scrollbar-height elimination:
+   * padding-bottom pushes the scrollbar into a hidden zone;
+   * the equal negative margin-bottom cancels that zone from the
+   * parent's (overflow:hidden) height calculation — no extra gap.
+   */
+  padding-bottom: 20px;
+  margin-bottom: -20px;
+  /* trailing space = equal to section-content's side padding so
+     the last card has the same breathing room as the first card */
+  padding-right: var(--card-padding, 24px);
+}
+
+.hcarousel__track::-webkit-scrollbar { display: none; }
+
+/* ── Card slot ─────────────────────────────────────────────── */
+.hcarousel__item {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+}
+
+/* ── Empty state ───────────────────────────────────────────── */
+.hcarousel__empty {
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  padding: var(--space-8) 0;
+  margin: 0;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .hcarousel__item {
+    flex: 0 0 160px;
+  }
+
+  /* Side arrows hidden on touch devices — users swipe */
+  .hcarousel__arrow {
+    display: none;
+  }
+
+  .hcarousel__track-wrap::after {
+    width: 40px;
+  }
+}

@@ -123,7 +123,7 @@
 
 @media (max-width: 767px) {
   .footer {
-    padding: var(--space-section) var(--space-4) 0;
+    padding: var(--space-section) var(--side-padding) 0;
   }
 
   .footer__main {
@@ -132,7 +132,11 @@
   }
 
   .footer__bounded {
-    padding: var(--space-6) var(--space-5);
+    padding: var(--space-6) var(--side-padding);
+  }
+
+  .footer__logo-img {
+    height: 30px;
   }
 
   .footer__bottom {

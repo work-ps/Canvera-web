@@ -239,9 +239,21 @@
     grid-template-columns: 1fr;
   }
 
+  /* Testimonials: 85% width, all cards get border-right for scroll continuity */
   .testimonial-card {
     flex: 0 0 85%;
     border-right: 1px solid var(--border-default);
+  }
+
+  /* Last card still needs a visible edge when scrolled into view */
+  .testimonial-card:last-child {
+    border-right: none;
+    padding-right: var(--space-5);
+  }
+
+  /* Journey stat cards: stack gracefully */
+  .journey-stats {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .journey-stat-card {
@@ -252,8 +264,14 @@
     font-size: var(--text-heading-lg);
   }
 
+  .journey-text__copy h3 {
+    font-size: var(--text-heading-lg);
+  }
+
+  /* Section header: stacked with more breathing room */
   .section-header {
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
   }
 }

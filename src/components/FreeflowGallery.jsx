@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
 import './FreeflowGallery.css';
 
@@ -260,7 +261,7 @@ export default function FreeflowGallery({ items }) {
               animate={{ scale: 1, opacity: 1, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
               exit={{ scale: 0.9, opacity: 0, transition: { duration: 0 } }}
             >
-              <img src={expandedItem.image} alt={expandedItem.name} />
+              <img src={expandedItem.expandedImage || expandedItem.image} alt={expandedItem.name} />
             </motion.div>
             <motion.div
               className="freeflow__expand-info"
@@ -280,13 +281,13 @@ export default function FreeflowGallery({ items }) {
                   ))}
                 </div>
               )}
-              <a
-                href={`/product/${expandedItem.slug}`}
+              <Link
+                to={`/products/${expandedItem.slug}`}
                 className="freeflow__expand-cta"
                 onClick={(e) => e.stopPropagation()}
               >
                 Explore Product
-              </a>
+              </Link>
             </motion.div>
             <button
               className="freeflow__expand-close"

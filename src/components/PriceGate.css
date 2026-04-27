@@ -1,0 +1,60 @@
+/* ── PriceGate ───────────────────────────────────────────────────────────── */
+
+/* Shared base */
+.price-gate {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+/* ── Visible (logged in) — just the price number ── */
+.price-gate--visible {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.price-gate--visible.price-gate--sm { font-size: var(--text-body-sm); }
+.price-gate--visible.price-gate--md { font-size: var(--text-body-md); }
+.price-gate--visible.price-gate--lg { font-size: var(--text-heading-md); }
+
+/* ── Locked (not logged in) — subtle prompt ── */
+.price-gate--locked {
+  color: var(--text-secondary);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-md);
+  transition: color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+  cursor: pointer;
+}
+
+.price-gate--locked:hover {
+  color: var(--interactive-primary);
+  background: var(--petrol-50);
+}
+
+.price-gate--locked.price-gate--sm {
+  font-size: var(--text-body-xs);
+  padding: 2px 6px 2px 4px;
+}
+
+.price-gate--locked.price-gate--md {
+  font-size: var(--text-body-sm);
+  padding: 3px 8px 3px 6px;
+}
+
+.price-gate--locked.price-gate--lg {
+  font-size: var(--text-body-base);
+  padding: 4px 10px 4px 7px;
+}
+
+.price-gate__icon {
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.price-gate--locked:hover .price-gate__icon {
+  opacity: 1;
+}

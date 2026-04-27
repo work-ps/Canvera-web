@@ -17,6 +17,7 @@
     --petrol-800: #004A6D;
     --petrol-700: #005780;
     --petrol-600: #006A99;
+    --petrol-100: #d4eaf5;
     --petrol-50: #EBF5FA;
 
     /* Teal */
@@ -35,11 +36,18 @@
     --success: #2a9d8f;
     --success-light: #F2FBFA;
     --warning: #E5A100;
-    --warning-light: #FFF8E6;
+    --warning-light: #FFF3E0;
+    --warning-text: #8a6000;
     --error: #D93025;
     --error-light: #FEF0EF;
     --info: #005780;
     --info-light: #EBF5FA;
+
+    /* Semantic extras */
+    --color-star: #F5A623;
+    --color-star-empty: #C8D1D8;
+    --status-shipped-bg: #e0f0ff;
+    --status-shipped-text: #0060b0;
 
     /* -- Surfaces -- */
     --bg-primary: #FFFFFF;
@@ -122,6 +130,7 @@
     --space-4: 16px;
     --space-5: 20px;
     --space-6: 24px;
+    --space-7: 28px;
     --space-8: 32px;
     --space-10: 40px;
     --space-12: 48px;
@@ -139,7 +148,9 @@
     --card-padding: 24px;
 
     /* -- Layout -- */
-    --header-height: 64px;
+    --nav-height:    64px;
+    --strip-height:  0px;
+    --header-height: calc(var(--nav-height) + var(--strip-height));
     --max-width: 1200px;
     --max-width-narrow: 720px;
     --side-padding: 32px;
@@ -158,8 +169,8 @@
     --shadow-md: 0 4px 12px rgba(26, 42, 58, 0.04);
     --shadow-lg: 0 8px 24px rgba(26, 42, 58, 0.06);
     --shadow-xl: 0 16px 48px rgba(26, 42, 58, 0.06);
-    --shadow-card: 0 0 0 0.5px rgba(26, 42, 58, 0.08);
-    --shadow-card-hover: 0 0 0 0.5px rgba(26, 42, 58, 0.08), 0 8px 24px rgba(26, 42, 58, 0.06);
+    --shadow-card: 0 0 0 0.5px rgba(26, 42, 58, 0.05);
+    --shadow-card-hover: 0 0 0 0.5px rgba(26, 42, 58, 0.06), 0 4px 14px rgba(26, 42, 58, 0.04);
     --shadow-product-glow: 0 12px 40px rgba(0, 87, 128, 0.06);
 
     /* -- Motion -- */
@@ -203,7 +214,7 @@
         --text-heading-xl: 20px;
         --text-heading-lg: 18px;
         --side-padding: 20px;
-        --header-height: 56px;
+        --nav-height: 56px;
         --space-section: 80px;
         --card-gap: 20px;
     }
