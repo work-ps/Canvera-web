@@ -161,6 +161,8 @@ export default function HeroCarousel({ items }) {
                     alt={item.name}
                     className="hero-carousel__image"
                     draggable={false}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={index === 0 ? 'high' : 'low'}
                   />
                 </div>
               </div>

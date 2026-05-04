@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { NavigationHistoryProvider } from './context/NavigationHistoryContext';
@@ -9,7 +10,7 @@ import ProOfferStrip from './components/ProOfferStrip';
 import LeadCaptureModal from './components/LeadCaptureModal';
 import PostLoginModal from './components/PostLoginModal';
 
-// Home page sections
+// Home page sections — eagerly loaded (above the fold)
 import Hero from './components/Hero';
 import ShopSection from './components/ShopSection';
 import CollectionsSection from './components/CollectionsSection';
@@ -17,27 +18,37 @@ import OccasionsSection from './components/OccasionsSection';
 import JourneySection from './components/JourneySection';
 import TestimonialsSection from './components/TestimonialsSection';
 import SocialFeedSection from './components/SocialFeedSection';
-
-// Pages
-import CollectionsPage from './pages/CollectionsPage';
-import ShopPage from './pages/ShopPage';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import VerifyPage from './pages/VerifyPage';
-import ContactPage from './pages/ContactPage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import OrderWizardPage from './pages/OrderWizardPage';
-import CartPage from './pages/CartPage';
-import CheckoutPage from './pages/CheckoutPage';
-import ProfilePage from './pages/ProfilePage';
-import AboutPage from './pages/AboutPage';
-import FAQPage from './pages/FAQPage';
-import TrackPage from './pages/TrackPage';
-import ProductFinderPage from './pages/ProductFinderPage';
-import MakeYourOwnPage from './pages/MakeYourOwnPage';
-import NotFoundPage from './pages/NotFoundPage';
 import FABAssistant from './components/FABAssistant/FABAssistant';
 import SEOMeta from './components/SEOMeta';
+
+// Pages — lazy loaded (only downloaded when user navigates there)
+const CollectionsPage    = lazy(() => import('./pages/CollectionsPage'));
+const ShopPage           = lazy(() => import('./pages/ShopPage'));
+const LoginPage          = lazy(() => import('./pages/LoginPage'));
+const SignupPage         = lazy(() => import('./pages/SignupPage'));
+const VerifyPage         = lazy(() => import('./pages/VerifyPage'));
+const ContactPage        = lazy(() => import('./pages/ContactPage'));
+const ProductDetailPage  = lazy(() => import('./pages/ProductDetailPage'));
+const OrderWizardPage    = lazy(() => import('./pages/OrderWizardPage'));
+const CartPage           = lazy(() => import('./pages/CartPage'));
+const CheckoutPage       = lazy(() => import('./pages/CheckoutPage'));
+const ProfilePage        = lazy(() => import('./pages/ProfilePage'));
+const AboutPage          = lazy(() => import('./pages/AboutPage'));
+const FAQPage            = lazy(() => import('./pages/FAQPage'));
+const TrackPage          = lazy(() => import('./pages/TrackPage'));
+const ProductFinderPage  = lazy(() => import('./pages/ProductFinderPage'));
+const MakeYourOwnPage    = lazy(() => import('./pages/MakeYourOwnPage'));
+const NotFoundPage       = lazy(() => import('./pages/NotFoundPage'));
+
+// Minimal fallback shown during chunk download (< 200ms on broadband)
+function PageLoader() {
+  return (
+    <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: 32, height: 32, border: '2px solid #e2e8ec', borderTopColor: '#005780', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
+}
 
 const HOME_SCHEMA = [
   {
@@ -91,6 +102,7 @@ export default function App() {
           <Header />
           <LeadCaptureModal />
           <PostLoginModal />
+          <Suspense fallback={<PageLoader />}>
           <Routes>
             {/* Home */}
             <Route path="/" element={<HomePage />} />
@@ -157,6 +169,7 @@ export default function App() {
             {/* Catch-all → 404 */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
+          </Suspense>
           <Footer />
           <FABAssistant />
           <div style={{ height: 'var(--space-12, 48px)' }} />

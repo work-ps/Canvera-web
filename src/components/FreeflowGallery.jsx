@@ -8,6 +8,9 @@ const CARD_HEIGHT = 280;
 const GAP = 12;
 const COLS = 5;
 const ROWS = 8; // 5×8 = 40 tiles ≥ 39 products — every product gets a slot
+
+// Tile repeat range: 3×3 blocks = 9 copies of the 40-tile grid = 360 DOM images.
+// Enough to fill any viewport with generous overflow; browser lazy-loads the rest.
 const FRICTION = 0.92;
 const EDGE_ZONE = 80;
 const EDGE_SPEED = 4;
@@ -191,7 +194,7 @@ export default function FreeflowGallery({ items }) {
     }
   }
 
-  const tileOffsets = [-2, -1, 0, 1, 2];
+  const tileOffsets = [-1, 0, 1]; // 3×3 = 9 blocks × 40 tiles = 360 imgs (was 1000)
 
   return (
     <div
@@ -316,7 +319,7 @@ function FreeflowCard({ item, style, onExpand }) {
         alt={item.name}
         className="freeflow__card-img"
         draggable={false}
-        loading="eager"
+        loading="lazy"
       />
       <button
         className="freeflow__card-enlarge"
