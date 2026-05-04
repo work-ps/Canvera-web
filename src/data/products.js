@@ -932,88 +932,100 @@ export const products = [
 ];
 
 // Collections
+// Order matches BentoGallery layout (positions 0-8):
+// [Celestial 2c] [Luxury 1c] [Suede 1c×2r] [Artisan 2c] / [Leatherette 1c] [Signature 2c] [Classic 2c] / [Wood 3c] [Custom Cover 3c]
 export const collections = [
   {
     id: 'celestial',
+    slug: 'celestial',
     name: 'Celestial',
     description: 'Our most prestigious line — silk and velvet covers adorned with precious foiling for the grandest celebrations.',
-    image: '/images/Hero%20Section%20-%201080x720/3.jpg',
+    image: '/images/collections/celestial.jpg',
     count: 3,
   },
   {
     id: 'luxury',
+    slug: 'luxury',
     name: 'Luxury',
     description: 'Sumptuous leathers, velvet, and embossed finishes for those who demand the very finest.',
-    image: '/images/Hero%20Section%20-%201080x720/1.jpg',
+    image: '/images/collections/luxury.jpg',
     count: 4,
   },
   {
     id: 'suede',
+    slug: 'suede',
     name: 'Suede',
     description: 'Irresistibly tactile suede and plush leather covers that make every touch a pleasure.',
-    image: '/images/Hero%20Section%20-%201080x720/7.jpg',
-    count: 3,
-  },
-  {
-    id: 'leatherette',
-    name: 'Leatherette',
-    description: 'Classic leatherette in a range of finishes — the perfect balance of quality and value.',
-    image: '/images/Hero%20Section%20-%201080x720/4.jpg',
-    count: 4,
-  },
-  {
-    id: 'custom-cover',
-    name: 'Custom Cover',
-    description: 'Feature your favourite photo right on the cover for a truly personalised photobook.',
-    image: '/images/Hero%20Section%20-%201080x720/2.jpg',
+    image: '/images/collections/suede.jpg',
     count: 3,
   },
   {
     id: 'artisan',
+    slug: 'artisan',
     name: 'Artisan',
     description: 'Handcrafted covers in shimmer fabrics, antique leather, and ornamental textiles for the discerning eye.',
-    image: '/images/Hero%20Section%20-%201080x720/5.jpg',
+    image: '/images/collections/foiling.jpg',
     count: 7,
   },
   {
-    id: 'wood',
-    name: 'Wood',
-    description: 'Limited-edition natural wood covers, laser-engraved for a truly one-of-a-kind keepsake.',
-    image: '/images/Hero%20Section%20-%201080x720/6.jpg',
-    count: 1,
+    id: 'leatherette',
+    slug: 'leatherette',
+    name: 'Leatherette',
+    description: 'Classic leatherette in a range of finishes — the perfect balance of quality and value.',
+    image: '/images/collections/leatherette.jpg',
+    count: 4,
   },
   {
     id: 'signature',
+    slug: 'signature',
     name: 'Signature',
     description: 'Bold metallic and foiled covers that make a statement and stand the test of time.',
-    image: '/images/Hero%20Section%20-%201080x720/2.jpg',
+    image: '/images/collections/signature.jpg',
     count: 2,
   },
   {
     id: 'classic',
+    slug: 'classic',
     name: 'Classic',
     description: 'Timeless designs in matte, gloss, and hardcover finishes suited to every story.',
-    image: '/images/Hero%20Section%20-%201080x720/4.jpg',
+    image: '/images/collections/fabric.jpg',
     count: 5,
   },
   {
+    id: 'wood',
+    slug: 'wood',
+    name: 'Wood',
+    description: 'Limited-edition natural wood covers, laser-engraved for a truly one-of-a-kind keepsake.',
+    image: '/images/collections/wood.jpg',
+    count: 1,
+  },
+  {
+    id: 'custom-cover',
+    slug: 'custom-cover',
+    name: 'Custom Cover',
+    description: 'Feature your favourite photo right on the cover for a truly personalised photobook.',
+    image: '/images/collections/custom-cover.jpg',
+    count: 3,
+  },
+  {
     id: 'standard',
+    slug: 'standard',
     name: 'Standard',
     description: 'Great quality at an accessible price point — the perfect everyday photobook.',
-    image: '/images/Hero%20Section%20-%201080x720/1.jpg',
+    image: '/images/collections/leatherette.jpg',
     count: 2,
   },
 ];
 
 // Occasions
 export const occasions = [
-  { id: 'weddings',         name: 'Weddings',          icon: '💍', image: '/images/Hero%20Section%20-%201080x720/1.jpg' },
-  { id: 'pre-wedding',      name: 'Pre-Wedding',        icon: '📸', image: '/images/Hero%20Section%20-%201080x720/2.jpg' },
-  { id: 'maternity',        name: 'Maternity',          icon: '🤱', image: '/images/Hero%20Section%20-%201080x720/3.jpg' },
-  { id: 'baby-and-kids',    name: 'Baby & Kids',        icon: '👶', image: '/images/Hero%20Section%20-%201080x720/4.jpg' },
-  { id: 'birthdays',        name: 'Birthdays',          icon: '🎂', image: '/images/Hero%20Section%20-%201080x720/5.jpg' },
-  { id: 'corporate',        name: 'Corporate',          icon: '🏢', image: '/images/Hero%20Section%20-%201080x720/6.jpg' },
-  { id: 'portraits-family', name: 'Portraits & Family', icon: '👨‍👩‍👧', image: '/images/Hero%20Section%20-%201080x720/7.jpg' },
+  { id: 'weddings',         name: 'Weddings',          icon: '💍', image: '/images/occasions/wedding.jpg' },
+  { id: 'pre-wedding',      name: 'Pre-Wedding',        icon: '📸', image: '/images/occasions/pre-wedding.jpg' },
+  { id: 'maternity',        name: 'Maternity',          icon: '🤱', image: '/images/occasions/maternity.jpg' },
+  { id: 'baby-and-kids',    name: 'Baby & Kids',        icon: '👶', image: '/images/occasions/baby-%26-kids.jpg' },
+  { id: 'birthdays',        name: 'Birthdays',          icon: '🎂', image: '/images/occasions/birthdays.jpg' },
+  { id: 'corporate',        name: 'Corporate',          icon: '🏢', image: '/images/occasions/corporate.jpg' },
+  { id: 'portraits-family', name: 'Portraits & Family', icon: '👨‍👩‍👧', image: '/images/occasions/portraits-%26-family.jpg' },
 ];
 
 // Testimonials
