@@ -5,9 +5,10 @@ function pbDir(n, nameSuffix) {
   return `${PB}/Photobook%20(${n})%20-%20${enc(nameSuffix)}`;
 }
 function imgs(dir, count = 4, subfolder, size) {
-  return Array.from({ length: count }, (_, i) =>
-    `${dir}/${enc(subfolder)}%20-%20${size}/${i + 1}.jpg`
-  );
+  const base = `${dir}/${enc(subfolder)}%20-%20${size}`;
+  const numbered = Array.from({ length: count }, (_, i) => `${base}/${i + 1}.jpg`);
+  const bindings = ['abs', 'al', 'nef'].map(b => `${base}/${b}.jpg`);
+  return [...numbered, ...bindings];
 }
 
 // Binding images
@@ -73,8 +74,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 2, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 2, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -96,8 +97,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 2, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 2, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -142,8 +143,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 3, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 3, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -257,8 +258,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 2, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 2, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -326,8 +327,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 6, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 6, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -441,8 +442,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 5, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 5, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -510,8 +511,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 5, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 5, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -533,8 +534,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 3, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 3, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -740,8 +741,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 5, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 5, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
@@ -809,8 +810,8 @@ export const products = [
       image: `${dir}/Product%20Card%20-%201000x1250/1.jpg`,
       tileImage: `${dir}/Tile%20Card%20-%20800x800/1.jpg`,
       expandedImage: `${dir}/Expanded%20View%20-%201600x1200/2.jpg`,
-      images: imgs(dir, 4, 'Product Page - Gallery', '2000x2000'),
-      thumbs: imgs(dir, 4, 'Product Page - Thumbnail', '400x400'),
+      images: imgs(dir, 3, 'Product Page - Gallery', '2000x2000'),
+      thumbs: imgs(dir, 3, 'Product Page - Thumbnail', '400x400'),
     };
   })(),
   (() => {
