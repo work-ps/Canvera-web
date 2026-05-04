@@ -7,7 +7,7 @@ const CARD_WIDTH = 280;
 const CARD_HEIGHT = 280;
 const GAP = 12;
 const COLS = 5;
-const ROWS = 4;
+const ROWS = 8; // 5×8 = 40 tiles ≥ 39 products — every product gets a slot
 const FRICTION = 0.92;
 const EDGE_ZONE = 80;
 const EDGE_SPEED = 4;
