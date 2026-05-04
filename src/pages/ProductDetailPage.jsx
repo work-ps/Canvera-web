@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { products } from '../data/products';
+import { products, bindingImages } from '../data/products';
 import { SIZES } from '../data/productConfig';
 import PriceGate from '../components/PriceGate';
 import ProductCard from '../components/ProductCard';
@@ -14,7 +14,6 @@ import './ProductDetailPage.css';
 const ZOOM_FACTOR  = 2.5;
 const TABS         = ['Overview', 'Specifications', 'Design Styles', 'Material & Care'];
 const ORIENTATIONS = ['Portrait', 'Landscape', 'Square'];
-const BINDINGS     = ['Lay-flat', 'Flush Mount', 'Perfect Bound', 'Saddle Stitch'];
 
 const SPECS = {
   'Photobooks':     { Binding: 'Lay-flat / Flush Mount', Pages: '20–80 sheets', 'Cover Options': 'Leather, Suede, Fabric, Wood', Printing: '6-color Hexachrome', 'Paper Types': 'Matte, Glossy, Silk, Pearl, Metallic' },
@@ -281,12 +280,10 @@ export default function ProductDetailPage() {
   /* ── All data memos (before any early return) ── */
   const product = useMemo(() => products.find(p => p.slug === slug), [slug]);
 
-  const imgThumb = useMemo(() =>
-    product
-      ? [product.image, product.expandedImage || product.image, product.image, product.image]
-      : [],
-    [product]
-  );
+  // Large gallery images (2000×2000) — used for main viewer + zoom
+  const galleryImgs = useMemo(() => product?.images || [], [product]);
+  // Small thumbnail images (400×400) — used for thumbnail strip
+  const thumbImgs   = useMemo(() => product?.thumbs  || product?.images || [], [product]);
 
   const relatedProducts = useMemo(() =>
     product
@@ -323,7 +320,7 @@ export default function ProductDetailPage() {
   const [activeTab,           setActiveTab]           = useState(0);
   const [selectedOrientation, setSelectedOrientation] = useState('Portrait');
   const [selectedSize,        setSelectedSize]        = useState(SIZES[0].id);
-  const [selectedBinding,     setSelectedBinding]     = useState(BINDINGS[0]);
+  const [selectedBinding,     setSelectedBinding]     = useState(Object.keys(bindingImages)[0]);
   const [activeImg,           setActiveImg]           = useState(0);
   const [cartToast,           setCartToast]           = useState(false);
   const [helpModal,           setHelpModal]           = useState(null);
@@ -355,7 +352,7 @@ export default function ProductDetailPage() {
   const handleGalleryMouseLeave = useCallback(() => setZoomActive(false), []);
 
   /* ── Derived zoom values ── */
-  const currentImg    = imgThumb[activeImg] ?? '';
+  const currentImg    = galleryImgs[activeImg] ?? '';
   const lensW         = lensPos.W / ZOOM_FACTOR;
   const lensH         = lensPos.H / ZOOM_FACTOR;
 
@@ -408,7 +405,7 @@ export default function ProductDetailPage() {
       configuration:  {
         orientation: selectedOrientation,
         size:        SIZES.find(s => s.id === selectedSize)?.label,
-        binding:     selectedBinding,
+        binding:     bindingImages[selectedBinding]?.label || selectedBinding,
       },
       image: product.image,
     });
@@ -421,7 +418,7 @@ export default function ProductDetailPage() {
     const params = new URLSearchParams({
       orientation: selectedOrientation,
       size:        selectedSize,
-      binding:     selectedBinding,
+      binding:     bindingImages[selectedBinding]?.label || selectedBinding,
     });
     navigate(`/order/${product.slug}?${params.toString()}`);
   };
@@ -545,9 +542,9 @@ export default function ProductDetailPage() {
             )}
           </div>
 
-          {/* Thumbnails */}
+          {/* Thumbnails — 400×400 strip; clicking loads 2000×2000 in main viewer */}
           <div className="pdp__thumbs">
-            {imgThumb.map((src, i) => (
+            {thumbImgs.map((src, i) => (
               <button
                 key={i}
                 className={`pdp__thumb ${activeImg === i ? 'pdp__thumb--active' : ''}`}
@@ -621,21 +618,22 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          {/* Binding */}
+          {/* Binding — visual selector with real binding thumbnails */}
           {!['Decor Products', 'Gifting Kit', 'Magazines'].includes(product.category) && (
             <div className="pdp__selector">
               <div className="pdp__selector-label-row">
                 <p className="pdp__selector-label">Binding Type</p>
                 <HelpBtn onClick={() => setHelpModal('binding')} />
               </div>
-              <div className="pdp__chips">
-                {BINDINGS.map(b => (
+              <div className="pdp__binding-options">
+                {Object.entries(bindingImages).map(([key, b]) => (
                   <button
-                    key={b}
-                    className={`pdp__chip ${selectedBinding === b ? 'pdp__chip--active' : ''}`}
-                    onClick={() => setSelectedBinding(b)}
+                    key={key}
+                    className={`pdp__binding-opt ${selectedBinding === key ? 'pdp__binding-opt--active' : ''}`}
+                    onClick={() => setSelectedBinding(key)}
                   >
-                    {b}
+                    <img src={b.thumb} alt={b.label} className="pdp__binding-opt-img" />
+                    <span className="pdp__binding-opt-label">{b.label}</span>
                   </button>
                 ))}
               </div>

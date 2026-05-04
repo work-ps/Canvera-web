@@ -312,7 +312,7 @@ function FreeflowCard({ item, style, onExpand }) {
       style={style}
     >
       <img
-        src={item.image}
+        src={item.tileImage || item.image}
         alt={item.name}
         className="freeflow__card-img"
         draggable={false}
