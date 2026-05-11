@@ -15,12 +15,13 @@ const navItems = [
       {
         title: 'Categories',
         links: [
-          { label: 'Photobooks',     href: '/shop?category=photobooks' },
-          { label: 'Momentbooks',    href: '/shop?category=momentbooks' },
-          { label: 'Superbooks',     href: '/shop?category=superbooks' },
-          { label: 'Magazines',      href: '/shop?category=magazines' },
-          { label: 'Decor Products', href: '/shop?category=decor-products' },
-          { label: 'Gifting Kit',    href: '/shop?category=gifting-kit' },
+          { label: 'Premium Photobooks',  href: '/shop?category=premium-photobooks' },
+          { label: 'Standard Photobooks', href: '/shop?category=standard-photobooks' },
+          { label: 'Momentbooks',         href: '/shop?category=momentbooks' },
+          { label: 'Superbooks',          href: '/shop?category=superbooks' },
+          { label: 'Premium Magazine Books', href: '/shop?category=premium-magazine-books' },
+          { label: 'Decor Products',      href: '/shop?category=decor-products' },
+          { label: 'Gifting Kit',         href: '/shop?category=gifting-kit' },
         ],
       },
       {

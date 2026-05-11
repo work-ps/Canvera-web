@@ -2,13 +2,42 @@ import { useState, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { products } from '../data/products';
+import { products, bindingImages } from '../data/products';
 import { SIZES, COVER_STYLES, PAPER_TYPES, BOX_MATERIALS, calculatePrice } from '../data/productConfig';
 import Breadcrumb from '../components/Breadcrumb';
 import './OrderWizardPage.css';
 
 // ── Step order per design spec ────────────────────────────────────────────────
 const STEPS = ['Files', 'Paper', 'Cover', 'Accessories', 'Review'];
+
+// ── Print Types & Binding options ──────────────────────────────────────────────
+// availableBindings uses the keys of bindingImages from products.js
+const PRINT_TYPES_CONFIG = {
+  'Indi Pro': {
+    label: 'Indi Pro',
+    subtitle: 'Digital Press Print',
+    desc: 'Advanced digital press technology for sharp details, vibrant colors, and clean modern finish.',
+    availableBindingKeys: ['abs', 'al'],   // Absolute Layflat, Acrylic Layflat
+    pageMin: 20,
+    pageMax: 80,
+  },
+  'SH Pro': {
+    label: 'SH Pro',
+    subtitle: 'Silver Halide Photo Print',
+    desc: 'Real photographic paper with light-based printing technology for smooth tones and natural images.',
+    availableBindingKeys: ['nef'],          // Neo-Flush Mount
+    pageMin: 20,
+    pageMax: 60,
+  },
+  'Ink Jet': {
+    label: 'Ink Jet',
+    subtitle: 'Premium Ink Jet Print',
+    desc: 'High-quality pigment-based ink jet on premium stock for exceptional color accuracy.',
+    availableBindingKeys: ['abs', 'al', 'nef'],
+    pageMin: 20,
+    pageMax: 80,
+  },
+};
 
 // ── Lamination options with paper compatibility ────────────────────────────────
 const LAMINATIONS = [
@@ -637,6 +666,27 @@ export default function OrderWizardPage() {
   const [orderType, setOrderType]     = useState(rs?.orderType     ?? 'PRINT_READY');
   const [designBrief, setDesignBrief] = useState(rs?.designBrief   ?? '');
 
+  // Step 0 — Print Type & Binding (collected in Files step)
+  const availablePrintTypes = useMemo(() => {
+    if (!product) return [];
+    if (product.category === 'Superbooks') return ['Ink Jet'];
+    if (['Premium Photobooks', 'Standard Photobooks', 'Momentbooks', 'Premium Magazine Books'].includes(product.category))
+      return ['Indi Pro', 'SH Pro'];
+    return ['Indi Pro'];
+  }, [product]);
+
+  const [selectedPrintType, setSelectedPrintType] = useState(rs?.selectedPrintType ?? (availablePrintTypes[0] || 'Indi Pro'));
+  const [selectedBinding,   setSelectedBinding]   = useState(rs?.selectedBinding ?? '');
+
+  // Page limits driven by selected print type
+  const pageMin = PRINT_TYPES_CONFIG[selectedPrintType]?.pageMin ?? 20;
+  const pageMax = PRINT_TYPES_CONFIG[selectedPrintType]?.pageMax ?? 80;
+
+  // Available binding keys for selected print type
+  const availableBindingKeys = useMemo(() => {
+    return PRINT_TYPES_CONFIG[selectedPrintType]?.availableBindingKeys ?? ['abs'];
+  }, [selectedPrintType]);
+
   // Step 1 — Paper
   const [lamination, setLamination]                   = useState(rs?.lamination           ?? '');
   const [specialPaperEnabled, setSpecialPaperEnabled] = useState(rs?.specialPaperEnabled  ?? false);
@@ -718,7 +768,7 @@ export default function OrderWizardPage() {
   // ── Step validation ─────────────────────────────────────────────────────────
   const canProceed = () => {
     if (step === 0) return true; // Files — always valid
-    if (step === 1) return !!(lamination && paperTypeId);
+    if (step === 1) return !!(selectedBinding && lamination && paperTypeId); // Paper — binding + lamination + paper required
     if (step === 2) {
       if (!coverStyleId || !coverMatId || !coverColorHex) return false;
       if (selectedStyle && selectedStyle.textLineCount > 0 && !coverText[0].trim()) return false;
@@ -817,6 +867,7 @@ export default function OrderWizardPage() {
   const buildSavedState = () => ({
     step,
     eventDate, eventType, eventTitle, fileLink, totalPages, orderType, designBrief,
+    selectedPrintType, selectedBinding,
     lamination, paperTypeId, colorMode, specialPaperEnabled, specialPaperEntries,
     sizeId, coverStyleId, coverMatId, coverColorHex, coverColorName, coverText,
     addBox, boxMatId, boxColorHex, boxColorName, bagOption,
@@ -835,9 +886,10 @@ export default function OrderWizardPage() {
     savedState: buildSavedState(),
     configuration: {
       eventDate, eventType, eventTitle,
+      printType: selectedPrintType,
+      binding: selectedBinding,
       size: selectedSize?.label,
       orientation: preOrientation || undefined,
-      binding: preBinding || undefined,
       pages: `${totalPages} sheets`,
       orderType: orderType === 'PRINT_READY' ? 'Print-Ready' : 'Design Service',
       fileLink,
@@ -978,6 +1030,35 @@ export default function OrderWizardPage() {
                 <p className="wizard__field-note">Google Drive, Dropbox, WeTransfer, or any shareable cloud link. You can also send it to us after placing the order.</p>
               </div>
 
+              {/* Print Type */}
+              <div className="wizard__group">
+                <p className="wizard__group-label">Print Type <span className="wizard__req">*</span></p>
+                <div className="wizard__print-type-grid">
+                  {availablePrintTypes.map(pt => {
+                    const info = PRINT_TYPES_CONFIG[pt];
+                    return (
+                      <button
+                        key={pt}
+                        type="button"
+                        className={`wizard__print-type-card${selectedPrintType === pt ? ' wizard__print-type-card--active' : ''}`}
+                        onClick={() => {
+                          setSelectedPrintType(pt);
+                          setSelectedBinding('');
+                          // Clamp pages within new limits
+                          const min = info.pageMin;
+                          const max = info.pageMax;
+                          setTotalPages(p => Math.min(max, Math.max(min, p)));
+                        }}
+                      >
+                        <h4 className="wizard__print-type-title">{info.label}</h4>
+                        <p className="wizard__print-type-subtitle">{info.subtitle}</p>
+                        <p className="wizard__print-type-desc">{info.desc}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Number of Pages */}
               <div className="wizard__group">
                 <p className="wizard__group-label">Number of Pages <span className="wizard__req">*</span></p>
@@ -985,26 +1066,26 @@ export default function OrderWizardPage() {
                   <div className="wizard__pages-stepper">
                     <button
                       className="wizard__pages-step-btn"
-                      onClick={() => setTotalPages(p => Math.max(20, p - 2))}
-                      disabled={totalPages <= 20}
+                      onClick={() => setTotalPages(p => Math.max(pageMin, p - 2))}
+                      disabled={totalPages <= pageMin}
                       type="button"
                     >−</button>
                     <input
                       type="number"
                       className="wizard__pages-input"
                       value={totalPages}
-                      min={20}
-                      max={80}
+                      min={pageMin}
+                      max={pageMax}
                       onChange={e => handlePagesChange(e.target.value)}
                     />
                     <button
                       className="wizard__pages-step-btn"
-                      onClick={() => setTotalPages(p => Math.min(80, p + 2))}
-                      disabled={totalPages >= 80}
+                      onClick={() => setTotalPages(p => Math.min(pageMax, p + 2))}
+                      disabled={totalPages >= pageMax}
                       type="button"
                     >+</button>
                   </div>
-                  <span className="wizard__pages-hint">sheets · Min 20 · Max 80 · 1 sheet = 2 printed pages</span>
+                  <span className="wizard__pages-hint">sheets · Min {pageMin} · Max {pageMax} · 1 sheet = 2 printed pages</span>
                 </div>
               </div>
 
@@ -1075,20 +1156,48 @@ export default function OrderWizardPage() {
           )}
 
           {/* ════════════════════════════════════════════════════════════════
-              STEP 1 — PAPER
+              STEP 1 — PAPER (includes Binding selection)
           ════════════════════════════════════════════════════════════════ */}
           {step === 1 && (
             <div className="wizard__section">
               <h2 className="wizard__section-title">Paper &amp; Printing</h2>
 
-              {/* Pages read-only summary */}
+              {/* Pages + Print Type read-only summary */}
               <div className="wizard__pages-summary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                   <polyline points="14 2 14 8 20 8"/>
                 </svg>
-                <span><strong>{totalPages} sheets</strong> · {totalPages * 2} printed pages</span>
+                <span>
+                  <strong>{totalPages} sheets</strong> · {totalPages * 2} printed pages
+                  <span className="wizard__pages-summary-sep">·</span>
+                  <strong>{selectedPrintType}</strong>
+                </span>
                 <button className="wizard__pages-edit-link" onClick={() => setStep(0)} type="button">Edit</button>
+              </div>
+
+              {/* Binding Type — with thumbnail images */}
+              <div className="wizard__group">
+                <p className="wizard__group-label">
+                  Binding Type <span className="wizard__req">*</span>
+                </p>
+                <div className="wizard__binding-options">
+                  {availableBindingKeys.map(key => {
+                    const b = bindingImages[key];
+                    if (!b) return null;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        className={`wizard__binding-opt${selectedBinding === key ? ' wizard__binding-opt--active' : ''}`}
+                        onClick={() => setSelectedBinding(key)}
+                      >
+                        <img src={b.thumb} alt={b.label} className="wizard__binding-opt-img" />
+                        <span className="wizard__binding-opt-label">{b.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Lamination */}
@@ -1690,9 +1799,10 @@ export default function OrderWizardPage() {
                     eventDate && ['Event Date', new Date(eventDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })],
                     eventType && ['Event Type', eventType],
                     eventTitle && ['Event Title', eventTitle],
+                    fileLink && ['File Link', fileLink.length > 48 ? fileLink.slice(0, 48) + '…' : fileLink],
+                    ['Print Type', PRINT_TYPES_CONFIG[selectedPrintType]?.label || selectedPrintType],
                     ['Pages', `${totalPages} sheets (${totalPages * 2} printed pages)`],
                     ['Order Type', orderType === 'PRINT_READY' ? 'Print-Ready Files' : 'Design Service'],
-                    fileLink && ['File Link', fileLink.length > 48 ? fileLink.slice(0, 48) + '…' : fileLink],
                     (orderType === 'DESIGN_SERVICE' && designBrief) && ['Design Brief', designBrief.slice(0, 60) + (designBrief.length > 60 ? '…' : '')],
                   ].filter(Boolean),
                 },
@@ -1701,7 +1811,10 @@ export default function OrderWizardPage() {
                   stepIdx: 1,
                   rows: (() => {
                     const lam = LAMINATIONS.find(l => l.id === lamination);
+                    const bnd = selectedBinding ? bindingImages[selectedBinding] : null;
                     return [
+                      bnd && ['Binding Type', bnd.label,
+                        <img key="bi" src={bnd.thumb} alt={bnd.label} className="wizard__rv-binding-thumb"/>],
                       lamination && ['Lamination', lam?.name || '—',
                         <span key="ls" className="wizard__rv-swatch" style={{ background: lam?.bg }}/>],
                       selectedPaper && ['Paper Type', selectedPaper.name,

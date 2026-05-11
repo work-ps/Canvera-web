@@ -387,6 +387,15 @@
 }
 .shop-fs__row:hover { background: var(--neutral-50); }
 
+/* Options with no products yet — dimmed, still selectable */
+.shop-fs__row--empty {
+  opacity: 0.45;
+}
+.shop-fs__row--empty:hover {
+  background: transparent;
+  cursor: default;
+}
+
 /* Custom checkbox */
 .shop-fs__checkbox {
   appearance: none;

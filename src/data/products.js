@@ -931,6 +931,55 @@ export const products = [
   })(),
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Auto-assign category and printType.
+//
+// Category split (₹):
+//   price.base ≥ 7,500  →  Premium Photobooks
+//   price.base <  7,500  →  Standard Photobooks
+//
+// Print Type by category:
+//   Superbooks                               →  Ink Jet  (only)
+//   Standard Photobooks                      →  Indi Pro (only)
+//   Premium Photobooks  price ≥ 9,000        →  SH Pro
+//   Premium Photobooks  price <  9,000        →  Indi Pro
+//   Momentbooks         price ≥ 8,000        →  SH Pro
+//   Momentbooks         price <  8,000        →  Indi Pro
+//   Premium Magazine Books  price ≥ 7,000        →  SH Pro   ("some magazines")
+//   Premium Magazine Books  price <  7,000        →  Indi Pro ("some magazines")
+//   All other categories (Decor, Gifting Kit) →  Indi Pro (default)
+//
+// NOTE: Ink Jet filter appears in the UI only once Superbook products are added.
+// ─────────────────────────────────────────────────────────────────────────────
+products.forEach(p => {
+  // ── 1. Category ──
+  p.category = p.price.base >= 7500 ? 'Premium Photobooks' : 'Standard Photobooks';
+
+  // ── 2. Print Type ──
+  switch (p.category === 'Superbooks'  ? 'Superbooks'
+        : p.category === 'Momentbooks' ? 'Momentbooks'
+        : p.category === 'Premium Magazine Books'   ? 'Premium Magazine Books'
+        : p.category) {
+    case 'Superbooks':
+      p.printType = 'Ink Jet';
+      break;
+    case 'Standard Photobooks':
+      p.printType = 'Indi Pro';
+      break;
+    case 'Premium Photobooks':
+      p.printType = p.price.base >= 9000 ? 'SH Pro' : 'Indi Pro';
+      break;
+    case 'Momentbooks':
+      p.printType = p.price.base >= 8000 ? 'SH Pro' : 'Indi Pro';
+      break;
+    case 'Premium Magazine Books':
+      p.printType = p.price.base >= 7000 ? 'SH Pro' : 'Indi Pro';
+      break;
+    default:
+      p.printType = 'Indi Pro';
+  }
+});
+
 // Collections
 // Order matches BentoGallery layout (positions 0-8):
 // [Celestial 2c] [Luxury 1c] [Suede 1c×2r] [Artisan 2c] / [Leatherette 1c] [Signature 2c] [Classic 2c] / [Wood 3c] [Custom Cover 3c]

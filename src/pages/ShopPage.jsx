@@ -9,19 +9,23 @@ import './ShopPage.css';
 
 /* ── Category URL aliases (slug → catalogue label) ─────────────── */
 const CATEGORY_ALIASES = {
-  'premium-albums':   'Photobooks',
-  'standard-albums':  'Photobooks',
-  'moment-books':     'Momentbooks',
-  'momentbooks':      'Momentbooks',
-  'photobooks':       'Photobooks',
-  'superbooks':       'Superbooks',
-  'magazines':        'Magazines',
-  'wall-decor':       'Decor Products',
-  'canvas-frames':    'Decor Products',
-  'gifting-packages': 'Gifting Kit',
-  'gifting-kit':      'Gifting Kit',
-  'decor':            'Decor Products',
-  'decor-products':   'Decor Products',
+  'premium-photobooks':  'Premium Photobooks',
+  'standard-photobooks': 'Standard Photobooks',
+  // legacy aliases
+  'photobooks':          'Premium Photobooks',   // old links → nearest new category
+  'premium-albums':      'Premium Photobooks',
+  'standard-albums':     'Standard Photobooks',
+  'moment-books':        'Momentbooks',
+  'momentbooks':         'Momentbooks',
+  'superbooks':          'Superbooks',
+  'magazines':                  'Premium Magazine Books',
+  'premium-magazine-books':     'Premium Magazine Books',
+  'wall-decor':          'Decor Products',
+  'canvas-frames':       'Decor Products',
+  'gifting-packages':    'Gifting Kit',
+  'gifting-kit':         'Gifting Kit',
+  'decor':               'Decor Products',
+  'decor-products':      'Decor Products',
 };
 
 /* ── Sort options ───────────────────────────────────────────────── */
@@ -43,52 +47,7 @@ const BADGE_PILLS = [
   { value: 'limited',    label: 'Limited'     },
 ];
 
-/* ── Helpers to derive size / orientation / binding from products ── */
-function getProductSizes(p) {
-  if (p.category === 'Superbooks')                  return ['24×24', '18×18', '15×15'];
-  if (p.tag === 'Canvas Print')                     return ['12×18', '18×24', '20×30'];
-  if (p.tag === 'Wooden Plaque')                    return ['8×10'];
-  if (p.tag === 'Fridge Magnet' || p.tag === 'Photo Calendar') return [];
-  if (p.tag === 'Celestial Range')                  return ['12×18', '12×15'];
-  if (p.category === 'Photobooks')                  return ['12×15', '12×18', '15×18'];
-  return [];
-}
-
-function getProductOrientations(p) {
-  if (p.category === 'Superbooks')  return ['Square'];
-  if (p.tag === 'Photo Calendar')   return ['Landscape'];
-  if (p.tag === 'Fridge Magnet')    return ['Portrait', 'Landscape', 'Square'];
-  if (p.tag === 'Wooden Plaque')    return ['Portrait', 'Landscape'];
-  if (p.tag === 'Canvas Print')     return ['Portrait', 'Landscape'];
-  if (p.category === 'Photobooks')  return ['Portrait', 'Landscape'];
-  return [];
-}
-
-function getProductBindings(p) {
-  if (p.category !== 'Photobooks') return [];
-  const s = (p.specs || '').toLowerCase();
-  if (s.includes('all binding'))   return ['Layflat', 'Flush Mount', 'Absolute', 'Neo-Flush'];
-  const b = [];
-  if (s.includes('layflat'))       b.push('Layflat');
-  if (s.includes('neo-flush'))     b.push('Neo-Flush');
-  else if (s.includes('flush'))    b.push('Flush Mount');
-  if (s.includes('absolute'))      b.push('Absolute');
-  return b.length > 0 ? b : ['Layflat', 'Absolute'];
-}
-
-/* ── Generic count-deriving utility ───────────────────────────── */
-function deriveOptions(getter) {
-  const counts = new Map();
-  products.forEach(p => {
-    const vals = getter(p);
-    (Array.isArray(vals) ? vals : vals ? [vals] : [])
-      .forEach(v => counts.set(v, (counts.get(v) || 0) + 1));
-  });
-  return [...counts.entries()]
-    .sort((a, b) => b[1] - a[1])
-    .map(([value, count]) => ({ value, count }));
-}
-
+/* ── Derive ordered filter options from products ──────────────── */
 function deriveOrderedOptions(orderedKeys, getter) {
   const counts = new Map();
   products.forEach(p => {
@@ -103,51 +62,45 @@ function deriveOrderedOptions(orderedKeys, getter) {
 
 /* ── Categories — matches the Shop dropdown in the Header exactly ── */
 const HEADER_CATEGORY_ORDER = [
-  'Photobooks', 'Momentbooks', 'Superbooks', 'Magazines', 'Decor Products', 'Gifting Kit',
+  'Premium Photobooks', 'Standard Photobooks',
+  'Momentbooks', 'Superbooks', 'Premium Magazine Books', 'Decor Products', 'Gifting Kit',
 ];
 const _catCounts = {};
 products.forEach(p => { _catCounts[p.category] = (_catCounts[p.category] || 0) + 1; });
+// All header categories always shown — count of 0 means "coming soon"
 const CAT_OPTIONS = HEADER_CATEGORY_ORDER
-  .map(v => ({ value: v, count: _catCounts[v] || 0 }))
-  .filter(o => o.count > 0);   // hide zero-product categories
+  .map(v => ({ value: v, count: _catCounts[v] || 0 }));
 
-/* ── Collections, Occasions, Album Type (derived from data) ─────── */
-const COL_OPTIONS  = collections
+/* ── Occasions — same order as the home page OccasionsSection ────── */
+const OCC_ORDER = [
+  'Weddings', 'Pre-Wedding', 'Maternity', 'Baby & Kids',
+  'Birthdays', 'Corporate', 'Portraits & Family',
+];
+const OCC_OPTIONS = deriveOrderedOptions(OCC_ORDER, p => p.occasions);
+
+/* ── Collections — matches the Collections dropdown in the Header ── */
+const COL_OPTIONS = collections
   .map(c => ({ value: c.name, count: products.filter(p => p.collection === c.name).length }))
-  .filter(o => o.count > 0)
-  .sort((a, b) => b.count - a.count);
-const OCC_OPTIONS  = deriveOptions(p => p.occasions);
-const TYPE_OPTIONS = deriveOptions(p => p.tag);
+  .filter(o => o.count > 0);   // preserve header order, hide empties
 
-/* ── New filter dimensions ─────────────────────────────────────── */
-const SIZE_OPTIONS        = deriveOrderedOptions(
-  ['12×15', '12×18', '15×18', '18×24', '8×10', '15×15', '18×18', '24×24', '20×30'],
-  getProductSizes,
-);
-const ORIENTATION_OPTIONS = deriveOrderedOptions(
-  ['Portrait', 'Landscape', 'Square'],
-  getProductOrientations,
-);
-const BINDING_OPTIONS     = deriveOrderedOptions(
-  ['Layflat', 'Flush Mount', 'Absolute', 'Neo-Flush'],
-  getProductBindings,
-);
+/* ── Print Type — always show all 3; count shows how many products ── */
+const PRINT_TYPE_OPTIONS = [
+  { value: 'Indi Pro', count: products.filter(p => p.printType === 'Indi Pro').length },
+  { value: 'SH Pro',   count: products.filter(p => p.printType === 'SH Pro').length   },
+  { value: 'Ink Jet',  count: products.filter(p => p.printType === 'Ink Jet').length  },
+];
 
-/* ── Section definitions ────────────────────────────────────────── */
+/* ── Section definitions — 4 sections, all checkbox ────────────── */
 const SECTIONS = [
-  { id: 'categories',   label: 'Category',      options: CAT_OPTIONS,         control: 'checkbox' },
-  { id: 'collections',  label: 'Collection',     options: COL_OPTIONS,         control: 'checkbox' },
-  { id: 'occasions',    label: 'Occasion',       options: OCC_OPTIONS,         control: 'pill'     },
-  { id: 'sizes',        label: 'Size',           options: SIZE_OPTIONS,        control: 'pill'     },
-  { id: 'orientations', label: 'Orientation',    options: ORIENTATION_OPTIONS, control: 'pill'     },
-  { id: 'bindings',     label: 'Binding Type',   options: BINDING_OPTIONS,     control: 'checkbox' },
-  { id: 'types',        label: 'Album Type',     options: TYPE_OPTIONS,        control: 'pill'     },
+  { id: 'categories',  label: 'Products',    options: CAT_OPTIONS,         control: 'checkbox' },
+  { id: 'occasions',   label: 'Occasions',   options: OCC_OPTIONS,         control: 'checkbox' },
+  { id: 'collections', label: 'Collections', options: COL_OPTIONS,         control: 'checkbox' },
+  { id: 'printTypes',  label: 'Print Type',  options: PRINT_TYPE_OPTIONS,  control: 'checkbox' },
 ];
 
 /* ── Empty filter state ────────────────────────────────────────── */
 const EMPTY_FILTERS = {
-  categories: [], collections: [], occasions: [],
-  sizes: [], orientations: [], bindings: [], types: [],
+  categories: [], occasions: [], collections: [], printTypes: [],
 };
 
 /* ─────────────────────────────────────────────────────────────────
@@ -199,10 +152,11 @@ function FilterSection({ section, values, open, onOpen, onToggle }) {
               {/* Checkbox list */}
               {section.control === 'checkbox' && section.options.map(opt => {
                 const checked = values.includes(opt.value);
+                const isEmpty  = opt.count === 0;
                 return (
                   <label
                     key={opt.value}
-                    className={`shop-fs__row${checked ? ' shop-fs__row--active' : ''}`}
+                    className={`shop-fs__row${checked ? ' shop-fs__row--active' : ''}${isEmpty ? ' shop-fs__row--empty' : ''}`}
                   >
                     <input
                       type="checkbox"
@@ -211,7 +165,9 @@ function FilterSection({ section, values, open, onOpen, onToggle }) {
                       onChange={() => onToggle(section.id, opt.value)}
                     />
                     <span className="shop-fs__row-label">{opt.value}</span>
-                    <span className="shop-fs__row-count">{opt.count}</span>
+                    {opt.count > 0 && (
+                      <span className="shop-fs__row-count">{opt.count}</span>
+                    )}
                   </label>
                 );
               })}
@@ -282,17 +238,14 @@ function FilterPanel({ filters, onToggle, totalActive }) {
 export default function ShopPage() {
   const [searchParams] = useSearchParams();
 
-  /* ── Seed categories from URL ?category= param (spec §7) ────── */
+  /* ── Seed categories from URL ?category= param ──────────────── */
   const [filters, setFilters] = useState(() => {
     const cat = searchParams.get('category');
     if (cat) {
       const resolved = CATEGORY_ALIASES[cat.toLowerCase()] ?? cat;
-      // Find exact match in the header category list
       const match = HEADER_CATEGORY_ORDER.find(
         c => c.toLowerCase() === resolved.toLowerCase()
-      ) ?? products.find(p =>
-        p.category.toLowerCase() === resolved.toLowerCase()
-      )?.category;
+      );
       if (match) return { ...EMPTY_FILTERS, categories: [match] };
     }
     return { ...EMPTY_FILTERS };
@@ -333,32 +286,25 @@ export default function ShopPage() {
     [filters],
   );
 
-  /* ── Filtered + sorted (spec §6) ────────────────────────────── */
+  /* ── Filtered + sorted ───────────────────────────────────────── */
   const filtered = useMemo(() => {
     let r = [...products];
 
     if (filters.categories.length)
       r = r.filter(p => filters.categories.includes(p.category));
-    if (filters.collections.length)
-      r = r.filter(p => filters.collections.includes(p.collection));
     if (filters.occasions.length)
       r = r.filter(p => p.occasions?.some(o => filters.occasions.includes(o)));
-    if (filters.sizes.length)
-      r = r.filter(p => getProductSizes(p).some(s => filters.sizes.includes(s)));
-    if (filters.orientations.length)
-      r = r.filter(p => getProductOrientations(p).some(o => filters.orientations.includes(o)));
-    if (filters.bindings.length)
-      r = r.filter(p => getProductBindings(p).some(b => filters.bindings.includes(b)));
-    if (filters.types.length)
-      r = r.filter(p => filters.types.includes(p.tag));
+    if (filters.collections.length)
+      r = r.filter(p => filters.collections.includes(p.collection));
+    if (filters.printTypes.length)
+      r = r.filter(p => filters.printTypes.includes(p.printType));
 
-    /* Badge: UI pills override URL badge param for simplicity */
     const effectiveBadge = activeBadge ?? badgeParam;
     if (effectiveBadge) r = r.filter(p => p.badge === effectiveBadge);
 
     switch (sortBy) {
-      case 'price-low':    return [...r].sort((a, b) => a.price - b.price);
-      case 'price-high':   return [...r].sort((a, b) => b.price - a.price);
+      case 'price-low':    return [...r].sort((a, b) => a.price.base - b.price.base);
+      case 'price-high':   return [...r].sort((a, b) => b.price.base - a.price.base);
       case 'newest':       return [...r].sort((a, b) => b.id - a.id);
       case 'best-selling': return [...r].sort((a, b) => b.reviewCount - a.reviewCount);
       case 'better-deal':  return [...r].sort((a, b) =>

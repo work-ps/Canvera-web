@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { products, bindingImages } from '../data/products';
 import { SIZES } from '../data/productConfig';
+import { PRODUCT_CONTENT, CARE_TIPS } from '../data/productContent';
 import PriceGate from '../components/PriceGate';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
@@ -12,25 +13,37 @@ import './ProductDetailPage.css';
 
 /* ── Constants ──────────────────────────────────────────────────────────────── */
 const ZOOM_FACTOR  = 2.5;
-const TABS         = ['Overview', 'Specifications', 'Design Styles', 'Material & Care'];
+const TABS         = ['Description', 'Benefits', 'Care Instructions'];
 const ORIENTATIONS = ['Portrait', 'Landscape', 'Square'];
+
+/* ── Print Types – informational only, not selectable ──────────────────── */
+const PRINT_TYPES = {
+  'Indi Pro': {
+    label: 'Indi Pro',
+    subtitle: 'Digital Press Print',
+    desc: 'Printed using advanced digital press technology for sharper details, vibrant colors, and a clean modern finish.',
+  },
+  'SH Pro': {
+    label: 'SH Pro',
+    subtitle: 'Silver Halide Photo Print',
+    desc: 'Printed on real photographic paper using light-based photo printing technology for smoother tones and natural, rich images.',
+  },
+  'Ink Jet': {
+    label: 'Ink Jet',
+    subtitle: 'Premium Ink Jet Print',
+    desc: 'High-quality pigment-based ink jet printing on premium paper stock for exceptional color accuracy and archival longevity.',
+  },
+};
 
 const SPECS = {
   'Photobooks':     { Binding: 'Lay-flat / Flush Mount', Pages: '20–80 sheets', 'Cover Options': 'Leather, Suede, Fabric, Wood', Printing: '6-color Hexachrome', 'Paper Types': 'Matte, Glossy, Silk, Pearl, Metallic' },
   'Momentbooks':    { Binding: 'Soft-cover Lay-flat', Pages: '20–60 sheets', 'Cover Options': 'Leatherette, Suede', Printing: '4-color CMYK', 'Paper Types': 'Matte, Glossy, Silk' },
   'Superbooks':     { Binding: 'Extra-large Lay-flat', Pages: '20–80 sheets', 'Cover Options': 'Premium Leather, Suede', Printing: '6-color Hexachrome', 'Paper Types': 'All types available' },
-  'Magazines':      { Binding: 'Saddle-stitch / Perfect-bound', Pages: '20–80 pages', 'Cover Options': 'Gloss / Matte laminate', Printing: '4-color CMYK', 'Paper Types': 'Art paper, Matte Art' },
+  'Premium Magazine Books': { Binding: 'Saddle-stitch / Perfect-bound', Pages: '20–80 pages', 'Cover Options': 'Gloss / Matte laminate', Printing: '4-color CMYK', 'Paper Types': 'Art paper, Matte Art' },
   'Decor Products': { 'Frame Options': 'Canvas, Wood, Metal', Sizes: '16×20" to 24×36"', Printing: 'Archival inkjet', Coating: 'UV protective, Matte / Glossy', Mounting: 'Ready to hang' },
   'Gifting Kit':    { 'Kit Contents': 'Box, prints, mini album', 'Box Materials': 'Suede, Leather, Velvet', 'Print Sizes': '4×6", 5×7"', Finishing: 'Velvet lining', Customization: 'Name & date embossing' },
 };
 
-const CARE_TIPS = [
-  'Keep away from direct sunlight to prevent fading.',
-  'Store in the provided dust bag or presentation box when not on display.',
-  'Wipe covers gently with a soft, dry cloth — avoid water or solvents.',
-  'Handle pages with dry, clean hands for lasting print quality.',
-  'For leather covers, occasional application of a leather conditioner extends life.',
-];
 
 /* ── Help content ───────────────────────────────────────────────────────────── */
 const HELP_CONTENT = {
@@ -270,6 +283,28 @@ function PdpCarousel({ title, items }) {
   );
 }
 
+/* ── Get available print types for a product category ────────────────────── */
+function getAvailablePrintTypes(category, price) {
+  const printTypes = [];
+
+  // Ink Jet – only for Superbooks
+  if (category === 'Superbooks') {
+    printTypes.push('Ink Jet');
+  }
+
+  // Indi Pro – for Premium, Standard, Momentbooks, and Premium Magazine Books
+  if (['Premium Photobooks', 'Standard Photobooks', 'Momentbooks', 'Premium Magazine Books'].includes(category)) {
+    printTypes.push('Indi Pro');
+  }
+
+  // SH Pro – for Premium, Momentbooks, and Premium Magazine Books (price-based thresholds apply, but always show both)
+  if (['Premium Photobooks', 'Momentbooks', 'Premium Magazine Books'].includes(category)) {
+    printTypes.push('SH Pro');
+  }
+
+  return printTypes.length > 0 ? printTypes : ['Indi Pro']; // fallback
+}
+
 /* ── Page ───────────────────────────────────────────────────────────────────── */
 export default function ProductDetailPage() {
   const { slug }       = useParams();
@@ -320,7 +355,6 @@ export default function ProductDetailPage() {
   const [activeTab,           setActiveTab]           = useState(0);
   const [selectedOrientation, setSelectedOrientation] = useState('Portrait');
   const [selectedSize,        setSelectedSize]        = useState(SIZES[0].id);
-  const [selectedBinding,     setSelectedBinding]     = useState(Object.keys(bindingImages)[0]);
   const [activeImg,           setActiveImg]           = useState(0);
   const [cartToast,           setCartToast]           = useState(false);
   const [helpModal,           setHelpModal]           = useState(null);
@@ -405,7 +439,6 @@ export default function ProductDetailPage() {
       configuration:  {
         orientation: selectedOrientation,
         size:        SIZES.find(s => s.id === selectedSize)?.label,
-        binding:     bindingImages[selectedBinding]?.label || selectedBinding,
       },
       image: product.image,
     });
@@ -418,7 +451,6 @@ export default function ProductDetailPage() {
     const params = new URLSearchParams({
       orientation: selectedOrientation,
       size:        selectedSize,
-      binding:     bindingImages[selectedBinding]?.label || selectedBinding,
     });
     navigate(`/order/${product.slug}?${params.toString()}`);
   };
@@ -571,11 +603,31 @@ export default function ProductDetailPage() {
             <span className="pdp__rating-count">({product.reviewCount?.toLocaleString()} reviews)</span>
           </div>
 
-          {/* Price */}
-          <div className="pdp__price-block">
-            <span className="pdp__price-label">Starting from</span>
-            <PriceGate price={product.price} size="lg" />
-            {isLoggedIn && <span className="pdp__price-note">+ GST &amp; configuration</span>}
+          {/* Occasions — Perfect for */}
+          {product.occasions?.length > 0 && (
+            <div className="pdp__occasions">
+              <p className="pdp__selector-label">Perfect for</p>
+              <div className="pdp__occ-tags">
+                {product.occasions.map(o => <span key={o} className="pdp__occ-tag">{o}</span>)}
+              </div>
+            </div>
+          )}
+
+          {/* Print Types – available options, not selectable */}
+          <div className="pdp__print-types">
+            <p className="pdp__selector-label">Available Print Types</p>
+            <div className="pdp__print-types-grid">
+              {getAvailablePrintTypes(product.category, product.price.base).map(printType => {
+                const info = PRINT_TYPES[printType];
+                return (
+                  <div key={printType} className="pdp__print-type-card">
+                    <h4 className="pdp__print-type-title">{info.label}</h4>
+                    <p className="pdp__print-type-subtitle">{info.subtitle}</p>
+                    <p className="pdp__print-type-desc">{info.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Orientation */}
@@ -617,44 +669,6 @@ export default function ProductDetailPage() {
               ))}
             </div>
           </div>
-
-          {/* Binding — visual selector with real binding thumbnails */}
-          {!['Decor Products', 'Gifting Kit', 'Magazines'].includes(product.category) && (
-            <div className="pdp__selector">
-              <div className="pdp__selector-label-row">
-                <p className="pdp__selector-label">Binding Type</p>
-                <HelpBtn onClick={() => setHelpModal('binding')} />
-              </div>
-              <div className="pdp__binding-options">
-                {Object.entries(bindingImages).map(([key, b]) => (
-                  <button
-                    key={key}
-                    className={`pdp__binding-opt ${selectedBinding === key ? 'pdp__binding-opt--active' : ''}`}
-                    onClick={() => setSelectedBinding(key)}
-                  >
-                    <img src={b.thumb} alt={b.label} className="pdp__binding-opt-img" />
-                    <span className="pdp__binding-opt-label">{b.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Material */}
-          <div className="pdp__material-row">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M12 2l9 4-9 4-9-4 9-4z"/><path d="M3 12l9 4 9-4"/></svg>
-            <span>{product.material}</span>
-          </div>
-
-          {/* Occasions */}
-          {product.occasions?.length > 0 && (
-            <div className="pdp__occasions">
-              <p className="pdp__selector-label">Perfect for</p>
-              <div className="pdp__occ-tags">
-                {product.occasions.map(o => <span key={o} className="pdp__occ-tag">{o}</span>)}
-              </div>
-            </div>
-          )}
 
           {/* CTAs */}
           <div className="pdp__actions">
@@ -713,90 +727,54 @@ export default function ProductDetailPage() {
         </div>
 
         <div className="pdp__tab-content">
-          {activeTab === 0 && (
-            <div className="pdp__overview">
-              <p className="pdp__overview-desc">{product.description}</p>
-              <p className="pdp__overview-specs-line">{product.specs}</p>
-              <h3 className="pdp__overview-heading">Key Features</h3>
-              <ul className="pdp__features">
-                <li>Museum-quality {product.material} cover with precision stitching</li>
-                <li>6-color Hexachrome printing for true-to-life colour reproduction</li>
-                <li>Archival-grade inks — protected for generations</li>
-                <li>Multi-point quality inspection before dispatch</li>
-                <li>Unique genuineness code included with every product</li>
-                <li>Personalised cover text available (name, date, message)</li>
-              </ul>
-            </div>
-          )}
+          {(() => {
+            const content = PRODUCT_CONTENT[product.name] || {};
+            const desc     = content.description || product.description || '';
+            const features = content.features?.length  ? content.features  : [];
+            const benefits = content.benefits?.length  ? content.benefits  : [];
 
-          {activeTab === 1 && (
-            <div className="pdp__specs">
-              <table className="pdp__specs-table">
-                <tbody>
-                  {Object.entries(specs).map(([k, v]) => (
-                    <tr key={k}>
-                      <td className="pdp__spec-key">{k}</td>
-                      <td className="pdp__spec-val">{v}</td>
-                    </tr>
-                  ))}
-                  <tr>
-                    <td className="pdp__spec-key">Rating</td>
-                    <td className="pdp__spec-val">{product.rating} / 5 ({product.reviewCount?.toLocaleString()} reviews)</td>
-                  </tr>
-                  <tr>
-                    <td className="pdp__spec-key">Material</td>
-                    <td className="pdp__spec-val">{product.material}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {activeTab === 2 && (
-            <div className="pdp__styles">
-              <p className="pdp__styles-intro">Choose from four cover styles when you configure your order. Each style supports multiple material and colour options.</p>
-              <div className="pdp__styles-grid">
-                {[
-                  { name: 'Padded Leather', color: '#4a3728', materials: 'Italian Leather, Vegan Leather', textLines: 2 },
-                  { name: 'Fabric Wrap',    color: '#8b7d6b', materials: 'Linen, Silk',                   textLines: 3 },
-                  { name: 'Photo Cover',    color: '#607080', materials: 'Matte Laminate, Glossy Laminate', textLines: 1 },
-                  { name: 'Wooden Cover',   color: '#a0845c', materials: 'Walnut, Maple',                  textLines: 2 },
-                ].map(style => (
-                  <div key={style.name} className="pdp__style-card">
-                    <div className="pdp__style-swatch" style={{ background: style.color }} />
-                    <div className="pdp__style-info">
-                      <p className="pdp__style-name">{style.name}</p>
-                      <p className="pdp__style-materials">{style.materials}</p>
-                      <p className="pdp__style-lines">Up to {style.textLines} text line{style.textLines > 1 ? 's' : ''}</p>
-                    </div>
+            return (
+              <>
+                {/* Tab 0 — Description */}
+                {activeTab === 0 && (
+                  <div className="pdp__overview">
+                    {desc && <p className="pdp__overview-desc">{desc}</p>}
+                    {!desc && <p className="pdp__overview-desc pdp__overview-desc--empty">Description coming soon.</p>}
+                    {features.length > 0 && (
+                      <>
+                        <h3 className="pdp__overview-heading">Key Features</h3>
+                        <ul className="pdp__features">
+                          {features.map((f, i) => <li key={i}>{f}</li>)}
+                        </ul>
+                      </>
+                    )}
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
+                )}
 
-          {activeTab === 3 && (
-            <div className="pdp__care">
-              <div className="pdp__papers">
-                <h3 className="pdp__care-heading">Paper Types</h3>
-                <div className="pdp__paper-list">
-                  {['Matte — smooth, non-reflective, classic', 'Glossy — vibrant, high-shine', 'Silk — semi-gloss hybrid', 'Pearl — subtle shimmer, premium ✦', 'Metallic — dramatic metallic sheen ✦'].map(p => (
-                    <div key={p} className="pdp__paper-item">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand-petrol)" strokeWidth="2.2" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span>{p}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="pdp__paper-note">✦ Premium specialty papers — limited page ranges</p>
-              </div>
-              <div className="pdp__care-tips">
-                <h3 className="pdp__care-heading">Care Instructions</h3>
-                <ul className="pdp__care-list">
-                  {CARE_TIPS.map((tip, i) => <li key={i}>{tip}</li>)}
-                </ul>
-              </div>
-            </div>
-          )}
+                {/* Tab 1 — Benefits */}
+                {activeTab === 1 && (
+                  <div className="pdp__overview">
+                    {benefits.length > 0 ? (
+                      <ul className="pdp__features">
+                        {benefits.map((b, i) => <li key={i}>{b}</li>)}
+                      </ul>
+                    ) : (
+                      <p className="pdp__overview-desc pdp__overview-desc--empty">Benefits information coming soon.</p>
+                    )}
+                  </div>
+                )}
+
+                {/* Tab 2 — Care Instructions */}
+                {activeTab === 2 && (
+                  <div className="pdp__overview">
+                    <ul className="pdp__features">
+                      {CARE_TIPS.map((tip, i) => <li key={i}>{tip}</li>)}
+                    </ul>
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
       </div>
 

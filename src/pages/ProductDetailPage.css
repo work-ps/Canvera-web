@@ -251,6 +251,52 @@
   margin-left: auto;
 }
 
+/* ── Print Types – informational cards, not selectable ──────────────────── */
+.pdp__print-types {
+  margin-bottom: var(--space-6);
+}
+.pdp__print-types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.pdp__print-type-card {
+  padding: var(--space-4);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.pdp__print-type-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.pdp__print-type-title {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  margin-top: 0;
+}
+
+.pdp__print-type-subtitle {
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-2) 0;
+  font-weight: var(--weight-medium);
+}
+
+.pdp__print-type-desc {
+  font-size: var(--text-body-xs);
+  color: var(--text-secondary);
+  line-height: var(--leading-snug);
+  margin: 0;
+}
+
 .pdp__selector-label {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
@@ -905,6 +951,8 @@
   .pdp__btn-primary, .pdp__btn-secondary, .pdp__btn-secondary-link { flex: none; width: 100%; }
   .pdp__trust { gap: var(--space-3); }
   .pdp__help-modal { max-height: 90vh; }
+  /* Print types grid — single column on mobile */
+  .pdp__print-types-grid { grid-template-columns: 1fr; }
   /* Side arrows hidden on touch — swipe instead */
   .pdp__carousel-arrow { display: none; }
   .pdp__carousel-item { flex: 0 0 160px; }

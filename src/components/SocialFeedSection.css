@@ -100,7 +100,7 @@
 /* ── Thumbnail container — 4:5 (Instagram standard portrait post ratio) ── */
 .social-feed__thumb {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 9 / 16;
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--neutral-50);
@@ -185,6 +185,139 @@
   margin-top: 2px;
 }
 
+/* ── Reels badge — top-right overlay ─────────────────────────── */
+.social-feed__reels-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.52);
+  color: #fff;
+  border-radius: var(--radius-full);
+  padding: 3px 8px 3px 5px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* ── Card cursor ────────────────────────────────────────────── */
+.social-feed__card {
+  cursor: pointer;
+}
+.social-feed__card:focus-visible {
+  outline: 2px solid var(--interactive-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-xl);
+}
+
+/* ==========================================================================
+   Reel Lightbox
+   ========================================================================== */
+.social-feed__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  /* top gap = header + 24px breathing room so close btn is never behind header */
+  padding: calc(var(--header-height, 64px) + 24px) 20px 32px;
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: sfLightboxIn 0.22s ease;
+}
+
+@keyframes sfLightboxIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.social-feed__lightbox-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: sfSlideUp 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@keyframes sfSlideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* The Instagram reel iframe — strict 9:16 portrait ratio */
+.social-feed__reel-frame {
+  aspect-ratio: 9 / 16;
+  /*
+   * Height = whatever fits between header gap, caption row (~48px) and bottom
+   * padding (32px). Cap at 620px so it never feels oversized on large screens.
+   */
+  height: min(620px, calc(100vh - var(--header-height, 64px) - 24px - 48px - 32px));
+  width: auto;          /* derived from aspect-ratio */
+  max-width: calc(100vw - 40px); /* never wider than the viewport */
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Close button — top-right of the inner panel */
+.social-feed__lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.social-feed__lightbox-close:hover {
+  background: #fff;
+  transform: scale(1.08);
+}
+
+/* Caption row below the reel */
+.social-feed__lightbox-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-feed__lightbox-dot {
+  opacity: 0.5;
+}
+
+.social-feed__lightbox-link {
+  color: rgba(255, 255, 255, 0.90);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-size: 12px;
+  transition: color 0.15s ease;
+}
+
+.social-feed__lightbox-link:hover {
+  color: #fff;
+}
+
 /* ==========================================================================
    Mobile
    ========================================================================== */
@@ -207,5 +340,18 @@
   .social-feed__play-btn {
     width: 38px;
     height: 38px;
+  }
+
+  /* Lightbox — tighter top gap on mobile (header is 56px) */
+  .social-feed__lightbox {
+    padding-top: calc(var(--header-height, 56px) + 16px);
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Lightbox reel frame — fluid on mobile, aspect-ratio keeps 9:16 */
+  .social-feed__reel-frame {
+    height: min(72vh, calc(100vh - var(--header-height, 56px) - 16px - 48px - 32px));
+    max-width: calc(100vw - 32px);
   }
 }
