@@ -160,23 +160,21 @@
   overflow: hidden;
 }
 
-/* Price — text only, no button */
-.pcard__price {
-  font-size: var(--text-body-xs);
-  color: var(--text-secondary);
-  margin: var(--space-1) 0 0;
-  line-height: 1.4;
-}
-
-.pcard__price strong {
-  font-weight: var(--weight-semibold);
-  color: var(--text-primary);
-}
-
-/* Pre-login: lock icon + label */
-.pcard__price--locked {
+/* Occasion tags */
+.pcard__occasions {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 5px;
-  color: var(--text-tertiary, var(--text-secondary));
+  margin-top: var(--space-1);
+}
+
+.pcard__occ-tag {
+  font-size: 10px;
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  background: var(--neutral-50);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  white-space: nowrap;
 }

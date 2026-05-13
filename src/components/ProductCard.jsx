@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { getDisplayPrice, formatINR } from '../utils/pricing';
 import './ProductCard.css';
 
 const BADGE_LABELS = {
@@ -12,8 +10,8 @@ const BADGE_LABELS = {
 };
 
 export default function ProductCard({ product, index = 0 }) {
-  const { isLoggedIn, isVerified } = useAuth();
-  const [loaded, setLoaded]   = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const occasions = (product.occasions || []).slice(0, 2);
 
   return (
     <Link
@@ -61,23 +59,12 @@ export default function ProductCard({ product, index = 0 }) {
         )}
         <h3 className="pcard__name">{product.name}</h3>
 
-        {isLoggedIn ? (
-          <p className="pcard__price">
-            From{' '}
-            <strong>{formatINR(getDisplayPrice(product.price, isVerified))}</strong>
-          </p>
-        ) : (
-          <p className="pcard__price pcard__price--locked">
-            <svg
-              width="11" height="11" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            Sign in to view price
-          </p>
+        {occasions.length > 0 && (
+          <div className="pcard__occasions">
+            {occasions.map(occ => (
+              <span key={occ} className="pcard__occ-tag">{occ}</span>
+            ))}
+          </div>
         )}
       </div>
     </Link>
