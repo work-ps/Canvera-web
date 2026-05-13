@@ -27,7 +27,6 @@ const ORIENTATION_SIZES = {
   ],
   Square: [
     { id: 'q-12x12', dims: '12×12"', cmDims: '30×30 cm', w: 12, h: 12, tier: 'Large',  popular: true  },
-    { id: 'q-10x10', dims: '10×10"', cmDims: '25×25 cm', w: 10, h: 10, tier: 'Small',  popular: false },
   ],
 };
 
@@ -64,7 +63,6 @@ const SizeIcons = {
   'p-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="15" y="6"  width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="11" y="6"  width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-12x12': <svg viewBox="0 0 64 64" fill="none"><rect x="7"  y="7"  width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'q-10x10': <svg viewBox="0 0 64 64" fill="none"><rect x="11" y="11" width="42" height="42" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
 };
 
 /* Shared checkmark badge for active state */
