@@ -278,7 +278,7 @@ export default function FreeflowGallery({ items }) {
               </span>
               <h3 className="freeflow__expand-name">{expandedItem.name}</h3>
               <p className="freeflow__expand-desc">
-                {PRODUCT_CONTENT[expandedItem.slug]?.description || expandedItem.description || expandedItem.specs}
+                {PRODUCT_CONTENT[expandedItem.name]?.description || expandedItem.description || expandedItem.specs}
               </p>
               {expandedItem.occasions && (
                 <div className="freeflow__expand-occasions">
