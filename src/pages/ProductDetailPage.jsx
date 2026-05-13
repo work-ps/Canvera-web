@@ -638,7 +638,6 @@ export default function ProductDetailPage() {
             <div className="pdp__selector">
               <div className="pdp__selector-label-row">
                 <p className="pdp__selector-label">Orientation</p>
-                <HelpBtn onClick={() => setHelpModal('orientation')} />
               </div>
               <div className="pdp__sel-grid">
                 {Object.keys(ORIENTATION_SIZES).map(orient => (
