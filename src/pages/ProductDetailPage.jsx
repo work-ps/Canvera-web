@@ -3,7 +3,6 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { products, bindingImages } from '../data/products';
-import { SIZES } from '../data/productConfig';
 import { PRODUCT_CONTENT, CARE_TIPS } from '../data/productContent';
 import PriceGate from '../components/PriceGate';
 import ProductCard from '../components/ProductCard';
@@ -12,28 +11,48 @@ import SEOMeta from '../components/SEOMeta';
 import './ProductDetailPage.css';
 
 /* ── Constants ──────────────────────────────────────────────────────────────── */
-const ZOOM_FACTOR  = 2.5;
-const TABS         = ['Description', 'Benefits', 'Care Instructions'];
-const ORIENTATIONS = ['Portrait', 'Landscape', 'Square'];
+const ZOOM_FACTOR = 2.5;
+const TABS        = ['Description', 'Benefits', 'Care Instructions'];
 
-/* ── Print Types – informational only, not selectable ──────────────────── */
-const PRINT_TYPES = {
-  'Indi Pro': {
-    label: 'Indi Pro',
-    subtitle: 'Digital Press Print',
-    desc: 'Printed using advanced digital press technology for sharper details, vibrant colors, and a clean modern finish.',
-  },
-  'SH Pro': {
-    label: 'SH Pro',
-    subtitle: 'Silver Halide Photo Print',
-    desc: 'Printed on real photographic paper using light-based photo printing technology for smoother tones and natural, rich images.',
-  },
-  'Ink Jet': {
-    label: 'Ink Jet',
-    subtitle: 'Premium Ink Jet Print',
-    desc: 'High-quality pigment-based ink jet printing on premium paper stock for exceptional color accuracy and archival longevity.',
-  },
+/* ── Orientation → Sizes (from Canvera product catalogue) ──────────────────── */
+const ORIENTATION_SIZES = {
+  Landscape: [
+    { id: 'l-12x18', dims: '12×18"', cmDims: '30×46 cm', w: 18, h: 12, tier: 'Large',  popular: true  },
+    { id: 'l-12x16', dims: '12×16"', cmDims: '30×41 cm', w: 16, h: 12, tier: 'Large',  popular: false },
+    { id: 'l-12x15', dims: '12×15"', cmDims: '30×38 cm', w: 15, h: 12, tier: 'Medium', popular: false },
+  ],
+  Portrait: [
+    { id: 'p-12x18', dims: '12×18"', cmDims: '30×46 cm', w: 12, h: 18, tier: 'Large',  popular: true  },
+    { id: 'p-12x15', dims: '12×15"', cmDims: '30×38 cm', w: 12, h: 15, tier: 'Medium', popular: false },
+  ],
+  Square: [
+    { id: 'q-12x12', dims: '12×12"', cmDims: '30×30 cm', w: 12, h: 12, tier: 'Large',  popular: true  },
+    { id: 'q-10x10', dims: '10×10"', cmDims: '25×25 cm', w: 10, h: 10, tier: 'Small',  popular: false },
+  ],
 };
+
+/* Orientation SVG icons (open-album style) */
+const OrzIcons = {
+  Landscape: (
+    <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="6" y="20" width="60" height="38" rx="3"/>
+      <rect x="14" y="27" width="44" height="24" rx="2"/>
+    </svg>
+  ),
+  Portrait: (
+    <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="18" y="6" width="36" height="56" rx="3"/>
+      <rect x="25" y="14" width="22" height="40" rx="2"/>
+    </svg>
+  ),
+  Square: (
+    <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="10" y="10" width="52" height="52" rx="3"/>
+      <rect x="18" y="18" width="36" height="36" rx="2"/>
+    </svg>
+  ),
+};
+
 
 const SPECS = {
   'Photobooks':     { Binding: 'Lay-flat / Flush Mount', Pages: '20–80 sheets', 'Cover Options': 'Leather, Suede, Fabric, Wood', Printing: '6-color Hexachrome', 'Paper Types': 'Matte, Glossy, Silk, Pearl, Metallic' },
@@ -70,28 +89,6 @@ const HELP_CONTENT = {
       },
     ],
     note: 'Orientation cannot be changed after your order is confirmed.',
-  },
-  size: {
-    title: 'Album Sizes Explained',
-    items: SIZES.map(sz => ({
-      name: sz.label,
-      icon: null,
-      desc: {
-        'sz-1': 'Compact 8×10" — popular for gifting, intimate albums, and coffee-table display. Fits in most bags.',
-        'sz-2': 'Standard 10×12" — our most popular size for wedding albums. Perfect balance of presence and portability.',
-        'sz-3': 'Large 12×15" — makes a strong visual impact; suits premium wedding and event coverage.',
-        'sz-4': 'Wide 12×18" — panoramic landscape format; stunning for full-spread cityscape and travel photography.',
-        'sz-5': 'Statement 14×20" — our largest size. A true showpiece for the living room or studio wall.',
-      }[sz.id] || '',
-      best: {
-        'sz-1': `${sz.widthIn}″ × ${sz.heightIn}″ · Best for gifting`,
-        'sz-2': `${sz.widthIn}″ × ${sz.heightIn}″ · Most popular`,
-        'sz-3': `${sz.widthIn}″ × ${sz.heightIn}″ · Premium events`,
-        'sz-4': `${sz.widthIn}″ × ${sz.heightIn}″ · Wide panoramic`,
-        'sz-5': `${sz.widthIn}″ × ${sz.heightIn}″ · Statement piece`,
-      }[sz.id] || `${sz.widthIn}″ × ${sz.heightIn}″`,
-    })),
-    note: 'All sizes use the same paper and cover materials. Final pricing is calculated in the order summary.',
   },
   binding: {
     title: 'Binding Types Explained',
@@ -353,8 +350,14 @@ export default function ProductDetailPage() {
 
   /* ── UI state ── */
   const [activeTab,           setActiveTab]           = useState(0);
-  const [selectedOrientation, setSelectedOrientation] = useState('Portrait');
-  const [selectedSize,        setSelectedSize]        = useState(SIZES[0].id);
+  const [selectedOrientation, setSelectedOrientation] = useState('Landscape');
+  const [selectedSize,        setSelectedSize]        = useState(ORIENTATION_SIZES.Landscape[0].id);
+  const [useInches,           setUseInches]           = useState(true);
+
+  const handleOrientationChange = (orient) => {
+    setSelectedOrientation(orient);
+    setSelectedSize(ORIENTATION_SIZES[orient][0].id);
+  };
   const [activeImg,           setActiveImg]           = useState(0);
   const [cartToast,           setCartToast]           = useState(false);
   const [helpModal,           setHelpModal]           = useState(null);
@@ -426,6 +429,9 @@ export default function ProductDetailPage() {
     );
   }
 
+  /* ── Helpers ── */
+  const selectedSizeData = ORIENTATION_SIZES[selectedOrientation]?.find(s => s.id === selectedSize);
+
   /* ── Handlers ── */
   const handleAddToCart = () => {
     if (!isLoggedIn) { navigate('/login?redirect=/products/' + product.slug); return; }
@@ -438,7 +444,7 @@ export default function ProductDetailPage() {
       isComplete:     false,
       configuration:  {
         orientation: selectedOrientation,
-        size:        SIZES.find(s => s.id === selectedSize)?.label,
+        size:        selectedSizeData?.dims || selectedSize,
       },
       image: product.image,
     });
@@ -449,8 +455,9 @@ export default function ProductDetailPage() {
   const handleConfigureOrder = () => {
     if (!isLoggedIn) { navigate('/login?redirect=/order/' + product.slug); return; }
     const params = new URLSearchParams({
-      orientation: selectedOrientation,
-      size:        selectedSize,
+      orientation:  selectedOrientation,
+      size:         selectedSize,
+      sizeLabel:    selectedSizeData?.dims || '',
     });
     navigate(`/order/${product.slug}?${params.toString()}`);
   };
@@ -594,15 +601,6 @@ export default function ProductDetailPage() {
           <h1 className="pdp__name">{product.name}</h1>
           <p className="pdp__tag">{product.tag}</p>
 
-          {/* Rating */}
-          <div className="pdp__rating-row">
-            <div className="pdp__stars">
-              {[1,2,3,4,5].map(s => <StarIcon key={s} filled={s <= Math.round(product.rating)} />)}
-            </div>
-            <span className="pdp__rating-val">{product.rating}</span>
-            <span className="pdp__rating-count">({product.reviewCount?.toLocaleString()} reviews)</span>
-          </div>
-
           {/* Occasions — Perfect for */}
           {product.occasions?.length > 0 && (
             <div className="pdp__occasions">
@@ -613,62 +611,82 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          {/* Print Types – available options, not selectable */}
-          <div className="pdp__print-types">
-            <p className="pdp__selector-label">Available Print Types</p>
-            <div className="pdp__print-types-grid">
-              {getAvailablePrintTypes(product.category, product.price.base).map(printType => {
-                const info = PRINT_TYPES[printType];
-                return (
-                  <div key={printType} className="pdp__print-type-card">
-                    <h4 className="pdp__print-type-title">{info.label}</h4>
-                    <p className="pdp__print-type-subtitle">{info.subtitle}</p>
-                    <p className="pdp__print-type-desc">{info.desc}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Orientation */}
+          {/* Orientation & Size */}
           {product.category !== 'Decor Products' && (
-            <div className="pdp__selector">
-              <div className="pdp__selector-label-row">
-                <p className="pdp__selector-label">Orientation</p>
-                <HelpBtn onClick={() => setHelpModal('orientation')} />
-              </div>
-              <div className="pdp__chips">
-                {ORIENTATIONS.map(o => (
+            <div className="pdp__orz-section">
+              {/* Section header + unit toggle */}
+              <div className="pdp__orz-header">
+                <p className="pdp__selector-label">Orientation &amp; Size</p>
+                <div className="pdp__unit-toggle">
+                  <span className={`pdp__unit-opt${useInches ? ' pdp__unit-opt--active' : ''}`} onClick={() => setUseInches(true)}>inch</span>
                   <button
-                    key={o}
-                    className={`pdp__chip ${selectedOrientation === o ? 'pdp__chip--active' : ''}`}
-                    onClick={() => setSelectedOrientation(o)}
+                    className={`pdp__unit-track${useInches ? '' : ' pdp__unit-track--cm'}`}
+                    onClick={() => setUseInches(v => !v)}
+                    aria-label="Toggle unit"
+                    role="switch"
+                    aria-checked={!useInches}
                   >
-                    {o}
+                    <span className="pdp__unit-knob" />
+                  </button>
+                  <span className={`pdp__unit-opt${!useInches ? ' pdp__unit-opt--active' : ''}`} onClick={() => setUseInches(false)}>cm</span>
+                </div>
+              </div>
+
+              {/* Orientation cards */}
+              <div className="pdp__orz-grid">
+                {Object.keys(ORIENTATION_SIZES).map(orient => (
+                  <button
+                    key={orient}
+                    className={`pdp__orz-card${selectedOrientation === orient ? ' pdp__orz-card--active' : ''}`}
+                    onClick={() => handleOrientationChange(orient)}
+                  >
+                    <div className="pdp__orz-icon">{OrzIcons[orient]}</div>
+                    <span className="pdp__orz-label">{orient}</span>
+                    {selectedOrientation === orient && (
+                      <span className="pdp__orz-check" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="8"/><path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>
+
+              {/* Size cards for selected orientation */}
+              <div className="pdp__size-grid">
+                {ORIENTATION_SIZES[selectedOrientation].map(sz => {
+                  // Proportional SVG box fitting a 48×48 cell
+                  const maxDim = 38;
+                  const ratio  = sz.w / sz.h;
+                  const svgW   = ratio >= 1 ? maxDim : maxDim * ratio;
+                  const svgH   = ratio >= 1 ? maxDim / ratio : maxDim;
+                  const ox     = (48 - svgW) / 2;
+                  const oy     = (48 - svgH) / 2;
+                  return (
+                    <button
+                      key={sz.id}
+                      className={`pdp__size-card${selectedSize === sz.id ? ' pdp__size-card--active' : ''}`}
+                      onClick={() => setSelectedSize(sz.id)}
+                    >
+                      {sz.popular && <span className="pdp__size-badge">Popular</span>}
+                      <div className="pdp__size-icon">
+                        <svg viewBox="0 0 48 48" fill="none">
+                          <rect
+                            x={ox} y={oy}
+                            width={svgW} height={svgH}
+                            rx="2"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                        </svg>
+                      </div>
+                      <span className="pdp__size-dims">{useInches ? sz.dims : sz.cmDims}</span>
+                      <span className="pdp__size-tier">{sz.tier}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           )}
-
-          {/* Size */}
-          <div className="pdp__selector">
-            <div className="pdp__selector-label-row">
-              <p className="pdp__selector-label">Size</p>
-              <HelpBtn onClick={() => setHelpModal('size')} />
-            </div>
-            <div className="pdp__chips">
-              {SIZES.map(sz => (
-                <button
-                  key={sz.id}
-                  className={`pdp__chip ${selectedSize === sz.id ? 'pdp__chip--active' : ''}`}
-                  onClick={() => setSelectedSize(sz.id)}
-                >
-                  {sz.label}
-                </button>
-              ))}
-            </div>
-          </div>
 
           {/* CTAs */}
           <div className="pdp__actions">

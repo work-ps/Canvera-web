@@ -220,19 +220,7 @@
   margin-top: calc(-1 * var(--space-3));
 }
 
-.pdp__rating-row {
-  display: flex; align-items: center; gap: var(--space-2);
-}
-.pdp__stars { display: flex; gap: 2px; }
-.pdp__rating-val {
-  font-size: var(--text-body-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--text-primary);
-}
-.pdp__rating-count {
-  font-size: var(--text-body-sm);
-  color: var(--text-secondary);
-}
+/* ratings removed */
 
 .pdp__price-block {
   display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap;
@@ -251,50 +239,170 @@
   margin-left: auto;
 }
 
-/* ── Print Types – informational cards, not selectable ──────────────────── */
-.pdp__print-types {
+/* ── Orientation & Size selector ──────────────────────────────────────────── */
+.pdp__orz-section {
   margin-bottom: var(--space-6);
 }
-.pdp__print-types-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-4);
+.pdp__orz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+.pdp__orz-header .pdp__selector-label { margin-bottom: 0; }
+
+/* inch / cm toggle */
+.pdp__unit-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pdp__unit-opt {
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--duration-fast) var(--ease-out);
+  font-family: var(--font-sans);
+}
+.pdp__unit-opt--active { color: var(--text-primary); }
+.pdp__unit-track {
+  position: relative;
+  width: 32px; height: 18px;
+  border-radius: 9px;
+  background: var(--brand-petrol);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+.pdp__unit-knob {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform var(--duration-fast) var(--ease-out);
+  display: block;
+}
+.pdp__unit-track--cm .pdp__unit-knob {
+  transform: translateX(14px);
 }
 
-.pdp__print-type-card {
-  padding: var(--space-4);
-  background: var(--bg-primary);
-  border: 1px solid var(--border-default);
+/* Orientation cards row */
+.pdp__orz-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.pdp__orz-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2) var(--space-3);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+  cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-out),
               box-shadow var(--duration-fast) var(--ease-out);
+  font-family: var(--font-sans);
 }
-
-.pdp__print-type-card:hover {
-  border-color: var(--border-strong);
+.pdp__orz-card:hover {
+  border-color: var(--neutral-400);
   box-shadow: var(--shadow-sm);
 }
+.pdp__orz-card--active {
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+}
+.pdp__orz-icon {
+  width: 56px; height: 56px;
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.pdp__orz-card--active .pdp__orz-icon { color: var(--brand-petrol); }
+.pdp__orz-label {
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.pdp__orz-card--active .pdp__orz-label { color: var(--brand-petrol); font-weight: var(--weight-semibold); }
+.pdp__orz-check {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  width: 16px; height: 16px;
+  color: var(--brand-petrol);
+}
+.pdp__orz-check svg { width: 100%; height: 100%; }
 
-.pdp__print-type-title {
-  font-size: var(--text-body-sm);
+/* Size cards */
+.pdp__size-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.pdp__size-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  min-width: 82px;
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+  font-family: var(--font-sans);
+}
+.pdp__size-card:hover {
+  border-color: var(--neutral-400);
+  box-shadow: var(--shadow-sm);
+}
+.pdp__size-card--active {
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+}
+.pdp__size-icon {
+  width: 48px; height: 48px;
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.pdp__size-card--active .pdp__size-icon { color: var(--brand-petrol); }
+.pdp__size-dims {
+  font-size: 11px;
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 2px;
-  margin-top: 0;
+  white-space: nowrap;
+  line-height: 1;
+  transition: color var(--duration-fast) var(--ease-out);
 }
-
-.pdp__print-type-subtitle {
-  font-size: var(--text-body-xs);
+.pdp__size-card--active .pdp__size-dims { color: var(--brand-petrol); }
+.pdp__size-tier {
+  font-size: 10px;
   color: var(--text-secondary);
-  margin: 0 0 var(--space-2) 0;
-  font-weight: var(--weight-medium);
+  line-height: 1;
 }
-
-.pdp__print-type-desc {
-  font-size: var(--text-body-xs);
-  color: var(--text-secondary);
-  line-height: var(--leading-snug);
-  margin: 0;
+.pdp__size-badge {
+  position: absolute;
+  top: -1px; left: -1px;
+  font-size: 9px;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--brand-petrol);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm) 0 var(--radius-sm) 0;
+  border-top-left-radius: var(--radius-lg);
 }
 
 .pdp__selector-label {
@@ -951,8 +1059,10 @@
   .pdp__btn-primary, .pdp__btn-secondary, .pdp__btn-secondary-link { flex: none; width: 100%; }
   .pdp__trust { gap: var(--space-3); }
   .pdp__help-modal { max-height: 90vh; }
-  /* Print types grid — single column on mobile */
-  .pdp__print-types-grid { grid-template-columns: 1fr; }
+  /* Orientation cards — shrink a bit on mobile */
+  .pdp__orz-grid { gap: var(--space-2); }
+  .pdp__orz-icon { width: 44px; height: 44px; }
+  .pdp__size-card { min-width: 72px; }
   /* Side arrows hidden on touch — swipe instead */
   .pdp__carousel-arrow { display: none; }
   .pdp__carousel-item { flex: 0 0 160px; }
