@@ -31,27 +31,51 @@ const ORIENTATION_SIZES = {
   ],
 };
 
-/* Orientation SVG icons (open-album style) */
+/* Orientation icons – closed-album-cover style, currentColor strokes */
 const OrzIcons = {
   Landscape: (
-    <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="6" y="20" width="60" height="38" rx="3"/>
-      <rect x="14" y="27" width="44" height="24" rx="2"/>
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeLinecap="round">
+      <rect x="5" y="19" width="54" height="34" rx="4" strokeWidth="2"/>
+      <line x1="14" y1="19" x2="14" y2="53" strokeWidth="1.5" opacity="0.45"/>
+      <rect x="18" y="25" width="36" height="22" rx="2.5" strokeWidth="1.5" opacity="0.6"/>
     </svg>
   ),
   Portrait: (
-    <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="18" y="6" width="36" height="56" rx="3"/>
-      <rect x="25" y="14" width="22" height="40" rx="2"/>
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeLinecap="round">
+      <rect x="19" y="5" width="26" height="54" rx="4" strokeWidth="2"/>
+      <line x1="19" y1="14" x2="45" y2="14" strokeWidth="1.5" opacity="0.45"/>
+      <rect x="24" y="18" width="16" height="34" rx="2.5" strokeWidth="1.5" opacity="0.6"/>
     </svg>
   ),
   Square: (
-    <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="10" y="10" width="52" height="52" rx="3"/>
-      <rect x="18" y="18" width="36" height="36" rx="2"/>
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeLinecap="round">
+      <rect x="9" y="9" width="46" height="46" rx="4" strokeWidth="2"/>
+      <line x1="18" y1="9" x2="18" y2="55" strokeWidth="1.5" opacity="0.45"/>
+      <rect x="22" y="15" width="28" height="34" rx="2.5" strokeWidth="1.5" opacity="0.6"/>
     </svg>
   ),
 };
+
+/* Size icons – proportional rectangles, currentColor stroke */
+const SizeIcons = {
+  'l-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="15" width="52" height="35" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'l-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="13" width="52" height="39" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'l-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="11" width="52" height="42" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="15" y="6"  width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="11" y="6"  width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'q-12x12': <svg viewBox="0 0 64 64" fill="none"><rect x="7"  y="7"  width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'q-10x10': <svg viewBox="0 0 64 64" fill="none"><rect x="11" y="11" width="42" height="42" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+};
+
+/* Shared checkmark badge for active state */
+const CheckBadge = () => (
+  <span className="pdp__sel-check" aria-hidden="true">
+    <svg viewBox="0 0 16 16">
+      <circle cx="8" cy="8" r="8" fill="currentColor"/>
+      <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  </span>
+);
 
 
 const SPECS = {
@@ -611,14 +635,41 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          {/* Orientation & Size */}
+          {/* ── Orientation ── */}
           {product.category !== 'Decor Products' && (
-            <div className="pdp__orz-section">
-              {/* Section header + unit toggle */}
-              <div className="pdp__orz-header">
-                <p className="pdp__selector-label">Orientation &amp; Size</p>
+            <div className="pdp__selector">
+              <div className="pdp__selector-label-row">
+                <p className="pdp__selector-label">Orientation</p>
+                <HelpBtn onClick={() => setHelpModal('orientation')} />
+              </div>
+              <div className="pdp__sel-grid">
+                {Object.keys(ORIENTATION_SIZES).map(orient => (
+                  <button
+                    key={orient}
+                    className={`pdp__sel-card${selectedOrientation === orient ? ' pdp__sel-card--active' : ''}`}
+                    onClick={() => handleOrientationChange(orient)}
+                    aria-pressed={selectedOrientation === orient}
+                  >
+                    {selectedOrientation === orient && <CheckBadge />}
+                    <div className="pdp__sel-icon">{OrzIcons[orient]}</div>
+                    <span className="pdp__sel-name">{orient}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── Size ── */}
+          {product.category !== 'Decor Products' && (
+            <div className="pdp__selector">
+              <div className="pdp__selector-label-row">
+                <p className="pdp__selector-label">Size</p>
                 <div className="pdp__unit-toggle">
-                  <span className={`pdp__unit-opt${useInches ? ' pdp__unit-opt--active' : ''}`} onClick={() => setUseInches(true)}>inch</span>
+                  <span
+                    className={`pdp__unit-opt${useInches ? ' pdp__unit-opt--active' : ''}`}
+                    onClick={() => setUseInches(true)}
+                    role="button" tabIndex={0}
+                  >inch</span>
                   <button
                     className={`pdp__unit-track${useInches ? '' : ' pdp__unit-track--cm'}`}
                     onClick={() => setUseInches(v => !v)}
@@ -628,62 +679,28 @@ export default function ProductDetailPage() {
                   >
                     <span className="pdp__unit-knob" />
                   </button>
-                  <span className={`pdp__unit-opt${!useInches ? ' pdp__unit-opt--active' : ''}`} onClick={() => setUseInches(false)}>cm</span>
+                  <span
+                    className={`pdp__unit-opt${!useInches ? ' pdp__unit-opt--active' : ''}`}
+                    onClick={() => setUseInches(false)}
+                    role="button" tabIndex={0}
+                  >cm</span>
                 </div>
               </div>
-
-              {/* Orientation cards */}
-              <div className="pdp__orz-grid">
-                {Object.keys(ORIENTATION_SIZES).map(orient => (
+              <div className="pdp__sel-grid">
+                {ORIENTATION_SIZES[selectedOrientation].map(sz => (
                   <button
-                    key={orient}
-                    className={`pdp__orz-card${selectedOrientation === orient ? ' pdp__orz-card--active' : ''}`}
-                    onClick={() => handleOrientationChange(orient)}
+                    key={sz.id}
+                    className={`pdp__sel-card${selectedSize === sz.id ? ' pdp__sel-card--active' : ''}`}
+                    onClick={() => setSelectedSize(sz.id)}
+                    aria-pressed={selectedSize === sz.id}
                   >
-                    <div className="pdp__orz-icon">{OrzIcons[orient]}</div>
-                    <span className="pdp__orz-label">{orient}</span>
-                    {selectedOrientation === orient && (
-                      <span className="pdp__orz-check" aria-hidden="true">
-                        <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="8"/><path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </span>
-                    )}
+                    {sz.popular && <span className="pdp__sel-popular">Popular</span>}
+                    {selectedSize === sz.id && <CheckBadge />}
+                    <div className="pdp__sel-icon">{SizeIcons[sz.id]}</div>
+                    <span className="pdp__sel-name">{useInches ? sz.dims : sz.cmDims}</span>
+                    <span className="pdp__sel-sub">{sz.tier}</span>
                   </button>
                 ))}
-              </div>
-
-              {/* Size cards for selected orientation */}
-              <div className="pdp__size-grid">
-                {ORIENTATION_SIZES[selectedOrientation].map(sz => {
-                  // Proportional SVG box fitting a 48×48 cell
-                  const maxDim = 38;
-                  const ratio  = sz.w / sz.h;
-                  const svgW   = ratio >= 1 ? maxDim : maxDim * ratio;
-                  const svgH   = ratio >= 1 ? maxDim / ratio : maxDim;
-                  const ox     = (48 - svgW) / 2;
-                  const oy     = (48 - svgH) / 2;
-                  return (
-                    <button
-                      key={sz.id}
-                      className={`pdp__size-card${selectedSize === sz.id ? ' pdp__size-card--active' : ''}`}
-                      onClick={() => setSelectedSize(sz.id)}
-                    >
-                      {sz.popular && <span className="pdp__size-badge">Popular</span>}
-                      <div className="pdp__size-icon">
-                        <svg viewBox="0 0 48 48" fill="none">
-                          <rect
-                            x={ox} y={oy}
-                            width={svgW} height={svgH}
-                            rx="2"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                        </svg>
-                      </div>
-                      <span className="pdp__size-dims">{useInches ? sz.dims : sz.cmDims}</span>
-                      <span className="pdp__size-tier">{sz.tier}</span>
-                    </button>
-                  );
-                })}
               </div>
             </div>
           )}
