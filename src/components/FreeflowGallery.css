@@ -141,14 +141,17 @@
   display: block;
 }
 
-/* Info — 1/3 width, full height, vertically centered */
+/* Info — 1/3 width, full height, scrollable for longer descriptions */
 .freeflow__expand-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 14px;
   padding: 8px 4px 8px 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
 }
 
 .freeflow__expand-collection {

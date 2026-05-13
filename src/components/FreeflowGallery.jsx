@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
+import { PRODUCT_CONTENT } from '../data/productContent';
 import './FreeflowGallery.css';
 
 const CARD_WIDTH = 280;
@@ -276,7 +277,9 @@ export default function FreeflowGallery({ items }) {
                 {expandedItem.collection || expandedItem.category}
               </span>
               <h3 className="freeflow__expand-name">{expandedItem.name}</h3>
-              <p className="freeflow__expand-desc">{expandedItem.description || expandedItem.specs}</p>
+              <p className="freeflow__expand-desc">
+                {PRODUCT_CONTENT[expandedItem.slug]?.description || expandedItem.description || expandedItem.specs}
+              </p>
               {expandedItem.occasions && (
                 <div className="freeflow__expand-occasions">
                   {expandedItem.occasions.map((o) => (
