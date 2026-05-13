@@ -32,9 +32,9 @@ const STYLES = [
 // Simple style → product matching hint
 const STYLE_COLLECTIONS = {
   classic: ['Leatherette', 'Celestial'],
-  modern: ['Suede', 'Folio'],
-  rustic: ['Wood', 'Canvas'],
-  luxury: ['Celestial', 'Wood', 'Suede'],
+  modern: ['Suede Leather', 'Folio'],
+  rustic: ['Wooden', 'Canvas'],
+  luxury: ['Celestial', 'Wooden', 'Suede Leather'],
 };
 
 function filterProducts({ occasion, budget, style }) {

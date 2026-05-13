@@ -16,7 +16,7 @@ const VALID_CODES = {
   },
   'CVR-SUEDE-9021': {
     product: 'Mesmera Suede Album',
-    collection: 'Suede',
+    collection: 'Suede Leather',
     material: 'Premium Suede',
     manufacturingDate: 'March 2024',
     status: 'genuine',

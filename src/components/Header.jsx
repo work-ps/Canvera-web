@@ -51,7 +51,7 @@ const navItems = [
         links: [
           { label: 'Celestial',   href: '/collections/celestial' },
           { label: 'Luxury',      href: '/collections/luxury' },
-          { label: 'Suede',       href: '/collections/suede' },
+          { label: 'Suede Leather', href: '/collections/suede-leather' },
         ],
       },
       {
@@ -66,8 +66,8 @@ const navItems = [
         title: '',
         links: [
           { label: 'Fabric',       href: '/collections/fabric' },
-          { label: 'Wood',         href: '/collections/wood' },
-          { label: 'Custom Cover', href: '/collections/custom-cover' },
+          { label: 'Wooden',               href: '/collections/wooden' },
+          { label: 'Printed Custom Cover', href: '/collections/printed-custom-cover' },
         ],
       },
     ],
