@@ -626,7 +626,7 @@ export function getResponse(intent, context, user, rawText) {
         messages: [
           { type: 'text', text: "You'll need to be logged in to access orders, pricing, and your profile." },
           { type: 'action', label: 'Log In', path: '/login' },
-          { type: 'action', label: 'Create Account', path: '/signup' },
+          { type: 'action', label: 'Register Now', path: '/signup' },
         ],
       };
       if (isPhotographer && !isVerified) return {
@@ -823,8 +823,8 @@ export function getResponse(intent, context, user, rawText) {
           ]},
           { type: 'text', text: isPhotographer
             ? "You're already registered as a photographer — start the **verification process** now from your profile."
-            : "Sign up as a photographer to begin the verification process." },
-          { type: 'action', label: isPhotographer ? 'Start Verification' : 'Sign Up as Photographer', path: isPhotographer ? '/profile' : '/signup' },
+            : "Register as a photographer to submit your application and begin the verification process." },
+          { type: 'action', label: isPhotographer ? 'Start Verification' : 'Register as Photographer', path: isPhotographer ? '/profile' : '/signup' },
         ],
         quickReplies: isPhotographer
           ? ['Verification Process', 'Pricing Info', 'Talk to Team']

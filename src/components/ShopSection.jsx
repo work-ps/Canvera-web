@@ -12,7 +12,7 @@ const CATEGORY_TABS = [
   { name: 'Photobooks' },
   { name: 'Momentbooks' },
   { name: 'Superbooks' },
-  { name: 'Magazines' },
+  { name: 'Premium Magazine Books' },
   { name: 'Decor Products' },
   { name: 'Gifting Kit' },
 ];

@@ -457,21 +457,65 @@
 /* ── Signup: portfolio label (teal) ────────────────────────── */
 .auth-label--accent { color: var(--teal-700); }
 
-/* ── Skip link ─────────────────────────────────────────────── */
-.auth-skip {
-  display: block;
-  width: 100%;
-  margin-top: var(--space-3);
-  background: none;
-  border: none;
-  font-family: var(--font-sans);
+/* ── Field hint — small descriptive text below an input ────── */
+.auth-field-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin: var(--space-2) 0 0;
+  line-height: 1.5;
+}
+
+/* ── Upload zone: prominent document-type label ─────────────── */
+.auth-upload-zone__doc-type {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-3);
+  letter-spacing: 0.01em;
+}
+
+/* ── Application submitted screen ──────────────────────────── */
+.auth-submitted {
+  text-align: center;
+  padding: var(--space-4) 0 var(--space-2);
+}
+
+.auth-submitted__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--green-50, #f0fdf4);
+  border: 1.5px solid rgba(42, 157, 143, 0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-5);
+}
+
+.auth-submitted__title {
+  font-size: var(--text-display-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-4);
+  letter-spacing: var(--tracking-tight);
+}
+
+.auth-submitted__body {
   font-size: var(--text-body-sm);
   color: var(--text-secondary);
-  cursor: pointer;
-  text-align: center;
-  transition: color var(--duration-fast);
+  line-height: var(--leading-body);
+  margin: 0 0 var(--space-4);
 }
-.auth-skip:hover { color: var(--text-primary); }
+
+.auth-submitted__body strong {
+  color: var(--text-primary);
+}
+
+.auth-submitted__note {
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
 
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 480px) {

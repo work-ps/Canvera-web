@@ -165,9 +165,9 @@ export default function LeadCaptureModal() {
                 </svg>
               </div>
               <h3 className="lcm-success__title">You're in!</h3>
-              <p className="lcm-success__msg">Welcome to Canvera. Create your account to start exploring.</p>
+              <p className="lcm-success__msg">Welcome to Canvera. Register now to submit your application and start exploring.</p>
               <Link to="/signup" className="lcm-submit" onClick={handleDismiss}>
-                Create Your Account
+                Register Now
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
             </div>

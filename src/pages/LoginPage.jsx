@@ -156,7 +156,7 @@ export default function LoginPage() {
 
         <p className="auth-switch">
           New to Canvera?{' '}
-          <Link to="/signup" className="auth-switch__link">Create an account</Link>
+          <Link to="/signup" className="auth-switch__link">Register Now</Link>
         </p>
 
         {import.meta.env.DEV && (
