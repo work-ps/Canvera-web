@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
 import SEOMeta from '../components/SEOMeta';
@@ -19,11 +20,14 @@ const MILESTONES = [
   { year: '2025', title: '1.5 Million Albums', desc: 'Photographers on the Canvera platform created 1,568,981 albums in a single year — a milestone that belongs to the photography community.' },
 ];
 
-const TEAM = [
-  { name: 'Rajiv Mehta', role: 'Founder & CEO', initials: 'RM', bio: 'Former photojournalist turned entrepreneur. Passionate about preserving memories at the highest quality.' },
-  { name: 'Priya Sharma', role: 'Head of Production', initials: 'PS', bio: '20+ years in print production. Oversees quality control across all product lines.' },
-  { name: 'Ankit Verma', role: 'Lead Designer', initials: 'AV', bio: 'Typographer and surface designer behind every cover emboss and foil pattern in the Canvera catalogue.' },
-  { name: 'Sunita Rao', role: 'Customer Experience', initials: 'SR', bio: 'Ensures every photographer — from first-timer to seasoned pro — gets the Canvera white-glove experience.' },
+const GALLERY_IMAGES = [
+  '/images/Hero%20Section%20-%201080x720/1.jpg',
+  '/images/Hero%20Section%20-%201080x720/2.jpg',
+  '/images/Hero%20Section%20-%201080x720/3.jpg',
+  '/images/Hero%20Section%20-%201080x720/4.jpg',
+  '/images/Hero%20Section%20-%201080x720/5.jpg',
+  '/images/Hero%20Section%20-%201080x720/6.jpg',
+  '/images/Hero%20Section%20-%201080x720/7.jpg',
 ];
 
 const VALUES = [
@@ -52,13 +56,6 @@ const ABOUT_SCHEMA = [
     numberOfEmployees: { '@type': 'QuantitativeValue', value: '500+' },
     areaServed: { '@type': 'Country', name: 'India' },
     address: { '@type': 'PostalAddress', addressCountry: 'IN', addressRegion: 'Karnataka' },
-    member: TEAM.map(person => ({
-      '@type': 'Person',
-      name: person.name,
-      jobTitle: person.role,
-      description: person.bio,
-      worksFor: { '@id': 'https://canvera.com/#organization' },
-    })),
     milestone: MILESTONES.map(m => ({
       '@type': 'Event',
       name: m.title,
@@ -67,6 +64,50 @@ const ABOUT_SCHEMA = [
     })),
   },
 ];
+
+function GalleryCarousel({ images }) {
+  const [index, setIndex] = useState(0);
+  const total = images.length;
+  const canPrev = index > 0;
+  const canNext = index + 2 < total;
+
+  return (
+    <section className="about__gallery-section about__section--alt">
+      <div className="about__gallery-inner">
+        <div className="about__gallery-track">
+          {images.slice(index, index + 2).map((src, i) => (
+            <div key={index + i} className="about__gallery-slide">
+              <img src={src} alt={`Canvera gallery ${index + i + 1}`} loading="lazy" />
+            </div>
+          ))}
+        </div>
+        <div className="about__gallery-nav">
+          <button
+            className="about__gallery-btn"
+            onClick={() => setIndex(i => Math.max(0, i - 1))}
+            disabled={!canPrev}
+            aria-label="Previous"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <span className="about__gallery-counter">{index + 1}–{Math.min(index + 2, total)} / {total}</span>
+          <button
+            className="about__gallery-btn"
+            onClick={() => setIndex(i => Math.min(total - 2, i + 1))}
+            disabled={!canNext}
+            aria-label="Next"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -112,29 +153,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Story */}
-      <section className="about__section">
-        <div className="about__inner about__two-col">
-          <div className="about__text-block">
-            <p className="about__eyebrow">Our Story</p>
-            <h2 className="about__section-title">Born from a love of preserved memories</h2>
-            <p className="about__body">
-              Canvera started its journey in 2007 with a simple belief: photographs deserve more than storage — they deserve to be experienced. Armed with a vision to help individuals record and preserve their happiest memories, we set out to build India&rsquo;s most trusted photography platform.
-            </p>
-            <p className="about__body">
-              Today, Canvera is India&rsquo;s leading online photography company — trusted by 91,000+ photographers across 2,800+ cities. In 2025 alone, photographers on our platform created 1,568,981 albums. That&rsquo;s over 1.5 million weddings, newborn sessions, senior portraits, and family stories transformed into something real.
-            </p>
-            <p className="about__body">
-              We didn&rsquo;t create those albums. Photographers did. This milestone belongs to our community — and it&rsquo;s why Canvera continues to be the preferred choice for professional photographers nationwide.
-            </p>
-          </div>
-          <div className="about__visual">
-            <div className="about__visual-card">
-              <div className="about__visual-inner">
-                <span className="about__visual-quote">"Every photograph deserves to live in a frame worthy of the moment it captured."</span>
-                <span className="about__visual-attr">— Rajiv Mehta, Founder</span>
-              </div>
-            </div>
+      {/* Brand Video */}
+      <section className="about__video-section">
+        <div className="about__inner">
+          <div className="about__video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/t7RcpATaP6Q?rel=0&modestbranding=1"
+              title="Canvera Brand Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
           </div>
         </div>
       </section>
@@ -202,25 +230,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="about__section about__section--alt">
-        <div className="about__inner">
-          <div className="about__section-header">
-            <p className="about__eyebrow">The People</p>
-            <h2 className="about__section-title">Meet the Team</h2>
-          </div>
-          <div className="about__team">
-            {TEAM.map(member => (
-              <div key={member.name} className="about__team-card">
-                <div className="about__team-avatar">{member.initials}</div>
-                <h3 className="about__team-name">{member.name}</h3>
-                <p className="about__team-role">{member.role}</p>
-                <p className="about__team-bio">{member.bio}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Gallery Carousel */}
+      <GalleryCarousel images={GALLERY_IMAGES} />
 
       {/* CTA */}
       <section className="about__cta-section">
