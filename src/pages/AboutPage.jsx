@@ -145,8 +145,7 @@ function GalleryCarousel({ images }) {
               <path d="M15 18l-6-6 6-6"/>
             </svg>
           </button>
-          <span className="about__gallery-counter">{index + 1}–{Math.min(index + 2, total)} / {total}</span>
-          <button
+<button
             className="about__gallery-btn"
             onClick={() => setIndex(i => Math.min(total - 2, i + 1))}
             disabled={!canNext}
