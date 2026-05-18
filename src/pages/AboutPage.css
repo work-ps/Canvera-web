@@ -73,7 +73,7 @@
 
 /* ── Stats ────────────────────────────────────────────────── */
 .about__stats-section {
-  padding: var(--space-12) 0;
+  padding: var(--space-20) 0;
   background: var(--neutral-50);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -105,7 +105,7 @@
 .about__section--alt { background: var(--neutral-50); }
 .about__section-header {
   text-align: center;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-10);
 }
 .about__eyebrow {
   font-size: var(--text-body-sm);
@@ -163,7 +163,7 @@
 .about__values {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-5);
+  gap: var(--space-6);
   align-items: stretch;
 }
 .about__value-card {
@@ -172,7 +172,7 @@
   background: var(--bg-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
-  padding: var(--space-7) var(--space-6);
+  padding: var(--space-6);
 }
 .about__value-title {
   font-size: var(--text-heading-md);
@@ -216,7 +216,7 @@
   display: grid;
   grid-template-columns: 1fr 96px 1fr;
   align-items: center;
-  padding: var(--space-5) 0;
+  padding: var(--space-6) 0;
 }
 
 /* Content columns */
@@ -230,7 +230,7 @@
   background: var(--bg-primary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-6);
   box-shadow: 0 1px 8px rgba(26,42,58,0.06);
   transition: box-shadow 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
 }
@@ -357,7 +357,7 @@
 
 /* ── Brand Video ──────────────────────────────────────────── */
 .about__video-section {
-  padding: var(--space-section) 0;
+  padding: var(--space-20) 0;
 }
 .about__video-wrapper {
   position: relative;
@@ -378,7 +378,7 @@
 
 /* ── Gallery Carousel ─────────────────────────────────────── */
 .about__gallery-section {
-  padding: var(--space-section) 0;
+  padding: var(--space-20) 0;
 }
 .about__gallery-inner {
   max-width: var(--max-width);
@@ -389,7 +389,7 @@
 .about__gallery-track {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
+  gap: var(--space-6);
 }
 .about__gallery-slide {
   overflow: hidden;
@@ -410,8 +410,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-5);
-  margin-top: var(--space-5);
+  gap: var(--space-6);
+  margin-top: var(--space-6);
 }
 .about__gallery-btn {
   display: flex;
