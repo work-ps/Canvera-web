@@ -123,6 +123,10 @@ function GalleryCarousel({ images }) {
   return (
     <section className="about__gallery-section about__section--alt">
       <div className="about__gallery-inner">
+        <div className="about__section-header">
+          <p className="about__eyebrow">Our Work</p>
+          <h2 className="about__section-title">From Canvera Gallery</h2>
+        </div>
         <div className="about__gallery-track">
           {images.slice(index, index + 2).map((src, i) => (
             <div key={index + i} className="about__gallery-slide">
