@@ -23,45 +23,70 @@ import './SocialFeedSection.css';
 const socialPosts = [
   {
     id: 1,
-    reelCode:  'DIvtVUxv6g-',
-    location:  'Standard Custom Cover',
-    thumbnail: '/images/collections/custom-cover.jpg',
+    reelCode:  'DLC27LsSoga',
+    location:  'A4 Magazine with Story Wood Frame Box',
+    thumbnail: '/images/Thumbnails/A4%20Magazine%20with%20Story%20Wood%20Frame%20box.jpeg',
   },
   {
     id: 2,
-    reelCode:  'CxNmLIgpmkY',
-    location:  'Luna',
-    thumbnail: '/images/collections/celestial.jpg',
+    reelCode:  'DIvtVUxv6g-',
+    location:  'Standard Custom Cover',
+    thumbnail: '/images/Thumbnails/Standard%20Custom%20Cover%20%20-%201160.jpeg',
   },
   {
     id: 3,
-    reelCode:  'DL7QMfsyUmK',
-    location:  'Royal Relics',
-    thumbnail: '/images/collections/luxury.jpg',
+    reelCode:  'DIy2R4FTupB',
+    location:  'Melange',
+    thumbnail: '/images/Thumbnails/Melange%20%20%20-%201510.jpeg',
   },
   {
     id: 4,
-    reelCode:  'DGmWHhDSURK',
-    location:  'Eleganza Celestial',
-    thumbnail: '/images/collections/signature.jpg',
+    reelCode:  'DI_ipDbpLha',
+    location:  'Acrolux with Bag',
+    thumbnail: '/images/Thumbnails/Acrolux%20with%20bag%20-%201860.jpeg',
   },
   {
     id: 5,
-    reelCode:  'DJbz5dbJgv1',
-    location:  'Mirage',
-    thumbnail: '/images/collections/foiling.jpg',
+    reelCode:  'CgevKUfpDuB',
+    location:  'Standard Plus',
+    thumbnail: '/images/Thumbnails/Standard%20Plus%20%20-%202360.jpeg',
   },
   {
     id: 6,
-    reelCode:  'CuCSgpppOKD',
-    location:  'Vintage Wood – Dark',
-    thumbnail: '/images/collections/suede.jpg',
+    reelCode:  'DL44arLv_-M',
+    location:  'Allura',
+    thumbnail: '/images/Thumbnails/Allura%20-%202760.jpeg',
   },
   {
     id: 7,
-    reelCode:  'C4XrU0EpysU',
-    location:  'Plush Leather with Encasing Box',
-    thumbnail: '/images/collections/luxury.jpg',
+    reelCode:  'C3z2zxKpi_I',
+    location:  'Eco Leather',
+    thumbnail: '/images/Thumbnails/Eco%20leather%20%20-%202560.jpeg',
+  },
+  {
+    id: 8,
+    reelCode:  'CyTKt3fp5sw',
+    location:  'Signature',
+    thumbnail: '/images/Thumbnails/Signature%20%20-%202760.jpeg',
+  },
+  {
+    id: 9,
+    reelCode:  'CTe7o28p3hm',
+    location:  'Arto',
+    thumbnail: '/images/Thumbnails/Arto%20%20-%202910.jpeg',
+    type:      'post',
+  },
+  {
+    id: 10,
+    reelCode:  'CxiCTMVobRj',
+    location:  'Luxury',
+    thumbnail: '/images/Thumbnails/Luxury%20%20-%202910.jpeg',
+  },
+  {
+    id: 11,
+    reelCode:  'CxNmLIgpmkY',
+    location:  'Luna',
+    thumbnail: '/images/Thumbnails/Luna%20%20-%202960.jpeg',
   },
 ];
 
@@ -114,7 +139,8 @@ function ReelLightbox({ post, onClose }) {
   if (!post) return null;
 
   // Instagram public embed URL — no API key needed
-  const embedUrl = `https://www.instagram.com/reel/${post.reelCode}/embed/`;
+  const postType = post.type === 'post' ? 'p' : 'reel';
+  const embedUrl = `https://www.instagram.com/${postType}/${post.reelCode}/embed/`;
 
   return (
     <div className="social-feed__lightbox" onClick={onClose} role="dialog" aria-modal="true" aria-label="Instagram Reel">
@@ -140,7 +166,7 @@ function ReelLightbox({ post, onClose }) {
         {/* Caption below the reel */}
         <div className="social-feed__lightbox-caption">
           <a
-            href={`https://www.instagram.com/reel/${post.reelCode}/`}
+            href={`https://www.instagram.com/${postType}/${post.reelCode}/`}
             target="_blank"
             rel="noopener noreferrer"
             className="social-feed__lightbox-link"
