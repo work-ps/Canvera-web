@@ -15,7 +15,7 @@ export default function JourneySection() {
           <ScrollReveal>
             <div className="journey-image">
               <img
-                src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=700&h=525&fit=crop"
+                src="/images/Home-Page-About-Us.jpg"
                 alt="Canvera craftsmanship"
                 loading="lazy"
               />
