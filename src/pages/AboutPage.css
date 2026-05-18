@@ -162,30 +162,29 @@
 /* ── Values ───────────────────────────────────────────────── */
 .about__values {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-5);
+  align-items: stretch;
 }
 .about__value-card {
+  display: flex;
+  flex-direction: column;
   background: var(--bg-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
-  padding: var(--space-6);
-}
-.about__value-icon {
-  display: block;
-  font-size: 28px;
-  margin-bottom: var(--space-3);
+  padding: var(--space-7) var(--space-6);
 }
 .about__value-title {
   font-size: var(--text-heading-md);
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 .about__value-desc {
   font-size: var(--text-body-sm);
   color: var(--text-secondary);
   line-height: var(--leading-body);
+  flex: 1;
 }
 
 /* ── Timeline (3-column grid) ─────────────────────────────── */
@@ -449,7 +448,7 @@
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 1023px) {
   .about__stats { grid-template-columns: repeat(2, 1fr); }
-  .about__team { grid-template-columns: repeat(2, 1fr); }
+  .about__values { grid-template-columns: repeat(2, 1fr); }
   .about__two-col { grid-template-columns: 1fr; gap: var(--space-10); }
   /* Collapse timeline to single left-sided layout on tablet/mobile */
   .about__timeline::before { left: 20px; transform: none; }

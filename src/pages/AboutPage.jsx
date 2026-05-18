@@ -12,12 +12,41 @@ const STATS = [
 ];
 
 const MILESTONES = [
-  { year: '2007', title: 'Canvera Founded', desc: 'With a vision to help individuals record and preserve their happiest memories, Canvera started its journey — serving professional photographers with hand-crafted albums.' },
-  { year: '2010', title: 'First Digital Lab', desc: 'Launched India\'s first fully automated digital photobook production line, reducing turnaround from weeks to days.' },
-  { year: '2014', title: 'Pan-India Expansion', desc: 'Extended distribution to 100+ cities. Introduced the Celestial and Suede collections — still bestsellers today.' },
-  { year: '2018', title: 'Hexachrome Printing', desc: 'Became one of the first Indian labs to adopt 6-color Hexachrome printing for exhibition-quality photo reproduction.' },
-  { year: '2022', title: 'PRO Photographer Program', desc: 'Launched the PRO verification program, offering wholesale pricing and priority production for professional studios.' },
-  { year: '2025', title: '1.5 Million Albums', desc: 'Photographers on the Canvera platform created 1,568,981 albums in a single year — a milestone that belongs to the photography community.' },
+  {
+    year: '2007',
+    title: 'Born from a Passion for Photography',
+    desc: 'Founded in October 2007, Canvera set out to transform how India\'s wedding memories were preserved — replacing bulky, heavy albums with elegant, digitally crafted photobooks.',
+  },
+  {
+    year: '2008',
+    title: 'Entering the Market & First Recognition',
+    desc: 'Canvera entered the market in July 2008 and was awarded Best Photobook in Asia Pacific & Japan at the annual HP Digital Print Awards. The recognition repeated in 2009, establishing Canvera as an international quality benchmark from its very first year.',
+  },
+  {
+    year: '2010',
+    title: 'Industry Awards & National Expansion',
+    desc: 'Canvera received the Best Innovation in Technology award from Asian Photography magazine for "bringing professionalism and innovation to an unorganised market," and the TiE-Lumis Award for Entrepreneurial Excellence. By this point, Canvera had grown to serve photographers in over 300 cities across India.',
+  },
+  {
+    year: '2012–2014',
+    title: 'Scaling Across India',
+    desc: 'Canvera deepened its presence across the country, building partnerships with thousands of professional photographers and expanding its manufacturing capabilities in Bangalore to meet growing demand.',
+  },
+  {
+    year: '2015–2016',
+    title: 'Backed by Leading Investors',
+    desc: 'Canvera raised funding from Info Edge in 2015 and closed a Series B round in August 2016, fuelling product innovation and national scale. The company\'s valuation reached $32M by August 2016, a recognition of Canvera\'s market leadership.',
+  },
+  {
+    year: '2019',
+    title: 'A New Chapter',
+    desc: 'Canvera became part of the Printo group, combining strengths to build a more powerful end-to-end photography solutions company. Under new leadership, the brand doubled down on its core mission — premium photobooks, photographer empowerment, and innovation.',
+  },
+  {
+    year: 'Today',
+    title: 'India\'s Leading Photobook Creator',
+    desc: 'Canvera today serves professional photographers across 1,100+ cities, operates India\'s most comprehensive photographers\' directory, and manufactures internationally award-winning photobooks using cutting-edge technology and rich craftsmanship.',
+  },
 ];
 
 const GALLERY_IMAGES = [
@@ -31,10 +60,30 @@ const GALLERY_IMAGES = [
 ];
 
 const VALUES = [
-  { icon: '✦', title: 'Uncompromising Quality', desc: 'Every album leaves our facility only after passing a 22-point quality checklist. We\'d rather delay than deliver anything below perfect.' },
-  { icon: '♻', title: 'Sustainable Materials', desc: 'We source leathers from tanneries with environmental certifications, use soy-based inks, and offset all production carbon.' },
-  { icon: '🤝', title: 'Photographer First', desc: 'Every decision we make is filtered through one question: does this make the photographer\'s life easier and their work more impressive?' },
-  { icon: '⚡', title: 'Relentless Innovation', desc: 'We invest heavily in R&D — from new binding techniques to digital ordering tools — so you always have the best tools available.' },
+  {
+    title: 'Photographer First',
+    desc: 'Everything we build — our products, tools, and processes are all designed to make the professional photographer\'s life easier. When you succeed, we succeed. Your growth is our purpose.',
+  },
+  {
+    title: 'Quality Without Compromise',
+    desc: 'Every photobook we create is a testament to our obsession with perfection — sharp edges, vibrant colors, and premium materials that stand the test of time. We never cut corners, because your customers\' memories deserve nothing less.',
+  },
+  {
+    title: 'Innovation in Every Frame',
+    desc: 'From pioneering digital photobooks in India to deploying HP Indigo Digital Press technology, we continuously push the boundaries of what\'s possible in print and design. We don\'t follow trends, we set them.',
+  },
+  {
+    title: 'Speed with Soul',
+    desc: 'We believe memories should not wait. Our processes are engineered for quick turnaround without ever compromising on the craftsmanship that makes a Canvera photobook truly special.',
+  },
+  {
+    title: 'Trusted Partnership',
+    desc: 'We are not just a vendor — we are a long-term partner to thousands of photographers across India. Every order we fulfil is a reflection of our commitment to your brand and your clients\' trust.',
+  },
+  {
+    title: 'Preserving What Matters',
+    desc: 'At the heart of everything we do is a simple belief: the moments that matter most deserve to be preserved beautifully, forever.',
+  },
 ];
 
 const ABOUT_SCHEMA = [
@@ -177,7 +226,6 @@ export default function AboutPage() {
           <div className="about__values">
             {VALUES.map(v => (
               <div key={v.title} className="about__value-card">
-                <span className="about__value-icon">{v.icon}</span>
                 <h3 className="about__value-title">{v.title}</h3>
                 <p className="about__value-desc">{v.desc}</p>
               </div>
