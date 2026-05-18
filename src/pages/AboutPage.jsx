@@ -50,13 +50,18 @@ const MILESTONES = [
 ];
 
 const GALLERY_IMAGES = [
-  '/images/Hero%20Section%20-%201080x720/1.jpg',
-  '/images/Hero%20Section%20-%201080x720/2.jpg',
-  '/images/Hero%20Section%20-%201080x720/3.jpg',
-  '/images/Hero%20Section%20-%201080x720/4.jpg',
-  '/images/Hero%20Section%20-%201080x720/5.jpg',
-  '/images/Hero%20Section%20-%201080x720/6.jpg',
-  '/images/Hero%20Section%20-%201080x720/7.jpg',
+  '/images/about%20us%20page/JPEG/1.jpg',
+  '/images/about%20us%20page/JPEG/4.jpg',
+  '/images/about%20us%20page/JPEG/7.jpg',
+  '/images/about%20us%20page/JPEG/11.jpg',
+  '/images/about%20us%20page/JPEG/15.jpg',
+  '/images/about%20us%20page/JPEG/19.jpg',
+  '/images/about%20us%20page/JPEG/23.jpg',
+  '/images/about%20us%20page/JPEG/27.jpg',
+  '/images/about%20us%20page/JPEG/31.jpg',
+  '/images/about%20us%20page/JPEG/35.jpg',
+  '/images/about%20us%20page/JPEG/38.jpg',
+  '/images/about%20us%20page/JPEG/40.jpg',
 ];
 
 const VALUES = [
@@ -117,8 +122,10 @@ const ABOUT_SCHEMA = [
 function GalleryCarousel({ images }) {
   const [index, setIndex] = useState(0);
   const total = images.length;
-  const canPrev = index > 0;
-  const canNext = index + 2 < total;
+  const maxIndex = total - 2;
+
+  const prev = () => setIndex(i => (i <= 0 ? maxIndex : i - 1));
+  const next = () => setIndex(i => (i >= maxIndex ? 0 : i + 1));
 
   return (
     <section className="about__gallery-section about__section--alt">
@@ -135,22 +142,12 @@ function GalleryCarousel({ images }) {
           ))}
         </div>
         <div className="about__gallery-nav">
-          <button
-            className="about__gallery-btn"
-            onClick={() => setIndex(i => Math.max(0, i - 1))}
-            disabled={!canPrev}
-            aria-label="Previous"
-          >
+          <button className="about__gallery-btn" onClick={prev} aria-label="Previous">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M15 18l-6-6 6-6"/>
             </svg>
           </button>
-<button
-            className="about__gallery-btn"
-            onClick={() => setIndex(i => Math.min(total - 2, i + 1))}
-            disabled={!canNext}
-            aria-label="Next"
-          >
+          <button className="about__gallery-btn" onClick={next} aria-label="Next">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 18l6-6-6-6"/>
             </svg>

@@ -433,10 +433,6 @@
   border-color: var(--brand-petrol);
   color: #fff;
 }
-.about__gallery-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
 .about__gallery-counter {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
