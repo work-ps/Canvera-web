@@ -23,6 +23,7 @@ const ORIENTATION_SIZES = {
   ],
   Portrait: [
     { id: 'p-12x18', dims: '12×18"', cmDims: '30×46 cm', w: 12, h: 18, tier: 'Large',  popular: true  },
+    { id: 'p-12x16', dims: '12×16"', cmDims: '30×41 cm', w: 12, h: 16, tier: 'Large',  popular: false },
     { id: 'p-12x15', dims: '12×15"', cmDims: '30×38 cm', w: 12, h: 15, tier: 'Medium', popular: false },
   ],
   Square: [
@@ -60,8 +61,9 @@ const SizeIcons = {
   'l-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="15" width="52" height="35" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'l-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="13" width="52" height="39" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'l-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="11" width="52" height="42" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'p-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="15" y="6"  width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'p-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="11" y="6"  width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="15"  y="6"  width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="12.5" y="6"  width="39" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="11"  y="6"  width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-12x12': <svg viewBox="0 0 64 64" fill="none"><rect x="7"  y="7"  width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
 };
 
