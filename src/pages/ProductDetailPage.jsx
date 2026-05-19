@@ -25,6 +25,7 @@ const ORIENTATION_SIZES = {
     { id: 'l-6x9',   dims: '6×9"',   cmDims: '15×23 cm', w:  9,   h:  6, tier: 'Small',  popular: false },
     { id: 'l-6x7-5', dims: '6×7.5"', cmDims: '15×19 cm', w:  7.5, h:  6, tier: 'Small',  popular: false },
     { id: 'l-11x16', dims: '11×16"', cmDims: '28×41 cm', w: 16,   h: 11, tier: 'Large',  popular: false },
+    { id: 'l-a4',    dims: 'A4',     cmDims: '21×30 cm', w: 29.7, h: 21, tier: 'Medium', popular: false },
   ],
   Portrait: [
     { id: 'p-12x18', dims: '12×18"', cmDims: '30×46 cm', w: 12, h: 18, tier: 'Large',  popular: true  },
@@ -34,7 +35,8 @@ const ORIENTATION_SIZES = {
     { id: 'p-6x8',   dims: '6×8"',   cmDims: '15×20 cm', w:  6, h:  8,   tier: 'Small',  popular: false },
     { id: 'p-6x9',   dims: '6×9"',   cmDims: '15×23 cm', w:  6, h:  9,   tier: 'Small',  popular: false },
     { id: 'p-6x7-5', dims: '6×7.5"', cmDims: '15×19 cm', w:  6, h:  7.5, tier: 'Small',  popular: false },
-    { id: 'p-11x16', dims: '11×16"', cmDims: '28×41 cm', w: 11, h: 16,   tier: 'Large',  popular: false },
+    { id: 'p-11x16', dims: '11×16"', cmDims: '28×41 cm', w: 11,   h: 16,   tier: 'Large',  popular: false },
+    { id: 'p-a4',    dims: 'A4',     cmDims: '21×30 cm', w: 21,   h: 29.7, tier: 'Medium', popular: false },
   ],
   Square: [
     { id: 'q-10x10', dims: '10×10"', cmDims: '25×25 cm', w: 10, h: 10, tier: 'Medium', popular: false },
@@ -79,6 +81,7 @@ const SizeIcons = {
   'l-6x9':   <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="14.5" width="52" height="35" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'l-6x7-5': <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="11"   width="52" height="42" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'l-11x16': <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="14"   width="52" height="36" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'l-a4':    <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="13.5" width="52" height="37" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="15"   y="6"    width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="12.5" y="6"    width="39" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="11"   y="6"    width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
@@ -87,6 +90,7 @@ const SizeIcons = {
   'p-6x9':   <svg viewBox="0 0 64 64" fill="none"><rect x="14.5" y="6" width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-6x7-5': <svg viewBox="0 0 64 64" fill="none"><rect x="11"   y="6" width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-11x16': <svg viewBox="0 0 64 64" fill="none"><rect x="14"   y="6" width="36" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-a4':    <svg viewBox="0 0 64 64" fill="none"><rect x="13.5" y="6" width="37" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-10x10': <svg viewBox="0 0 64 64" fill="none"><rect x="7" y="7" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-12x12': <svg viewBox="0 0 64 64" fill="none"><rect x="7" y="7" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-20x20': <svg viewBox="0 0 64 64" fill="none"><rect x="7" y="7" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
