@@ -37,6 +37,7 @@ const ORIENTATION_SIZES = {
     { id: 'p-11x16', dims: '11×16"', cmDims: '28×41 cm', w: 11, h: 16,   tier: 'Large',  popular: false },
   ],
   Square: [
+    { id: 'q-10x10', dims: '10×10"', cmDims: '25×25 cm', w: 10, h: 10, tier: 'Medium', popular: false },
     { id: 'q-12x12', dims: '12×12"', cmDims: '30×30 cm', w: 12, h: 12, tier: 'Large',  popular: true  },
     { id: 'q-20x20', dims: '20×20"', cmDims: '51×51 cm', w: 20, h: 20, tier: 'XLarge', popular: false },
     { id: 'q-24x24', dims: '24×24"', cmDims: '61×61 cm', w: 24, h: 24, tier: 'XLarge', popular: false },
@@ -86,6 +87,7 @@ const SizeIcons = {
   'p-6x9':   <svg viewBox="0 0 64 64" fill="none"><rect x="14.5" y="6" width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-6x7-5': <svg viewBox="0 0 64 64" fill="none"><rect x="11"   y="6" width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'p-11x16': <svg viewBox="0 0 64 64" fill="none"><rect x="14"   y="6" width="36" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'q-10x10': <svg viewBox="0 0 64 64" fill="none"><rect x="7" y="7" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-12x12': <svg viewBox="0 0 64 64" fill="none"><rect x="7" y="7" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-20x20': <svg viewBox="0 0 64 64" fill="none"><rect x="7" y="7" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
   'q-24x24': <svg viewBox="0 0 64 64" fill="none"><rect x="7" y="7" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
