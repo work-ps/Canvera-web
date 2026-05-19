@@ -20,11 +20,13 @@ const ORIENTATION_SIZES = {
     { id: 'l-12x18', dims: '12×18"', cmDims: '30×46 cm', w: 18, h: 12, tier: 'Large',  popular: true  },
     { id: 'l-12x16', dims: '12×16"', cmDims: '30×41 cm', w: 16, h: 12, tier: 'Large',  popular: false },
     { id: 'l-12x15', dims: '12×15"', cmDims: '30×38 cm', w: 15, h: 12, tier: 'Medium', popular: false },
+    { id: 'l-10x14', dims: '10×14"', cmDims: '25×36 cm', w: 14, h: 10, tier: 'Medium', popular: false },
   ],
   Portrait: [
     { id: 'p-12x18', dims: '12×18"', cmDims: '30×46 cm', w: 12, h: 18, tier: 'Large',  popular: true  },
     { id: 'p-12x16', dims: '12×16"', cmDims: '30×41 cm', w: 12, h: 16, tier: 'Large',  popular: false },
     { id: 'p-12x15', dims: '12×15"', cmDims: '30×38 cm', w: 12, h: 15, tier: 'Medium', popular: false },
+    { id: 'p-10x14', dims: '10×14"', cmDims: '25×36 cm', w: 10, h: 14, tier: 'Medium', popular: false },
   ],
   Square: [
     { id: 'q-12x12', dims: '12×12"', cmDims: '30×30 cm', w: 12, h: 12, tier: 'Large',  popular: true  },
@@ -58,13 +60,15 @@ const OrzIcons = {
 
 /* Size icons – proportional rectangles, currentColor stroke */
 const SizeIcons = {
-  'l-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="15" width="52" height="35" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'l-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="13" width="52" height="39" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'l-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="6"  y="11" width="52" height="42" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'p-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="15"  y="6"  width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'p-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="12.5" y="6"  width="39" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'p-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="11"  y="6"  width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
-  'q-12x12': <svg viewBox="0 0 64 64" fill="none"><rect x="7"  y="7"  width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'l-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="15"   width="52" height="35" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'l-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="13"   width="52" height="39" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'l-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="11"   width="52" height="42" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'l-10x14': <svg viewBox="0 0 64 64" fill="none"><rect x="6"    y="13.5" width="52" height="37" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x18': <svg viewBox="0 0 64 64" fill="none"><rect x="15"   y="6"    width="35" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x16': <svg viewBox="0 0 64 64" fill="none"><rect x="12.5" y="6"    width="39" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-12x15': <svg viewBox="0 0 64 64" fill="none"><rect x="11"   y="6"    width="42" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'p-10x14': <svg viewBox="0 0 64 64" fill="none"><rect x="13.5" y="6"    width="37" height="52" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
+  'q-12x12': <svg viewBox="0 0 64 64" fill="none"><rect x="7"    y="7"    width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2"/></svg>,
 };
 
 /* Shared checkmark badge for active state */
