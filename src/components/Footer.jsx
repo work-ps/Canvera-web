@@ -42,8 +42,7 @@ export default function Footer() {
           <div className="footer__brand">
             <img src="/images/logo.png" alt="Canvera" className="footer__logo-img" />
             <p className="footer__desc">
-              India&rsquo;s leading online photography company — fulfilling every professional
-              photography need across 2,800+ cities since 2007.
+              Creators of international award-winning photobooks and trusted by India&rsquo;s largest photographer community. We offer easy design service and professional printing for your personal and professional photo album needs.
             </p>
             <div className="footer__social">
               <a href="https://instagram.com" className="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">

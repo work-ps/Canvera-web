@@ -177,7 +177,7 @@ export default function AboutPage() {
       <section className="about__hero">
         <div className="about__hero-inner">
           <p className="about__hero-eyebrow">About Canvera</p>
-          <h1 className="about__hero-title">India&rsquo;s Leading<br />Online Photography Company</h1>
+          <h1 className="about__hero-title">India&rsquo;s Leading<br />Photobook Company</h1>
           <p className="about__hero-sub">
             Since 2007, we&rsquo;ve been empowering professional photographers to create albums that last generations — from intimate family portraits to grand destination weddings across 2,800+ cities.
           </p>
@@ -288,8 +288,8 @@ export default function AboutPage() {
             <h2 className="about__cta-title">Ready to create something extraordinary?</h2>
             <p className="about__cta-sub">Join 91,000+ professional photographers who trust Canvera across 2,800+ cities.</p>
             <div className="about__cta-btns">
-              <Link to="/shop" className="about__btn about__btn--primary">Browse Albums</Link>
-              <Link to="/finder" className="about__btn about__btn--secondary">Find Your Album</Link>
+              <Link to="/shop" className="about__btn about__btn--primary">Browse Photobooks</Link>
+              <Link to="/signup" className="about__btn about__btn--secondary">Join Now</Link>
             </div>
           </div>
         </div>

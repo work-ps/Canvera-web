@@ -6,7 +6,7 @@ export default function JourneySection() {
     <div className="section-wrapper">
       <ScrollReveal>
         <div className="section-header">
-          <h2 className="section-title">Experience the Journey</h2>
+          <h2 className="section-title">Explore The Journey</h2>
           <Link to="/about" className="section-link">About Canvera</Link>
         </div>
       </ScrollReveal>
@@ -28,7 +28,7 @@ export default function JourneySection() {
                 <p>
                   Since 2007, Canvera has been empowering photographers to create albums
                   that last generations. In 2025 alone, photographers on our platform
-                  created 1,568,981 albums — each one a story that won't get lost on a
+                  created 1.5M+ albums — each one a story that won't get lost on a
                   phone or forgotten on a hard drive.
                 </p>
                 <p>

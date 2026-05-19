@@ -17,9 +17,10 @@ export default function OccasionsSection() {
     <div className="section-wrapper">
       <ScrollReveal>
         <div className="section-header">
-          <h2 className="section-title">Occasions Crafted with Care</h2>
+          <h2 className="section-title">Occasions Crafted With Care</h2>
           <Link to="/shop?filter=occasions" className="section-link">Shop by Occasion</Link>
         </div>
+        <p className="section-sub">From everyday joys to once-in-a-lifetime moments — every memory deserves the Canvera touch.</p>
       </ScrollReveal>
 
       {isLoggedIn ? (

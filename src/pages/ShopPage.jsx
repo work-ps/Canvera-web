@@ -349,13 +349,12 @@ export default function ShopPage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="shop__hero">
         <div className="shop__hero-inner">
-          <p className="shop__eyebrow">Shop Albums</p>
+          <p className="shop__eyebrow">Shop Now</p>
           <h1 className="shop__headline">
-            <span className="shop__hl1">Every collection,</span>
-            <span className="shop__hl2">every material.</span>
+            Find your perfect Canvera experience.
           </h1>
           <p className="shop__sub">
-            {products.length} premium albums across {CAT_OPTIONS.length} categories.
+            From celebrations to everyday moments, discover products made to preserve memories beautifully.
           </p>
         </div>
       </section>

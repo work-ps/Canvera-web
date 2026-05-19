@@ -13,7 +13,7 @@ export default function Hero() {
         {/* Text + CTAs */}
         <div className="hero__text">
           <p className="hero__eyebrow hero__fade-in" style={{ animationDelay: '0.1s' }}>
-            India&rsquo;s Leading Online Photography Company
+            India&rsquo;s Trusted Photobook Partner for Professionals
           </p>
           <h1 className="hero__title hero__fade-in" style={{ animationDelay: '0.2s' }}>
             Photographs Deserve{' '}

@@ -170,10 +170,9 @@ export default function CollectionsPage() {
       {/* Hero */}
       <section className="collections-hero">
         <div className="collections-hero__inner">
-          <p className="collections-hero__eyebrow">Our Collections</p>
+          <p className="collections-hero__eyebrow">Our Collection</p>
           <h1 className="collections-hero__headline">
-            <span className="collections-hero__line1">Crafted with intention,</span>
-            <span className="collections-hero__line2">designed to endure.</span>
+            Crafted for Stories Worth Keeping Forever
           </h1>
           <AnimatePresence mode="wait">
             <motion.p
@@ -186,7 +185,7 @@ export default function CollectionsPage() {
             >
               {activeCollection
                 ? activeCollection.description
-                : `${collections.length} collections. Every material. One standard.`}
+                : 'Discover premium photobooks made with timeless craftsmanship, refined materials, and the Canvera experience.'}
             </motion.p>
           </AnimatePresence>
         </div>

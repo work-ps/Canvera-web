@@ -220,19 +220,39 @@ export const FAQ_ITEMS = [
     questions: [
       {
         q: 'How do I place an order?',
-        a: 'Browse our products, select the one you want, and click "Order Now". You will be guided through a 5-step configuration wizard to customise your album — cover, paper, files, accessories, and review. Once done, proceed to checkout.',
+        a: 'You can place your order directly through the Canvera website by selecting the product, size, paper type, and customization options.',
       },
       {
-        q: 'What file formats do you accept?',
-        a: 'We accept print-ready files in PDF (300 DPI, CMYK), PSD, TIFF, and JPEG formats. Files should be uploaded to Google Drive, Dropbox, or any cloud storage link — you simply share the link with us during the order wizard.',
+        q: 'Can I fully customize the album?',
+        a: 'Yes, full cover and design customization options are available.',
       },
       {
-        q: 'Can I modify my order after placing it?',
-        a: 'Orders can be modified within 24 hours of placement by contacting our support team via WhatsApp or the contact form. Once production has started, modifications may not be possible.',
+        q: 'Which paper and binding options are supported?',
+        a: 'Multiple paper types and Layflat, Absolute Layflat, & Neo Flushmount bindings are supported.',
       },
       {
-        q: 'What is the difference between Print-Ready and Design Service?',
-        a: 'Print-Ready means you provide fully designed, production-ready files. Design Service means our in-house design team will create your album layout from raw photos — this incurs an additional fee based on pages.',
+        q: 'Can I add my studio branding?',
+        a: 'Yes, logo engraving and co-branding options are available for selected products.',
+      },
+      {
+        q: 'Are bulk wedding album orders supported?',
+        a: 'Yes, bulk and repeat orders are supported for photographers and studios.',
+      },
+      {
+        q: 'Does the product include a box and bag?',
+        a: 'Yes, selected premium products include matching boxes and premium bags.',
+      },
+      {
+        q: 'Is express delivery available?',
+        a: 'Yes, express delivery is available for selected products.',
+      },
+      {
+        q: 'Can I reorder the same design later?',
+        a: 'Yes, repeat orders can be placed with the same specifications.',
+      },
+      {
+        q: 'How can I contact support?',
+        a: 'Support is available through customer care, email, and WhatsApp.',
       },
     ],
   },
@@ -240,20 +260,28 @@ export const FAQ_ITEMS = [
     category: 'Pricing & Payment',
     questions: [
       {
-        q: 'How is pricing calculated?',
-        a: 'Pricing is based on product base price + size modifier + cover material + paper type × pages + any surcharges (6-color printing, design service). GST at 18% is applied on the subtotal. Verified photographers get wholesale pricing.',
+        q: 'What are the pricing options available?',
+        a: 'Pricing varies based on size, paper type, binding, cover material, and customization options selected.',
       },
       {
-        q: 'What payment methods do you accept?',
-        a: 'We accept UPI (PhonePe, Google Pay, Paytm), Credit/Debit cards (Visa, Mastercard, RuPay), Net Banking, and wallets. All payments are secured and processed through industry-standard gateways.',
+        q: 'Is GST included in the product price?',
+        a: 'GST will be applied additionally as per the applicable rate unless mentioned otherwise.',
       },
       {
-        q: 'How do I get verified as a PRO photographer?',
-        a: 'Go to Profile → Account Settings → Pro Verification. Submit your GST certificate number, portfolio link, and any supporting documents. Our team reviews applications within 2–3 business days.',
+        q: 'What payment methods are supported?',
+        a: 'Online payment options such as UPI, Credit/Debit Cards, Net Banking, and other supported payment gateways are available.',
       },
       {
-        q: 'Are there any discount codes available?',
-        a: 'Yes — coupon code CANVERA10 gives 10% off any order. Verified photographers also get access to the PRO2026 code (10% additional off orders above ₹10,000). Codes are applied at checkout before tax.',
+        q: 'Is Cash on Delivery (COD) available?',
+        a: 'Not available.',
+      },
+      {
+        q: 'Can I get special pricing for bulk orders?',
+        a: 'Yes, special pricing is available for bulk wedding album and studio orders.',
+      },
+      {
+        q: 'Are advance payments required?',
+        a: 'Yes, orders are processed based on the applicable advance payment terms.',
       },
     ],
   },
@@ -261,16 +289,28 @@ export const FAQ_ITEMS = [
     category: 'Shipping & Delivery',
     questions: [
       {
-        q: 'How long does delivery take?',
-        a: 'Standard delivery takes 10–14 business days from order confirmation. Express options may be available — contact us to check availability for your location.',
+        q: 'What are the shipping options available?',
+        a: 'Standard and Express Delivery options are available for selected products and locations.',
       },
       {
-        q: 'Do you ship internationally?',
-        a: 'Currently we ship within India only. International shipping is planned for a future release. Check back or subscribe to our newsletter for updates.',
+        q: 'How long will delivery take?',
+        a: 'Delivery timelines depend on the product type, customization, and shipping location.',
       },
       {
-        q: 'How can I track my order?',
-        a: 'Once your order is shipped, you will receive a tracking number via SMS and email. You can also track orders on the Track Order page using your order number (format: CNV-XXXXXXXX).',
+        q: 'Can I track my order?',
+        a: 'Yes, tracking details will be shared once the order is shipped.',
+      },
+      {
+        q: 'Is express delivery available?',
+        a: 'Yes, express delivery is supported for selected photobook categories.',
+      },
+      {
+        q: 'Do you ship across India?',
+        a: 'Yes, shipping is available across most locations in India.',
+      },
+      {
+        q: 'Will the product be packed safely?',
+        a: 'Yes, all products are securely packed to ensure safe delivery.',
       },
     ],
   },
@@ -278,16 +318,24 @@ export const FAQ_ITEMS = [
     category: 'Product Quality',
     questions: [
       {
-        q: 'What paper types do you offer?',
-        a: 'We offer five paper types: Matte (non-reflective, classic), Glossy (vibrant, high-shine), Silk (semi-gloss hybrid), Pearl (subtle shimmer, premium), and Metallic (dramatic metallic sheen). Pearl and Metallic are premium specialty papers.',
+        q: 'What makes this product premium?',
+        a: 'The product is made using high-quality materials, professional printing, premium binding, and elegant packaging for a luxurious finish.',
       },
       {
-        q: 'What is a genuineness check?',
-        a: 'Every Canvera product ships with a unique authenticity code printed inside. You or your client can verify authenticity at canvera.com/genuine — simply enter the code to confirm it is a genuine Canvera product.',
+        q: 'Are the prints durable?',
+        a: 'Yes, the prints are designed for long-lasting quality and vibrant color reproduction.',
       },
       {
-        q: 'How do you ensure print quality?',
-        a: 'Every order goes through a multi-point quality inspection. We use 6-color Hexachrome printing for premium products, archival-grade inks, and museum-quality papers. Each album is hand-finished and checked before dispatch.',
+        q: 'Will the colors match my screen?',
+        a: 'Minor color variations may occur due to screen settings and material differences.',
+      },
+      {
+        q: 'What paper options are available?',
+        a: 'Multiple premium paper options such as Glossy, Matte, Luster, and Silky Matte etc. are supported.',
+      },
+      {
+        q: 'Is the album durable for long-term use?',
+        a: 'Yes, the album is designed with strong binding and premium materials for durability and long-lasting preservation.',
       },
     ],
   },
