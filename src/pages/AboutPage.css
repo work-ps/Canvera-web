@@ -376,6 +376,62 @@
   display: block;
 }
 
+/* Facade (thumbnail + play button shown before user clicks) */
+.about__video-facade {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about__video-facade img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about__video-play {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.about__video-facade:hover .about__video-play {
+  transform: scale(1.08);
+  background: #fff;
+}
+.about__video-play svg {
+  margin-left: 5px; /* optical offset for play triangle */
+  color: #c00;
+}
+.about__video-yt-link {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-5);
+  z-index: 2;
+  font-size: var(--text-body-sm);
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  background: rgba(0,0,0,0.45);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(4px);
+  transition: color 0.15s;
+}
+.about__video-yt-link:hover {
+  color: #fff;
+}
+
 /* ── Gallery Carousel ─────────────────────────────────────── */
 .about__gallery-section {
   padding: var(--space-20) 0;

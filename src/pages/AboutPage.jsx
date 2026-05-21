@@ -158,6 +158,46 @@ function GalleryCarousel({ images }) {
   );
 }
 
+const YT_ID = 't7RcpATaP6Q';
+
+function VideoFacade({ videoId }) {
+  const [active, setActive] = useState(false);
+  const thumb = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  const src   = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+  const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+  return (
+    <div className="about__video-wrapper">
+      {active ? (
+        <iframe
+          src={src}
+          title="Canvera Brand Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      ) : (
+        <div className="about__video-facade" onClick={() => setActive(true)} role="button" aria-label="Play Canvera Brand Video">
+          <img src={thumb} alt="Canvera Brand Video thumbnail" loading="lazy" />
+          <span className="about__video-play">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </span>
+          <a
+            href={ytUrl}
+            className="about__video-yt-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={e => e.stopPropagation()}
+          >
+            Watch on YouTube ↗
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AboutPage() {
   return (
     <div className="about">
@@ -205,14 +245,7 @@ export default function AboutPage() {
       {/* Brand Video */}
       <section className="about__video-section">
         <div className="about__inner">
-          <div className="about__video-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/t7RcpATaP6Q?rel=0&modestbranding=1"
-              title="Canvera Brand Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
+          <VideoFacade videoId={YT_ID} />
         </div>
       </section>
 
