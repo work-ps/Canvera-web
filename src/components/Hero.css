@@ -10,19 +10,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(140deg, var(--petrol-900) 0%, var(--brand-petrol) 58%, #006fa3 100%);
+  /* Horizontal gradient: rich petrol on left → page-white on right
+     Weighted stops keep the text zone (left ~48%) deeply dark for legibility,
+     then desaturate through tinted petrol mids before reaching white.
+     Extra stops in the transition zone prevent muddy grey mid-tones. */
+  background: linear-gradient(
+    90deg,
+    var(--petrol-900)  0%,    /* #003A54 */
+    var(--brand-petrol) 32%,  /* #005780 — text column lives here */
+    #1d75a3 48%,
+    #4e98bb 60%,
+    #95bccd 72%,
+    #d3e3eb 84%,
+    #ffffff 100%
+  );
   position: relative;
   overflow: hidden;
 }
 
-/* Ambient depth — two soft radial glows */
+/* Ambient depth — soft glows confined to the dark side only,
+   so the bright right side stays clean and white. */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 55% 70% at 72% 48%, rgba(0, 111, 163, 0.28) 0%, transparent 65%),
-    radial-gradient(ellipse 45% 55% at 15% 85%, rgba(0, 36, 54, 0.5) 0%,  transparent 60%);
+    radial-gradient(ellipse 42% 60% at 10% 40%, rgba(0, 122, 168, 0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 38% 50% at 18% 92%, rgba(0, 36, 54, 0.45)  0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -192,13 +206,15 @@
   align-items: center;
   justify-content: center;
 
-  /* Visual boundary — follows design-system surface language on dark bg */
+  /* Visual boundary — tuned for the now-light right side of the gradient.
+     Subtle petrol-tinted hairline + soft brand-coloured drop shadow
+     to lift the panel off the white background. */
   border-radius: var(--radius-2xl);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 87, 128, 0.16);
+  background: rgba(255, 255, 255, 0.5);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),   /* top inner highlight */
-    0 8px 32px rgba(0, 0, 0, 0.18);            /* outer depth */
+    0 20px 50px -10px rgba(0, 87, 128, 0.18),   /* primary lift, petrol-tinted */
+    0 6px 16px  -4px rgba(0, 36, 54, 0.08);     /* contact shadow */
 }
 
 /* ── Fade-in animation ────────────────────────────────────── */
@@ -305,6 +321,6 @@
   .hero__carousel-col {
     width: 100%;
     border-radius: var(--radius-xl);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 32px -8px rgba(0, 87, 128, 0.22);
   }
 }
