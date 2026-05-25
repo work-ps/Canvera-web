@@ -21,13 +21,9 @@ export const bindingImages = {
 
 // Hero products
 export const heroProducts = [
-  { id: 1, image: '/images/Hero%20Section%20-%201080x720/1.jpg', name: 'Luxury Celestial' },
-  { id: 2, image: '/images/Hero%20Section%20-%201080x720/2.jpg', name: 'Mesmera' },
-  { id: 3, image: '/images/Hero%20Section%20-%201080x720/3.jpg', name: 'Eleganza Celestial' },
-  { id: 4, image: '/images/Hero%20Section%20-%201080x720/4.jpg', name: 'Mirage' },
-  { id: 5, image: '/images/Hero%20Section%20-%201080x720/5.jpg', name: 'Royalty' },
-  { id: 6, image: '/images/Hero%20Section%20-%201080x720/6.jpg', name: 'Vintage Wood' },
-  { id: 7, image: '/images/Hero%20Section%20-%201080x720/7.jpg', name: 'Mystique Suede' },
+  { id: 1, image: '/images/Hero%20Section%20-%201080x720/1%20(2).jpg', name: 'Canvera Photobook 1' },
+  { id: 2, image: '/images/Hero%20Section%20-%201080x720/2.jpg',       name: 'Canvera Photobook 2' },
+  { id: 3, image: '/images/Hero%20Section%20-%201080x720/6.jpg',       name: 'Canvera Photobook 3' },
 ];
 
 // Products array

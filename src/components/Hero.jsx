@@ -78,7 +78,7 @@ export default function Hero() {
 
         {/* ── Right: 3D Carousel ── */}
         <div className="hero__carousel-col hero__fade-in" style={{ animationDelay: '0.3s' }}>
-          <HeroCarousel items={heroProducts.slice(0, 3)} />
+          <HeroCarousel items={heroProducts} />
         </div>
 
       </div>
