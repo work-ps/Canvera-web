@@ -20,13 +20,9 @@ export default function Hero() {
 
         {/* ── Left: Text + CTAs ── */}
         <div className="hero__text">
-          <p className="hero__eyebrow hero__fade-in" style={{ animationDelay: '0.05s' }}>
-            India&rsquo;s Trusted Photobook Partner for Professionals
-          </p>
-
-          <h1 className="hero__title hero__fade-in" style={{ animationDelay: '0.15s' }}>
-            Photographs Deserve{' '}
-            <span className="hero__title-accent">More Than Storage</span>
+          <h1 className="hero__title hero__fade-in" style={{ animationDelay: '0.1s' }}>
+            Photographers deserves{' '}
+            <span className="hero__title-accent">craftmanship</span>
           </h1>
 
           <p className="hero__subtitle hero__fade-in" style={{ animationDelay: '0.25s' }}>
