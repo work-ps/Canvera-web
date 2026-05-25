@@ -1,86 +1,91 @@
+/* ============================================================
+   HeroCarousel — full-bleed fade slider
+   Fills 100% of its container (.hero__carousel-col)
+   ============================================================ */
+
 .hero-carousel {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--space-6) 0 var(--space-2);
+  height: 100%;
+  position: relative;
   user-select: none;
 }
 
-/* 3D scene — perspective from slightly above */
-.hero-carousel__scene {
-  width: 100%;
-  height: 380px;
-  perspective: 1200px;
-  perspective-origin: center 42%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible;
-}
-
-/* The orbit ring — rotates as a whole */
-.hero-carousel__orbit {
-  position: relative;
-  width: 360px;
-  height: 240px;
-  transform-style: preserve-3d;
-  cursor: grab;
-}
-
-.hero-carousel__orbit:active {
-  cursor: grabbing;
-}
-
-/* Each item on the ring */
-.hero-carousel__item {
+/* ── Track — positions all slides on top of each other ──── */
+.hero-carousel__track {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
+  inset: 0;
 }
 
-.hero-carousel__image-wrapper {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 87, 128, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
-  background: var(--neutral-50);
+/* ── Each slide ─────────────────────────────────────────── */
+.hero-carousel__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
 
+.hero-carousel__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* Outgoing slide — fades just slightly faster */
+.hero-carousel__slide.is-leaving {
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Image — covers the full slide area ─────────────────── */
 .hero-carousel__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* ── Dot navigation ─────────────────────────────────────── */
+.hero-carousel__dots {
+  position: absolute;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 2;
+}
+
+.hero-carousel__dot {
+  height: 6px;
+  width: 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.3s var(--ease-out), background 0.3s;
+}
+
+.hero-carousel__dot.is-active {
+  width: 22px;
+  background: #fff;
+}
+
+.hero-carousel__dot:hover:not(.is-active) {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Subtle bottom scrim so dots sit on dark ────────────── */
+.hero-carousel__track::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 72px;
+  background: linear-gradient(to top, rgba(0, 36, 54, 0.45) 0%, transparent 100%);
   pointer-events: none;
-}
-
-/* Responsive */
-@media (max-width: 1023px) {
-  .hero-carousel__scene {
-    height: 360px;
-    perspective: 1000px;
-  }
-
-  .hero-carousel__orbit {
-    width: 300px;
-    height: 200px;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-carousel__scene {
-    height: 300px;
-    perspective: 800px;
-  }
-
-  .hero-carousel__orbit {
-    width: 240px;
-    height: 160px;
-  }
+  z-index: 1;
+  border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
 }
