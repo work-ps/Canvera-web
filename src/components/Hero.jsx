@@ -21,8 +21,8 @@ export default function Hero() {
         {/* ── Left: Text + CTAs ── */}
         <div className="hero__text">
           <h1 className="hero__title hero__fade-in" style={{ animationDelay: '0.1s' }}>
-            Photographers deserves{' '}
-            <span className="hero__title-accent">craftmanship</span>
+            Photographers deserve{' '}
+            <span className="hero__title-accent">craftsmanship</span>
           </h1>
 
           <p className="hero__subtitle hero__fade-in" style={{ animationDelay: '0.25s' }}>
