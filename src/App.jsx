@@ -81,8 +81,8 @@ function HomePage() {
         schema={HOME_SCHEMA}
       />
       <Hero />
-      <ShopSection />
       <CollectionsSection />
+      <ShopSection />
       <OccasionsSection />
       <JourneySection />
       <TestimonialsSection />
