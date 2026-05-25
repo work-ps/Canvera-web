@@ -1,26 +1,54 @@
+/* ============================================================
+   Hero — Full-viewport, dark petrol, side-by-side layout
+   Text left · Carousel right · Everything above the fold
+   ============================================================ */
+
 .hero {
   padding-top: var(--header-height);
   min-height: 100vh;
+  min-height: 100dvh; /* mobile address-bar aware */
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(140deg, var(--petrol-900) 0%, var(--brand-petrol) 58%, #006fa3 100%);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Ambient depth — two soft radial glows */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at 72% 48%, rgba(0, 111, 163, 0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 55% at 15% 85%, rgba(0, 36, 54, 0.5) 0%,  transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Bounded inner ────────────────────────────────────────── */
 .hero__bounded {
   max-width: var(--max-width);
   width: 100%;
   margin: 0 auto;
-  padding: var(--space-10) var(--side-padding) var(--space-12);
+  padding: var(--space-16) var(--side-padding);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  overflow: hidden;
+  gap: var(--space-12);
+  position: relative;
+  z-index: 1;
+  /* ensure content never taller than viewport */
+  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height));
 }
 
+/* ── Text column (left) ───────────────────────────────────── */
 .hero__text {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto;
+  flex: 0 0 auto;
+  width: 48%;
+  text-align: left;
 }
 
 .hero__eyebrow {
@@ -28,7 +56,7 @@
   font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
-  color: var(--interactive-primary);
+  color: rgba(255, 255, 255, 0.52);
   margin-bottom: var(--space-4);
 }
 
@@ -37,37 +65,67 @@
   font-weight: var(--weight-extralight);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
-  color: var(--text-primary);
+  color: #fff;
   margin-bottom: var(--space-5);
 }
 
 .hero__title-accent {
-  color: var(--interactive-primary);
+  color: var(--petrol-100);
+  font-weight: var(--weight-light);
 }
 
 .hero__subtitle {
   font-size: var(--text-body-lg);
   line-height: var(--leading-body);
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.68);
+  max-width: 440px;
+  margin-bottom: var(--space-8);
 }
 
+/* ── CTAs ─────────────────────────────────────────────────── */
 .hero__ctas {
   display: flex;
-  gap: var(--space-4);
-  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
   padding-bottom: var(--space-4);
+}
+
+/* White pill — primary action on dark background */
+.btn--hero-primary {
+  background: #fff;
+  color: var(--brand-petrol);
+  border: none;
+  font-weight: var(--weight-semibold);
+}
+.btn--hero-primary:hover {
+  background: var(--petrol-50);
+  color: var(--petrol-800);
+}
+.btn--hero-primary:active {
+  transform: scale(0.98);
+}
+
+/* Ghost pill — secondary action */
+.btn--hero-secondary {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.38);
+}
+.btn--hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.62);
+}
+.btn--hero-secondary:active {
+  transform: scale(0.98);
 }
 
 /* Auth welcome line */
 .hero__welcome {
   font-size: var(--text-body-sm);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.5);
   margin-top: var(--space-3);
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: var(--space-2);
 }
 
@@ -75,19 +133,68 @@
   display: inline-flex;
   align-items: center;
   padding: 2px 10px;
-  background: var(--petrol-50);
-  border: 1px solid var(--petrol-100);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: var(--radius-full);
   font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
-  color: var(--brand-petrol);
+  color: #fff;
 }
 
-/* Fade-in animation */
+/* ── Trust stats row ──────────────────────────────────────── */
+.hero__trust {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero__trust-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-right: var(--space-6);
+  margin-right: var(--space-6);
+}
+
+/* Divider between stats */
+.hero__trust-item:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.hero__trust-val {
+  font-size: var(--text-display-xs);
+  font-weight: var(--weight-semibold);
+  color: #fff;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+}
+
+.hero__trust-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.48);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  font-weight: var(--weight-medium);
+}
+
+/* ── Carousel column (right) ──────────────────────────────── */
+.hero__carousel-col {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Fade-in animation ────────────────────────────────────── */
 @keyframes heroFadeIn {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -97,37 +204,94 @@
 
 .hero__fade-in {
   opacity: 0;
-  animation: heroFadeIn 0.6s var(--ease-out) forwards;
+  animation: heroFadeIn 0.65s var(--ease-out) forwards;
 }
 
-/* Responsive */
+/* ── Tablet 768–1023px ────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .hero__bounded {
+    gap: var(--space-8);
+    padding: var(--space-10) var(--side-padding);
+  }
+
+  .hero__text {
+    width: 50%;
+  }
+
+  .hero__trust {
+    gap: 0;
+  }
+
+  .hero__trust-item {
+    padding-right: var(--space-5);
+    margin-right: var(--space-5);
+  }
+}
+
+/* ── Mobile <768px ────────────────────────────────────────── */
 @media (max-width: 767px) {
   .hero {
-    min-height: auto;
-    padding-top: calc(var(--header-height) + var(--space-6));
+    align-items: flex-start;
   }
 
   .hero__bounded {
-    padding: var(--space-8) var(--space-5) var(--space-8);
-    margin: 0 var(--space-4);
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-8) var(--space-5) var(--space-10);
+    min-height: calc(100dvh - var(--header-height));
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero__text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
   }
 
   .hero__title {
     font-size: var(--text-display-xl);
   }
 
-  .hero__subtitle {
-    font-size: var(--text-body-md);
-  }
-
   .hero__ctas {
+    justify-content: center;
     flex-direction: column;
+    align-items: stretch;
     width: 100%;
     max-width: 280px;
     margin: 0 auto;
   }
 
-  .hero__ctas .btn {
+  .hero__trust {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+  }
+
+  .hero__trust-item {
+    align-items: center;
+    text-align: center;
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .hero__trust-item:not(:last-child) {
+    border-right: none;
+  }
+
+  .hero__welcome {
+    justify-content: center;
+  }
+
+  .hero__carousel-col {
     width: 100%;
   }
 }
