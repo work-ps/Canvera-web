@@ -21,9 +21,9 @@ export const bindingImages = {
 
 // Hero products
 export const heroProducts = [
-  { id: 1, image: '/images/Hero%20Section%20-%201080x720/1%20(2).jpg', name: 'Canvera Photobook 1' },
-  { id: 2, image: '/images/Hero%20Section%20-%201080x720/2.jpg',       name: 'Canvera Photobook 2' },
-  { id: 3, image: '/images/Hero%20Section%20-%201080x720/6.jpg',       name: 'Canvera Photobook 3' },
+  { id: 1, image: '/images/Hero%20Section%20-%201080x720/All%20Camera%20Rough.01_51_44_19.Still069.jpg', name: 'Canvera Photobook 1' },
+  { id: 2, image: '/images/Hero%20Section%20-%201080x720/All%20Camera%20Rough.01_55_00_44.Still071.jpg', name: 'Canvera Photobook 2' },
+  { id: 3, image: '/images/Hero%20Section%20-%201080x720/All%20Camera%20Rough.02_55_16_29.Still112.jpg', name: 'Canvera Photobook 3' },
 ];
 
 // Products array
