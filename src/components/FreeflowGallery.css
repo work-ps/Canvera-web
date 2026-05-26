@@ -1,8 +1,9 @@
-/* Container — fixed viewport */
+/* Container — 2 full rows + equal 12px padding at top, between, and bottom:
+   12 + 240 + 12 + 240 + 12 = 516px */
 .freeflow {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 516px;
   overflow: hidden;
   isolation: isolate;
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='%231a2a3a'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%231a2a3a' stroke-width='1'/%3E%3C/svg%3E") 12 12, grab;
@@ -281,7 +282,7 @@
 /* Responsive */
 @media (max-width: 1023px) {
   .freeflow {
-    height: 460px;
+    height: 516px;
   }
 
   .freeflow__expand-overlay {
@@ -300,7 +301,7 @@
 
 @media (max-width: 767px) {
   .freeflow {
-    height: 420px;
+    height: 516px;
   }
 
   .freeflow__hint {
