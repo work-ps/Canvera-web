@@ -112,7 +112,7 @@
 
 .collections-chip--active {
   background: var(--interactive-primary);
-  color: #fff;
+  color: var(--text-inverse);
   border-color: var(--interactive-primary);
 }
 
@@ -220,10 +220,10 @@
   z-index: 2;
 }
 
-.col-card__badge--bestseller { background: rgba(0,87,128,0.85);   color:#fff; }
-.col-card__badge--popular    { background: rgba(26,42,58,0.8);    color:#fff; }
-.col-card__badge--new        { background: rgba(42,157,143,0.88); color:#fff; }
-.col-card__badge--limited    { background: rgba(229,161,0,0.88);  color:#fff; }
+.col-card__badge--bestseller { background: rgba(0,87,128,0.85);   color: var(--text-inverse); }
+.col-card__badge--popular    { background: rgba(26,42,58,0.8);    color: var(--text-inverse); }
+.col-card__badge--new        { background: rgba(42,157,143,0.88); color: var(--text-inverse); }
+.col-card__badge--limited    { background: rgba(229,161,0,0.88);  color: var(--text-inverse); }
 
 /* Rating on image */
 .col-card__rating {

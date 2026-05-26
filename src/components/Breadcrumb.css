@@ -79,11 +79,11 @@
   min-width: 28px;
   padding: 0 6px;
   border: 1.5px solid var(--border-subtle);
-  border-radius: 4px;
-  background: var(--neutral-50, #F9F9F9);
+  border-radius: var(--radius-sm);
+  background: var(--neutral-50);
   color: var(--text-secondary);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--text-body-base);
+  font-weight: var(--weight-bold);
   letter-spacing: 1px;
   line-height: 1;
   cursor: pointer;
@@ -95,9 +95,9 @@
 }
 
 .breadcrumb__expander:hover {
-  border-color: var(--petrol, #2E5955);
-  background: var(--petrol-50, #EAF0EF);
-  color: var(--petrol, #2E5955);
+  border-color: var(--brand-petrol);
+  background: var(--petrol-50);
+  color: var(--brand-petrol);
   transform: scale(1.05);
 }
 

@@ -485,7 +485,7 @@
 
 .myo__btn--copied {
   background: var(--success);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .myo__btn--secondary {

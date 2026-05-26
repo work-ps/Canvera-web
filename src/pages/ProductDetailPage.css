@@ -143,7 +143,7 @@
   z-index: 900;
   opacity: 0;
   pointer-events: none;  /* doesn't block info interactions */
-  transition: opacity 0.12s ease;
+  transition: opacity var(--duration-fast) var(--ease);
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 .pdp__zoom-panel--active {
@@ -176,7 +176,7 @@
   padding: 3px 8px;
   border-radius: var(--radius-sm);
 }
-.pdp__badge--bestseller { background: #FFF3E0; color: #E65100; }
+.pdp__badge--bestseller { background: var(--warning-light); color: var(--warning-text); }
 .pdp__badge--new { background: var(--teal-50); color: var(--teal-700); }
 .pdp__badge--popular { background: var(--petrol-50); color: var(--petrol-700); }
 .pdp__badge--limited { background: #F3E5F5; color: #6A1B9A; }
@@ -333,7 +333,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background: var(--brand-petrol);
-  color: #fff;
+  color: var(--text-inverse);
   padding: 2px 6px;
   border-top-left-radius: var(--radius-lg);
   border-bottom-right-radius: var(--radius-sm);

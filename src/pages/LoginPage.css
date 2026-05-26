@@ -41,9 +41,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--text-body-base);
   font-weight: var(--weight-bold);
-  color: #fff;
+  color: var(--text-inverse);
   font-family: var(--font-sans);
 }
 
@@ -205,7 +205,7 @@
   width: 100%;
   height: 50px;
   background: var(--interactive-primary);
-  color: #fff;
+  color: var(--text-inverse);
   border: none;
   border-radius: var(--radius-lg);
   font-family: var(--font-sans);
@@ -308,7 +308,7 @@
   font-size: var(--text-body-xs);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: background 150ms, color 150ms, border-color 150ms;
+  transition: background var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast);
 }
 .auth-demo__btn:hover {
   background: var(--petrol-50);
@@ -483,7 +483,7 @@
 .auth-submitted__icon {
   width: 64px;
   height: 64px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--green-50, #f0fdf4);
   border: 1.5px solid rgba(42, 157, 143, 0.20);
   display: flex;

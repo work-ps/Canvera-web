@@ -40,7 +40,7 @@
   width: 44px; height: 44px;
   border-radius: var(--radius-full);
   background: var(--brand-petrol);
-  color: #fff;
+  color: var(--text-inverse);
   font-size: var(--text-body-md);
   font-weight: var(--weight-bold);
   display: flex; align-items: center; justify-content: center;
@@ -175,7 +175,7 @@
   width: 56px; height: 56px;
   border-radius: var(--radius-full);
   background: var(--brand-petrol);
-  color: #fff;
+  color: var(--text-inverse);
   font-size: var(--text-heading-md);
   font-weight: var(--weight-bold);
   display: flex; align-items: center; justify-content: center;
@@ -295,7 +295,7 @@
 .profile-filter-tab:hover { border-color: var(--brand-petrol); color: var(--brand-petrol); }
 .profile-filter-tab--active {
   background: var(--brand-petrol); border-color: var(--brand-petrol);
-  color: #fff;
+  color: var(--text-inverse);
 }
 .profile-orders__search {
   display: flex; align-items: center; gap: var(--space-2);
@@ -408,7 +408,7 @@
 .profile-timeline__step--done .profile-timeline__circle {
   background: var(--success);
   border-color: var(--success);
-  color: #fff;
+  color: var(--text-inverse);
 }
 .profile-timeline__line {
   position: absolute;
@@ -533,7 +533,7 @@
   width: 48px; height: 48px; flex-shrink: 0;
   border-radius: var(--radius-full);
   background: var(--teal-700);
-  color: #fff;
+  color: var(--text-inverse);
   display: flex; align-items: center; justify-content: center;
 }
 .profile-pro-verified__title {
@@ -573,7 +573,7 @@
   top: 3px; left: 3px;
   width: 18px; height: 18px;
   border-radius: var(--radius-full);
-  background: #fff;
+  background: var(--bg-primary);
   transition: transform var(--duration-fast) var(--ease-out);
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
@@ -604,7 +604,7 @@
 }
 .profile-btn--secondary:hover { background: var(--neutral-50); }
 .profile-btn--danger { background: none; border: 1.5px solid var(--error); color: var(--error); }
-.profile-btn--danger:hover { background: #ffeaea; }
+.profile-btn--danger:hover { background: var(--error-light); }
 
 /* ── Referral banner (dashboard) ──────────────────────────── */
 .profile-referral-banner {
@@ -632,7 +632,7 @@
 }
 .profile-referral-banner__label {
   font-size: var(--text-body-sm); font-weight: var(--weight-semibold);
-  color: #fff; margin-bottom: 2px;
+  color: var(--text-inverse); margin-bottom: 2px;
 }
 .profile-referral-banner__sub {
   font-size: var(--text-body-xs); color: rgba(255,255,255,0.65);
@@ -642,7 +642,7 @@
 }
 .profile-referral-banner__code {
   font-size: var(--text-body-md); font-weight: var(--weight-bold);
-  letter-spacing: 0.1em; color: #fff;
+  letter-spacing: 0.1em; color: var(--text-inverse);
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: var(--radius-md);
@@ -655,7 +655,7 @@
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: var(--radius-md);
   font-size: var(--text-body-xs); font-weight: var(--weight-semibold);
-  color: #fff; cursor: pointer; font-family: var(--font-sans);
+  color: var(--text-inverse); cursor: pointer; font-family: var(--font-sans);
   transition: background var(--duration-fast);
 }
 .profile-referral-banner__copy:hover { background: rgba(255,255,255,0.25); }
@@ -666,7 +666,7 @@
   font-family: var(--font-sans);
   transition: color var(--duration-fast);
 }
-.profile-referral-banner__details:hover { color: #fff; }
+.profile-referral-banner__details:hover { color: var(--text-inverse); }
 
 /* ── Get verified CTA banner ──────────────────────────────── */
 .profile-verify-cta {
@@ -687,7 +687,7 @@
   width: 44px; height: 44px;
   border-radius: var(--radius-lg);
   background: var(--brand-petrol);
-  color: #fff;
+  color: var(--text-inverse);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -737,7 +737,7 @@
 }
 .profile-referral-code-display__code {
   flex: 1; font-size: var(--text-heading-xl); font-weight: var(--weight-bold);
-  letter-spacing: 0.12em; color: #fff;
+  letter-spacing: 0.12em; color: var(--text-inverse);
 }
 .profile-referral-code-display__copy {
   display: inline-flex; align-items: center; gap: 6px;
@@ -746,7 +746,7 @@
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: var(--radius-md);
   font-size: var(--text-body-sm); font-weight: var(--weight-semibold);
-  color: #fff; cursor: pointer; font-family: var(--font-sans);
+  color: var(--text-inverse); cursor: pointer; font-family: var(--font-sans);
   transition: background var(--duration-fast);
 }
 .profile-referral-code-display__copy:hover { background: rgba(255,255,255,0.24); }
@@ -769,7 +769,7 @@
 }
 .profile-referral-step__num {
   width: 22px; height: 22px; border-radius: var(--radius-full);
-  background: var(--brand-petrol); color: #fff;
+  background: var(--brand-petrol); color: var(--text-inverse);
   font-size: 11px; font-weight: var(--weight-bold);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; margin-top: 1px;
@@ -838,7 +838,7 @@
 .profile-coupon-item__pro-tag {
   font-size: 9px; font-weight: var(--weight-bold);
   letter-spacing: 0.1em; text-transform: uppercase;
-  background: var(--brand-petrol); color: #fff;
+  background: var(--brand-petrol); color: var(--text-inverse);
   padding: 1px 6px; border-radius: var(--radius-full);
 }
 .profile-coupon-item__expired-tag {
@@ -867,8 +867,8 @@
   padding: 2px 10px; border-radius: var(--radius-full);
   transition: all var(--duration-fast);
 }
-.profile-coupon-item__copy:hover { background: var(--brand-petrol); color: #fff; border-color: var(--brand-petrol); }
-.profile-coupon-item__copy--done { background: var(--success); color: #fff; border-color: var(--success); }
+.profile-coupon-item__copy:hover { background: var(--brand-petrol); color: var(--text-inverse); border-color: var(--brand-petrol); }
+.profile-coupon-item__copy--done { background: var(--success); color: var(--text-inverse); border-color: var(--success); }
 
 /* ── Saved Addresses ───────────────────────────────────────── */
 .profile-card-header-row {
@@ -913,7 +913,7 @@
 .profile-addr-item__default-tag {
   font-size: 9px; font-weight: var(--weight-bold);
   text-transform: uppercase; letter-spacing: 0.06em;
-  background: var(--brand-petrol); color: #fff;
+  background: var(--brand-petrol); color: var(--text-inverse);
   padding: 1px 7px; border-radius: var(--radius-full);
 }
 .profile-addr-item__actions {

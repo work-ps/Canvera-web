@@ -252,7 +252,7 @@
 }
 .faq-cta__btn--primary:hover { background: var(--interactive-primary-hover); }
 .faq-cta__btn--whatsapp {
-  background: #25d366; color: #fff;
+  background: #25d366; color: var(--text-inverse);
 }
 .faq-cta__btn--whatsapp:hover { background: #1da851; }
 

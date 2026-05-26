@@ -60,7 +60,7 @@
   justify-content: center;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--duration-slow) var(--ease);
 }
 
 .bento__item:hover .bento__overlay {
@@ -68,7 +68,7 @@
 }
 
 .bento__label {
-  font-size: 18px;
+  font-size: var(--text-heading-md);
   font-weight: var(--weight-medium);
   color: var(--text-inverse);
   text-align: center;

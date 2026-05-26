@@ -86,7 +86,7 @@
 
 .hero-carousel__dot.is-active {
   height: 24px;
-  background: #fff;
+  background: var(--text-inverse);
 }
 
 .hero-carousel__dot:hover:not(.is-active) {

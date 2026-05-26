@@ -191,9 +191,9 @@
   height: 18px;
   padding: 0 5px;
   background: var(--interactive-primary);
-  color: #fff;
+  color: var(--text-inverse);
   border-radius: var(--radius-full);
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
   line-height: 1;
 }
@@ -278,8 +278,8 @@
 /* ── Filter panel card (spec §2.2) ────────────────────────── */
 .shop-fpanel {
   background: var(--bg-primary);
-  border: 0.8px solid #EEEEEE;
-  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
   padding: var(--space-4) var(--space-5) var(--space-3);
 }
 
@@ -351,9 +351,9 @@
   height: 18px;
   padding: 0 5px;
   background: var(--interactive-primary);
-  color: #fff;
+  color: var(--text-inverse);
   border-radius: var(--radius-full);
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
   line-height: 1;
 }
@@ -441,7 +441,7 @@
   font-weight: var(--weight-medium);
 }
 .shop-fs__row-count {
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
   min-width: 16px;

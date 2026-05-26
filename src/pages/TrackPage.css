@@ -172,7 +172,7 @@
 }
 .track-status--delivered { background: var(--teal-50); color: var(--teal-700); }
 .track-status--shipped { background: var(--status-shipped-bg); color: var(--status-shipped-text); }
-.track-status--processing { background: var(--warning-light); color: #8a6000; }
+.track-status--processing { background: var(--warning-light); color: var(--warning-text); }
 
 /* ── Progress tracker ─────────────────────────────────────── */
 .track-progress {
@@ -199,7 +199,7 @@
 }
 .track-progress__node--done {
   background: var(--success); border-color: var(--success);
-  color: #fff;
+  color: var(--text-inverse);
 }
 .track-progress__node--active {
   border-color: var(--brand-petrol);
@@ -265,7 +265,7 @@
   margin-top: 1px;
 }
 .track-timeline__row--done .track-timeline__dot {
-  background: var(--success); border-color: var(--success); color: #fff;
+  background: var(--success); border-color: var(--success); color: var(--text-inverse);
 }
 .track-timeline__content {
   display: flex; align-items: center; justify-content: space-between;

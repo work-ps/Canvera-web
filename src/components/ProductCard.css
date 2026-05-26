@@ -94,10 +94,10 @@
   line-height: 1.4;
 }
 
-.pcard__badge--bestseller { background: rgba(0, 87, 128, 0.85);   color: #fff; }
-.pcard__badge--new        { background: rgba(42, 157, 143, 0.88); color: #fff; }
-.pcard__badge--popular    { background: rgba(26, 42, 58, 0.8);    color: #fff; }
-.pcard__badge--limited    { background: rgba(229, 161, 0, 0.88);  color: #fff; }
+.pcard__badge--bestseller { background: rgba(0, 87, 128, 0.85);   color: var(--text-inverse); }
+.pcard__badge--new        { background: rgba(42, 157, 143, 0.88); color: var(--text-inverse); }
+.pcard__badge--popular    { background: rgba(26, 42, 58, 0.8);    color: var(--text-inverse); }
+.pcard__badge--limited    { background: rgba(229, 161, 0, 0.88);  color: var(--text-inverse); }
 
 /* Rating pill — bottom-left of image */
 .pcard__rating {
@@ -118,7 +118,7 @@
 .pcard__rating-val {
   font-size: 11px;
   font-weight: var(--weight-semibold);
-  color: #fff;
+  color: var(--text-inverse);
   line-height: 1;
 }
 
@@ -137,7 +137,7 @@
 }
 
 .pcard__collection {
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
@@ -169,7 +169,7 @@
 }
 
 .pcard__occ-tag {
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-medium);
   color: var(--text-secondary);
   background: var(--neutral-50);

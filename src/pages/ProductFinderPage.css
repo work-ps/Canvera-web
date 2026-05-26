@@ -66,10 +66,10 @@
   position: relative;
 }
 .finder__progress-step--done .finder__progress-circle {
-  background: var(--success); border-color: var(--success); color: #fff;
+  background: var(--success); border-color: var(--success); color: var(--text-inverse);
 }
 .finder__progress-step--active .finder__progress-circle {
-  background: var(--brand-petrol); border-color: var(--brand-petrol); color: #fff;
+  background: var(--brand-petrol); border-color: var(--brand-petrol); color: var(--text-inverse);
 }
 .finder__progress-line {
   position: absolute;

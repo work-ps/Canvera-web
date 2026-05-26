@@ -135,7 +135,7 @@
 
 .contact-channel__btn--whatsapp {
   background: #25D366;
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .contact-channel__btn--tollfree {
@@ -379,8 +379,8 @@
   left: 3px;
   width: 18px;
   height: 18px;
-  border-radius: 50%;
-  background: #fff;
+  border-radius: var(--radius-full);
+  background: var(--bg-primary);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
   transition: transform var(--duration-normal) var(--ease-out);
   pointer-events: none;
@@ -455,7 +455,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--text-inverse);
   margin: 0 auto var(--space-6);
 }
 

@@ -112,7 +112,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform var(--duration-slow) var(--ease);
 }
 
 .social-feed__card:hover .social-feed__thumb img {
@@ -156,7 +156,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform var(--duration-normal) var(--ease), background var(--duration-normal) var(--ease);
   padding-left: 2px; /* nudge triangle visually centre */
 }
 
@@ -191,14 +191,14 @@
   top: 10px;
   right: 10px;
   background: rgba(0, 0, 0, 0.52);
-  color: #fff;
+  color: var(--text-inverse);
   border-radius: var(--radius-full);
   padding: 3px 8px 3px 5px;
   display: flex;
   align-items: center;
   gap: 3px;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: var(--text-body-xs);
+  font-weight: var(--weight-semibold);
   letter-spacing: .3px;
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
@@ -277,21 +277,21 @@
   right: -14px;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: none;
   background: rgba(255, 255, 255, 0.92);
-  color: #1a1a2e;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: background var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .social-feed__lightbox-close:hover {
-  background: #fff;
+  background: var(--bg-primary);
   transform: scale(1.08);
 }
 
@@ -310,12 +310,12 @@
   color: rgba(255, 255, 255, 0.90);
   text-decoration: underline;
   text-underline-offset: 2px;
-  font-size: 12px;
-  transition: color 0.15s ease;
+  font-size: var(--text-body-xs);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .social-feed__lightbox-link:hover {
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 /* ==========================================================================
