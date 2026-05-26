@@ -4,8 +4,9 @@ import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
 import { PRODUCT_CONTENT } from '../data/productContent';
 import './FreeflowGallery.css';
 
-const CARD_WIDTH = 280;
-const CARD_HEIGHT = 280;
+// 4:3 landscape — matches the Expanded View 1600×1200 image aspect ratio
+const CARD_WIDTH = 320;
+const CARD_HEIGHT = 240;
 const GAP = 12;
 const COLS = 5;
 const ROWS = 8; // 5×8 = 40 tiles ≥ 39 products — every product gets a slot
@@ -13,21 +14,17 @@ const ROWS = 8; // 5×8 = 40 tiles ≥ 39 products — every product gets a slot
 // Tile repeat range: 3×3 blocks = 9 copies of the 40-tile grid = 360 DOM images.
 // Enough to fill any viewport with generous overflow; browser lazy-loads the rest.
 const FRICTION = 0.92;
-const EDGE_ZONE = 80;
-const EDGE_SPEED = 4;
 
 export default function FreeflowGallery({ items }) {
   const containerRef = useRef(null);
   const isDragging = useRef(false);
+  const dragOccurred = useRef(false); // true if pointer moved >5px — blocks click→expand
   const dragStartPos = useRef({ x: 0, y: 0 });
   const dragStartOffset = useRef({ x: 0, y: 0 });
   const velocity = useRef({ x: 0, y: 0 });
   const lastPointer = useRef({ x: 0, y: 0 });
   const lastTime = useRef(0);
   const animFrame = useRef(null);
-  const edgeScrollFrame = useRef(null);
-  const mouseInContainer = useRef(false);
-  const mousePos = useRef({ x: 0, y: 0 });
   const [showHint, setShowHint] = useState(true);
   const expandedRef = useRef(false);
 
@@ -78,47 +75,15 @@ export default function FreeflowGallery({ items }) {
     }
   }, [offsetX, offsetY, wrapOffset]);
 
-  // Edge auto-scroll — no bounds
-  const edgeScrollLoop = useCallback(() => {
-    if (!mouseInContainer.current || isDragging.current || expandedRef.current) {
-      edgeScrollFrame.current = requestAnimationFrame(edgeScrollLoop);
-      return;
-    }
-    const container = containerRef.current;
-    if (!container) {
-      edgeScrollFrame.current = requestAnimationFrame(edgeScrollLoop);
-      return;
-    }
-    const rect = container.getBoundingClientRect();
-    const mx = mousePos.current.x - rect.left;
-    const my = mousePos.current.y - rect.top;
-    const cw = rect.width;
-    const ch = rect.height;
-    let dx = 0, dy = 0;
-    if (mx < EDGE_ZONE) dx = EDGE_SPEED * (1 - mx / EDGE_ZONE);
-    else if (mx > cw - EDGE_ZONE) dx = -EDGE_SPEED * (1 - (cw - mx) / EDGE_ZONE);
-    if (my < EDGE_ZONE) dy = EDGE_SPEED * (1 - my / EDGE_ZONE);
-    else if (my > ch - EDGE_ZONE) dy = -EDGE_SPEED * (1 - (ch - my) / EDGE_ZONE);
-    if (dx !== 0 || dy !== 0) {
-      offsetX.set(offsetX.get() + dx);
-      offsetY.set(offsetY.get() + dy);
-      wrapOffset();
-    }
-    edgeScrollFrame.current = requestAnimationFrame(edgeScrollLoop);
-  }, [offsetX, offsetY, wrapOffset]);
-
   useEffect(() => {
-    edgeScrollFrame.current = requestAnimationFrame(edgeScrollLoop);
-    return () => {
-      cancelAnimationFrame(edgeScrollFrame.current);
-      cancelAnimationFrame(animFrame.current);
-    };
-  }, [edgeScrollLoop]);
+    return () => cancelAnimationFrame(animFrame.current);
+  }, []);
 
   const hideHint = () => { if (showHint) setShowHint(false); };
 
   const handlePointerDown = (e) => {
     isDragging.current = true;
+    dragOccurred.current = false;
     cancelAnimationFrame(animFrame.current);
     velocity.current = { x: 0, y: 0 };
     const clientX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
@@ -127,17 +92,23 @@ export default function FreeflowGallery({ items }) {
     dragStartOffset.current = { x: offsetX.get(), y: offsetY.get() };
     lastPointer.current = { x: clientX, y: clientY };
     lastTime.current = Date.now();
-    hideHint();
+    // Do NOT hide hint here — wait until an actual drag is confirmed
   };
 
   const handlePointerMove = (e) => {
     const clientX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
     const clientY = e.clientY ?? e.touches?.[0]?.clientY ?? 0;
-    mousePos.current = { x: clientX, y: clientY };
     if (!isDragging.current) return;
     e.preventDefault();
-    offsetX.set(dragStartOffset.current.x + (clientX - dragStartPos.current.x));
-    offsetY.set(dragStartOffset.current.y + (clientY - dragStartPos.current.y));
+    const dx = clientX - dragStartPos.current.x;
+    const dy = clientY - dragStartPos.current.y;
+    // Mark as real drag once > 5px — also the right moment to dismiss the hint
+    if (!dragOccurred.current && Math.hypot(dx, dy) > 5) {
+      dragOccurred.current = true;
+      hideHint();
+    }
+    offsetX.set(dragStartOffset.current.x + dx);
+    offsetY.set(dragStartOffset.current.y + dy);
     wrapOffset();
     const now = Date.now();
     const dt = now - lastTime.current;
@@ -175,6 +146,8 @@ export default function FreeflowGallery({ items }) {
 
   const handleExpand = (item, e) => {
     e.stopPropagation();
+    // If the pointer moved significantly, this was a drag — not a click
+    if (dragOccurred.current) { dragOccurred.current = false; return; }
     expandedRef.current = true;
     cancelAnimationFrame(animFrame.current);
     velocity.current = { x: 0, y: 0 };
@@ -204,18 +177,14 @@ export default function FreeflowGallery({ items }) {
       onMouseDown={!expandedItem ? handlePointerDown : undefined}
       onMouseMove={!expandedItem ? handlePointerMove : undefined}
       onMouseUp={!expandedItem ? handlePointerUp : undefined}
-      onMouseLeave={() => {
-        mouseInContainer.current = false;
-        if (isDragging.current) handlePointerUp();
-      }}
-      onMouseEnter={() => { mouseInContainer.current = true; }}
+      onMouseLeave={() => { if (isDragging.current) handlePointerUp(); }}
       onTouchStart={!expandedItem ? handlePointerDown : undefined}
       onTouchMove={!expandedItem ? handlePointerMove : undefined}
       onTouchEnd={!expandedItem ? handlePointerUp : undefined}
     >
       {showHint && !expandedItem && (
         <div className="freeflow__hint">
-          Drag &amp; Scroll to explore &bull; Move cursor to edge to auto-scroll
+          Drag &amp; Scroll to explore
         </div>
       )}
 
@@ -316,24 +285,27 @@ function FreeflowCard({ item, style, onExpand }) {
     <div
       className="freeflow__card"
       style={style}
+      onClick={(e) => onExpand(item, e)}
     >
       <img
-        src={item.tileImage || item.image}
+        src={item.expandedImage || item.image}
         alt={item.name}
         className="freeflow__card-img"
         draggable={false}
         loading="lazy"
       />
-      <button
-        className="freeflow__card-enlarge"
-        onMouseDown={(e) => e.stopPropagation()}
-        onClick={(e) => onExpand(item, e)}
-        aria-label="Enlarge"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+
+      {/* Product name — always visible on bottom scrim */}
+      <div className="freeflow__card-label">
+        <span className="freeflow__card-name">{item.name}</span>
+      </div>
+
+      {/* ↗ arrow — top-right, appears on hover */}
+      <div className="freeflow__card-arrow" aria-hidden="true">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+          <path d="M1 10L10 1M10 1H3M10 1V8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-      </button>
+      </div>
     </div>
   );
 }

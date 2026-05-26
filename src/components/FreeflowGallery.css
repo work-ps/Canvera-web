@@ -15,30 +15,29 @@
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%231a2a3a'/%3E%3C/svg%3E") 12 12, grabbing;
 }
 
-/* Hint tooltip */
+/* Hint — corner badge, bottom-left, doesn't obscure content */
 .freeflow__hint {
   position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 14px;
+  left: 14px;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 8px 20px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
-  font-size: var(--text-body-xs);
+  font-size: 11px;
   font-weight: var(--weight-medium);
   color: var(--text-secondary);
   pointer-events: none;
   white-space: nowrap;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
   animation: hintFade 0.4s ease-out;
 }
 
 @keyframes hintFade {
-  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Infinite plane */
@@ -63,16 +62,17 @@
   overflow: hidden;
   background: var(--neutral-50);
   will-change: transform;
-  transition: transform 0.25s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.3s ease;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .freeflow__card:hover {
-  transform: scale(1.04);
-  box-shadow: 0 4px 16px rgba(0, 87, 128, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 8px 28px rgba(0, 87, 128, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
   z-index: 10 !important;
 }
 
+/* Image — ken-burns zoom on hover */
 .freeflow__card-img {
   width: 100%;
   height: 100%;
@@ -80,36 +80,58 @@
   display: block;
   pointer-events: none;
   user-select: none;
+  transform-origin: center center;
+  transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Enlarge icon — top right, visible on card hover */
-.freeflow__card-enlarge {
+.freeflow__card:hover .freeflow__card-img {
+  transform: scale(1.07);
+}
+
+/* Product name label — bottom scrim, always visible */
+.freeflow__card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 10px 8px;
+  background: linear-gradient(to top, rgba(8, 16, 26, 0.52) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.freeflow__card-name {
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.2;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ↗ arrow — top-right, appears on hover */
+.freeflow__card-arrow {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-lg);
-  background: rgba(26, 42, 58, 0.7);
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(4px);
-  color: #fff;
-  border: none;
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: opacity 0.2s, background 0.15s;
-  z-index: 5;
-  pointer-events: auto;
+  color: var(--text-primary);
   opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
-.freeflow__card:hover .freeflow__card-enlarge {
+.freeflow__card:hover .freeflow__card-arrow {
   opacity: 1;
-}
-
-.freeflow__card-enlarge:hover {
-  background: rgba(26, 42, 58, 0.9);
 }
 
 /* ===== Expanded overlay — dark glass, fills .freeflow ===== */
@@ -236,7 +258,7 @@
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Touch devices — remove custom cursor, always show enlarge button */
+/* Touch devices — remove custom cursor, always show quick view pill */
 @media (hover: none) {
   .freeflow {
     cursor: default;
@@ -246,10 +268,9 @@
     cursor: default;
   }
 
-  .freeflow__card-enlarge {
+  /* Always show arrow on touch since there's no hover state */
+  .freeflow__card-arrow {
     opacity: 1;
-    width: 44px;
-    height: 44px;
   }
 
   .freeflow__hint {
