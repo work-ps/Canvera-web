@@ -10,6 +10,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Suppress rubber-band/bounce overscroll — no strip reveal at top or bottom */
+  overscroll-behavior: none;
 }
 
 body {

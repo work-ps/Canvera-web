@@ -152,6 +152,8 @@ export default function Header() {
   const searchInputRef = useRef(null);
   const navRef        = useRef(null);
   const innerRef      = useRef(null);
+  const headerRef     = useRef(null);
+  const lastScrollRef = useRef({ y: typeof window !== 'undefined' ? window.scrollY : 0, t: Date.now() });
   const [panelLeft,   setPanelLeft]   = useState(0);
 
   /* Measure exact gap from panel-inner's left edge to where the nav starts.
@@ -182,7 +184,26 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => {
+      const now  = Date.now();
+      const newY = window.scrollY;
+      const dt   = now - lastScrollRef.current.t;
+      const dy   = Math.abs(newY - lastScrollRef.current.y);
+
+      // Map scroll velocity (px/ms) → transition duration.
+      // Fast flick = near-instant; slow deliberate scroll = smooth fade.
+      if (dt > 0 && headerRef.current) {
+        const vel = dy / dt;
+        const dur = vel > 3 ? '0.08s'
+                  : vel > 1.5 ? '0.14s'
+                  : vel > 0.5 ? '0.22s'
+                  : '0.35s';
+        headerRef.current.style.setProperty('--header-transition-dur', dur);
+      }
+
+      lastScrollRef.current = { y: newY, t: now };
+      setScrolled(newY > 10);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -209,7 +230,7 @@ export default function Header() {
     !mobileOpen;
 
   return (
-    <header className={`header ${scrolled ? 'header--scrolled' : ''} ${isHeroTransparent ? 'header--hero' : ''}`}>
+    <header ref={headerRef} className={`header ${scrolled ? 'header--scrolled' : ''} ${isHeroTransparent ? 'header--hero' : ''}`}>
 
       {/* ── Top bar ────────────────────────────────────────────────────── */}
       <div ref={innerRef} className="header__inner">

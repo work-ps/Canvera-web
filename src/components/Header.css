@@ -9,10 +9,11 @@
   display: flex;
   align-items: center;
   background: var(--bg-primary);
-  /* Smooth background + shadow transitions as user scrolls */
+  /* Duration is set dynamically via JS based on scroll velocity.
+     Fast flick → near-instant; slow scroll → smooth fade. */
   transition:
-    background-color 0.38s var(--ease-out),
-    box-shadow       0.38s var(--ease-out);
+    background-color var(--header-transition-dur, 0.3s) cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow       var(--header-transition-dur, 0.3s) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header--scrolled {
@@ -24,12 +25,9 @@
   background: transparent;
 }
 
-/* Nav links → white */
+/* Nav links → white (transition is on the base selector — fires both ways) */
 .header--hero .header__nav-link {
   color: rgba(255, 255, 255, 0.85);
-  transition:
-    background var(--duration-fast) var(--ease-out),
-    color     var(--duration-fast) var(--ease-out);
 }
 .header--hero .header__nav-link:hover,
 .header--hero .header__nav-link--active {
@@ -48,9 +46,6 @@
 /* Tertiary links → white */
 .header--hero .header__tertiary-link {
   color: rgba(255, 255, 255, 0.78);
-  transition:
-    background var(--duration-fast) var(--ease-out),
-    color     var(--duration-fast) var(--ease-out);
 }
 .header--hero .header__tertiary-link:hover {
   background: rgba(255, 255, 255, 0.10);
@@ -60,13 +55,15 @@
 /* Icon buttons (search, account, cart) → white */
 .header--hero .header__icon-btn {
   color: rgba(255, 255, 255, 0.85);
-  transition:
-    background var(--duration-fast) var(--ease-out),
-    color     var(--duration-fast) var(--ease-out);
 }
 .header--hero .header__icon-btn:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
+}
+
+/* Logo — blend out white background on dark hero */
+.header--hero .header__logo-img {
+  mix-blend-mode: multiply;
 }
 
 /* Hamburger lines → white */
@@ -130,8 +127,9 @@
   color: var(--text-primary);
   padding: 6px 12px;
   border-radius: var(--radius-md);
+  /* color must live on the base rule so it transitions in both directions */
   transition: background var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+              color var(--header-transition-dur, 0.3s) cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   text-decoration: none;
 }
@@ -145,7 +143,8 @@
 /* Chevron */
 .header__nav-chevron {
   flex-shrink: 0;
-  transition: transform var(--duration-normal) var(--ease-out);
+  transition: transform var(--duration-normal) var(--ease-out),
+              color var(--header-transition-dur, 0.3s) cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0.5;
 }
 
@@ -309,7 +308,7 @@
   white-space: nowrap;
   text-decoration: none;
   transition: background var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+              color var(--header-transition-dur, 0.3s) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header__tertiary-link:hover {
@@ -335,7 +334,7 @@
   border-radius: var(--radius-md);
   color: var(--text-primary);
   transition: background var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+              color var(--header-transition-dur, 0.3s) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header__icon-btn:hover {
@@ -586,7 +585,9 @@
   height: 2px;
   background: var(--text-primary);
   display: block;
-  transition: all var(--duration-normal) var(--ease-out);
+  transition: background var(--header-transition-dur, 0.3s) cubic-bezier(0.4, 0, 0.2, 1),
+              transform var(--duration-normal) var(--ease-out),
+              top var(--duration-normal) var(--ease-out);
 }
 
 .header__hamburger-line {
