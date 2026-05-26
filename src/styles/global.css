@@ -22,6 +22,8 @@ body {
   font-size: var(--text-body-md);
   font-weight: var(--weight-regular);
   overflow-x: hidden;
+  /* Belt-and-suspenders: some browsers treat body as the scroll root */
+  overscroll-behavior: none;
 }
 
 img {

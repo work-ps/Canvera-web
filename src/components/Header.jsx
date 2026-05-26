@@ -211,11 +211,17 @@ export default function Header() {
   const handleNavEnter = (label) => {
     clearTimeout(closeTimer.current);
     if (searchOpen) { setSearchOpen(false); setSearchQuery(''); }
-    measurePanelLeft(); // guaranteed-stable layout by the time user hovers
+    measurePanelLeft();
+    // Snap header to white instantly on hover — no transition lag
+    if (headerRef.current) headerRef.current.style.setProperty('--header-transition-dur', '0s');
     setActiveNav(label);
   };
   const handleNavLeave = () => {
-    closeTimer.current = setTimeout(() => setActiveNav(null), 120);
+    closeTimer.current = setTimeout(() => {
+      // Restore a sensible default duration after hover ends
+      if (headerRef.current) headerRef.current.style.setProperty('--header-transition-dur', '0.3s');
+      setActiveNav(null);
+    }, 120);
   };
 
   const activeItem = navItems.find(n => n.label === activeNav) ?? null;
