@@ -26,6 +26,7 @@ export const heroProducts = [
   { id: 3, image: '/images/Hero%20Section%20-%201080x720/3.jpg', name: 'Canvera Photobook 3' },
   { id: 4, image: '/images/Hero%20Section%20-%201080x720/4.jpg', name: 'Canvera Photobook 4' },
   { id: 5, image: '/images/Hero%20Section%20-%201080x720/5.jpg', name: 'Canvera Photobook 5' },
+  { id: 6, image: '/images/Hero%20Section%20-%201080x720/6.jpg', name: 'Canvera Photobook 6' },
 ];
 
 // Products array

@@ -98,13 +98,18 @@
     --text-body-sm: 13px;
     --text-body-xs: 12px;
 
-    /* Weights */
+    /* Weights — raw scale */
     --weight-extralight: 200;
     --weight-light: 300;
     --weight-regular: 400;
     --weight-medium: 500;
     --weight-semibold: 600;
     --weight-bold: 700;
+
+    /* Weights — semantic roles (use these in components) */
+    --weight-display: var(--weight-semibold);  /* hero / page titles */
+    --weight-heading: var(--weight-semibold);  /* section & component headings */
+    --weight-label: var(--weight-semibold);    /* eyebrows, caps labels */
 
     /* Line heights */
     --leading-display: 1.1;

@@ -8,12 +8,75 @@
   height: var(--header-height);
   display: flex;
   align-items: center;
-  transition: box-shadow var(--duration-normal) var(--ease-out);
-  background: var(--bg-primary); /* solid — matches the page background, no glass effect */
+  background: var(--bg-primary);
+  /* Smooth background + shadow transitions as user scrolls */
+  transition:
+    background-color 0.38s var(--ease-out),
+    box-shadow       0.38s var(--ease-out);
 }
 
 .header--scrolled {
   box-shadow: 0 1px 0 var(--border-subtle);
+}
+
+/* ── Hero transparent state (homepage, at top) ───────────── */
+.header--hero {
+  background: transparent;
+}
+
+/* Nav links → white */
+.header--hero .header__nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color     var(--duration-fast) var(--ease-out);
+}
+.header--hero .header__nav-link:hover,
+.header--hero .header__nav-link--active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Chevron → white */
+.header--hero .header__nav-chevron {
+  color: rgba(255, 255, 255, 0.70);
+}
+.header--hero .header__nav-chevron--open {
+  color: #fff;
+}
+
+/* Tertiary links → white */
+.header--hero .header__tertiary-link {
+  color: rgba(255, 255, 255, 0.78);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color     var(--duration-fast) var(--ease-out);
+}
+.header--hero .header__tertiary-link:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+}
+
+/* Icon buttons (search, account, cart) → white */
+.header--hero .header__icon-btn {
+  color: rgba(255, 255, 255, 0.85);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color     var(--duration-fast) var(--ease-out);
+}
+.header--hero .header__icon-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Hamburger lines → white */
+.header--hero .header__hamburger-line,
+.header--hero .header__hamburger-line::before,
+.header--hero .header__hamburger-line::after {
+  background: #fff;
+}
+.header--hero .header__hamburger-line.open {
+  background: transparent; /* keep the X shape working */
 }
 
 .header__inner {

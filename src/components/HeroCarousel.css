@@ -1,91 +1,102 @@
 /* ============================================================
-   HeroCarousel — full-bleed fade slider
-   Fills 100% of its container (.hero__carousel-col)
+   HeroCarousel — full-bleed background carousel
+   Leaving slide fades out on top  (z-index 2) — no dark flash.
+   Incoming slide sits underneath already at full opacity.
+   Ken-burns runs infinite alternate — never needs to restart.
    ============================================================ */
 
 .hero-carousel {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   user-select: none;
 }
 
-/* ── Track — positions all slides on top of each other ──── */
+/* ── Track ───────────────────────────────────────────────── */
 .hero-carousel__track {
   position: absolute;
   inset: 0;
 }
 
-/* ── Each slide ─────────────────────────────────────────── */
+/* ── Slides ──────────────────────────────────────────────── */
 .hero-carousel__slide {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
   pointer-events: none;
+  overflow: hidden;         /* contain the ken-burns scale */
 }
 
+/* Incoming: snap to visible immediately — it sits under the leaving slide */
 .hero-carousel__slide.is-active {
   opacity: 1;
-  pointer-events: auto;
   z-index: 1;
+  transition: opacity 0.05s linear;
 }
 
-/* Outgoing slide — fades just slightly faster */
+/* Outgoing: sits ON TOP and slowly dissolves away — this is the visible fade */
 .hero-carousel__slide.is-leaving {
   opacity: 0;
-  z-index: 0;
-  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  transition: opacity 2.4s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
-/* ── Image — covers the full slide area ─────────────────── */
+/* ── Image ───────────────────────────────────────────────── */
+/* Ken-burns: infinite alternate — breathes gently forever,
+   no restart required, no scale jump between slides.        */
+@keyframes kenBurns {
+  from { transform: scale(1.00); }
+  to   { transform: scale(1.07); }
+}
+
 .hero-carousel__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  animation: kenBurns 9s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
-/* ── Dot navigation ─────────────────────────────────────── */
+/* ── Vertical pill dots — bottom-right ──────────────────── */
 .hero-carousel__dots {
   position: absolute;
-  bottom: var(--space-5);
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: var(--space-12);
+  right: var(--side-padding);
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-2);
-  z-index: 2;
+  z-index: 3;
 }
 
 .hero-carousel__dot {
-  height: 6px;
-  width: 6px;
+  width: 4px;
+  height: 4px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.32);
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: width 0.3s var(--ease-out), background 0.3s;
+  transition:
+    height 0.35s var(--ease-out),
+    background 0.3s var(--ease-out);
 }
 
 .hero-carousel__dot.is-active {
-  width: 22px;
+  height: 24px;
   background: #fff;
 }
 
 .hero-carousel__dot:hover:not(.is-active) {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.60);
 }
 
-/* ── Subtle bottom scrim so dots sit on dark ────────────── */
-.hero-carousel__track::after {
-  content: '';
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 72px;
-  background: linear-gradient(to top, rgba(0, 36, 54, 0.45) 0%, transparent 100%);
-  pointer-events: none;
-  z-index: 1;
-  border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .hero-carousel__dots {
+    bottom: var(--space-10);
+    right: var(--space-5);
+  }
 }

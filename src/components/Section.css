@@ -60,7 +60,7 @@
 
 .journey-text h3 {
   font-size: var(--text-heading-xl);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-heading);
   line-height: var(--leading-heading);
   color: var(--text-primary);
   margin-bottom: var(--space-4);
@@ -106,7 +106,7 @@
 
 .journey-stat__number {
   font-size: var(--text-heading-xl);
-  font-weight: var(--weight-extralight);
+  font-weight: var(--weight-bold);
   color: var(--interactive-primary);
   line-height: 1;
   font-variant-numeric: tabular-nums;

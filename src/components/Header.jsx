@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -137,6 +137,7 @@ export default function Header() {
   const { isLoggedIn, user, logout } = useAuth();
   const { count: cartCount } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [scrolled,       setScrolled]       = useState(false);
   const [activeNav,      setActiveNav]      = useState(null);
@@ -198,8 +199,17 @@ export default function Header() {
 
   const activeItem = navItems.find(n => n.label === activeNav) ?? null;
 
+  // Transparent only on homepage, only when at the top,
+  // and only when no panel / search / mobile menu is open.
+  const isHeroTransparent =
+    location.pathname === '/' &&
+    !scrolled &&
+    !activeNav &&
+    !searchOpen &&
+    !mobileOpen;
+
   return (
-    <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
+    <header className={`header ${scrolled ? 'header--scrolled' : ''} ${isHeroTransparent ? 'header--hero' : ''}`}>
 
       {/* ── Top bar ────────────────────────────────────────────────────── */}
       <div ref={innerRef} className="header__inner">
