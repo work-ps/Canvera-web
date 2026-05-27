@@ -122,7 +122,7 @@
   position: absolute;
   border: 1.5px solid rgba(0, 87, 128, 0.55);
   background: rgba(0, 87, 128, 0.07);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   pointer-events: none;
   z-index: 3;
   box-shadow: 0 0 0 1px rgba(255,255,255,0.4) inset;
@@ -171,7 +171,7 @@
 .pdp__badge {
   position: absolute;
   top: var(--space-4); left: var(--space-4);
-  font-size: 10px; font-weight: var(--weight-bold);
+  font-size: var(--text-body-xs); font-weight: var(--weight-bold);
   text-transform: uppercase; letter-spacing: 0.06em;
   padding: 3px 8px;
   border-radius: var(--radius-sm);
@@ -296,7 +296,7 @@
 
 /* Primary label (orientation name or size dimensions) */
 .pdp__sel-name {
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
   line-height: 1;
@@ -306,7 +306,7 @@
 
 /* Secondary label (tier: Large / Medium / Small) */
 .pdp__sel-sub {
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   color: var(--text-secondary);
   line-height: 1;
   white-space: nowrap;
@@ -328,7 +328,7 @@
 .pdp__sel-popular {
   position: absolute;
   top: 0; left: 0;
-  font-size: 8px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -347,7 +347,7 @@
   gap: 5px;
 }
 .pdp__unit-opt {
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-medium);
   color: var(--text-tertiary, var(--text-secondary));
   cursor: pointer;
@@ -359,7 +359,7 @@
 .pdp__unit-track {
   position: relative;
   width: 30px; height: 17px;
-  border-radius: 9px;
+  border-radius: var(--radius-md);
   background: var(--brand-petrol);
   border: none;
   cursor: pointer;
@@ -371,8 +371,8 @@
   position: absolute;
   top: 2.5px; left: 2.5px;
   width: 12px; height: 12px;
-  border-radius: 50%;
-  background: #fff;
+  border-radius: var(--radius-full);
+  background: var(--bg-primary);
   transition: transform var(--duration-fast) var(--ease-out);
   display: block;
   pointer-events: none;
@@ -451,7 +451,7 @@
 }
 
 .pdp__binding-opt-label {
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-medium);
   color: var(--text-secondary);
   text-align: center;
@@ -860,7 +860,7 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--overlay-dark);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -962,7 +962,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-bold);
   color: var(--brand-petrol);
   text-align: center;

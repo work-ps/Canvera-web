@@ -30,7 +30,7 @@
 /* ── PRO badge ───────────────────────────────────────────────── */
 .pro-strip__badge {
   flex-shrink: 0;
-  font-size: 9px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-bold);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -38,7 +38,7 @@
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-full);
   padding: 2px 8px;
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 /* ── Content ─────────────────────────────────────────────────── */
@@ -62,12 +62,12 @@
 
 .pro-strip__label {
   font-weight: var(--weight-semibold);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .pro-strip__sep {
   opacity: 0.45;
-  font-size: 10px;
+  font-size: var(--text-body-xs);
 }
 
 .pro-strip__detail {
@@ -84,11 +84,11 @@
   background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-full);
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-bold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text-inverse);
   cursor: pointer;
   font-family: var(--font-sans);
   transition: background var(--duration-fast) var(--ease-out),
@@ -158,7 +158,7 @@
 }
 
 .pro-strip__dismiss:hover {
-  color: #fff;
+  color: var(--text-inverse);
   background: rgba(255, 255, 255, 0.1);
 }
 

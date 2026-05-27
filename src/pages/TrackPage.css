@@ -343,7 +343,7 @@
 @media (max-width: 767px) {
   .track-result__header { flex-direction: column; }
   .track-result__status-wrap { text-align: left; }
-  .track-progress__label { font-size: 10px; }
+  .track-progress__label { font-size: var(--text-body-xs); }
   .track-config { grid-template-columns: 1fr 1fr; }
   .track-hints__grid { grid-template-columns: 1fr 1fr; }
 }

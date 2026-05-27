@@ -190,7 +190,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(0, 0, 0, 0.52);
+  background: var(--overlay-dark);
   color: var(--text-inverse);
   border-radius: var(--radius-full);
   padding: 3px 8px 3px 5px;
@@ -221,7 +221,7 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.78);
+  background: var(--overlay-dark-max);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -263,9 +263,9 @@
   width: auto;          /* derived from aspect-ratio */
   max-width: calc(100vw - 40px); /* never wider than the viewport */
   border: none;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #000;
+  background: var(--neutral-900);
   display: block;
   flex-shrink: 0;
 }
@@ -332,7 +332,7 @@
   }
 
   .social-feed__platform {
-    font-size: 10px;
+    font-size: var(--text-body-xs);
     padding: 3px 8px 3px 5px;
     gap: 3px;
   }

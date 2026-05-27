@@ -27,7 +27,7 @@
   -webkit-backdrop-filter: blur(8px);
   padding: 6px 14px;
   border-radius: var(--radius-full);
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-medium);
   color: var(--text-secondary);
   pointer-events: none;
@@ -63,7 +63,7 @@
   overflow: hidden;
   background: var(--neutral-50);
   will-change: transform;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow var(--duration-normal) var(--ease-out);
   box-shadow: none;
   cursor: pointer;
 }
@@ -82,7 +82,7 @@
   pointer-events: none;
   user-select: none;
   transform-origin: center center;
-  transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: transform var(--duration-slower) var(--ease);
 }
 
 .freeflow__card:hover .freeflow__card-img {
@@ -101,7 +101,7 @@
 }
 
 .freeflow__card-name {
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.2;
@@ -127,7 +127,7 @@
   justify-content: center;
   color: var(--text-primary);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-normal) var(--ease-out);
   pointer-events: none;
 }
 
@@ -188,7 +188,7 @@
 .freeflow__expand-name {
   font-size: var(--text-heading-xl);
   font-weight: var(--weight-medium);
-  color: #fff;
+  color: var(--text-inverse);
   line-height: var(--leading-heading);
 }
 
@@ -222,12 +222,12 @@
   height: 40px;
   padding: 0 20px;
   border-radius: var(--radius-lg);
-  background: #fff;
+  background: var(--bg-primary);
   color: var(--text-primary);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-semibold);
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background var(--duration-normal) var(--ease-out);
   margin-top: 4px;
   align-self: flex-start;
 }
@@ -246,12 +246,12 @@
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.15);
   border: none;
-  color: #fff;
+  color: var(--text-inverse);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background var(--duration-fast) var(--ease-out);
   z-index: 5;
 }
 

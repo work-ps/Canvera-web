@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  color: #fff;
+  color: var(--text-inverse);
   font-size: var(--text-body-md);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-tight);
@@ -57,7 +57,7 @@
 .lcm-panel__headline {
   font-size: var(--text-display-sm);
   font-weight: var(--weight-bold);
-  color: #fff;
+  color: var(--text-inverse);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
 }

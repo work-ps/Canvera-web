@@ -32,7 +32,7 @@
 .header--hero .header__nav-link:hover,
 .header--hero .header__nav-link--active {
   background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 /* Chevron → white */
@@ -40,7 +40,7 @@
   color: rgba(255, 255, 255, 0.70);
 }
 .header--hero .header__nav-chevron--open {
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 /* Tertiary links → white */
@@ -49,7 +49,7 @@
 }
 .header--hero .header__tertiary-link:hover {
   background: rgba(255, 255, 255, 0.10);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 /* Icon buttons (search, account, cart) → white */
@@ -58,7 +58,7 @@
 }
 .header--hero .header__icon-btn:hover {
   background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 /* Logo — blend out white background on dark hero */
@@ -70,7 +70,7 @@
 .header--hero .header__hamburger-line,
 .header--hero .header__hamburger-line::before,
 .header--hero .header__hamburger-line::after {
-  background: #fff;
+  background: var(--bg-primary);
 }
 .header--hero .header__hamburger-line.open {
   background: transparent; /* keep the X shape working */
@@ -261,7 +261,7 @@
   align-items: flex-end;
   padding: 10px 10px;
   opacity: 0;
-  transition: opacity 0.22s ease;
+  transition: opacity var(--duration-normal) var(--ease-out);
 }
 
 .header__panel-col-card:hover .header__panel-col-card-overlay {
@@ -269,7 +269,7 @@
 }
 
 .header__panel-col-card-name {
-  color: #fff;
+  color: var(--text-inverse);
   font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
   letter-spacing: 0.01em;
@@ -354,8 +354,8 @@
   top: 2px; right: 2px;
   min-width: 16px; height: 16px;
   background: var(--brand-petrol);
-  color: #fff;
-  font-size: 10px;
+  color: var(--text-inverse);
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-bold);
   border-radius: var(--radius-full);
   display: flex; align-items: center; justify-content: center;
@@ -491,7 +491,7 @@
   width: 7px;
   height: 7px;
   background: var(--success);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: 1.5px solid var(--bg-primary);
 }
 

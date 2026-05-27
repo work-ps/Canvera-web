@@ -53,6 +53,19 @@
     --bg-primary: #FFFFFF;
     --bg-overlay: rgba(26, 42, 58, 0.35);
 
+    /* Overlay / glass tokens — used by dark-surface components (hero, modals, FAB) */
+    --overlay-dark:        rgba(26, 42, 58, 0.45);   /* standard dark veil */
+    --overlay-dark-heavy:  rgba(10, 20, 30, 0.70);   /* heavy product scrim */
+    --overlay-dark-max:    rgba(0, 0, 0, 0.78);       /* lightbox / full-screen */
+    --glass-white-sm:      rgba(255, 255, 255, 0.08); /* subtle frosted button */
+    --glass-white-md:      rgba(255, 255, 255, 0.14); /* frosted secondary btn */
+    --glass-white-lg:      rgba(255, 255, 255, 0.24); /* strong frosted element */
+    --glass-white-xl:      rgba(255, 255, 255, 0.88); /* near-opaque white glass */
+
+    /* WhatsApp / external brand (used in contact + FAQ CTAs) */
+    --color-whatsapp:      #25D366;
+    --color-whatsapp-dark: #1da851;
+
     /* -- Text -- */
     --text-primary: #1a2a3a;
     --text-secondary: #6E8091;

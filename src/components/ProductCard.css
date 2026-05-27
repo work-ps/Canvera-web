@@ -108,7 +108,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: rgba(10, 20, 30, 0.70);
+  background: var(--overlay-dark-heavy);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border-radius: var(--radius-full);
@@ -116,14 +116,14 @@
 }
 
 .pcard__rating-val {
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-semibold);
   color: var(--text-inverse);
   line-height: 1;
 }
 
 .pcard__rating-count {
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   color: rgba(255, 255, 255, 0.65);
   line-height: 1;
 }

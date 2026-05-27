@@ -259,7 +259,7 @@
   flex-shrink: 0;
 }
 .about__tl-year {
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-bold);
   letter-spacing: 0.06em;
   color: var(--brand-petrol);
@@ -365,7 +365,7 @@
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  background: #000;
+  background: var(--neutral-900);
 }
 .about__video-wrapper iframe {
   position: absolute;
@@ -412,7 +412,7 @@
 }
 .about__video-play svg {
   margin-left: 5px; /* optical offset for play triangle */
-  color: #c00;
+  color: var(--error);
 }
 .about__video-yt-link {
   position: absolute;
@@ -422,7 +422,7 @@
   font-size: var(--text-body-sm);
   color: rgba(255,255,255,0.85);
   text-decoration: none;
-  background: rgba(0,0,0,0.45);
+  background: var(--overlay-dark);
   padding: 4px 10px;
   border-radius: var(--radius-sm);
   backdrop-filter: blur(4px);

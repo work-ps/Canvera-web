@@ -179,8 +179,8 @@
   height: 20px;
   border-radius: var(--radius-full);
   background: var(--brand-petrol);
-  color: #fff;
-  font-size: 10px;
+  color: var(--text-inverse);
+  font-size: var(--text-body-xs);
   font-weight: var(--weight-bold);
   display: flex;
   align-items: center;

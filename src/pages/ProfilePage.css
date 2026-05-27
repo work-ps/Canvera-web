@@ -620,7 +620,7 @@
 }
 .profile-referral-banner__left {
   display: flex; align-items: center; gap: var(--space-3);
-  color: #fff;
+  color: var(--text-inverse);
 }
 .profile-referral-banner__icon {
   width: 40px; height: 40px;
@@ -770,7 +770,7 @@
 .profile-referral-step__num {
   width: 22px; height: 22px; border-radius: var(--radius-full);
   background: var(--brand-petrol); color: var(--text-inverse);
-  font-size: 11px; font-weight: var(--weight-bold);
+  font-size: var(--text-body-xs); font-weight: var(--weight-bold);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; margin-top: 1px;
 }
@@ -836,13 +836,13 @@
   letter-spacing: 0.06em; color: var(--text-primary);
 }
 .profile-coupon-item__pro-tag {
-  font-size: 9px; font-weight: var(--weight-bold);
+  font-size: var(--text-body-xs); font-weight: var(--weight-bold);
   letter-spacing: 0.1em; text-transform: uppercase;
   background: var(--brand-petrol); color: var(--text-inverse);
   padding: 1px 6px; border-radius: var(--radius-full);
 }
 .profile-coupon-item__expired-tag {
-  font-size: 9px; font-weight: var(--weight-bold);
+  font-size: var(--text-body-xs); font-weight: var(--weight-bold);
   text-transform: uppercase; letter-spacing: 0.06em;
   background: var(--neutral-200); color: var(--text-secondary);
   padding: 1px 6px; border-radius: var(--radius-full);
@@ -911,7 +911,7 @@
   color: var(--text-secondary);
 }
 .profile-addr-item__default-tag {
-  font-size: 9px; font-weight: var(--weight-bold);
+  font-size: var(--text-body-xs); font-weight: var(--weight-bold);
   text-transform: uppercase; letter-spacing: 0.06em;
   background: var(--brand-petrol); color: var(--text-inverse);
   padding: 1px 7px; border-radius: var(--radius-full);
@@ -927,7 +927,7 @@
 }
 .profile-addr-item__action:hover { color: var(--interactive-primary-hover); }
 .profile-addr-item__action--remove { color: var(--error); }
-.profile-addr-item__action--remove:hover { color: #b52020; }
+.profile-addr-item__action--remove:hover { color: var(--error); }
 .profile-addr-item__name { font-size: var(--text-body-sm); font-weight: var(--weight-semibold); color: var(--text-primary); margin-bottom: 2px; }
 .profile-addr-item__text { font-size: var(--text-body-sm); color: var(--text-secondary); line-height: 1.5; }
 .profile-addr-item__phone { font-size: var(--text-body-xs); color: var(--text-secondary); margin-top: 3px; }

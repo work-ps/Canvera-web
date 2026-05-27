@@ -134,7 +134,7 @@
 .contact-channel__btn:active { transform: scale(0.99); }
 
 .contact-channel__btn--whatsapp {
-  background: #25D366;
+  background: var(--color-whatsapp);
   color: var(--text-inverse);
 }
 

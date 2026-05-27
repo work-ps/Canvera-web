@@ -332,7 +332,7 @@
 
 .myo-card__hint {
   display: block;
-  font-size: 11px;
+  font-size: var(--text-body-xs);
   color: var(--text-disabled);
   line-height: var(--leading-snug);
   margin-top: 1px;
@@ -342,7 +342,7 @@
 .myo-ori-glyph {
   display: block;
   background: var(--neutral-200);
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   margin-bottom: var(--space-2);
   transition: background var(--duration-fast);
 }
@@ -397,7 +397,7 @@
 
 .myo__color-label {
   width: 40px;
-  font-size: 10px;
+  font-size: var(--text-body-xs);
   color: var(--text-disabled);
   text-align: center;
   line-height: var(--leading-snug);
