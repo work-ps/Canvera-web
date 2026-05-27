@@ -121,7 +121,7 @@
 .pdp__lens {
   position: absolute;
   border: 1.5px solid rgba(0, 87, 128, 0.55);
-  background: rgba(0, 87, 128, 0.07);
+  background: var(--petrol-tint-subtle);
   border-radius: var(--radius-sm);
   pointer-events: none;
   z-index: 3;
@@ -179,7 +179,7 @@
 .pdp__badge--bestseller { background: var(--warning-light); color: var(--warning-text); }
 .pdp__badge--new { background: var(--teal-50); color: var(--teal-700); }
 .pdp__badge--popular { background: var(--petrol-50); color: var(--petrol-700); }
-.pdp__badge--limited { background: #F3E5F5; color: #6A1B9A; }
+.pdp__badge--limited { background: var(--badge-limited-bg); color: var(--badge-limited-text); }
 
 .pdp__thumbs {
   display: flex; gap: var(--space-2);

@@ -313,7 +313,7 @@
 .auth-demo__btn:hover {
   background: var(--petrol-50);
   color: var(--interactive-primary);
-  border-color: rgba(0, 87, 128, 0.25);
+  border-color: var(--petrol-tint-medium);
 }
 
 .auth-demo__btn--verified {

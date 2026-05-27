@@ -233,7 +233,7 @@
 }
 .shop-chip:hover {
   background: var(--petrol-100, #c7dde8);
-  border-color: rgba(0, 87, 128, 0.35);
+  border-color: var(--petrol-tint-strong);
 }
 .shop-chip svg { color: var(--brand-petrol); opacity: 0.7; flex-shrink: 0; }
 

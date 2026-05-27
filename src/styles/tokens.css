@@ -66,6 +66,21 @@
     --color-whatsapp:      #25D366;
     --color-whatsapp-dark: #1da851;
 
+    /* Component-specific palette extensions */
+    --fab-surface:         #1e3d3a;   /* FAB Assistant dark teal chat panel */
+    --color-online:        #4ADE80;   /* Online / active presence indicator */
+    --badge-limited-bg:    #F3E5F5;   /* "Limited edition" badge background (purple) */
+    --badge-limited-text:  #6A1B9A;   /* "Limited edition" badge text */
+
+    /* Tint tokens — translucent brand tints for bg / borders */
+    --petrol-tint-subtle: rgba(0, 87, 128, 0.07);  /* barely-there petrol wash */
+    --petrol-tint-light:  rgba(0, 87, 128, 0.12);  /* light petrol selected bg */
+    --petrol-tint-medium: rgba(0, 87, 128, 0.25);  /* medium petrol border */
+    --petrol-tint-strong: rgba(0, 87, 128, 0.35);  /* active/focus petrol border */
+    --teal-tint-light:    rgba(42, 157, 143, 0.15); /* light teal bg accent */
+    --teal-tint-medium:   rgba(42, 157, 143, 0.35); /* teal glass / done-state */
+    --error-tint:         rgba(217, 48, 37, 0.06);  /* error field background */
+
     /* -- Text -- */
     --text-primary: #1a2a3a;
     --text-secondary: #6E8091;
@@ -201,6 +216,9 @@
     --duration-slower: 600ms;
 
     /* Motion — interaction */
+    --ease-spring:    cubic-bezier(0.25, 1, 0.5, 1);  /* spring/overshoot for panel slides */
+    --ease-spring-lg: cubic-bezier(0.22, 1, 0.36, 1); /* softer spring for large panel entrances */
+    --duration-panel: 320ms;                           /* panel slide — tuned to spring easing */
     --stagger-delay: 50ms;
     --entrance-distance: 12px;
     --image-zoom-scale: 1.03;

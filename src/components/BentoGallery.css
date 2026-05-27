@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 200px 200px 180px;
-  gap: 10px;
+  gap: var(--space-3);
   border-radius: var(--radius-xl);
   overflow: hidden;
 }
@@ -16,7 +16,7 @@
 
 .bento__fade-in {
   opacity: 0;
-  animation: bentoFadeIn 0.5s var(--ease-out) forwards;
+  animation: bentoFadeIn var(--duration-slow) var(--ease-out) forwards;
 }
 
 /* Individual bento cell */
@@ -95,7 +95,7 @@
   .bento {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, 160px);
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .bento__item {

@@ -58,12 +58,12 @@
 
 .contact-channel--whatsapp {
   background: var(--teal-50);
-  border-color: rgba(42, 157, 143, 0.15);
+  border-color: var(--teal-tint-light);
 }
 
 .contact-channel--tollfree {
   background: var(--petrol-50);
-  border-color: rgba(0, 87, 128, 0.12);
+  border-color: var(--petrol-tint-light);
 }
 
 .contact-channel__top {
@@ -394,7 +394,7 @@
 .contact-form__photographer-fields {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 280ms var(--ease-out),
+  transition: grid-template-rows var(--duration-normal) var(--ease-out),
               opacity 220ms var(--ease-out);
   opacity: 0;
   pointer-events: none;
@@ -409,7 +409,7 @@
 .contact-form__photographer-inner {
   overflow: hidden;
   padding-top: 0;
-  transition: padding-top 280ms var(--ease-out);
+  transition: padding-top var(--duration-normal) var(--ease-out);
 }
 
 .contact-form__photographer-fields--visible .contact-form__photographer-inner {

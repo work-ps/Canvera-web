@@ -659,7 +659,7 @@
   transition: background var(--duration-fast);
 }
 .profile-referral-banner__copy:hover { background: rgba(255,255,255,0.25); }
-.profile-referral-banner__copy--done { background: rgba(42,157,143,0.35); border-color: rgba(42,157,143,0.5); }
+.profile-referral-banner__copy--done { background: var(--teal-tint-medium); border-color: var(--success); }
 .profile-referral-banner__details {
   background: none; border: none; cursor: pointer;
   font-size: var(--text-body-xs); color: rgba(255,255,255,0.65);
@@ -750,7 +750,7 @@
   transition: background var(--duration-fast);
 }
 .profile-referral-code-display__copy:hover { background: rgba(255,255,255,0.24); }
-.profile-referral-code-display__copy--done { background: rgba(42,157,143,0.35); border-color: rgba(42,157,143,0.5); }
+.profile-referral-code-display__copy--done { background: var(--teal-tint-medium); border-color: var(--success); }
 
 .profile-referral-how { margin-bottom: var(--space-5); }
 .profile-referral-how__title {

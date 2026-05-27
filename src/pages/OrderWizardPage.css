@@ -777,7 +777,7 @@
 .wizard__sp-pill--add {
   border-style: dashed;
   color: var(--brand-petrol);
-  border-color: rgba(0, 87, 128, 0.35);
+  border-color: var(--petrol-tint-strong);
   background: transparent;
   font-weight: var(--weight-medium);
   padding: 0 var(--space-3);
@@ -1137,7 +1137,7 @@
 .wizard__ebook-icon {
   width: 36px; height: 36px;
   border-radius: var(--radius-md);
-  background: rgba(0, 87, 128, 0.12);
+  background: var(--petrol-tint-light);
   display: flex; align-items: center; justify-content: center;
   color: var(--brand-petrol); flex-shrink: 0;
 }
@@ -1153,7 +1153,7 @@
 .wizard__ebook-required {
   font-size: var(--text-body-xs); font-weight: var(--weight-bold);
   text-transform: uppercase; letter-spacing: 0.05em;
-  background: rgba(0, 87, 128, 0.12);
+  background: var(--petrol-tint-light);
   color: var(--brand-petrol);
   padding: 3px 8px; border-radius: var(--radius-full);
   flex-shrink: 0;
@@ -1241,7 +1241,7 @@
               color var(--duration-fast) var(--ease-out);
 }
 .wizard__simple-toggle--on .wizard__st-icon {
-  background: rgba(0, 87, 128, 0.12);
+  background: var(--petrol-tint-light);
   color: var(--brand-petrol);
 }
 .wizard__st-info { flex: 1; }
