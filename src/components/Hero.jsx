@@ -30,7 +30,7 @@ export default function Hero() {
         <div className="hero__body">
           <h1 className="hero__title hero__fade-in" style={{ animationDelay: '0.1s' }}>
             Asia's #1 Premium Wedding Album
-            <span className="hero__title-accent">&amp; Photobook Maker</span>
+            <span className="hero__title-accent">&amp; Photobook Maker | Canvera</span>
           </h1>
 
           <p className="hero__subtitle hero__fade-in" style={{ animationDelay: '0.28s' }}>
@@ -40,12 +40,12 @@ export default function Hero() {
 
           {isLoggedIn ? (
             <div className="hero__ctas hero__fade-in" style={{ animationDelay: '0.42s' }}>
-              <Link to="/order" className="btn btn--hero-primary btn--lg">Design &amp; Craft Your Wedding Album</Link>
+              <Link to="/shop" className="btn btn--hero-primary btn--lg">Design &amp; Craft Your Wedding Album</Link>
               <Link to="/custom" className="btn btn--hero-secondary btn--lg">Make Your Own</Link>
             </div>
           ) : (
             <div className="hero__ctas hero__fade-in" style={{ animationDelay: '0.42s' }}>
-              <Link to="/order" className="btn btn--hero-primary btn--lg">Design &amp; Craft Your Wedding Album</Link>
+              <Link to="/shop" className="btn btn--hero-primary btn--lg">Design &amp; Craft Your Wedding Album</Link>
             </div>
           )}
 
