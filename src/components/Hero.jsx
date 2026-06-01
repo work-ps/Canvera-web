@@ -29,24 +29,23 @@ export default function Hero() {
         {/* Headline + CTAs */}
         <div className="hero__body">
           <h1 className="hero__title hero__fade-in" style={{ animationDelay: '0.1s' }}>
-            Photographers Deserve
-            <span className="hero__title-accent">Craftmanship</span>
+            Asia's #1 Premium Wedding Album
+            <span className="hero__title-accent">&amp; Photobook Maker</span>
           </h1>
 
           <p className="hero__subtitle hero__fade-in" style={{ animationDelay: '0.28s' }}>
-            Award-winning photobooks crafted with premium materials,
-            trusted by photographers across 2,800+ cities.
+            Trusted by 50,000+ professional photographers across India.
+            Over 10 lakh world-class photobooks manufactured.
           </p>
 
           {isLoggedIn ? (
             <div className="hero__ctas hero__fade-in" style={{ animationDelay: '0.42s' }}>
-              <Link to="/shop"   className="btn btn--hero-primary btn--lg">Explore Collection</Link>
+              <Link to="/order" className="btn btn--hero-primary btn--lg">Design &amp; Craft Your Wedding Album</Link>
               <Link to="/custom" className="btn btn--hero-secondary btn--lg">Make Your Own</Link>
             </div>
           ) : (
             <div className="hero__ctas hero__fade-in" style={{ animationDelay: '0.42s' }}>
-              <Link to="/shop"   className="btn btn--hero-primary btn--lg">Explore Collection</Link>
-              <Link to="/signup" className="btn btn--hero-secondary btn--lg">Join Free</Link>
+              <Link to="/order" className="btn btn--hero-primary btn--lg">Design &amp; Craft Your Wedding Album</Link>
             </div>
           )}
 

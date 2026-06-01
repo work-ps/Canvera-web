@@ -42,7 +42,7 @@ export default function Footer() {
           <div className="footer__brand">
             <img src="/images/logo.png" alt="Canvera" className="footer__logo-img" />
             <p className="footer__desc">
-              Creators of international award-winning photobooks and trusted by India&rsquo;s largest photographer community. We offer easy design service and professional printing for your personal and professional photo album needs.
+              Canvera Digital Technologies, Bangalore &mdash; India&rsquo;s leading premium wedding album &amp; photobook printing company since 2007. Serving 50,000+ professional photographers across 1,100+ cities. Now part of Printo.
             </p>
             <div className="footer__social">
               <a href="https://instagram.com" className="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
