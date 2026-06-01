@@ -23,7 +23,7 @@ export default function ProductCard({ product, index = 0 }) {
       {/* ── Image ─────────────────────────────────── */}
       <div className="pcard__image">
         <img
-          src={product.image}
+          src={product.cardImage || product.image}
           alt={product.name}
           className={`pcard__img${loaded ? ' loaded' : ''}`}
           onLoad={() => setLoaded(true)}

@@ -288,7 +288,7 @@ function FreeflowCard({ item, style, onExpand }) {
       onClick={(e) => onExpand(item, e)}
     >
       <img
-        src={item.expandedImage || item.image}
+        src={item.cardImage || item.expandedImage || item.image}
         alt={item.name}
         className="freeflow__card-img"
         draggable={false}

@@ -39,7 +39,7 @@
 /* ── Image ─────────────────────────────────────────────────── */
 .pcard__image {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--neutral-50);
   flex-shrink: 0;
